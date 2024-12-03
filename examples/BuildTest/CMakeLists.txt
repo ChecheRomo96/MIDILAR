@@ -1,0 +1,2 @@
+add_executable(MIDILAR_BuildTest BuildTest.cpp)
+target_link_libraries(MIDILAR_BuildTest MIDILAR)
