@@ -127,6 +127,10 @@
     if( ${MIDILAR_TESTING} )
         message(STATUS "Building ${CMAKE_PROJECT_NAME} Tests")
 
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
         cmake_policy(SET CMP0135 NEW)
         
         # Disable GoogleTest installation
