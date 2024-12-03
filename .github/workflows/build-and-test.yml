@@ -1,0 +1,66 @@
+name: C/C++ CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # Step 2: Install dependencies
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          cmake \
+          ninja-build \
+          graphviz \
+          doxygen \
+          gcc g++
+
+    # Step 3: Configure the build with CMake
+    - name: Configure with CMake
+      run: |
+        cmake -S . -B build -G "Ninja" \
+          -DMIDILAR_EXAMPLES=ON \
+          -DMIDILAR_TESTING=ON \
+          -DMIDILAR_DOCS=ON
+
+    # Step 4: Build the project
+    - name: Build Project
+      run: cmake --build build
+
+    # Step 5: Run tests with CTest
+    - name: Run Tests
+      run: |
+        ctest --test-dir build --output-on-failure
+
+    # Step 6: Collect code coverage (optional)
+    - name: Generate Code Coverage Report
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        lcov --capture --directory build --output-file coverage.info
+        lcov --remove coverage.info '/usr/*' --output-file coverage.info
+        lcov --list coverage.info
+
+    # Step 7: Upload code coverage report (optional)
+    - name: Upload Code Coverage to Codecov
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: codecov/codecov-action@v3
+      with:
+        files: coverage.info
+        flags: unittests
+        name: code-coverage-report
+
+    # Step 8: Package the project (optional)
+    - name: Install Project
+      run: cmake --install build --prefix install
