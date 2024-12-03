@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate_and_deploy_docs:
-    name: Generate and Deploy Documentation
+  build_and_deploy_docs:
+    name: Build and Deploy Documentation
     runs-on: ubuntu-latest
 
     steps:
@@ -19,22 +19,26 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    # Step 2: Install Doxygen and Graphviz
-    - name: Install Doxygen and Graphviz
+    # Step 2: Install Dependencies
+    - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y doxygen graphviz
+        sudo apt-get install -y \
+          build-essential \
+          cmake \
+          ninja-build \
+          graphviz \
+          doxygen
 
-    # Step 3: Generate Documentation
-    - name: Generate Doxygen Documentation
-      uses: mattnotmitt/doxygen-action@v1.9.5
-      with:
-        working-directory: 'src/'
-        doxyfile-path: 'docs/Doxyfile'
+    # Step 3: Configure and Build the Documentation
+    - name: Configure and Generate Documentation with CMake
+      run: |
+        cmake -S . -B build -G "Ninja" -DMIDILAR_DOCS=ON
+        cmake --build build --target docs
 
-    # Step 4: Deploy to GitHub Pages
+    # Step 4: Deploy Documentation to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: 'submodule/docs/html'
+        publish_dir: build/docs/html
