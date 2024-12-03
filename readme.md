@@ -2,6 +2,9 @@
 
 This guide explains how to build, install, and use the MIDILAR project, as well as how to enable optional features like testing, examples, and documentation.
 
+
+https://checheromo96.github.io/MIDILAR/
+
 ---
 
 ## Quick Start: Default Build
