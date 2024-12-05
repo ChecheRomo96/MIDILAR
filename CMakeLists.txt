@@ -47,9 +47,9 @@
     option(MIDILAR_DOCS "Generate API documentation using Doxygen" OFF)
 
     #################################################################################################
-    # Tools
+    # SystemFoundation
 
-        option(MIDILAR_SYSTEM_TOOLS_STATUS "Enables the compilation of MIDILAR::SystemTools" TRUE)
+        option(MIDILAR_SYSTEM_FOUNDATION_STATUS "Enables the compilation of MIDILAR::SystemFoundation" TRUE)
 
         #option(MIDILAR_TOOLS_EXAMPLES "Enables Building Examples" FALSE)
         #option(MIDILAR_TOOLS_TESTING "Enabled Unit Testing" FALSE)
@@ -57,7 +57,22 @@
         #############################################################################################
         # Clock
 
-            option(MIDILAR_CLOCK_STATUS "Enables the compilation of MIDILAR::SystemTools::Clock" TRUE)
+            option(MIDILAR_CLOCK_STATUS "Enables the compilation of MIDILAR::SystemFoundation::Clock" TRUE)
+        #
+        ##############################################################################################
+    #
+    #################################################################################################
+    # AudioFoundation
+
+        option(MIDILAR_AUDIO_FOUNDATION_STATUS "Enables the compilation of MIDILAR::AudioFoundation" TRUE)
+
+        #option(MIDILAR_TOOLS_EXAMPLES "Enables Building Examples" FALSE)
+        #option(MIDILAR_TOOLS_TESTING "Enabled Unit Testing" FALSE)
+
+        #############################################################################################
+        # LUT
+
+            option(MIDILAR_LUT_STATUS "Enables the compilation of MIDILAR::SystemTools::Clock" TRUE)
         #
         ##############################################################################################
     #

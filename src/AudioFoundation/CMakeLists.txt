@@ -5,16 +5,16 @@
     set(MIDILAR_HEADERS_LOCAL "")
 
     # Append Sources
-    #list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MidiProcessor.cpp")
+    list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
 
     # Append Headers
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemTools.h")
+    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.h")
     #list( APPEND HEADERS_LIST "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h")
 #
 ######################################################################################################
 # Add Subdirectories
-    if(${MIDILAR_CLOCK_STATUS})
-        add_subdirectory(Clock)
+    if(${MIDILAR_LUT_STATUS})
+        #add_subdirectory(Clock)
     endif()
 #
 ######################################################################################################
@@ -28,7 +28,7 @@
 
     install(
         FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/SystemTools"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/AudioFoundation"
     )
 #
 ######################################################################################################

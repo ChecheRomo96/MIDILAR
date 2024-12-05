@@ -1,6 +1,6 @@
 #include "Clock.h"
 
-namespace MIDILAR::SystemTools {
+namespace MIDILAR::SystemFoundation {
 
     // Default Constructor
     Clock::Clock()

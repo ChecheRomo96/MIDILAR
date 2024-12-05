@@ -27,9 +27,14 @@
 ######################################################################################################
 # Add Subdirectories
 
+    if(${MIDILAR_SYSTEM_FOUNDATION_STATUS})
+        message(STATUS "MIDILAR::SystemFoundation enabled")
+        add_subdirectory(SystemFoundation)
+    endif()
+
     if(${MIDILAR_SYSTEM_TOOLS_STATUS})
-        message(STATUS "MIDILAR System Tools enabled")
-        add_subdirectory(SystemTools)
+        message(STATUS "MIDILAR::AudioFoundation enabled")
+        add_subdirectory(AudioFoundation)
     endif()
 
     add_subdirectory(MidiProcessor)
@@ -57,11 +62,11 @@
     target_compile_definitions(${PROJECT_NAME} PUBLIC ${PROJECT_NAME_UPPER}_VERSION="${PROJECT_VERSION}")
 
     # Add optional features as compile definitions and update the macros list
-    if(${MIDILAR_SYSTEM_TOOLS_STATUS})
-        target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_TOOLS_ENABLED)
-        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_TOOLS_ENABLED")
+    if(${MIDILAR_SYSTEM_FOUNDATION_STATUS})
+        target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_FOUNDATION_ENABLED)
+        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_FOUNDATION_ENABLED")
         if(${MIDILAR_CLOCK_STATUS})
-            message(STATUS "MIDILAR::HardwareClock enabled")
+            message(STATUS "MIDILAR::SystemFoundation::Clock enabled")
             target_compile_definitions(MIDILAR PUBLIC MIDILAR_CLOCK_ENABLED)
             list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_CLOCK_ENABLED")
         endif()

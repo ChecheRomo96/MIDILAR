@@ -43,7 +43,7 @@ namespace MIDILAR {
         }
     }
 
-    void MidiProcessor::Update(SystemTools::Clock::TimePoint SystemTime) {
+    void MidiProcessor::Update(SystemFoundation::Clock::TimePoint SystemTime) {
         // Default implementation - derived classes can override
         (void)SystemTime; // Prevent unused parameter warning
     }

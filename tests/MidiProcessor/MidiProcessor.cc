@@ -113,7 +113,7 @@ namespace {
             size_t clockTickCount = 0;
             size_t updateCount = 0;
 
-            void Update(SystemTools::Clock::TimePoint SystemTime) override {
+            void Update(SystemFoundation::Clock::TimePoint SystemTime) override {
                 updateCount++;
             }
 

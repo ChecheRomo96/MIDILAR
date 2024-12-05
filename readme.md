@@ -116,3 +116,35 @@ target_link_libraries(MyApp MIDILAR::MIDILAR)
     ```
 
 - For detailed documentation, visit [MIDILAR Documentation](https://checheromo96.github.io/MIDILAR/).
+
+
+---
+# Running Examples
+
+
+## Run MIDILAR_BuildTest
+./bin/MIDILAR_BuildTest
+
+## Run MIDILAR_MidiProcessor_ClockGenerator
+./bin/MIDILAR_MidiProcessor_ClockGenerator
+
+## Run MIDILAR_MidiProcessor_Echo
+./bin/MIDILAR_MidiProcessor_Echo
+
+## Run MIDILAR_MidiProcessor_MidiFilter
+./bin/MIDILAR_MidiProcessor_MidiFilter
+
+## Run MIDILAR_SystemTools_Clock_Usage
+./bin/MIDILAR_SystemTools_Clock_Usage
+
+
+# Running Tests
+
+## Run SystemTools_Clock_Test
+./bin/SystemTools_Clock_Test
+
+## Run MIDILAR_MidiProcessor
+./bin/MIDILAR_MidiProcessor
+
+
+---

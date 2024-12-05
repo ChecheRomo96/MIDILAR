@@ -23,13 +23,13 @@
      */
     #include <MIDILAR_BuildSettings.h>
 
-    #ifdef MIDILAR_SYSTEM_TOOLS_ENABLED
+    #ifdef MIDILAR_SYSTEM_FOUNDATION_ENABLED
         /**
          * @brief Include system tools if enabled in the build settings.
          * 
          * System tools provide additional utilities for the library.
          */
-        #include <SystemTools/MIDILAR_SystemTools.h>
+        #include <SystemFoundation/MIDILAR_SystemFoundation.h>
     #endif
 
 #endif // MIDILAR_H

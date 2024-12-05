@@ -1,9 +1,9 @@
 #include <iostream>
 #include <chrono>
 #include <cstdint>
-#include <SystemTools/Clock/Clock.h>
+#include <SystemFoundation/Clock.h>
 
-using namespace MIDILAR::SystemTools;
+using namespace MIDILAR::SystemFoundation;
 
 // Define the clock callback function
 Clock::TimePoint myClockCallback() {

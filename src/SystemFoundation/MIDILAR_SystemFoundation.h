@@ -2,7 +2,7 @@
 #define MIDILAR_SYSTEM_TOOLS_H
 
     #ifdef MIDILAR_CLOCK_ENABLED
-        #include "Clock/Clock.h"
+        #include "Clock.h"
     #endif
 
 
