@@ -4,13 +4,18 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types:
+      - closed
   workflow_dispatch: # Manually trigger the workflow
 
 jobs:
   build_and_deploy_docs:
     name: Build and Deploy Documentation
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true || github.event_name == 'push'
+    if: >
+      github.event_name == 'push' || 
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
 
     steps:
     # Step 1: Checkout the repository
@@ -28,7 +33,7 @@ jobs:
           graphviz \
           doxygen
 
-    # Step 3: Configure and Build the Documentation
+    # Step 3: Configure and Generate Documentation with CMake
     - name: Configure and Generate Documentation with CMake
       run: |
         cmake -S . -B build -G "Ninja" -DMIDILAR_DOCS=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_TESTING=ON 
