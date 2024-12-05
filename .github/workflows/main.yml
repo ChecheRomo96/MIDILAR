@@ -33,7 +33,7 @@ jobs:
     # Step 3: Configure and Build the Documentation
     - name: Configure and Generate Documentation with CMake
       run: |
-        cmake -S . -B build -G "Ninja" -DMIDILAR_DOCS=ON
+        cmake -S . -B build -G "Ninja" -DMIDILAR_DOCS=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_TESTING=ON 
         cmake --build build --target docs
 
     # Step 4: Deploy Documentation to GitHub Pages

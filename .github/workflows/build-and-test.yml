@@ -2,12 +2,12 @@ name: C/C++ CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ] # Added "dev" branch to include feature integration
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +25,7 @@ jobs:
           ninja-build \
           graphviz \
           doxygen \
+          lcov \
           gcc g++
 
     # Step 3: Configure the build with CMake
@@ -44,23 +45,31 @@ jobs:
       run: |
         ctest --test-dir build --output-on-failure
 
-    # Step 6: Collect code coverage (optional)
+    # Step 6: Collect code coverage
     - name: Generate Code Coverage Report
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/dev' }}
       run: |
         lcov --capture --directory build --output-file coverage.info
         lcov --remove coverage.info '/usr/*' --output-file coverage.info
         lcov --list coverage.info
 
-    # Step 7: Upload code coverage report (optional)
+    # Step 7: Upload code coverage report
     - name: Upload Code Coverage to Codecov
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/dev' }}
       uses: codecov/codecov-action@v3
       with:
         files: coverage.info
         flags: unittests
         name: code-coverage-report
 
-    # Step 8: Package the project (optional)
+    # Step 8: Deploy Documentation to GitHub Pages (optional)
+    - name: Deploy Documentation to GitHub Pages
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: build/doxygen/html
+
+    # Step 9: Install the project (optional)
     - name: Install Project
       run: cmake --install build --prefix install
