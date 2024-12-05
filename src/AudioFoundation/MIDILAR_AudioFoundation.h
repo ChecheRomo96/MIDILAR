@@ -1,7 +1,7 @@
 #ifndef MIDILAR_AUDIO_FOUNDATION_H
 #define MIDILAR_AUDIO_FOUNDATION_H
 
-    #include <MIDIDLAR_BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
 
     namespace MIDILAR::AudioFoundation{
 
