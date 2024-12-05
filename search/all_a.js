@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['refresh_41',['refresh',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#ab110a9ef3e51d684c483436a8de6596a',1,'MIDILAR::SystemTools::Clock']]]
+  ['refresh_44',['refresh',['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#ad6ea2276618bfabb9d707fbd64c5809e',1,'MIDILAR::SystemFoundation::Clock']]]
 ];

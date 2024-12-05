@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['getfrequency_65',['getFrequency',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#ac624b51eb19b2d6a6df74a7c719f0fe1',1,'MIDILAR::SystemTools::Clock']]],
-  ['gettime_66',['getTime',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a197c395f9f015468b75e521f3f0b0c25',1,'MIDILAR::SystemTools::Clock']]]
+  ['getfrequency_71',['getFrequency',['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#a8bce227113e542f5d24ff1dc6f4ddb6c',1,'MIDILAR::SystemFoundation::Clock']]],
+  ['gettime_72',['getTime',['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#abea5405dd1bb34652a72838586a176e3',1,'MIDILAR::SystemFoundation::Clock']]]
 ];

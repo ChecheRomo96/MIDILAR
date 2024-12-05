@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timepoint_85',['TimePoint',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a97d93d6c06667cb20094640b8453ebfd',1,'MIDILAR::SystemTools::Clock']]]
+  ['timepoint_91',['TimePoint',['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#ad3f49de0e2009c7b009b594261b2a155',1,'MIDILAR::SystemFoundation::Clock']]]
 ];

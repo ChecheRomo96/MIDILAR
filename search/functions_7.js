@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['unbindcallback_76',['unbindCallback',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a167fe3e674cd0a3058496fa24f55a12e',1,'MIDILAR::SystemTools::Clock']]],
-  ['update_77',['Update',['../d0/dff/classMIDILAR_1_1MidiProcessor.html#ade8f0e18b703bf8548318c31dc8f51a4',1,'MIDILAR::MidiProcessor']]]
+  ['unbindcallback_82',['unbindCallback',['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#afc752f163d75d1858251ff7063fc079f',1,'MIDILAR::SystemFoundation::Clock']]],
+  ['update_83',['Update',['../d0/dff/classMIDILAR_1_1MidiProcessor.html#a9adf20af5e36582c492fedd33c15b8dd',1,'MIDILAR::MidiProcessor']]]
 ];

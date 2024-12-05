@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['callbackstatus_62',['callbackStatus',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a20f4bff47ba89a6d2a0200c371b43352',1,'MIDILAR::SystemTools::Clock']]],
-  ['clock_63',['Clock',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a45a2a28309a107f6bccb11440d1f8fdb',1,'MIDILAR::SystemTools::Clock::Clock()'],['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a0f72ea45c3f88d6ab36f876173f18d05',1,'MIDILAR::SystemTools::Clock::Clock(HardwareCallback hc, float freq)']]],
-  ['clocktick_64',['ClockTick',['../d0/dff/classMIDILAR_1_1MidiProcessor.html#a1584d7dae3ba101b9a280a054e17cb86',1,'MIDILAR::MidiProcessor']]]
+  ['callbackstatus_68',['callbackStatus',['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#a8edcae1e393786b3f98be33cc3905aec',1,'MIDILAR::SystemFoundation::Clock']]],
+  ['clock_69',['Clock',['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#aba38ca472d9af40c7887f6cc5ac83fba',1,'MIDILAR::SystemFoundation::Clock::Clock()'],['../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#af5bfb4978b2e6c428d96f82b9b82221b',1,'MIDILAR::SystemFoundation::Clock::Clock(HardwareCallback hc, float freq)']]],
+  ['clocktick_70',['ClockTick',['../d0/dff/classMIDILAR_1_1MidiProcessor.html#a1584d7dae3ba101b9a280a054e17cb86',1,'MIDILAR::MidiProcessor']]]
 ];

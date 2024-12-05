@@ -116,9 +116,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3b32d9ac95ea05d7daabfcbce4db618b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#a3b32d9ac95ea05d7daabfcbce4db618b">MidiInput</a> (uint8_t *Message, size_t size)</td></tr>
 <tr class="memdesc:a3b32d9ac95ea05d7daabfcbce4db618b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles incoming MIDI input from a raw buffer.  <a href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#a3b32d9ac95ea05d7daabfcbce4db618b">More...</a><br /></td></tr>
 <tr class="separator:a3b32d9ac95ea05d7daabfcbce4db618b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade8f0e18b703bf8548318c31dc8f51a4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#ade8f0e18b703bf8548318c31dc8f51a4">Update</a> (<a class="el" href="../../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a97d93d6c06667cb20094640b8453ebfd">SystemTools::Clock::TimePoint</a> SystemTime)</td></tr>
-<tr class="memdesc:ade8f0e18b703bf8548318c31dc8f51a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the processor state based on the system clock.  <a href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#ade8f0e18b703bf8548318c31dc8f51a4">More...</a><br /></td></tr>
-<tr class="separator:ade8f0e18b703bf8548318c31dc8f51a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9adf20af5e36582c492fedd33c15b8dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#a9adf20af5e36582c492fedd33c15b8dd">Update</a> (<a class="el" href="../../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#ad3f49de0e2009c7b009b594261b2a155">SystemFoundation::Clock::TimePoint</a> SystemTime)</td></tr>
+<tr class="memdesc:a9adf20af5e36582c492fedd33c15b8dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the processor state based on the system clock.  <a href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#a9adf20af5e36582c492fedd33c15b8dd">More...</a><br /></td></tr>
+<tr class="separator:a9adf20af5e36582c492fedd33c15b8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1584d7dae3ba101b9a280a054e17cb86"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#a1584d7dae3ba101b9a280a054e17cb86">ClockTick</a> ()</td></tr>
 <tr class="memdesc:a1584d7dae3ba101b9a280a054e17cb86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes a single clock tick.  <a href="../../d0/dff/classMIDILAR_1_1MidiProcessor.html#a1584d7dae3ba101b9a280a054e17cb86">More...</a><br /></td></tr>
 <tr class="separator:a1584d7dae3ba101b9a280a054e17cb86"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,7 +154,7 @@ Key Features:</h3>
 </ul>
 </li>
 <li><b>Clock Synchronization</b>:<ul>
-<li>Integrates with an external clock (<code><a class="el" href="../../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html">SystemTools::Clock</a></code>) to enable time-based MIDI operations.</li>
+<li>Integrates with an external clock (<code>SystemTools::Clock</code>) to enable time-based MIDI operations.</li>
 <li>Provides hooks for processing each clock tick and periodically updating internal state.</li>
 </ul>
 </li>
@@ -514,8 +514,8 @@ Example Use Case:</h3>
 
 </div>
 </div>
-<a id="ade8f0e18b703bf8548318c31dc8f51a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade8f0e18b703bf8548318c31dc8f51a4">&#9670;&nbsp;</a></span>Update()</h2>
+<a id="a9adf20af5e36582c492fedd33c15b8dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9adf20af5e36582c492fedd33c15b8dd">&#9670;&nbsp;</a></span>Update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -526,7 +526,7 @@ Example Use Case:</h3>
         <tr>
           <td class="memname">void MIDILAR::MidiProcessor::Update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a97d93d6c06667cb20094640b8453ebfd">SystemTools::Clock::TimePoint</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/dc6/classMIDILAR_1_1SystemFoundation_1_1Clock.html#ad3f49de0e2009c7b009b594261b2a155">SystemFoundation::Clock::TimePoint</a>&#160;</td>
           <td class="paramname"><em>SystemTime</em></td><td>)</td>
           <td></td>
         </tr>
