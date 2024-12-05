@@ -1,2 +1,2 @@
-add_executable(MIDILAT_MidiProcessor_MidiFilter MidiProcessor_MidiFilter.cpp)
-target_link_libraries(MIDILAT_MidiProcessor_MidiFilter MIDILAR)
+add_executable(MIDILAR_MidiProcessor_MidiFilter MidiProcessor_MidiFilter.cpp)
+target_link_libraries(MIDILAR_MidiProcessor_MidiFilter MIDILAR)
