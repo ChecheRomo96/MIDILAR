@@ -62,9 +62,9 @@
         ##############################################################################################
     #
     ##################################################################################################
-    # MIDI Effects
+    # MIDI Processor
 
-        #option(MIDILAR_MIDI_EFFECTS_STATUS "Enables the compilation of MIDILAR::MidiProcesses" FALSE)
+        option(MIDILAR_MIDI_PROCESSOR_STATUS "Enables the compilation of MIDILAR::MidiProcessor" TRUE)
     #
     ##################################################################################################
 #
