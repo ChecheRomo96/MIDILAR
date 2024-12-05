@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['seconds_33',['Seconds',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#ae7da17abf2923b972d48117af4086c1da49a2280ab7afd34d9fa44a34b16805ee',1,'MIDILAR::SystemTools::Clock']]],
-  ['setfrequency_34',['setFrequency',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#ad29789b60a037d53f4040446842aabf0',1,'MIDILAR::SystemTools::Clock']]]
+  ['progmem_5fmacro_40',['PROGMEM_MACRO',['../d4/dc1/MIDILAR__BuildSettings_8h.html#ae26c1d9e114d15945705ca19b7a8b3f7',1,'MIDILAR_BuildSettings.h']]]
 ];

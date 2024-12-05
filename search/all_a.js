@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['timebase_35',['Timebase',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#ae7da17abf2923b972d48117af4086c1d',1,'MIDILAR::SystemTools::Clock']]],
-  ['timepoint_36',['TimePoint',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#a97d93d6c06667cb20094640b8453ebfd',1,'MIDILAR::SystemTools::Clock']]]
+  ['refresh_41',['refresh',['../db/de1/classMIDILAR_1_1SystemTools_1_1Clock.html#ab110a9ef3e51d684c483436a8de6596a',1,'MIDILAR::SystemTools::Clock']]]
 ];
