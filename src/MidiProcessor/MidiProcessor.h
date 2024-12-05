@@ -2,7 +2,7 @@
 #define MIDILAR_MIDI_PROCESSOR_H
 
     #include <MIDILAR_BuildSettings.h>
-    #include <SystemTools/Clock/Clock.h>
+    #include <SystemFoundation/Clock.h>
     #include <stdint.h>
     #include <cstddef>
     #if __has_include(<vector>)
@@ -145,7 +145,7 @@ namespace MIDILAR {
          * 
          * @param SystemTime The current time point from the system clock.
          */
-        virtual void Update(SystemTools::Clock::TimePoint SystemTime);
+        virtual void Update(SystemFoundation::Clock::TimePoint SystemTime);
 
         /**
          * @brief Processes a single clock tick.

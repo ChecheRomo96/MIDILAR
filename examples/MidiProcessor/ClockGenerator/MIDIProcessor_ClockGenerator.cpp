@@ -1,10 +1,10 @@
-#include <SystemTools/Clock/Clock.h>
+#include <SystemFoundation/Clock.h>
 #include <MidiProcessor/MidiProcessor.h>
 
 #include <iostream>
 
 class MidiClockProcessor : public MIDILAR::MidiProcessor {
-    MIDILAR::SystemTools::Clock::TimePoint lastTick = 0;
+    MIDILAR::SystemFoundation::Clock::TimePoint lastTick = 0;
 private:
     uint32_t Period;
 public:
@@ -14,7 +14,7 @@ public:
         Period = 1000 / (24 * 128);
     }
 
-    void Update(MIDILAR::SystemTools::Clock::TimePoint SystemTime) override {
+    void Update(MIDILAR::SystemFoundation::Clock::TimePoint SystemTime) override {
         // Generate a clock tick every 24 ticks (MIDI clock resolution)
         
         if (SystemTime - lastTick >= Period) {

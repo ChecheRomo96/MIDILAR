@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include <SystemTools/Clock/Clock.h>
+#include <SystemFoundation/Clock.h>
 
-namespace MIDILAR::SystemTools {
+using namespace MIDILAR::SystemFoundation;
 
 // A mock callback class for testing
 class MockCallback {
@@ -99,5 +99,3 @@ TEST(ClockTest, GetTime) {
     clock.refresh();
     EXPECT_EQ(clock.getTime(), 2u);
 }
-
-} // namespace MIDILAR::SystemTools

@@ -4,7 +4,7 @@
     #include <MIDILAR_BuildSettings.h>
     #include <stdint.h>
 
-    namespace MIDILAR::SystemTools{
+    namespace MIDILAR::SystemFoundation{
   
         class Clock{
         public:
