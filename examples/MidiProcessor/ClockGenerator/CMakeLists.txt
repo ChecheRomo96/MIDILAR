@@ -1,0 +1,2 @@
+add_executable(MIDILAT_MidiProcessor_ClockGenerator MIDIProcessor_ClockGenerator.cpp)
+target_link_libraries(MIDILAT_MidiProcessor_ClockGenerator MIDILAR)

@@ -1,0 +1,2 @@
+add_executable(MIDILAT_MidiProcessor_Echo MIDIProcessor_MidiEcho.cpp)
+target_link_libraries(MIDILAT_MidiProcessor_Echo MIDILAR)

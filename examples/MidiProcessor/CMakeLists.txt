@@ -1,14 +1,8 @@
 ######################################################################################################
 # Add Subdirectories for Tests
 
-    # System Tools
-    if(${MIDILAR_SYSTEM_TOOLS_STATUS})
-        add_subdirectory(SystemTools)
-    endif()
-
-    # MidiProcessor
-    if(${MIDILAR_MIDI_PROCESSOR_STATUS})
-        add_subdirectory(MidiProcessor)
-    endif()
+    add_subdirectory(MidiEcho)
+    add_subdirectory(ClockGenerator)
+    add_subdirectory(MidiFilter)
 #
 ######################################################################################################
