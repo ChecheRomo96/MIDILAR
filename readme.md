@@ -35,8 +35,36 @@ This guide explains how to build, test, and use MIDILAR, including optional feat
     ```
 
 6. Access outputs:
-   - **Examples**: Available in the build directory.
-   - **Documentation**: Found in `build/docs`.
+
+    **Examples**: Available in the build directory.
+
+    1.  Run MIDILAR_BuildTest
+        ```bash
+        ./bin/MIDILAR_BuildTest
+        ```
+
+    2.  Run MIDILAR_MidiProcessor_ClockGenerator
+        ```bash
+        ./bin/MIDILAR_MidiProcessor_ClockGenerator
+        ```
+
+    3.  Run MIDILAR_MidiProcessor_Echo
+        ```bash
+        ./bin/MIDILAR_MidiProcessor_Echo
+        ```
+
+    4.  Run MIDILAR_MidiProcessor_MidiFilter
+        ```bash
+        ./bin/MIDILAR_MidiProcessor_MidiFilter
+        ```
+
+    **Documentation**: Found in `build/docs`.
+
+    - To open the doxygen generated documentation go to the build/doxygen/html directory and open the index.html file, or run the following command.
+
+        ```bash
+        open doxygen/html/index.html
+        ```
 
 ---
 
@@ -119,22 +147,7 @@ target_link_libraries(MyApp MIDILAR::MIDILAR)
 
 
 ---
-# Running Examples
 
-
-## Run MIDILAR_BuildTest
-./bin/MIDILAR_BuildTest
-
-## Run MIDILAR_MidiProcessor_ClockGenerator
-./bin/MIDILAR_MidiProcessor_ClockGenerator
-
-## Run MIDILAR_MidiProcessor_Echo
-./bin/MIDILAR_MidiProcessor_Echo
-
-## Run MIDILAR_MidiProcessor_MidiFilter
-./bin/MIDILAR_MidiProcessor_MidiFilter
-
-## Run MIDILAR_SystemTools_Clock_Usage
 ./bin/MIDILAR_SystemTools_Clock_Usage
 
 
