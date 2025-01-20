@@ -9,6 +9,7 @@
 
     # Append Headers (local to this subdirectory)
     list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.h")
+    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/CallbackHandler.h")
 #
 ######################################################################################################
 # System Clock
