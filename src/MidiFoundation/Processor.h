@@ -128,6 +128,8 @@ namespace MIDILAR {
          * 
          * @param begin Iterator pointing to the beginning of the vector.
          * @param end Iterator pointing to the end of the vector.
+         * 
+         * 
          */
         void MidiInput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end);
         #endif

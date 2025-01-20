@@ -49,7 +49,7 @@
     #################################################################################################
     # SystemFoundation
 
-        option(MIDILAR_SYSTEM_FOUNDATION_STATUS "Enables the compilation of MIDILAR::SystemFoundation" TRUE)
+        option(MIDILAR_SYSTEM_FOUNDATION "Enables the compilation of MIDILAR::SystemFoundation" ON)
 
         #option(MIDILAR_TOOLS_EXAMPLES "Enables Building Examples" FALSE)
         #option(MIDILAR_TOOLS_TESTING "Enabled Unit Testing" FALSE)
@@ -57,14 +57,14 @@
         #############################################################################################
         # Clock
 
-            option(MIDILAR_CLOCK_STATUS "Enables the compilation of MIDILAR::SystemFoundation::Clock" TRUE)
+            option(MIDILAR_SYSTEM_CLOCK "Enables the compilation of MIDILAR::SystemFoundation::Clock" ON)
         #
         ##############################################################################################
     #
     #################################################################################################
     # AudioFoundation
 
-        option(MIDILAR_AUDIO_FOUNDATION_STATUS "Enables the compilation of MIDILAR::AudioFoundation" TRUE)
+        option(MIDILAR_AUDIO_FOUNDATION "Enables the compilation of MIDILAR::AudioFoundation" ON)
 
         #option(MIDILAR_TOOLS_EXAMPLES "Enables Building Examples" FALSE)
         #option(MIDILAR_TOOLS_TESTING "Enabled Unit Testing" FALSE)
@@ -72,14 +72,31 @@
         #############################################################################################
         # LUT
 
-            option(MIDILAR_LUT_STATUS "Enables the compilation of MIDILAR::SystemTools::Clock" TRUE)
+            option(MIDILAR_LUT "Enables the compilation of MIDILAR::AudioFoundation::Clock" ON)
         #
         ##############################################################################################
     #
     ##################################################################################################
-    # MIDI Processor
+    # MIDI Foundation
 
-        option(MIDILAR_MIDI_PROCESSOR_STATUS "Enables the compilation of MIDILAR::MidiProcessor" TRUE)
+        option(MIDILAR_MIDI_FOUNDATION "Enables the compilation of MIDILAR::MidiFoundation" ON)
+
+        #############################################################################################
+        # ProtocolEnums
+
+            option(MIDILAR_PROTOCOL_ENUMS "Enables the compilation of MIDILAR::MidiFoundation::Protocol Namespace" ON)
+        #
+        ##############################################################################################
+        # Midi Message
+
+            option(MIDILAR_MIDI_MESSAGE "Enables the compilation of MIDILAR::MidiFoundation::MidiMessage" ON)
+        #
+        ##############################################################################################
+        # MidiProcessor
+
+            option(MIDILAR_MIDI_PROCESSOR "Enables the compilation of MIDILAR::MidiFoundation::Processor" ON)
+        #
+        ##############################################################################################
     #
     ##################################################################################################
 #

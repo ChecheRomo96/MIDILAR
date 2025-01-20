@@ -1,5 +1,5 @@
-#ifndef MIDILAR_HARDWARE_CLOCK_H
-#define MIDILAR_HARDWARE_CLOCK_H
+#ifndef MIDILAR_SYSTEM_CLOCK_CLASS_H
+#define MIDILAR_SYSTEM_CLOCK_CLASS_H
 
     #include <MIDILAR_BuildSettings.h>
     #include <stdint.h>
@@ -39,4 +39,4 @@
         };
     }
 
-#endif//MIDILAR_HARDWARE_CLOCK_H
+#endif//MIDILAR_SYSTEM_CLOCK_CLASS_H

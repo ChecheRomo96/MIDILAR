@@ -2,7 +2,7 @@
 # Add Subdirectories for Tests
 
     # Clock
-    if(${MIDILAR_CLOCK_STATUS})
+    if(${MIDILAR_SYSTEM_CLOCK})
         add_subdirectory(Clock)
     endif()
 

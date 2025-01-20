@@ -11,27 +11,27 @@ This guide explains how to build, test, and use MIDILAR, including optional feat
 
 1. Create a build directory:
     ```bash
-    mkdir -p build && cd build
+    mkdir -p build
     ```
 
 2. Configure the project with optional features enabled:
     ```bash
-    cmake .. -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_DOCS=ON
+    cmake -B build -S . -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_DOCS=ON
     ```
 
 3. Build the project:
     ```bash
-    cmake --build .
+    cmake --build build
     ```
 
 4. Run tests:
     ```bash
-    ctest --output-on-failure
+    ctest --test-dir build --output-on-failure
     ```
 
 5. Generate API documentation (requires Doxygen):
     ```bash
-    cmake --build . --target docs
+    cmake --build build --target docs
     ```
 
 6. Access outputs:
@@ -40,22 +40,22 @@ This guide explains how to build, test, and use MIDILAR, including optional feat
 
     1.  Run MIDILAR_BuildTest
         ```bash
-        ./bin/MIDILAR_BuildTest
+        ./build/bin/MIDILAR_BuildTest
         ```
 
     2.  Run MIDILAR_MidiProcessor_ClockGenerator
         ```bash
-        ./bin/MIDILAR_MidiProcessor_ClockGenerator
+        ./build/bin/MIDILAR_MidiProcessor_ClockGenerator
         ```
 
     3.  Run MIDILAR_MidiProcessor_Echo
         ```bash
-        ./bin/MIDILAR_MidiProcessor_Echo
+        ./build/bin/MIDILAR_MidiProcessor_Echo
         ```
 
     4.  Run MIDILAR_MidiProcessor_MidiFilter
         ```bash
-        ./bin/MIDILAR_MidiProcessor_MidiFilter
+        ./build/bin/MIDILAR_MidiProcessor_MidiFilter
         ```
 
     **Documentation**: Found in `build/docs`.
@@ -63,7 +63,7 @@ This guide explains how to build, test, and use MIDILAR, including optional feat
     - To open the doxygen generated documentation go to the build/doxygen/html directory and open the index.html file, or run the following command.
 
         ```bash
-        open doxygen/html/index.html
+        open build/doxygen/html/index.html
         ```
 
 ---
@@ -96,11 +96,13 @@ To install MIDILAR:
 
 ### CMake Options
 
-| Option              | Description                      | Default |
-|---------------------|----------------------------------|---------|
-| `MIDILAR_TESTING`   | Enable unit tests               | OFF     |
-| `MIDILAR_EXAMPLES`  | Build example applications      | OFF     |
-| `MIDILAR_DOCS`      | Generate API documentation      | OFF     |
+| Option                            | Description                               | Default |
+|-----------------------------------|-------------------------------------------|---------|
+| `MIDILAR_TESTING`                 | Enable unit tests                         | OFF     |
+| `MIDILAR_EXAMPLES`                | Build example applications                | OFF     |
+| `MIDILAR_DOCS`                    | Generate API documentation                | OFF     |
+| `MIDILAR_SYSTEM_FOUNDATION`       | Compile MIDILAR::SystemFoundation         | ON      |
+| `MIDILAR_SYSTEM_CLOCK`            | Compile MIDILAR::SystemFoundation::Clock  | ON      |
 
 Enable features by adding options to the `cmake` command:
 ```bash

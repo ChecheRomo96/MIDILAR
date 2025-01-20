@@ -32,4 +32,14 @@
         #include <SystemFoundation/MIDILAR_SystemFoundation.h>
     #endif
 
+
+    #ifdef MIDILAR_MIDI_FOUNDATION
+        /**
+         * @brief Include MIDI tools if enabled in the build settings.
+         * 
+         * MIDI tools provide the base midi functionality for the library.
+         */
+        #include <MidiFoundation/MidiFoundation.h>
+    #endif
+
 #endif // MIDILAR_H
