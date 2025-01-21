@@ -54,7 +54,7 @@
         #option(MIDILAR_TOOLS_EXAMPLES "Enables Building Examples" FALSE)
         #option(MIDILAR_TOOLS_TESTING "Enabled Unit Testing" FALSE)
 
-        #############################################################################################
+        ##############################################################################################
         # Clock
 
             option(MIDILAR_SYSTEM_CLOCK "Enables the compilation of MIDILAR::SystemFoundation::Clock" ON)
@@ -102,8 +102,25 @@
 #
 ######################################################################################################
 # Append Source
+    
+    if(${MIDILAR_TESTING})
+        set(COVERAGE_FLAGS "--coverage")
+        
+        # Apply the coverage flags to specific targets or directories
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COVERAGE_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COVERAGE_FLAGS}")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${COVERAGE_FLAGS}")
+    endif()
 
+    # Add the src directory to the build
     add_subdirectory(src)
+
+    # Disable coverage flags for other parts of the project
+    if(${MIDILAR_TESTING})
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" CACHE STRING "" FORCE)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" CACHE STRING "" FORCE)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}" CACHE STRING "" FORCE)
+    endif()
 #
 ######################################################################################################
 # Enable Doxygen to build the documentation
@@ -159,10 +176,6 @@
     if( ${MIDILAR_TESTING} )
         message(STATUS "Building ${CMAKE_PROJECT_NAME} Tests")
 
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
-
         cmake_policy(SET CMP0135 NEW)
         
         # Disable GoogleTest installation
@@ -183,7 +196,9 @@
 
         enable_testing()
         include(GoogleTest)
+        include(CTest)
         add_subdirectory(tests)
+
     endif()
 #
 ######################################################################################################
