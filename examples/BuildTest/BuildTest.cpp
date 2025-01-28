@@ -54,5 +54,26 @@ int main() {
 
     std::cout << std::endl << std::endl;
 
+    MIDILAR::MidiFoundation::Message msg;
+
+        uint8_t Program = 0;  // Initialize the program number (0–255, wraps around)
+        uint8_t Channel = 0;  // Initialize the MIDI channel (0–255, wraps around)
+
+        // Outer loop: Iterate through all possible `uint8_t` values for the channel
+        do {
+            // Inner loop: Iterate through all possible `uint8_t` values for the program number
+            do {
+                // Construct the Program Change message for the current Program and Channel
+                msg.ProgramChange(Program, Channel);
+
+                std::cout << (uint32_t) msg.Data(0) << " - " << (uint32_t) MIDI_PROGRAM_CHANGE + ((Channel < 16) ? Channel : 15) << " --- ";
+                std::cout << (uint32_t) msg.Data(1) << " - " << (uint32_t) ((Program < 128) ? Program : 127) << std::endl;
+
+                ++Program;
+            }while( Program != 130 );
+            ++Channel;
+        }while( Channel != 17 );
+    
+
     return 0;
 }

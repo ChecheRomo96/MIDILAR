@@ -7,15 +7,9 @@
     # Append Sources
     #list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.cpp")
 
-    # Append Headers (local to this subdirectory)
-    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Defines.h")
 #
 ######################################################################################################
 # Conditional File Inclusion
-
-    if(${MIDILAR_PROTOCOL_ENUMS})
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Enums.h")
-    endif()
 
     if(${MIDILAR_MIDI_MESSAGE})
         list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Message.h")
@@ -26,6 +20,11 @@
         list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Processor.h")
         list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Processor.cpp")
     endif()
+#
+######################################################################################################
+# Add subdirectory
+
+    add_subdirectory(Protocol)
 #
 ######################################################################################################
 # Refresh Sources and Headers in Parent Scope

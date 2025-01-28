@@ -3,7 +3,7 @@
 
     #include <MIDILAR_BuildSettings.h>
 
-    #include "Defines.h"
+    #include "Protocol/Defines.h"
     
     /**
      * @namespace MIDILAR::MidiFoundation
@@ -12,7 +12,7 @@
     namespace MIDILAR::MidiFoundation{}
 
     #ifdef MIDILAR_PROTOCOL_ENUMS
-        #include "Enums.h"
+        #include "Protocol/Enums.h"
     #endif
 
     #ifdef MIDILAR_MIDI_MESSAGE
@@ -22,9 +22,5 @@
     #ifdef MIDILAR_MIDI_PROCESSOR
         #include "Processor.h"
     #endif
-
-
-
-
 
 #endif//MIDILAR_MIDI_FOUNDATION_H

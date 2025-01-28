@@ -23,7 +23,7 @@
      */
     #include <MIDILAR_BuildSettings.h>
 
-    #ifdef MIDILAR_SYSTEM_FOUNDATION_ENABLED
+    #ifdef MIDILAR_SYSTEM_FOUNDATION
         /**
          * @brief Include system tools if enabled in the build settings.
          * 

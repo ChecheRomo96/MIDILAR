@@ -7,7 +7,7 @@ using namespace MIDILAR::SystemFoundation;
 
 namespace MIDILAR::SystemFoundation{
     namespace{
-        class SystemClockMockCallback {
+        class SystemClockMock {
         public:
             time_point<system_clock> testStart; /**< Starting point for the mock clock. */
             Clock::TimePoint currentTime;       /**< The current simulated time. */
@@ -17,7 +17,7 @@ namespace MIDILAR::SystemFoundation{
              * @brief Constructor initializes the mock clock.
              * Sets the starting time and default frequency.
              */
-            SystemClockMockCallback() 
+            SystemClockMock() 
                 : testStart(system_clock::now()), currentTime(0), frequency(Clock::Seconds) {}
 
             /**
@@ -48,7 +48,7 @@ namespace MIDILAR::SystemFoundation{
             }
         };
 
-        SystemClockMockCallback MockCallbackHelper;
+        SystemClockMock MockCallbackHelper;
 
         Clock::TimePoint ClockCallback(){
             return MockCallbackHelper.getCurrentTime();
@@ -82,9 +82,6 @@ namespace MIDILAR::SystemFoundation{
                 std::cout << "Test [" << test_info->test_suite_name() << "." << test_info->name() 
                         << "] Duration: " << MockCallbackHelper.getCurrentTime() << " ms" << std::endl;
             }
-
-            // Class members declared here can be used by all tests in the test suite
-            // for Foo.
 
         };
     }
