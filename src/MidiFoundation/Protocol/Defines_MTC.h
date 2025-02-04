@@ -13,43 +13,68 @@
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * @ingroup QuarterFrame
-     */
-    /**@{*/ // Start of StandardMTC subgroup
+    // MTC
 
-        #define MIDI_MTC_QUARTER_FRAME 0xF1  ///< Quarter Frame message.
-
-    /**@}*/ // End of StandardMTC subgroup
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Subgroups
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /**
-         * @ingroup MTC_TimeComponents
-         */
-        /**@{*/ // Start of MTC_TimeComponents subgroup
-
-            #define MIDI_MTC_FRAMES_LSB 0x00  ///< Lower 4 bits of frame number.
-            #define MIDI_MTC_FRAMES_MSB 0x10  ///< Upper 4 bits of frame number.
-            #define MIDI_MTC_SECONDS_LSB 0x20 ///< Lower 4 bits of seconds.
-            #define MIDI_MTC_SECONDS_MSB 0x30 ///< Upper 4 bits of seconds.
-            #define MIDI_MTC_MINUTES_LSB 0x40 ///< Lower 4 bits of minutes.
-            #define MIDI_MTC_MINUTES_MSB 0x50 ///< Upper 4 bits of minutes.
-            #define MIDI_MTC_HOURS_LSB 0x60   ///< Lower 4 bits of hours.
-            #define MIDI_MTC_HOURS_MSB 0x70   ///< Upper 4 bits of hours and frame rate.
-        /**@}*/ // End of MTC_TimeComponents subgroup
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
-         * @ingroup MTC_FrameRates
+         * @ingroup MTC_QuarterFrame
+         * @brief Defines the status byte for an MTC (MIDI Time Code) Quarter Frame message.
+         *
+         * The MTC Quarter Frame message is a two-byte MIDI message used to transmit time code information
+         * in small increments. It follows the structure:
+         * 
+         * ```
+         * [MIDI_MTC_QUARTER_FRAME] [Data Byte]
+         * ```
+         *
+         * - **Status Byte (0xF1)**: Indicates an MTC Quarter Frame message.
+         * - **Data Byte (0b0000NNND)**:
+         *   - `NNN` (Bits 6-4): Time component identifier (0-7, representing different parts of the SMPTE time code).
+         *   - `D` (Bits 3-0): The actual data value for the given time component.
+         *
+         * ### Usage Example
+         * To construct a raw MTC Quarter Frame message:
+         * ```cpp
+         * uint8_t timeComponent = 2; // Example: Frame LSB
+         * uint8_t data = 5;          // Example data value
+         * uint8_t message[2] = { MIDI_MTC_QUARTER_FRAME, (timeComponent << 4) | (data & 0x0F) };
+         * ```
+         *
+         * @note The full SMPTE time code is transmitted over eight successive Quarter Frame messages.
          */
-        /**@{*/ // Start of MTC_FrameRates subgroup
+            #define MIDI_MTC_QUARTER_FRAME 0xF1
+        //
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Subgroups
 
-            #define MIDI_MTC_FRAME_RATE_24FPS 0x00            ///< 24 frames per second.
-            #define MIDI_MTC_FRAME_RATE_25FPS 0x02            ///< 25 frames per second.
-            #define MIDI_MTC_FRAME_RATE_30FPS_DROP_FRAME 0x04 ///< 30 FPS (drop frame).
-            #define MIDI_MTC_FRAME_RATE_30FPS 0x06            ///< 30 FPS (non-drop frame).
-        /**@}*/ // End of MTC_FrameRates subgroup
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /**
+             * @ingroup MTC_TimeComponents
+             */
+            /**@{*/ // Start of MTC_TimeComponents subgroup
+
+                #define MIDI_MTC_FRAMES_LSB 0x00  ///< Lower 4 bits of frame number.
+                #define MIDI_MTC_FRAMES_MSB 0x10  ///< Upper 4 bits of frame number.
+                #define MIDI_MTC_SECONDS_LSB 0x20 ///< Lower 4 bits of seconds.
+                #define MIDI_MTC_SECONDS_MSB 0x30 ///< Upper 4 bits of seconds.
+                #define MIDI_MTC_MINUTES_LSB 0x40 ///< Lower 4 bits of minutes.
+                #define MIDI_MTC_MINUTES_MSB 0x50 ///< Upper 4 bits of minutes.
+                #define MIDI_MTC_HOURS_LSB 0x60   ///< Lower 4 bits of hours.
+                #define MIDI_MTC_HOURS_MSB 0x70   ///< Upper 4 bits of hours and frame rate.
+            /**@}*/ // End of MTC_TimeComponents subgroup
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /**
+             * @ingroup MTC_FrameRates
+             */
+            /**@{*/ // Start of MTC_FrameRates subgroup
+
+                #define MIDI_MTC_FRAME_RATE_24FPS 0x00            ///< 24 frames per second.
+                #define MIDI_MTC_FRAME_RATE_25FPS 0x02            ///< 25 frames per second.
+                #define MIDI_MTC_FRAME_RATE_30FPS_DROP_FRAME 0x04 ///< 30 FPS (drop frame).
+                #define MIDI_MTC_FRAME_RATE_30FPS 0x06            ///< 30 FPS (non-drop frame).
+            /**@}*/ // End of MTC_FrameRates subgroup
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // MTC_SysEx
 
@@ -213,19 +238,82 @@
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     /**
                      * @ingroup MTC_RT_Commands
+                     * @defgroup MTC_RT_FullFrame MTC Full Frame Message
                      * @brief Represents the MTC Full Frame message identifier (Sub ID 2: 0x01).
                      * 
-                     * The Full Frame message is used in MIDI Time Code (MTC) for precise synchronization of devices. It provides 
-                     * the complete timecode information, including hours, minutes, seconds, and frames, enabling accurate time alignment 
-                     * between MIDI devices and other time-sensitive systems.
+                     * The MIDI Time Code (MTC) Full Frame message is a System Exclusive (SysEx) message 
+                     * used for precise synchronization of MIDI devices. It provides the complete 
+                     * SMPTE timecode information, including hours, minutes, seconds, and frames, 
+                     * enabling accurate time alignment between MIDI devices, DAWs, and other 
+                     * time-sensitive systems.
                      * 
-                     * ### Use Cases
+                     * ## Message Format
+                     * The Full Frame message follows the MIDI System Exclusive (SysEx) structure:
+                     * 
+                     * | Byte | Value                                  | Description |
+                     * |------|----------------------------------------|-------------|
+                     * | 0xF0 | MIDI_SYSEX_START                      | Start of SysEx message |
+                     * | 0x7F | Universal Real-Time SysEx ID          | Universal real-time message |
+                     * | `ID` | Device ID (usually 0x7F for all devices) | Target device ID |
+                     * | 0x01 | MIDI_SYSEX_REALTIME_MTC               | MTC real-time message ID |
+                     * | 0x01 | MIDI_SYSEX_RT_MTC_FULL_FRAME          | Full Frame message identifier |
+                     * | `hh` | Hours (including frame rate bits)     | 5-bit hours + 2-bit frame rate |
+                     * | `mm` | Minutes (0-59)                        | Minutes component |
+                     * | `ss` | Seconds (0-59)                        | Seconds component |
+                     * | `ff` | Frames (0-29, based on frame rate)    | Frames component |
+                     * | 0xF7 | MIDI_SYSEX_END                        | End of SysEx message |
+                     * 
+                     * ## Encoding Hours and Frame Rate
+                     * The Hours byte (`hh`) includes the frame rate information in its upper 2 bits:
+                     * 
+                     * - **Frame Rate Encoding (upper 2 bits of `hh`)**:
+                     *   - `00`: 24 frames per second (FPS)
+                     *   - `01`: 25 FPS
+                     *   - `10`: 30 FPS (drop-frame)
+                     *   - `11`: 30 FPS (non-drop-frame)
+                     * 
+                     * - **Hours Encoding (lower 5 bits of `hh`)**:
+                     *   - Range: `0x00` (0 hours) to `0x17` (23 hours)
+                     * 
+                     * ## Example: Constructing a Full Frame Message in Raw MIDI
+                     * The following example builds an MTC Full Frame message for 01:23:45:12 at 30 FPS:
+                     * 
+                     * ```cpp
+                     * uint8_t sysexMessage[] = {
+                     *     0xF0,  // SysEx start
+                     *     0x7F,  // Universal real-time SysEx ID (all devices)
+                     *     0x7F,  // Target device (broadcast)
+                     *     0x01,  // MIDI_SYSEX_REALTIME_MTC
+                     *     0x01,  // MIDI_SYSEX_RT_MTC_FULL_FRAME
+                     *     (0b011 << 5) | 0x01, // 30 FPS (non-drop-frame) + Hours (1)
+                     *     0x23,  // Minutes (0x23 = 35 decimal)
+                     *     0x3B,  // Seconds (0x3B = 59 decimal)
+                     *     0x12,  // Frames (0x12 = 18 decimal)
+                     *     0xF7   // SysEx end
+                     * };
+                     * ```
+                     * 
+                     * ## Use Cases
                      * - Synchronizing MIDI-compatible video or audio playback devices.
                      * - Aligning hardware sequencers, DAWs, or external devices in real-time workflows.
                      * - Providing a complete time reference during live performances or automated playback.
+                     * 
+                     * ## Notes
+                     * - The Full Frame message is part of the **real-time MIDI specification**, meaning it 
+                     *   should be processed immediately by receiving devices.
+                     * - This message provides an absolute SMPTE timecode, unlike MTC Quarter Frame messages, 
+                     *   which transmit timecode incrementally.
+                     * - The `SysexChannel` parameter (0x7F) is typically used for broadcast but can be 
+                     *   set to a specific device ID for targeted communication.
+                     * 
+                     * @see MIDI_SYSEX_REALTIME_MTC
+                     * @see MTC_QuarterFrame
+                     * @see MTC_FrameRates
+                     * 
+                     * @{
                      */
                         #define MIDI_SYSEX_RT_MTC_FULL_FRAME 0x01
-                    //
+                    /**@}*/
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     /**
                      * @ingroup MTC_RT_Commands

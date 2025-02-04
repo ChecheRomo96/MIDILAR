@@ -12,13 +12,11 @@
 # Conditional File Inclusion
 
     if(${MIDILAR_MIDI_MESSAGE})
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Message.h")
-        list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Message.cpp")
+        add_subdirectory(Message)
     endif()
 
     if(${MIDILAR_MIDI_PROCESSOR})
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Processor.h")
-        list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Processor.cpp")
+        add_subdirectory(Processor)
     endif()
 #
 ######################################################################################################

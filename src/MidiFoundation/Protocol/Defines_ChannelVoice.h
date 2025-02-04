@@ -2,75 +2,54 @@
 #define MIDILAR_PROTOCOL_CHANNEL_VOICE_DEFINES_H
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Channel Voice Messages
+    // Channel Voice Messagess
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
         /**
-         * @ingroup NoteMessages
-         * @brief Note Off message (0x80)
-         * 
-         * Sent when a key is released on a MIDI instrument. This command includes the key number 
-         * and the release velocity, which can optionally be used by the receiving device.
+         * @ingroup MIDI_CV_NoteMessagess
+         * @brief Preprocessor macro for constructing MIDI Note Off messages (0x80).
          */
             #define MIDI_NOTE_OFF 0x80
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
-         * @ingroup NoteMessages
-         * @brief Note On message (0x90)
-         * 
-         * Sent when a key is pressed on a MIDI instrument. This command includes the key number 
-         * and the velocity, which determines how hard the key was pressed.
+         * @ingroup MIDI_CV_NoteMessagess
+         * @brief Preprocessor macro for constructing MIDI Note On messages (0x90).
          */
             #define MIDI_NOTE_ON 0x90
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
-         * @ingroup AfterTouch
-         * @brief After Touch (Polyphonic Key Pressure) message (0xA0)
-         * 
-         * Sent to indicate the pressure applied to a specific key after it has been pressed. 
-         * Useful for creating expressive performances.
+         * @ingroup MIDI_CV_AfterTouch
+         * @brief Preprocessor macro for constructing MIDI After Touch (Polyphonic Key Pressure) messages (0xA0).
          */
             #define MIDI_AFTER_TOUCH 0xA0
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
-         * @ingroup ControlChange
-         * @brief Control Change message (0xB0)
-         * 
-         * Used to modify parameters of a MIDI instrument or effect, such as volume, pan, or modulation. 
-         * Includes a controller number and a value.
+         * @ingroup MIDI_CV_ControlChange
+         * @brief Preprocessor macro for constructing MIDI Control Change messages (0xB0)
          */
             #define MIDI_CONTROL_CHANGE 0xB0
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
-         * @ingroup ProgramChange
-         * @brief Program Change message (0xC0)
-         * 
-         * Used to change the instrument or sound being played by a MIDI device. 
-         * Typically associated with selecting patches or presets.
+         * @ingroup MIDI_CV_ProgramChange
+         * @brief Preprocessor macro for constructing MIDI Program Change messages (0xC0)
          */
             #define MIDI_PROGRAM_CHANGE 0xC0
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @ingroup ChannelPressure
-         * @brief Channel Pressure (Aftertouch) message (0xD0)
-         * 
-         * Similar to polyphonic aftertouch, but applies to the entire MIDI channel rather than individual notes. 
-         * Indicates how much pressure is being applied to the keys.
+         * @brief Preprocessor macro for constructing MIDI Channel Pressure messages (0xD0)
          */
             #define MIDI_CHANNEL_PRESSURE 0xD0
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @ingroup PitchBend
-         * @brief Pitch Bend Change message (0xE0)
-         * 
-         * Used to bend the pitch of a note up or down. Includes a 14-bit value for high precision. 
-         * Commonly used for vibrato or portamento effects.
+         * @brief Preprocessor macro for constructing MIDI Pitch Bend Change messages (0xE0)
          */
             #define MIDI_PITCH_BEND 0xE0    
         //

@@ -42,37 +42,37 @@ namespace MIDILAR::MidiFoundation{
         EXPECT_EQ(MIDI_PITCH_BEND, 0xE0);
         
         // Channel Mode Messages
-        EXPECT_EQ(MIDI_CC_BANK_SELECT, 0x00);
-        EXPECT_EQ(MIDI_CC_MODULATION, 0x01);
-        EXPECT_EQ(MIDI_CC_BREATH_CONTROL, 0x02);
-        EXPECT_EQ(MIDI_CC_FOOT_PEDAL, 0x04);
-        EXPECT_EQ(MIDI_CC_PORTAMENTO, 0x05);
-        EXPECT_EQ(MIDI_CC_DATA_ENTRY_MSB, 0x06);
-        EXPECT_EQ(MIDI_CC_VOLUME, 0x07);
-        EXPECT_EQ(MIDI_CC_BALANCE, 0x08);
-        EXPECT_EQ(MIDI_CC_PAN, 0x0A);
-        EXPECT_EQ(MIDI_CC_EXPRESSION, 0x0B);
-        EXPECT_EQ(MIDI_CC_DATA_ENTRY_LSB, 0x26);
+        EXPECT_EQ(MIDI_BANK_SELECT, 0x00);
+        EXPECT_EQ(MIDI_MODULATION, 0x01);
+        EXPECT_EQ(MIDI_BREATH_CONTROL, 0x02);
+        EXPECT_EQ(MIDI_FOOT_PEDAL, 0x04);
+        EXPECT_EQ(MIDI_PORTAMENTO, 0x05);
+        EXPECT_EQ(MIDI_DATA_ENTRY_MSB, 0x06);
+        EXPECT_EQ(MIDI_VOLUME, 0x07);
+        EXPECT_EQ(MIDI_BALANCE, 0x08);
+        EXPECT_EQ(MIDI_PAN, 0x0A);
+        EXPECT_EQ(MIDI_EXPRESSION, 0x0B);
+        EXPECT_EQ(MIDI_DATA_ENTRY_LSB, 0x26);
         
         // NRPN and RPN Messages
-        EXPECT_EQ(MIDI_CC_NRPN_DATA_INCREMENT, 0x60);
-        EXPECT_EQ(MIDI_CC_NRPN_DATA_DECREMENT, 0x61);
-        EXPECT_EQ(MIDI_CC_NRPN_LSB, 0x62);
-        EXPECT_EQ(MIDI_CC_NRPN_MSB, 0x63);
-        EXPECT_EQ(MIDI_CC_RPN_LSB, 0x64);
-        EXPECT_EQ(MIDI_CC_RPN_MSB, 0x65);
+        EXPECT_EQ(MIDI_NRPN_DATA_INCREMENT, 0x60);
+        EXPECT_EQ(MIDI_NRPN_DATA_DECREMENT, 0x61);
+        EXPECT_EQ(MIDI_NRPN_LSB, 0x62);
+        EXPECT_EQ(MIDI_NRPN_MSB, 0x63);
+        EXPECT_EQ(MIDI_RPN_LSB, 0x64);
+        EXPECT_EQ(MIDI_RPN_MSB, 0x65);
 
         // All Sound Off and Miscellaneous Commands
-        EXPECT_EQ(MIDI_CM_ALL_SOUND_OFF, 0x78);
-        EXPECT_EQ(MIDI_CM_RESET_ALL_CONTROLLERS, 0x79);
-        EXPECT_EQ(MIDI_CM_LOCAL_CONTROL, 0x7A);
-        EXPECT_EQ(MIDI_CM_ALL_NOTES_OFF, 0x7B);
-        EXPECT_EQ(MIDI_CM_OMNI_OFF, 0x7C);
-        EXPECT_EQ(MIDI_CM_OMNI_ON, 0x7D);
-        EXPECT_EQ(MIDI_CM_MONO_ON, 0x7E);
-        EXPECT_EQ(MIDI_CM_POLY_ON, 0x7F);
-        EXPECT_EQ(MIDI_CM_LOCAL_CONTROL_OFF, 0x00);
-        EXPECT_EQ(MIDI_CM_LOCAL_CONTROL_ON, 0x7F);
+        EXPECT_EQ(MIDI_ALL_SOUND_OFF, 0x78);
+        EXPECT_EQ(MIDI_RESET_ALL_CONTROLLERS, 0x79);
+        EXPECT_EQ(MIDI_LOCAL_CONTROL, 0x7A);
+        EXPECT_EQ(MIDI_ALL_NOTES_OFF, 0x7B);
+        EXPECT_EQ(MIDI_OMNI_OFF, 0x7C);
+        EXPECT_EQ(MIDI_OMNI_ON, 0x7D);
+        EXPECT_EQ(MIDI_MONO_ON, 0x7E);
+        EXPECT_EQ(MIDI_POLY_ON, 0x7F);
+        EXPECT_EQ(MIDI_LOCAL_CONTROL_OFF, 0x00);
+        EXPECT_EQ(MIDI_LOCAL_CONTROL_ON, 0x7F);
 
         // System Common Commands
         EXPECT_EQ(MIDI_SONG_POSITION_POINTER, 0xF2);
@@ -121,37 +121,37 @@ namespace MIDILAR::MidiFoundation{
         EXPECT_EQ(MIDI_PITCH_BEND,          (uint8_t) MidiProtocol::ChannelVoice::PitchBend);
         
         // Channel Mode Messages
-        EXPECT_EQ(MIDI_CC_BANK_SELECT,     (uint8_t) MidiProtocol::ControlChange::BankSelect);
-        EXPECT_EQ(MIDI_CC_MODULATION,      (uint8_t) MidiProtocol::ControlChange::Modulation);
-        EXPECT_EQ(MIDI_CC_BREATH_CONTROL,  (uint8_t) MidiProtocol::ControlChange::BreathControl);
-        EXPECT_EQ(MIDI_CC_FOOT_PEDAL,      (uint8_t) MidiProtocol::ControlChange::FootPedal);
-        EXPECT_EQ(MIDI_CC_PORTAMENTO,      (uint8_t) MidiProtocol::ControlChange::Portamento);
-        EXPECT_EQ(MIDI_CC_DATA_ENTRY_MSB,  (uint8_t) MidiProtocol::ControlChange::DataEntryMsb);
-        EXPECT_EQ(MIDI_CC_VOLUME,          (uint8_t) MidiProtocol::ControlChange::Volume);
-        EXPECT_EQ(MIDI_CC_BALANCE,         (uint8_t) MidiProtocol::ControlChange::Balance);
-        EXPECT_EQ(MIDI_CC_PAN,             (uint8_t) MidiProtocol::ControlChange::Pan);
-        EXPECT_EQ(MIDI_CC_EXPRESSION,      (uint8_t) MidiProtocol::ControlChange::Expression);
-        EXPECT_EQ(MIDI_CC_DATA_ENTRY_LSB,  (uint8_t) MidiProtocol::ControlChange::DataEntryLsb);
+        EXPECT_EQ(MIDI_BANK_SELECT,     (uint8_t) MidiProtocol::ControlChange::BankSelect);
+        EXPECT_EQ(MIDI_MODULATION,      (uint8_t) MidiProtocol::ControlChange::Modulation);
+        EXPECT_EQ(MIDI_BREATH_CONTROL,  (uint8_t) MidiProtocol::ControlChange::BreathControl);
+        EXPECT_EQ(MIDI_FOOT_PEDAL,      (uint8_t) MidiProtocol::ControlChange::FootPedal);
+        EXPECT_EQ(MIDI_PORTAMENTO,      (uint8_t) MidiProtocol::ControlChange::Portamento);
+        EXPECT_EQ(MIDI_DATA_ENTRY_MSB,  (uint8_t) MidiProtocol::ControlChange::DataEntryMsb);
+        EXPECT_EQ(MIDI_VOLUME,          (uint8_t) MidiProtocol::ControlChange::Volume);
+        EXPECT_EQ(MIDI_BALANCE,         (uint8_t) MidiProtocol::ControlChange::Balance);
+        EXPECT_EQ(MIDI_PAN,             (uint8_t) MidiProtocol::ControlChange::Pan);
+        EXPECT_EQ(MIDI_EXPRESSION,      (uint8_t) MidiProtocol::ControlChange::Expression);
+        EXPECT_EQ(MIDI_DATA_ENTRY_LSB,  (uint8_t) MidiProtocol::ControlChange::DataEntryLsb);
         
         // NRPN and RPN Messages
-        EXPECT_EQ(MIDI_CC_NRPN_DATA_INCREMENT, (uint8_t) MidiProtocol::ControlChange::NrpnDataIncrement);
-        EXPECT_EQ(MIDI_CC_NRPN_DATA_DECREMENT, (uint8_t) MidiProtocol::ControlChange::NrpnDataDecrement);
-        EXPECT_EQ(MIDI_CC_NRPN_LSB,            (uint8_t) MidiProtocol::ControlChange::NrpnLsb);
-        EXPECT_EQ(MIDI_CC_NRPN_MSB,            (uint8_t) MidiProtocol::ControlChange::NrpnMsb);
-        EXPECT_EQ(MIDI_CC_RPN_LSB,             (uint8_t) MidiProtocol::ControlChange::RpnLsb);
-        EXPECT_EQ(MIDI_CC_RPN_MSB,             (uint8_t) MidiProtocol::ControlChange::RpnMsb);
+        EXPECT_EQ(MIDI_NRPN_DATA_INCREMENT, (uint8_t) MidiProtocol::ControlChange::NrpnDataIncrement);
+        EXPECT_EQ(MIDI_NRPN_DATA_DECREMENT, (uint8_t) MidiProtocol::ControlChange::NrpnDataDecrement);
+        EXPECT_EQ(MIDI_NRPN_LSB,            (uint8_t) MidiProtocol::ControlChange::NrpnLsb);
+        EXPECT_EQ(MIDI_NRPN_MSB,            (uint8_t) MidiProtocol::ControlChange::NrpnMsb);
+        EXPECT_EQ(MIDI_RPN_LSB,             (uint8_t) MidiProtocol::ControlChange::RpnLsb);
+        EXPECT_EQ(MIDI_RPN_MSB,             (uint8_t) MidiProtocol::ControlChange::RpnMsb);
 
         //  Channel Mode Commands
-        EXPECT_EQ(MIDI_CM_ALL_SOUND_OFF,           (uint8_t) MidiProtocol::ChannelMode::AllSoundOff);
-        EXPECT_EQ(MIDI_CM_RESET_ALL_CONTROLLERS,   (uint8_t) MidiProtocol::ChannelMode::ResetAllControllers);
-        EXPECT_EQ(MIDI_CM_LOCAL_CONTROL,           (uint8_t) MidiProtocol::ChannelMode::LocalControl);
-        EXPECT_EQ(MIDI_CM_ALL_NOTES_OFF,           (uint8_t) MidiProtocol::ChannelMode::AllNotesOff);
-        EXPECT_EQ(MIDI_CM_OMNI_OFF,                (uint8_t) MidiProtocol::ChannelMode::OmniOff);
-        EXPECT_EQ(MIDI_CM_OMNI_ON,                 (uint8_t) MidiProtocol::ChannelMode::OmniOn);
-        EXPECT_EQ(MIDI_CM_MONO_ON,                 (uint8_t) MidiProtocol::ChannelMode::Mono);
-        EXPECT_EQ(MIDI_CM_POLY_ON,                 (uint8_t) MidiProtocol::ChannelMode::Poly);
-        EXPECT_EQ(MIDI_CM_LOCAL_CONTROL_OFF,       (uint8_t) MidiProtocol::LocalControlStatus::Off);
-        EXPECT_EQ(MIDI_CM_LOCAL_CONTROL_ON,        (uint8_t) MidiProtocol::LocalControlStatus::On);
+        EXPECT_EQ(MIDI_ALL_SOUND_OFF,           (uint8_t) MidiProtocol::ChannelMode::AllSoundOff);
+        EXPECT_EQ(MIDI_RESET_ALL_CONTROLLERS,   (uint8_t) MidiProtocol::ChannelMode::ResetAllControllers);
+        EXPECT_EQ(MIDI_LOCAL_CONTROL,           (uint8_t) MidiProtocol::ChannelMode::LocalControl);
+        EXPECT_EQ(MIDI_ALL_NOTES_OFF,           (uint8_t) MidiProtocol::ChannelMode::AllNotesOff);
+        EXPECT_EQ(MIDI_OMNI_OFF,                (uint8_t) MidiProtocol::ChannelMode::OmniOff);
+        EXPECT_EQ(MIDI_OMNI_ON,                 (uint8_t) MidiProtocol::ChannelMode::OmniOn);
+        EXPECT_EQ(MIDI_MONO_ON,                 (uint8_t) MidiProtocol::ChannelMode::Mono);
+        EXPECT_EQ(MIDI_POLY_ON,                 (uint8_t) MidiProtocol::ChannelMode::Poly);
+        EXPECT_EQ(MIDI_LOCAL_CONTROL_OFF,       (uint8_t) MidiProtocol::LocalControlStatus::Off);
+        EXPECT_EQ(MIDI_LOCAL_CONTROL_ON,        (uint8_t) MidiProtocol::LocalControlStatus::On);
 
         // System Common Commands
         EXPECT_EQ(MIDI_SONG_POSITION_POINTER,   MidiProtocol::SystemCommon::SongPositionPointer);

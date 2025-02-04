@@ -16,11 +16,11 @@
     #endif
 
     #ifdef MIDILAR_MIDI_MESSAGE
-        #include "Message.h"
+        #include "Message/Message.h"
     #endif
 
     #ifdef MIDILAR_MIDI_PROCESSOR
-        #include "Processor.h"
+        #include "Processor/Processor.h"
     #endif
 
 #endif//MIDILAR_MIDI_FOUNDATION_H

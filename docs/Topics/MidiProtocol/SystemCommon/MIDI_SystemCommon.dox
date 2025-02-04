@@ -1,0 +1,57 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_SystemCommon
+ * @brief Messages used for system-wide control and transport synchronization in MIDI communication.
+ * 
+ * System Common Messages include commands like **Song Position Pointer** and **Tuning Request** that affect 
+ * multiple devices in a MIDI network. 
+ *
+ * **Common System Common Messages:**
+ * - **System Exclusive**
+ * - **Song Position Pointer (0xF2)**
+ * - **Song Select (0xF3)**
+ * - **Tuning Request (0xF6)**
+ * @{
+ */
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /** 
+     * @defgroup MIDI_SC_SysEx System Exclussive Messages
+     * @brief System Exclusive Messages
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /** 
+     * @defgroup MIDI_SONG_POSITION_POINTER Song Position Pointer (0xF2)
+     * @brief Song Position Pointer message (0xF2)
+     * 
+     * The Song Position Pointer message specifies a position within a song as a 14-bit value. 
+     * It is used in MIDI clock synchronization to allow devices to continue playback from a 
+     * specific position.
+     * 
+     * - **Data Byte 1**: Least significant 7 bits of the 14-bit position.
+     * - **Data Byte 2**: Most significant 7 bits of the 14-bit position.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /** 
+     * @defgroup MIDI_SONG_SELECT Song Select
+     * @brief Song Select message (0xF3)
+     * 
+     * The Song Select message is used to specify which song or sequence should be played 
+     * on a MIDI device that supports multiple song storage.
+     * 
+     * - **Data Byte 1**: Song number (0-127).
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /** 
+     * @defgroup MIDI_TUNING_REQUEST Tuning Request
+     * @brief Tuning Request message (0xF6)
+     * 
+     * The Tuning Request message instructs analog synthesizers or other MIDI-compatible devices 
+     * to retune their oscillators or pitch-related components.
+     * 
+     * - This message has no additional data bytes.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**@}*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

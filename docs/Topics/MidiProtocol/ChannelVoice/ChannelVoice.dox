@@ -1,0 +1,275 @@
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_ChannelVoice
+ * @brief MIDI messages that control sound generation and performance on individual channels.
+ * 
+ * Channel Voice Messages are the primary MIDI messages used to trigger and manipulate musical notes, 
+ * control instrument parameters, and shape performance dynamics on a per-channel basis. 
+ * These messages are sent on specific MIDI channels (1-16) and directly influence how an instrument 
+ * or synthesizer responds to MIDI input.
+ * 
+ * ### Types of Channel Voice Messages:
+ * - **Note On (0x90-0x9F)**: Starts a note with a specific pitch and velocity.
+ * - **Note Off (0x80-0x8F)**: Stops a note that was previously played.
+ * - **Polyphonic Key Pressure (0xA0-0xAF)**: Applies aftertouch (pressure) per individual note.
+ * - **Control Change (CC) (0xB0-0xBF)**: Modifies various performance parameters (e.g., modulation, sustain).
+ * - **Program Change (0xC0-0xCF)**: Selects different instrument sounds or patches.
+ * - **Channel Pressure (0xD0-0xDF)**: Applies aftertouch (pressure) across an entire channel.
+ * - **Pitch Bend (0xE0-0xEF)**: Adjusts the pitch smoothly for expressive control.
+ * 
+ * ### MIDI Message Structure:
+ * A Channel Voice Message consists of three bytes:
+ * - **Status Byte (0x80-0xEF)**: Identifies the message type and the MIDI channel (0-15).
+ * - **Data Byte 1**: Typically represents note number or controller ID.
+ * - **Data Byte 2**: Represents velocity, value, or pitch bend amount.
+ * 
+ * ### Use Cases:
+ * - **Playing Notes**: Note On and Note Off messages trigger and stop sounds.
+ * - **Shaping Sound**: Control Change (CC) messages adjust parameters like volume, modulation, and effects.
+ * - **Expressive Performance**: Aftertouch, Pitch Bend, and Program Change allow dynamic expression.
+ * - **Synthesizer Control**: Adjust filters, envelopes, and other sound properties in real-time.
+ * 
+ * @note Channel Voice Messages are always associated with a specific MIDI channel (0-15), 
+ *       allowing multi-timbral control of different instruments.
+ * 
+ * @see ControlChange, ProgramChange, MIDI_CV_NoteMessages, PitchBend
+ * @{
+ */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CV_NoteMessages Note Messages
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CV_AfterTouch After Touch
+     * @brief (0xA0) - Represents the After Touch (Polyphonic Key Pressure) MIDI message.
+     * 
+     * The After Touch message (status byte: 0xA0) is sent to communicate the pressure being 
+     * applied to an individual key after it has been initially pressed. Unlike Channel After Touch, 
+     * which applies to the entire channel, this message provides precise control over individual keys, 
+     * allowing for greater expressiveness in musical performances.
+     * 
+     * ### Message Structure
+     * An After Touch message consists of three bytes:
+     * - **Status Byte (0xA0-0xAF)**: Indicates an After Touch message. The high nibble (0xA) specifies 
+     *   the message type, while the low nibble (0x0-0xF) encodes the MIDI channel (0-15). For example, 
+     *   0xA0 represents an After Touch message on channel 1, while 0xA9 represents the same on channel 10.
+     * - **Data Byte 1**: Note number (0-127), representing the pitch of the key being pressed.
+     * - **Data Byte 2**: Pressure value (0-127), representing the intensity of the pressure applied.
+     * 
+     * ### Use Cases
+     * - Adding vibrato, filter sweeps, or other modulation effects to specific notes in a melody.
+     * - Enhancing the emotional dynamics of a performance by capturing subtle touch variations.
+     * - Creating expressive performances by mapping pressure to custom effects, such as cutoff frequency or pitch bend.
+     * 
+     * ### Creating After Touch Messages
+     * The `Message` class provides an intuitive way to construct After Touch messages using the `AfterTouch` method.
+     * You can specify the note, pressure value, and target MIDI channel.
+     * 
+     * #### Example:
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Create an After Touch message for note 60 (middle C) with a pressure value of 90 on channel 2.
+     * msg.AfterTouch(60, 90, 2);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * These methods ensure proper construction of After Touch messages, including clamping values for note numbers, 
+     * pressure values, and channel numbers to their valid ranges.
+     * 
+     * ### Summary
+     * After Touch messages are a vital tool for creating expressive and nuanced performances. By allowing dynamic 
+     * pressure-based control of individual keys, they enable musicians to unlock new levels of creativity and realism 
+     * in their MIDI compositions.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+    /**
+     * @defgroup MIDI_CV_ControlChange Control Change
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CV_ProgramChange Program Change
+     * @brief (0xC0) - Program Change message
+     * 
+     * Program Change messages are used to change the instrument or sound being played by a MIDI device. 
+     * These messages are typically associated with selecting patches, presets, or programs on synthesizers 
+     * and other MIDI-compatible instruments.
+     * 
+     * ### Message Structure
+     * A Program Change message consists of two bytes:
+     * - **Status Byte (0xC0-0xCF)**: Indicates a Program Change message. The high nibble (0xC) specifies 
+     *   the message type, while the low nibble (0x0-0xF) encodes the MIDI channel (0-15). For example, 
+     *   0xC0 represents a Program Change message on channel 1, while 0xC9 represents the same on channel 10.
+     * - **Data Byte 1**: Program number (0-127), representing the patch or preset to be selected. No second 
+     *   data byte is required for this message.
+     * 
+     * ### Use Cases
+     * - Switching instruments during a performance, such as changing from a piano to a violin sound.
+     * - Selecting specific patches in a synthesizer or sound module.
+     * - Automating program changes in a MIDI sequence or DAW (Digital Audio Workstation).
+     * 
+     * ### Creating Program Change Messages
+     * The `Message` class provides a simple way to construct Program Change messages using the `ProgramChange` method. 
+     * You can specify the program number and target MIDI channel.
+     * 
+     * #### Example:
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Create a Program Change message to select program 5 on channel 3.
+     * msg.ProgramChange(5, 3);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * These methods ensure proper construction of Program Change messages, including clamping the program number 
+     * and channel number to their valid ranges.
+     * 
+     * ### Summary
+     * Program Change messages are essential for dynamically altering the sound palette of a performance or composition. 
+     * By enabling seamless patch and preset changes, they enhance the versatility and expressiveness of MIDI devices.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup ChannelPressure Channel Pressure (Aftertouch)
+     * @brief (0xD0) - Channel Pressure (Aftertouch) message.
+     * 
+     * The Channel Pressure (Aftertouch) message is used to indicate how much pressure is being applied to the keys 
+     * on a MIDI device. Unlike Polyphonic Aftertouch, which applies to individual notes, Channel Pressure applies 
+     * to the entire MIDI channel. It is commonly used to control effects such as vibrato, volume, or modulation, 
+     * based on the player's pressure intensity.
+     * 
+     * ### Message Structure
+     * A Channel Pressure message consists of two bytes:
+     * - **Status Byte (0xD0 to 0xDF)**: Indicates a Channel Pressure message. The high nibble (0xD) specifies the 
+     *   message type, and the low nibble (0x0 to 0xF) encodes the MIDI channel (0-15).
+     * - **Data Byte 1**: Pressure value (0-127), where:
+     *   - **0**: No pressure is applied.
+     *   - **127**: Maximum pressure is applied.
+     * 
+     * ### Use Cases
+     * - Controlling modulation effects like vibrato or tremolo based on pressure intensity.
+     * - Adding expressiveness to performances by dynamically adjusting parameters such as filter cutoff or volume.
+     * - Enhancing live performances with real-time pressure-based effects.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Channel Pressure message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Channel Pressure message with a pressure value of 100 on channel 2.
+     * msg.ChannelPressure(100, 2);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Channel Pressure message is a versatile tool for adding dynamic, pressure-based control to a performance. By applying 
+     * pressure across an entire MIDI channel, it allows for expressive sound manipulation and enhanced musicality in both 
+     * live and studio environments.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup PitchBend Pitch Bend
+     * @brief (0xE0) - Pitch Bend Change message.
+     * 
+     * The Pitch Bend Change message is used to bend the pitch of a note up or down with high precision. It is represented 
+     * by a 14-bit value, allowing for smooth and detailed pitch changes. This message is widely used for vibrato, portamento, 
+     * and other expressive pitch-based effects in musical performances.
+     * 
+     * ### Message Structure
+     * A Pitch Bend Change message consists of three bytes:
+     * - **Status Byte (0xE0 to 0xEF)**: Indicates a Pitch Bend Change message. The high nibble (0xE) specifies the message type, 
+     *   and the low nibble (0x0 to 0xF) encodes the MIDI channel (0-15).
+     * - **Data Byte 1**: The least significant 7 bits (LSB) of the pitch bend value (0-127).
+     * - **Data Byte 2**: The most significant 7 bits (MSB) of the pitch bend value (0-127).
+     * 
+     * The combined 14-bit value ranges from **0** (maximum downward bend) to **8192** (center, no pitch change) to **16383** (maximum upward bend).
+     * 
+     * ### Use Cases
+     * - Adding vibrato effects to a note by oscillating the pitch bend value around the center position.
+     * - Performing smooth pitch glides or portamento between notes.
+     * - Simulating natural pitch variations, such as bends on string or wind instruments.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Pitch Bend Change message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * // Declare variables for various types of pitch bend inputs.
+     * uint8_t  bendA = 0;    // Unsigned 8-bit pitch bend value (scaled internally).
+     * uint16_t bendB = 8192; // Unsigned 16-bit pitch bend value (center position by default).
+     * int8_t   bendC = 0;    // Signed 8-bit pitch bend value (scaled to the -64 to 63 range).
+     * int16_t  bendD = 0;    // Signed 16-bit pitch bend value (scaled to the -8192 to 8191 range).
+     * 
+     * Message msg;
+     * 
+     * // Example 1: Send a Pitch Bend message with no pitch change (center position) on channel 1.
+     * msg.PitchBend(bendA, 1); // Using an 8-bit unsigned value.
+     * msg.PitchBend(bendB, 1); // Using a 16-bit unsigned value.
+     * msg.PitchBend(bendC, 1); // Using an 8-bit signed value.
+     * msg.PitchBend(bendD, 1); // Using a 16-bit signed value.
+     * 
+     * // Example 2: Send a Pitch Bend message with minimum pitch values.
+     * bendA = 0;              // Minimum value for 8-bit unsigned (0).
+     * bendB = 0;              // Minimum value for 16-bit unsigned (0).
+     * bendC = INT8_MIN;       // Minimum value for 8-bit signed (-128).
+     * bendD = INT16_MIN;      // Minimum value for 16-bit signed (-32768, scaled internally to -8192).
+     * msg.PitchBend(bendA, 2); // On channel 2.
+     * msg.PitchBend(bendB, 2);
+     * msg.PitchBend(bendC, 2);
+     * msg.PitchBend(bendD, 2);
+     * 
+     * // Example 3: Send a Pitch Bend message with maximum pitch values.
+     * bendA = UINT8_MAX;      // Maximum value for 8-bit unsigned (255, scaled internally).
+     * bendB = UINT16_MAX;     // Maximum value for 16-bit unsigned (65535, scaled internally to 16383).
+     * bendC = INT8_MAX;       // Maximum value for 8-bit signed (127).
+     * bendD = INT16_MAX;      // Maximum value for 16-bit signed (32767, scaled internally to 8191).
+     * msg.PitchBend(bendA, 3); // On channel 3.
+     * msg.PitchBend(bendB, 3);
+     * msg.PitchBend(bendC, 3);
+     * msg.PitchBend(bendD, 3);
+     * 
+     * // Example 4: Send specific values for expressive control.
+     * msg.PitchBend(16383, 4); // Maximum upward bend (14-bit value) on channel 4.
+     * msg.PitchBend(0, 5);     // Maximum downward bend (14-bit value) on channel 5.
+     * msg.PitchBend(8192, 6);  // Center position (14-bit value) on channel 6 (no pitch change).
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Pitch Bend Change message provides precise, real-time control over pitch adjustments, enabling expressive and dynamic 
+     * performances. Its 14-bit resolution ensures smooth pitch transitions, making it a valuable tool for musicians and producers 
+     * working with MIDI-based instruments and effects.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**@}*/ // End of ChannelVoice subgroup
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

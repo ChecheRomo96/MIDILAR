@@ -10,10 +10,10 @@
     #endif
 
     /**
-     * @namespace MIDILAR::MidiFoundation::Protocol::SystemCommon::MTC
+     * @namespace MIDILAR::MidiFoundation::Protocol::MTC
      * @brief Namespace for MIDI Time Code (MTC) protocol-related definitions and utilities.
      */
-    namespace MIDILAR::MidiFoundation::Protocol::SystemCommon::MTC {
+    namespace MIDILAR::MidiFoundation::Protocol::MTC {
 
         /**
          * @ingroup MTC_QuarterFrame
@@ -64,7 +64,7 @@
         };
 
         /**
-         * @ingroup MTC
+         * @ingroup MIDI_MTC
          * @class SongPosition
          * @brief Manages and manipulates song position data for MIDI Time Code (MTC).
          */
@@ -156,14 +156,14 @@
                 void IncrementFrame();
         };
 
-    } // namespace MIDILAR::MidiFoundation::Protocol::SystemCommon::MTC
+    } // namespace MIDILAR::MidiFoundation::Protocol::MTC
 
     /** 
-     * @brief Alias for `MIDILAR::MidiFoundation::Protocol::SystemCommon::MTC`.
+     * @brief Alias for `MIDILAR::MidiFoundation::Protocol::MTC`.
      * 
-     * All functionality is defined in the `MIDILAR::MidiFoundation::Protocol::SystemCommon::MTC` namespace.
+     * All functionality is defined in the `MIDILAR::MidiFoundation::Protocol::MTC` namespace.
      */
-    namespace MidiProtocol_MTC = MIDILAR::MidiFoundation::Protocol::SystemCommon::MTC;
+    namespace MidiProtocol_MTC = MIDILAR::MidiFoundation::Protocol::MTC;
     
 
 #endif // MIDILAR_MIDI_FOUNDATION_PROTOCOL_ENUMS_MTC_H

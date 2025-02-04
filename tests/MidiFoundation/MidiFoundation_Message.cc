@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <MidiFoundation/Message.h>
+#include <MidiFoundation/Message/Message.h>
 #include <MidiFoundation/Protocol/Defines.h>
 #include <MidiFoundation/Protocol/Enums.h>
 #include <vector>
@@ -573,7 +573,7 @@ namespace MIDILAR::MidiFoundation {
                 // Iterate through all possible uint8_t channel values
                 for (uint8_t channel = 0; channel < 255; ++channel) {
                     // Call the SetAllSoundOff API
-                    msg.SetAllSoundOff(channel);
+                    msg.CC_AllSoundOff(channel);
 
                     // Clamp the channel to the valid MIDI range [0, 15]
                     uint8_t expectedChannel = (channel > 15) ? 15 : channel;
@@ -581,7 +581,7 @@ namespace MIDILAR::MidiFoundation {
                     // Verify the message structure
                     EXPECT_EQ(msg.size(), 3); // All Sound Off messages are always 3 bytes
                     EXPECT_EQ(msg.Data(0), MIDI_CONTROL_CHANGE + expectedChannel); // Control Change + Clamped Channel
-                    EXPECT_EQ(msg.Data(1), MIDI_CM_ALL_SOUND_OFF);                    // All Sound Off Control Number
+                    EXPECT_EQ(msg.Data(1), MIDI_ALL_SOUND_OFF);                    // All Sound Off Control Number
                     EXPECT_EQ(msg.Data(2), 0);                                     // All Sound Off messages always have a value of 0
                 }
             }
@@ -595,7 +595,7 @@ namespace MIDILAR::MidiFoundation {
                 // Iterate through all possible uint8_t channel values
                 for (uint8_t channel = 0; channel < 255; ++channel) {
                     // Call the SetAllNotesOff API
-                    msg.SetAllNotesOff(channel);
+                    msg.CC_AllNotesOff(channel);
 
                     // Clamp the channel to the valid MIDI range [0, 15]
                     uint8_t expectedChannel = (channel > 15) ? 15 : channel;
@@ -603,7 +603,7 @@ namespace MIDILAR::MidiFoundation {
                     // Verify the message structure
                     EXPECT_EQ(msg.size(), 3); // All Notes Off messages are always 3 bytes
                     EXPECT_EQ(msg.Data(0), MIDI_CONTROL_CHANGE + expectedChannel); // Control Change + Clamped Channel
-                    EXPECT_EQ(msg.Data(1), MIDI_CM_ALL_NOTES_OFF);                    // All Sound Off Control Number
+                    EXPECT_EQ(msg.Data(1), MIDI_ALL_NOTES_OFF);                    // All Sound Off Control Number
                     EXPECT_EQ(msg.Data(2), 0);                                     // All Sound Off messages always have a value of 0
                 }
 
@@ -623,37 +623,37 @@ namespace MIDILAR::MidiFoundation {
                     auto validateMessage = [&](uint8_t expectedMode) {
                         EXPECT_EQ(msg.size(), 3);
                         EXPECT_EQ(msg.Data(0), MIDI_CONTROL_CHANGE + expectedChannel); // ControlChange + Clamped Channel
-                        EXPECT_EQ(msg.Data(1), MIDI_CM_LOCAL_CONTROL);                    // Local Control
+                        EXPECT_EQ(msg.Data(1), MIDI_LOCAL_CONTROL);                    // Local Control
                         EXPECT_EQ(msg.Data(2), expectedMode);                          // Mode (On/Off)
                     };
 
                     // Test LocalControlStatus::On/Off
-                    msg.SetLocalControl(MidiProtocol::LocalControlStatus::On, channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_ON);
+                    msg.CC_LocalControl(MidiProtocol::LocalControlStatus::On, channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_ON);
 
-                    msg.SetLocalControl(MidiProtocol::LocalControlStatus::Off, channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_OFF);
+                    msg.CC_LocalControl(MidiProtocol::LocalControlStatus::Off, channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_OFF);
 
                     // Test uint8_t Mode
-                    msg.SetLocalControl(static_cast<uint8_t>(MIDI_CM_LOCAL_CONTROL_ON), channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_ON);
+                    msg.CC_LocalControl(static_cast<uint8_t>(MIDI_LOCAL_CONTROL_ON), channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_ON);
 
-                    msg.SetLocalControl(static_cast<uint8_t>(MIDI_CM_LOCAL_CONTROL_OFF), channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_OFF);
+                    msg.CC_LocalControl(static_cast<uint8_t>(MIDI_LOCAL_CONTROL_OFF), channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_OFF);
 
                     // Test bool Mode
-                    msg.SetLocalControl(true, channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_ON);
+                    msg.CC_LocalControl(true, channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_ON);
 
-                    msg.SetLocalControl(false, channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_OFF);
+                    msg.CC_LocalControl(false, channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_OFF);
 
-                    // Test direct SetLocalControlOn/Off
-                    msg.SetLocalControlOn(channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_ON);
+                    // Test direct CC_LocalControlOn/Off
+                    msg.CC_LocalControlOn(channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_ON);
 
-                    msg.SetLocalControlOff(channel);
-                    validateMessage(MIDI_CM_LOCAL_CONTROL_OFF);
+                    msg.CC_LocalControlOff(channel);
+                    validateMessage(MIDI_LOCAL_CONTROL_OFF);
 
                     ++channel;
                 } while (channel != 0); // Loop through all uint8_t values, including 255.
@@ -678,32 +678,32 @@ namespace MIDILAR::MidiFoundation {
                     };
 
                     // Test MidiProtocol::ChannelMode::OmniOn/OmniOff
-                    msg.SetOmniMode(MidiProtocol::ChannelMode::OmniOn, channel);
-                    validateMessage(MIDI_CM_OMNI_ON);
+                    msg.CC_OmniMode(MidiProtocol::ChannelMode::OmniOn, channel);
+                    validateMessage(MIDI_OMNI_ON);
 
-                    msg.SetOmniMode(MidiProtocol::ChannelMode::OmniOff, channel);
-                    validateMessage(MIDI_CM_OMNI_OFF);
+                    msg.CC_OmniMode(MidiProtocol::ChannelMode::OmniOff, channel);
+                    validateMessage(MIDI_OMNI_OFF);
 
                     // Test bool Mode
-                    msg.SetOmniMode(true, channel);
-                    validateMessage(MIDI_CM_OMNI_ON);
+                    msg.CC_OmniMode(true, channel);
+                    validateMessage(MIDI_OMNI_ON);
 
-                    msg.SetOmniMode(false, channel);
-                    validateMessage(MIDI_CM_OMNI_OFF);
+                    msg.CC_OmniMode(false, channel);
+                    validateMessage(MIDI_OMNI_OFF);
                     
                     // Test uint8_t Mode
-                    msg.SetOmniMode(static_cast<uint8_t>(MIDI_CM_OMNI_ON), channel);
-                    validateMessage(MIDI_CM_OMNI_ON);
+                    msg.CC_OmniMode(static_cast<uint8_t>(MIDI_OMNI_ON), channel);
+                    validateMessage(MIDI_OMNI_ON);
 
-                    msg.SetOmniMode(static_cast<uint8_t>(MIDI_CM_OMNI_OFF), channel);
-                    validateMessage(MIDI_CM_OMNI_OFF);
+                    msg.CC_OmniMode(static_cast<uint8_t>(MIDI_OMNI_OFF), channel);
+                    validateMessage(MIDI_OMNI_OFF);
 
-                    // Test direct SetOmniOn/SetOmniOff
-                    msg.SetOmniOn(channel);
-                    validateMessage(MIDI_CM_OMNI_ON);
+                    // Test direct CC_OmniOn/CC_OmniOff
+                    msg.CC_OmniOn(channel);
+                    validateMessage(MIDI_OMNI_ON);
 
-                    msg.SetOmniOff(channel);
-                    validateMessage(MIDI_CM_OMNI_OFF);
+                    msg.CC_OmniOff(channel);
+                    validateMessage(MIDI_OMNI_OFF);
 
                     ++channel;
                 } while (channel != 0); // Loop through all uint8_t values, including 255.
@@ -728,32 +728,32 @@ namespace MIDILAR::MidiFoundation {
                     };
 
                     // Test MidiProtocol::ChannelMode::Mono/Poly
-                    msg.SetPolyphony(MidiProtocol::ChannelMode::Mono, channel);
-                    validateMessage(MIDI_CM_MONO_ON);
+                    msg.CC_Polyphony(MidiProtocol::ChannelMode::Mono, channel);
+                    validateMessage(MIDI_MONO_ON);
 
-                    msg.SetPolyphony(MidiProtocol::ChannelMode::Poly, channel);
-                    validateMessage(MIDI_CM_POLY_ON);
+                    msg.CC_Polyphony(MidiProtocol::ChannelMode::Poly, channel);
+                    validateMessage(MIDI_POLY_ON);
 
                     // Test bool Mode
-                    msg.SetPolyphony(false, channel);
-                    validateMessage(MIDI_CM_MONO_ON);
+                    msg.CC_Polyphony(false, channel);
+                    validateMessage(MIDI_MONO_ON);
 
-                    msg.SetPolyphony(true, channel);
-                    validateMessage(MIDI_CM_POLY_ON);
+                    msg.CC_Polyphony(true, channel);
+                    validateMessage(MIDI_POLY_ON);
 
                     // Test uint8_t Mode
-                    msg.SetPolyphony(static_cast<uint8_t>(MIDI_CM_MONO_ON), channel);
-                    validateMessage(MIDI_CM_MONO_ON);
+                    msg.CC_Polyphony(static_cast<uint8_t>(MIDI_MONO_ON), channel);
+                    validateMessage(MIDI_MONO_ON);
 
-                    msg.SetPolyphony(static_cast<uint8_t>(MIDI_CM_POLY_ON), channel);
-                    validateMessage(MIDI_CM_POLY_ON);
+                    msg.CC_Polyphony(static_cast<uint8_t>(MIDI_POLY_ON), channel);
+                    validateMessage(MIDI_POLY_ON);
 
                     // Test direct SetMono/SetPoly
-                    msg.SetMono(channel);
-                    validateMessage(MIDI_CM_MONO_ON);
+                    msg.CC_Mono(channel);
+                    validateMessage(MIDI_MONO_ON);
 
-                    msg.SetPoly(channel);
-                    validateMessage(MIDI_CM_POLY_ON);
+                    msg.CC_Poly(channel);
+                    validateMessage(MIDI_POLY_ON);
 
                     ++channel;
                 } while (channel != 0); // Loop through all uint8_t values, including 255.
@@ -767,5 +767,6 @@ namespace MIDILAR::MidiFoundation {
 
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     }  // namespace
 }  // namespace MIDILAR::MidiFoundation

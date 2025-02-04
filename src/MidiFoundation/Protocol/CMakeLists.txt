@@ -12,12 +12,16 @@
     #
     ##################################################################################################
     # Append Headers (local to this subdirectory)
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Defines.h")
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Defines_ChannelVoice.h")
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Defines_ControlChange.h")
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Defines_ChannelMode.h")
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Defines_MTC.h")
-        list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Defines_MSC.h")
+        list(APPEND MIDILAR_HEADERS_LOCAL 
+            "${CMAKE_CURRENT_LIST_DIR}/Defines.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Defines_ChannelVoice.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Defines_ControlChange.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Defines_SystemCommon.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Defines_SystemExclusive.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Defines_RealTime.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Defines_MTC.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Defines_MSC.h"
+        )
     #
     ##################################################################################################
 #
@@ -25,10 +29,14 @@
 # Conditional File Inclusion
 
     if(${MIDILAR_PROTOCOL_ENUMS})
-    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Enums.h")
-    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Enums_MTC.h")
+        list(APPEND MIDILAR_HEADERS_LOCAL 
+            "${CMAKE_CURRENT_LIST_DIR}/Enums.h"
+            "${CMAKE_CURRENT_LIST_DIR}/Enums_MTC.h"
+        )
 
-    list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Enums_MTC.cpp")
+        list(APPEND MIDILAR_SOURCES_LOCAL 
+            "${CMAKE_CURRENT_LIST_DIR}/Enums_MTC.cpp"
+        )
     endif()
 #
 ######################################################################################################

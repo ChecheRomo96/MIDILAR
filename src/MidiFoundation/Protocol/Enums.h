@@ -18,39 +18,39 @@
         };
 
         enum class ControlChange : uint8_t {
-            BankSelect             = MIDI_CC_BANK_SELECT,            // 0x00
-            Modulation             = MIDI_CC_MODULATION,             // 0x01
-            BreathControl          = MIDI_CC_BREATH_CONTROL,         // 0x02
-            FootPedal              = MIDI_CC_FOOT_PEDAL,             // 0x04
-            Portamento             = MIDI_CC_PORTAMENTO,             // 0x05
-            DataEntryMsb           = MIDI_CC_DATA_ENTRY_MSB,         // 0x06
-            Volume                 = MIDI_CC_VOLUME,                 // 0x07
-            Balance                = MIDI_CC_BALANCE,                // 0x08
-            Pan                    = MIDI_CC_PAN,                    // 0x0A
-            Expression             = MIDI_CC_EXPRESSION,             // 0x0B
-            DataEntryLsb           = MIDI_CC_DATA_ENTRY_LSB,         // 0x26
-            NrpnDataIncrement      = MIDI_CC_NRPN_DATA_INCREMENT,    // 0x60
-            NrpnDataDecrement      = MIDI_CC_NRPN_DATA_DECREMENT,    // 0x61
-            NrpnLsb                = MIDI_CC_NRPN_LSB,               // 0x62
-            NrpnMsb                = MIDI_CC_NRPN_MSB,               // 0x63
-            RpnLsb                 = MIDI_CC_RPN_LSB,                // 0x64
-            RpnMsb                 = MIDI_CC_RPN_MSB                 // 0x65
+            BankSelect             = MIDI_BANK_SELECT,            // 0x00
+            Modulation             = MIDI_MODULATION,             // 0x01
+            BreathControl          = MIDI_BREATH_CONTROL,         // 0x02
+            FootPedal              = MIDI_FOOT_PEDAL,             // 0x04
+            Portamento             = MIDI_PORTAMENTO,             // 0x05
+            DataEntryMsb           = MIDI_DATA_ENTRY_MSB,         // 0x06
+            Volume                 = MIDI_VOLUME,                 // 0x07
+            Balance                = MIDI_BALANCE,                // 0x08
+            Pan                    = MIDI_PAN,                    // 0x0A
+            Expression             = MIDI_EXPRESSION,             // 0x0B
+            DataEntryLsb           = MIDI_DATA_ENTRY_LSB,         // 0x26
+            NrpnDataIncrement      = MIDI_NRPN_DATA_INCREMENT,    // 0x60
+            NrpnDataDecrement      = MIDI_NRPN_DATA_DECREMENT,    // 0x61
+            NrpnLsb                = MIDI_NRPN_LSB,               // 0x62
+            NrpnMsb                = MIDI_NRPN_MSB,               // 0x63
+            RpnLsb                 = MIDI_RPN_LSB,                // 0x64
+            RpnMsb                 = MIDI_RPN_MSB                 // 0x65
         };
 
         enum class ChannelMode : uint8_t {
-            AllSoundOff            = MIDI_CM_ALL_SOUND_OFF,          // 0x78
-            ResetAllControllers    = MIDI_CM_RESET_ALL_CONTROLLERS,  // 0x79
-            LocalControl           = MIDI_CM_LOCAL_CONTROL,          // 0x7A
-            AllNotesOff            = MIDI_CM_ALL_NOTES_OFF,          // 0x7B
-            OmniOff                = MIDI_CM_OMNI_OFF,               // 0x7C
-            OmniOn                 = MIDI_CM_OMNI_ON,                // 0x7D
-            Mono                   = MIDI_CM_MONO_ON,                // 0x7E
-            Poly                   = MIDI_CM_POLY_ON,                // 0x7F
+            AllSoundOff            = MIDI_ALL_SOUND_OFF,          // 0x78
+            ResetAllControllers    = MIDI_RESET_ALL_CONTROLLERS,  // 0x79
+            LocalControl           = MIDI_LOCAL_CONTROL,          // 0x7A
+            AllNotesOff            = MIDI_ALL_NOTES_OFF,          // 0x7B
+            OmniOff                = MIDI_OMNI_OFF,               // 0x7C
+            OmniOn                 = MIDI_OMNI_ON,                // 0x7D
+            Mono                   = MIDI_MONO_ON,                // 0x7E
+            Poly                   = MIDI_POLY_ON,                // 0x7F
         };
 
         enum class LocalControlStatus : uint8_t{
-            Off        = MIDI_CM_LOCAL_CONTROL_OFF,      // 0x00
-            On         = MIDI_CM_LOCAL_CONTROL_ON        // 0x7F
+            Off        = MIDI_LOCAL_CONTROL_OFF,      // 0x00
+            On         = MIDI_LOCAL_CONTROL_ON        // 0x7F
         };
 
         namespace SystemCommon{

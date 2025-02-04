@@ -45,9 +45,10 @@
 
   <!-- Layout definition for a class page -->
   <class>
-    <briefdescription visible="yes"/>
-    <includes visible="$SHOW_HEADERFILE"/>
     <inheritancegraph visible="yes"/>
+    <detaileddescription title=""/>
+    <briefdescription visible="no"/>
+    <includes visible="$SHOW_HEADERFILE"/>
     <collaborationgraph visible="yes"/>
     <memberdecl>
       <nestedclasses visible="yes" title=""/>
