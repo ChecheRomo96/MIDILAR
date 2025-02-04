@@ -2,58 +2,132 @@
 
 namespace MIDILAR::SystemFoundation {
 
-    // Default Constructor
-    Clock::Clock()
-        : _callback(nullptr), _currentTime(0), _clockFrequency(Timebase::Seconds) {}
+    /**
+     * @brief Default Constructor
+     * Initializes the Clock with no callback, a default time of 0, and a timebase of seconds.
+     */
+    Clock::Clock() : _currentTime(0), _clockFrequency(Timebase::Seconds), _clockPoll(), _clockSetup() {}
 
-    // Parameterized Constructor
-    Clock::Clock(HardwareCallback hc, float freq)
-        : _callback(hc), _currentTime(0), _clockFrequency(static_cast<Timebase>(freq)) {}
+    /**
+     * @brief Parameterized Constructor
+     * Initializes the Clock with a hardware callback and specified frequency.
+     * @param hc Pointer to the hardware callback function.
+     * @param freq The frequency of the clock in Hz.
+     */
+    Clock::Clock(ClockCallback::CallbackType hc, float freq) : Clock() {
+        // Initialize the callback handler for clock polling
+        _clockPoll.bind(hc);
 
-    // Link a hardware API function
-    void Clock::bindCallback(HardwareCallback hc) {
-        _callback = hc;
+        // Optionally, set the frequency (assuming freq is in Hz and you want to convert it)
+        _clockFrequency = static_cast<Timebase>(freq);
     }
 
-    // Unlink the hardware API
-    void Clock::unbindCallback() {
-        _callback = nullptr;
+    /**
+     * @brief Links a hardware API function to the Clock.
+     * @param hc Pointer to the hardware callback function.
+     */
+    void Clock::bindClock(ClockCallback::CallbackType hc) {
+        _clockPoll.bind(hc);
     }
 
-    // Check if the hardware API is linked
-    bool Clock::callbackStatus() const {
-        return _callback != nullptr;
+    /**
+     * @brief Unlinks the hardware API function from the Clock.
+     */
+    void Clock::unbindClock() {
+        _clockPoll.unbind();
     }
 
-    // Set the clock's timebase (frequency)
-    void Clock::setFrequency(Timebase Frequency) {
-        if (Frequency == 1.0f)
-            _clockFrequency = Timebase::Seconds;
-        else if (Frequency == 1000.0f)
-            _clockFrequency = Timebase::Milliseconds;
-        else if (Frequency == 1000000.0f)
-            _clockFrequency = Timebase::Microseconds;
-        else if (Frequency == 1000000000.0f)
-            _clockFrequency = Timebase::Nanoseconds;
-        else
-            _clockFrequency = Timebase::Seconds; // Default to Seconds if invalid frequency is provided
+    /**
+     * @brief Checks if a hardware API function is linked to the Clock.
+     * @return True if a callback is linked; false otherwise.
+     */
+    bool Clock::clockStatus() const {
+        return _clockPoll.status();
     }
 
-    // Get the current timebase (frequency)
+    /**
+     * @brief Binds a setup callback to adjust the hardware timebase.
+     * @param sc Pointer to the setup callback function.
+     */
+    void Clock::bindSetup(SetupCallback::CallbackType sc) {
+        _clockSetup.bind(sc);
+    }
+
+    /**
+     * @brief Unbinds the setup callback from the clock.
+     */
+    void Clock::unbindSetup() {
+        _clockSetup.unbind();
+    }
+    
+    /**
+     * @brief Checks if a hardware API function is linked to the Clock.
+     * @return True if a callback is linked; false otherwise.
+     */
+    bool Clock::setupStatus() const {
+        return _clockSetup.status();
+    }
+
+    /**
+     * @brief Sets the clock's timebase (frequency).
+     * @param Frequency The timebase to set (Seconds, Milliseconds, etc.).
+     * Defaults to Seconds if an invalid frequency is provided.
+     */
+    void Clock::setFrequency(Timebase frequency) {
+        switch (frequency) {
+            case Timebase::Seconds:
+            case Timebase::Milliseconds:
+            case Timebase::Microseconds:
+            case Timebase::Nanoseconds:
+                _clockFrequency = frequency;
+                break;
+            default:
+                _clockFrequency = Timebase::Seconds; // Default to Seconds if invalid
+                break;
+        }
+    }
+
+    /**
+     * @brief Retrieves the current clock timebase (frequency).
+     * @return The current timebase of the clock.
+     */
     Clock::Timebase Clock::getFrequency() const {
-        return static_cast<Timebase>(_clockFrequency);
+        return _clockFrequency;
     }
 
-    // Refresh the current clock time
+    /**
+     * @brief Sets the clock period using the setup callback.
+     * Updates the internal clock's period and reconfigures the hardware if applicable.
+     * @param period The new period for the clock in nanoseconds.
+     */
+    void Clock::setPeriod(float Period) {
+        if (Period > 0) {
+            // Convert period to frequency and update Timebase
+            _clockFrequency = static_cast<Timebase>(1.0f / Period);
+            if (_clockSetup.status()) {
+                _clockSetup.invoke(_clockFrequency); // Call hardware setup if bound
+            }
+        }
+    }
+  
+    /**
+     * @brief Refreshes the current clock time using the hardware callback.
+     * If no callback is linked, the time remains unchanged.
+     * @return The updated current time.
+     */
     Clock::TimePoint Clock::refresh() {
-        if (_callback) {
-            _currentTime = _callback();
+        if (_clockPoll.status()) {
+            _currentTime = _clockPoll.invoke(); // Assuming callback accepts null as argument
         }
         return _currentTime;
     }
 
-    // Get the current clock time
+    /**
+     * @brief Retrieves the current clock time.
+     * @return The last updated time from the clock.
+     */
     Clock::TimePoint Clock::getTime() const {
         return _currentTime;
     }
-}
+
+} // namespace MIDILAR::SystemFoundation

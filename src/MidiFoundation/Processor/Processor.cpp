@@ -1,54 +1,54 @@
-#include "MidiProcessor.h"
+#include "Processor.h"
 
-namespace MIDILAR {
+namespace MIDILAR::MidiFoundation {
 
-    void MidiProcessor::MidiOutApiLink(MidiOutEventType MidiOutHandler) {
+    void Processor::MidiOutApiLink(MidiOutEventType MidiOutHandler) {
         _MidiOutHandler = MidiOutHandler;
     }
 
-    bool MidiProcessor::MidiOutApiStatus() const {
+    bool Processor::MidiOutApiStatus() const {
         return _MidiOutHandler != nullptr;
     }
 
-    bool MidiProcessor::HasCapability(Capabilities capability) const {
+    bool Processor::HasCapability(Capabilities capability) const {
         return (_capabilities & static_cast<uint32_t>(capability)) != 0;
     }
 
-    void MidiProcessor::SetCapabilities(uint32_t capabilities) {
+    void Processor::SetCapabilities(uint32_t capabilities) {
         _capabilities = capabilities;
     }
 
 #if __has_include(<vector>)
-    void MidiProcessor::MidiInput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end) {
+    void Processor::MidiInput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end) {
         // Pass vector data to raw MIDI input handler
         MidiInput(&(*begin), std::distance(begin, end));
     }
 
-    void MidiProcessor::MidiOutput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end) {
+    void Processor::MidiOutput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end) {
         if (_MidiOutHandler) {
             _MidiOutHandler(&(*begin), std::distance(begin, end));
         }
     }
 #endif
 
-    void MidiProcessor::MidiInput(uint8_t* Message, size_t size) {
+    void Processor::MidiInput(uint8_t* Message, size_t size) {
         // Default implementation - derived classes can override
         (void)Message; // Prevent unused parameter warning
         (void)size;    // Prevent unused parameter warning
     }
 
-    void MidiProcessor::MidiOutput(uint8_t* Message, size_t size) {
+    void Processor::MidiOutput(uint8_t* Message, size_t size) {
         if (_MidiOutHandler) {
             _MidiOutHandler(Message, size);
         }
     }
 
-    void MidiProcessor::Update(SystemFoundation::Clock::TimePoint SystemTime) {
+    void Processor::Update(SystemFoundation::Clock::TimePoint SystemTime) {
         // Default implementation - derived classes can override
         (void)SystemTime; // Prevent unused parameter warning
     }
 
-    void MidiProcessor::ClockTick() {
+    void Processor::ClockTick() {
         // Default implementation - derived classes can override
     }
 

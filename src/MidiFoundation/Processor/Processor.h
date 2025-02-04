@@ -9,12 +9,13 @@
         #include <vector>
     #endif
 
-namespace MIDILAR {
+namespace MIDILAR::MidiFoundation {
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * @brief Base class to handle MIDI processing, input, and output.
      * 
-     * The `MidiProcessor` class is designed as a foundational component for implementing MIDI devices or processors.
+     * The `Processor` class is designed as a foundational component for implementing MIDI devices or processors.
      * It encapsulates the functionality required to process incoming MIDI messages, generate outgoing MIDI messages, 
      * and handle clock synchronization for time-based operations. 
      * 
@@ -63,8 +64,10 @@ namespace MIDILAR {
      *    - Use the capability system to enable or disable features like MIDI input, MIDI output, or 
      *      clock synchronization dynamically at runtime.
      */
-    class MidiProcessor {     
+    class Processor {     
     public:
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Type definition for MIDI out event callback.
          * 
@@ -73,86 +76,114 @@ namespace MIDILAR {
          * @param Message Pointer to the MIDI message buffer.
          * @param size Size of the MIDI message buffer.
          */
-        using MidiOutEventType = void (*)(uint8_t* Message, size_t size);
-
+            using MidiOutEventType = void (*)(uint8_t* Message, size_t size);
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Enum class for device capabilities and status.
          * 
          * Describes the functionality supported by a MIDI device.
          */
-        enum class Capabilities : uint32_t {
-            None = 0,                   ///< Empty Capabilities Container
-            MidiIn = 1 << 0,            ///< Indicates the device supports MIDI input.
-            MidiOut = 1 << 1,           ///< Indicates the device supports MIDI output.
-            ExtClock = 1 << 2,          ///< Indicates the device uses an external clock.
-            InternalClock = 1 << 3      ///< Indicates the device uses an internal clock.
-        };
+            enum class Capabilities : uint32_t {
+                None = 0,                   ///< Empty Capabilities Container
+                MidiIn = 1 << 0,            ///< Indicates the device supports MIDI input.
+                MidiOut = 1 << 1,           ///< Indicates the device supports MIDI output.
+                ExtClock = 1 << 2,          ///< Indicates the device uses an external clock.
+                InternalClock = 1 << 3      ///< Indicates the device uses an internal clock.
+            };
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
     protected:
-        MidiOutEventType _MidiOutHandler = nullptr; ///< Callback for MIDI output.
-        uint32_t _capabilities = 0; ///< Bitmask for device capabilities.
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //
+            MidiOutEventType _MidiOutHandler = nullptr; ///< Callback for MIDI output.
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //
+            uint32_t _capabilities = 0; ///< Bitmask for device capabilities.
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
     public:
-        /**
-         * @brief Default constructor for the `MidiProcessor` class.
-         * 
-         * Initializes the `MidiProcessor` with no MIDI output handler and no capabilities.
-         */
-        MidiProcessor() = default;
 
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief Default constructor for the `Processor` class.
+         * 
+         * Initializes the `Processor` with no MIDI output handler and no capabilities.
+         */
+            Processor() = default;
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Links a MIDI output handler API callback.
          * 
          * @param MidiOutHandler The callback function to handle MIDI output events.
          */
-        void MidiOutApiLink(MidiOutEventType MidiOutHandler);
-
+            void MidiOutApiLink(MidiOutEventType MidiOutHandler);
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Checks if the MIDI output API is linked.
          * 
          * @return True if the API is linked, false otherwise.
          */
-        bool MidiOutApiStatus() const;
-
+            bool MidiOutApiStatus() const;
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Checks if a specific capability is supported.
          * 
          * @param capability The capability to check.
          * @return True if the capability is supported, false otherwise.
          */
-        bool HasCapability(Capabilities capability) const;
-
-        #if __has_include(<vector>)
-        /**
-         * @brief Handles incoming MIDI input from a vector.
-         * 
-         * @param begin Iterator pointing to the beginning of the vector.
-         * @param end Iterator pointing to the end of the vector.
-         */
-        void MidiInput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end);
-        #endif
-
+            bool HasCapability(Capabilities capability) const;
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //
+            #if __has_include(<vector>)
+            /**
+             * @brief Handles incoming MIDI input from a vector.
+             * 
+             * @param begin Iterator pointing to the beginning of the vector.
+             * @param end Iterator pointing to the end of the vector.
+             * 
+             * 
+             */
+            void MidiInput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end);
+            #endif
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //
         /**
          * @brief Handles incoming MIDI input from a raw buffer.
          * 
          * @param Message Pointer to the MIDI message buffer.
          * @param size Size of the MIDI message buffer.
          */
-        virtual void MidiInput(uint8_t* Message, size_t size);
-        
+            virtual void MidiInput(uint8_t* Message, size_t size);
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Updates the processor state based on the system clock.
          * 
          * @param SystemTime The current time point from the system clock.
          */
-        virtual void Update(SystemFoundation::Clock::TimePoint SystemTime);
-
+            virtual void Update(SystemFoundation::Clock::TimePoint SystemTime);
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Processes a single clock tick.
          */
-        virtual void ClockTick();
+            virtual void ClockTick();
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
     protected:
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Sets the device capabilities.
          * 
@@ -160,25 +191,34 @@ namespace MIDILAR {
          * 
          * @param capabilities Bitmask of capabilities.
          */
-        void SetCapabilities(uint32_t capabilities);
 
-        #if __has_include(<vector>)
-        /**
-         * @brief Sends MIDI output using a vector.
-         * 
-         * @param begin Iterator pointing to the beginning of the vector.
-         * @param end Iterator pointing to the end of the vector.
-         */
-        void MidiOutput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end);
-        #endif
+            void SetCapabilities(uint32_t capabilities);
 
+            /////////////////////////////////////////////////////////////////////////////////////////
+            //
+                #if __has_include(<vector>)
+                    /**
+                     * @brief Sends MIDI output using a vector.
+                     * 
+                     * @param begin Iterator pointing to the beginning of the vector.
+                     * @param end Iterator pointing to the end of the vector.
+                     */
+                    void MidiOutput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end);
+                #endif
+            //
+            /////////////////////////////////////////////////////////////////////////////////////////
+
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @brief Sends MIDI output using a raw buffer.
          * 
          * @param Message Pointer to the MIDI message buffer.
          * @param size Size of the MIDI message buffer.
          */
-        void MidiOutput(uint8_t* Message, size_t size);
+            void MidiOutput(uint8_t* Message, size_t size);
+        //
+        /////////////////////////////////////////////////////////////////////////////////////////////
     };
 
 } // namespace MIDILAR
