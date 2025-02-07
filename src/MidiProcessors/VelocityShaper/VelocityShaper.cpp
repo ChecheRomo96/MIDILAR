@@ -44,11 +44,12 @@ namespace MIDILAR::MidiProcessors {
      * @brief Callback for MIDI Channel Voice Messages (e.g., Note-On, Note-Off).
      * @param Data MIDI message.
      */
-        void VelocityShaper::_ChannelVoiceCallback(const MidiFoundation::Message& Data) {
+        void VelocityShaper::_ChannelVoiceCallback(const uint8_t* Message, size_t Size) {
+
+            if(Size != 3){ MidiOutput(Message,Size); return; }
             // Only process Note-On and Note-Off
-            if (Data.Type != MidiFoundation::MessageType::NoteOn &&
-                Data.Type != MidiFoundation::MessageType::NoteOff) {
-                _MidiOutput(Data);
+            if (Data[0]&0xF0 != MIDI_NOTE_ON && Data[0]&0xF0 != MIDI_NOTE_OFF) {
+                MidiOutput(Message,Size);
                 return;
             }
 
@@ -58,12 +59,12 @@ namespace MIDILAR::MidiProcessors {
             uint8_t velocity = messageIn[2];
 
             if(velocity == 0){
-                _MidiOutput(Data);
+                MidiOutput(Message,Size);
                 return;
             }
 
             if( !((_InputChannels >> channel) & 0b1) ){
-                _MidiOutput(Data);
+                MidiOutput(Message,Size);
                 return;
             }
 
@@ -81,11 +82,7 @@ namespace MIDILAR::MidiProcessors {
             messageOut[1] = messageIn[1];
             messageOut[2] = shapedVelocity;
 
-            // Forward transformed message
-            MidiFoundation::Message modifiedMsg;
-            modifiedMsg.SetRawData(messageOut,3);
-
-            _MidiOutput(modifiedMsg);  // Send processed message
+            MidiOutput(messageOut, 3);  // Send processed message
         }
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,8 +90,8 @@ namespace MIDILAR::MidiProcessors {
      * @brief Default callback for unprocessed MIDI messages.
      * @param Data MIDI message.
      */
-        void VelocityShaper::_DefaultCallback(const MidiFoundation::Message& Data) {
-            _MidiOutput(Data);  // Forward unprocessed messages
+        void VelocityShaper::_DefaultCallback(const uint8_t* Message, size_t Size) {
+            MidiOutput(Message,Size);  // Forward unprocessed messages
         }
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////

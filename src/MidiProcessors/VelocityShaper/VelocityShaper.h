@@ -21,8 +21,8 @@ namespace MIDILAR::MidiProcessors {
 	        MIDILAR::AudioFoundation::LUT::LogExpLUT<uint8_t, uint8_t> _LUT;
 
 	    private:
-	        void _ChannelVoiceCallback(const MidiFoundation::Message& Data);
-	        void _DefaultCallback(const MidiFoundation::Message& Data);
+	        void _ChannelVoiceCallback(const uint8_t* Message, size_t Size);
+	        void _DefaultCallback(const uint8_t* Message, size_t Size);
 
 	    public:
 
