@@ -71,7 +71,7 @@ namespace MIDILAR::MidiProcessors {
             uint8_t shapedVelocity = _LUT.GetValue(velocity);
 
             // Note-On message with velocity 0 is interpreted as Note-Off in MIDI
-            if (shapedVelocity == 0 && Data.Type == MidiFoundation::MessageType::NoteOn) {
+            if (shapedVelocity == 0 && Message[0]&0xF0 == MIDI_NOTE_ON) {
                 shapedVelocity = 1;
             }
 
