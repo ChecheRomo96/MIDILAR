@@ -35,7 +35,7 @@ namespace MIDILAR::MidiProcessors {
      * @param Message Pointer to the MIDI message buffer.
      * @param Size The size of the incoming message.
      */
-        void VelocityShaper::MidiInput(const uint8_t* Message, size_t Size) override{
+        void VelocityShaper::MidiInput(const uint8_t* Message, size_t Size){
             _MessageParser.ProcessData(Message, Size);
         }
     //
@@ -122,7 +122,7 @@ namespace MIDILAR::MidiProcessors {
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-        
+
 
         void VelocityShaper::StaticChannelVoiceCallback(void* context, const uint8_t* Data, size_t Size) {
             if (context) {
