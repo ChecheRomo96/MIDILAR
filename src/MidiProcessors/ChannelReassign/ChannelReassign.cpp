@@ -56,7 +56,7 @@ namespace MIDILAR::MidiProcessors{
 		MidiOutput(Data, Size);
 	}
 
-	void ChannelReassign::MidiInput(const uint8_t* Message, size_t Size) override {
+	void ChannelReassign::MidiInput(const uint8_t* Message, size_t Size) {
 		_MessageParser.ProcessData(Message,Size);
 	}
 
