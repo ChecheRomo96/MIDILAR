@@ -14,8 +14,7 @@ namespace MIDILAR::MidiProcessors{
 			);
 
 	        _MessageParser.BindDefaultCallback(
-			    nullptr,  // We don't need a `CallbackReferenceType` here
-			    static_cast<void*>(this),  // Pass `this` as the instance
+			    this,  // Pass `this` as the instance
 			    &ChannelReassign::StaticDefaultCallback  // Pass static function pointer
 			);
 
