@@ -24,7 +24,7 @@ namespace MIDILAR::MidiProcessors{
 	}
 
 	void ChannelReassign::_ChannelVoiceCallback(const uint8_t* Data, size_t Size) {
-	    if (Data.size() == 3) {  // Only process 3-byte Channel Voice Messages
+	    if (Size == 3) {  // Only process 3-byte Channel Voice Messages
 	        uint8_t channel = Data[0] & 0x0F;  // Extract the MIDI channel number
 
 	        // Check if the input channel is allowed
