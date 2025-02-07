@@ -7,7 +7,7 @@
 #define MIDILAR_LOOK_UP_TABLE_H
 
 #include <MIDILAR_BuildSettings.h>
-#include <cstdlib> // For malloc/free
+#include <stdlib.h> // For malloc/free
 
 namespace MIDILAR::AudioFoundation::LUT {
 
