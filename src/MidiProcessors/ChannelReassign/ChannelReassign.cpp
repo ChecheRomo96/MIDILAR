@@ -5,19 +5,23 @@ namespace MIDILAR::MidiProcessors{
 	ChannelReassign::ChannelReassign()
 		: _MessageParser(3)
 	{
-        SetCapabilities(static_cast<uint32_t>(Capabilities::MidiIn) |
-                        static_cast<uint32_t>(Capabilities::MidiOut));
+	        SetCapabilities(static_cast<uint32_t>(Capabilities::MidiIn) |
+	                        static_cast<uint32_t>(Capabilities::MidiOut));
 
-        _MessageParser.BindChannelVoiceCallback([this](const MidiFoundation::Message& Data) {
-		    this->_ChannelVoiceCallback(Data);
-		});
-		
-        _MessageParser.BindDefaultCallback([this](const MidiFoundation::Message& Data) {
-		    this->_DefaultCallback(Data);
-		});
+	        _MessageParser.BindChannelVoiceCallback(
+			    nullptr,  // We don't need a `CallbackReferenceType` here
+			    this,  // Pass `this` as the instance
+			    &ChannelReassign::StaticChannelVoiceCallback  // Pass static function pointer
+			);
 
-        _InputChannels = 0xFFFF;	// Listen all channels
-        _OutputChannels = 0x0001;	// Output on Channel 1
+	        _MessageParser.BindDefaultCallback(
+			    nullptr,  // We don't need a `CallbackReferenceType` here
+			    this,  // Pass `this` as the instance
+			    &ChannelReassign::StaticDefaultCallback  // Pass static function pointer
+			);
+
+	        _InputChannels = 0xFFFF;	// Listen all channels
+	        _OutputChannels = 0x0001;	// Output on Channel 1
 
 	}
 
@@ -54,7 +58,19 @@ namespace MIDILAR::MidiProcessors{
 		_MidiOutput(Data);
 	}
 
-	void MidiInput(const uint8_t* Message, size_t Size) override {
+	void ChannelReassign::MidiInput(const uint8_t* Message, size_t Size) override {
 		_MessageParser.ProcessData(Message,Size);
+	}
+
+	void ChannelReassign::StaticChannelVoiceCallback(void* context, const MidiFoundation::Message& msg) {
+        if (context) {
+            static_cast<ChannelReassign*>(context)->_ChannelVoiceCallback(msg);
+        }
+	}
+
+	void ChannelReassign::StaticDefaultCallback(void* context, const MidiFoundation::Message& msg) {
+        if (context) {
+            static_cast<ChannelReassign*>(context)->_DefaultCallback(msg);
+        }
 	}
 }

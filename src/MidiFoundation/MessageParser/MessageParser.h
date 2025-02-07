@@ -12,18 +12,47 @@
 	
 		public:
 		
-		    using CallbackType = MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&>::CallbackType;
-		    using CallbackReferenceType = MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&>::CallbackReferenceType;
+		    using CallbackType = MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t>::CallbackType;
+		    using CallbackReferenceType = MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t>::CallbackReferenceType;
 
 		private:
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _channelVoiceCallback;
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _controlChangeCallback;
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _realTimeCallback;
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _systemCommonCallback;
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _sysExCallback;
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _mtcCallback;
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _mscCallback;
-		    MIDILAR::SystemFoundation::CallbackHandler<void, const MidiFoundation::Message&> _defaultCallback;
+			struct CallbackContext {
+			    void* instance;  // Pointer to the instance (could be any class)
+			    void (*invoke)(void*, uint8_t*, size_t);  // Function pointer for invocation
+			};
+
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _channelVoiceCallback;
+			CallbackContext _channelVoiceContext;
+			bool InvokeChannelVoiceCallback(uint8_t* Data, size_t Size);
+
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _controlChangeCallback;
+			CallbackContext _controlChangeContext;
+			bool InvokeControlChangeCallback(uint8_t* Data, size_t Size);
+
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _realTimeCallback;
+			CallbackContext _realTimeContext;
+			bool InvokeRealTimeCallback(uint8_t* Data, size_t Size);
+			
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _systemCommonCallback;
+			CallbackContext _systemCommonContext;
+			bool InvokeSystemCommonCallback(uint8_t* Data, size_t Size);
+			
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _sysExCallback;
+			CallbackContext _sysExContext;
+			bool InvokeSysExCallback(uint8_t* Data, size_t Size);
+			
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _mtcCallback;
+			CallbackContext _mtcContext;
+			bool InvokeMTCCallback(uint8_t* Data, size_t Size);
+			
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _mscCallback;
+			CallbackContext _mscContext;
+			bool InvokeMSCCallback(uint8_t* Data, size_t Size);
+			
+		    MIDILAR::SystemFoundation::CallbackHandler<void, uint8_t*, size_t> _defaultCallback;
+			CallbackContext _defaultContext;
+			bool InvokeDefaultCallback(uint8_t* Data, size_t Size);
+			
 
 
 			enum class Status : uint8_t{
@@ -32,11 +61,11 @@
 				ProcessingSysex = 2
 			};
 
-		    MidiFoundation::Message _message;
 			Status _Status;
 			size_t _MessageSize;
 			uint8_t* _MessageBuffer;
 			size_t _MessageBufferSize;
+
 
 		public:
 		    // **Constructor**
@@ -49,14 +78,14 @@
 			bool ResizeBuffer(size_t NewSize);
 
 		    // **Set Callbacks Using `CallbackHandler`**
-		    void BindChannelVoiceCallback(CallbackReferenceType callback);
-		    void BindControlChangeCallback(CallbackReferenceType callback);
-		    void BindRealTimeCallback(CallbackReferenceType callback);
-		    void BindSystemCommonCallback(CallbackReferenceType callback);
-		    void BindSysExCallback(CallbackReferenceType callback);
-		    void BindMTCCallback(CallbackReferenceType callback);
-		    void BindMSCCallback(CallbackReferenceType callback);
-		    void BindDefaultCallback(CallbackReferenceType callback);
+		    void BindChannelVoiceCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindControlChangeCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindRealTimeCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindSystemCommonCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindSysExCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindMTCCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindMSCCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindDefaultCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
 
 		    // **Unbind Methods**
 		    void UnbindChannelVoiceCallback();

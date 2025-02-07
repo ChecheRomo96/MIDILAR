@@ -44,23 +44,251 @@ namespace MIDILAR::MidiFoundation {
     }
 
     // **Set Callback Handlers**
-    void MessageParser::BindChannelVoiceCallback(CallbackReferenceType callback) { _channelVoiceCallback.bind(callback); }
-    void MessageParser::BindControlChangeCallback(CallbackReferenceType callback) { _controlChangeCallback.bind(callback); }
-    void MessageParser::BindRealTimeCallback(CallbackReferenceType callback) { _realTimeCallback.bind(callback); }
-    void MessageParser::BindSystemCommonCallback(CallbackReferenceType callback) { _systemCommonCallback.bind(callback); }
-    void MessageParser::BindSysExCallback(CallbackReferenceType callback) { _sysExCallback.bind(callback); }
-    void MessageParser::BindMTCCallback(CallbackReferenceType callback) { _mtcCallback.bind(callback); }
-    void MessageParser::BindMSCCallback(CallbackReferenceType callback) { _mscCallback.bind(callback); }
-    void MessageParser::BindDefaultCallback(CallbackReferenceType callback) { _defaultCallback.bind(callback); }
+    void MessageParser::BindChannelVoiceCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _channelVoiceCallback.bind(callback);
+        _channelVoiceContext = {instance, invokeFunc};
+    }
 
-    void MessageParser::UnbindChannelVoiceCallback() { _channelVoiceCallback.unbind(); }
-    void MessageParser::UnbindControlChangeCallback() { _controlChangeCallback.unbind(); }
-    void MessageParser::UnbindRealTimeCallback() { _realTimeCallback.unbind(); }
-    void MessageParser::UnbindSystemCommonCallback() { _systemCommonCallback.unbind(); }
-    void MessageParser::UnbindSysExCallback() { _sysExCallback.unbind(); }
-    void MessageParser::UnbindMTCCallback() { _mtcCallback.unbind(); }
-    void MessageParser::UnbindMSCCallback() { _mscCallback.unbind(); }
-    void MessageParser::UnbindDefaultCallback() { _defaultCallback.unbind(); }
+    // **Unbind Callback**
+    void MessageParser::UnbindChannelVoiceCallback() {
+        _channelVoiceCallback.unbind();
+        _channelVoiceContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeChannelVoiceCallback(uint8_t* msg, size_t size) {
+        if (_channelVoiceCallback.status()) {
+            if (_channelVoiceContext.instance && _channelVoiceContext.invoke) {
+                _channelVoiceContext.invoke(_channelVoiceContext.instance, msg, size);
+            } else {
+                _channelVoiceCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // **Set Callback Handlers**
+    void MessageParser::BindControlChangeCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _controlChangeCallback.bind(callback);
+        _controlChangeContext = {instance, invokeFunc};
+    }
+
+    // **Unbind Callback**
+    void MessageParser::UnbindControlChangeCallback() {
+        _controlChangeCallback.unbind();
+        _controlChangeContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeControlChangeCallback(uint8_t* msg, size_t size) {
+        if (_controlChangeCallback.status()) {
+            if (_controlChangeContext.instance && _controlChangeContext.invoke) {
+                _controlChangeContext.invoke(_controlChangeContext.instance, msg, size);
+            } else {
+                _controlChangeCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // **Set Callback Handlers**
+    void MessageParser::BindRealTimeCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _realTimeCallback.bind(callback);
+        _realTimeContext = {instance, invokeFunc};
+    }
+
+    // **Unbind Callback**
+    void MessageParser::UnbindRealTimeCallback() {
+        _realTimeCallback.unbind();
+        _realTimeContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeRealTimeCallback(uint8_t* msg, size_t size) {
+        if (_realTimeCallback.status()) {
+            if (_realTimeContext.instance && _realTimeContext.invoke) {
+                _realTimeContext.invoke(_realTimeContext.instance, msg, size);
+            } else {
+                _realTimeCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // **Set Callback Handlers**
+    void MessageParser::BindSystemCommonCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _systemCommonCallback.bind(callback);
+        _systemCommonContext = {instance, invokeFunc};
+    }
+
+    // **Unbind Callback**
+    void MessageParser::UnbindSystemCommonCallback() {
+        _systemCommonCallback.unbind();
+        _systemCommonContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeSystemCommonCallback(uint8_t* msg, size_t size) {
+        if (_systemCommonCallback.status()) {
+            if (_systemCommonContext.instance && _systemCommonContext.invoke) {
+                _systemCommonContext.invoke(_systemCommonContext.instance, msg, size);
+            } else {
+                _systemCommonCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // **Set Callback Handlers**
+    void MessageParser::BindSysExCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _sysExCallback.bind(callback);
+        _sysExContext = {instance, invokeFunc};
+    }
+
+    // **Unbind Callback**
+    void MessageParser::UnbindSysExCallback() {
+        _sysExCallback.unbind();
+        _sysExContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeSysExCallback(uint8_t* msg, size_t size) {
+        if (_sysExCallback.status()) {
+            if (_sysExContext.instance && _sysExContext.invoke) {
+                _sysExContext.invoke(_sysExContext.instance, msg, size);
+            } else {
+                _sysExCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // **Set Callback Handlers**
+    void MessageParser::BindMTCCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _mtcCallback.bind(callback);
+        _mtcContext = {instance, invokeFunc};
+    }
+
+    // **Unbind Callback**
+    void MessageParser::UnbindMTCCallback() {
+        _mtcCallback.unbind();
+        _mtcContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeMTCCallback(uint8_t* msg, size_t size) {
+        if (_mtcCallback.status()) {
+            if (_mtcContext.instance && _mtcContext.invoke) {
+                _mtcContext.invoke(_mtcContext.instance, msg, size);
+            } else {
+                _mtcCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // **Set Callback Handlers**
+    void MessageParser::BindMSCCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _mscCallback.bind(callback);
+        _mscContext = {instance, invokeFunc};
+    }
+
+    // **Unbind Callback**
+    void MessageParser::UnbindMSCCallback() {
+        _mscCallback.unbind();
+        _mscContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeMSCCallback(uint8_t* msg, size_t size) {
+        if (_mscCallback.status()) {
+            if (_mscContext.instance && _mscContext.invoke) {
+                _mscContext.invoke(_mscContext.instance, msg, size);
+            } else {
+                _mscCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    // **Set Callback Handlers**
+    void MessageParser::BindDefaultCallback(
+        CallbackReferenceType callback, 
+        void* instance, 
+        void (*invokeFunc)(void*, uint8_t*, size_t)
+    ) {
+        _defaultCallback.bind(callback);
+        _defaultContext = {instance, invokeFunc};
+    }
+
+    // **Unbind Callback**
+    void MessageParser::UnbindDefaultCallback() {
+        _defaultCallback.unbind();
+        _defaultContext = {nullptr, nullptr}; 
+    }
+
+    // **Invoke Callback**
+    bool MessageParser::InvokeDefaultCallback(uint8_t* msg, size_t size) {
+        if (_defaultCallback.status()) {
+            if (_defaultContext.instance && _defaultContext.invoke) {
+                _defaultContext.invoke(_defaultContext.instance, msg, size);
+            } else {
+                _defaultCallback.invoke(msg, size);
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     // **Unbind All Callbacks at Once**
     void MessageParser::UnbindAll() {
@@ -131,7 +359,6 @@ namespace MIDILAR::MidiFoundation {
     // **Real-Time Message Handling**
     void MessageParser::_RealTimeHandler() {
         if (_MessageSize == 1) {
-            _message.SetRawData(_MessageBuffer, _MessageSize);
             switch (_MessageBuffer[0]) {
                 case MIDI_REALTIME_TIMING_TICK:
                 case MIDI_REALTIME_START:
@@ -139,11 +366,9 @@ namespace MIDILAR::MidiFoundation {
                 case MIDI_REALTIME_STOP:
                 case MIDI_REALTIME_ACTIVE_SENSING:
                 case MIDI_REALTIME_SYSTEM_RESET:
-                    if (_realTimeCallback.status()) {
-                        _realTimeCallback.invoke(_message);
-                    } else if (_defaultCallback.status()) {
-                        _defaultCallback.invoke(_message);
-                    }
+                    if (!InvokeRealTimeCallback(_MessageBuffer, _MessageSize)) {
+                        InvokeDefaultCallback(_MessageBuffer, _MessageSize);
+                    } 
                     _Status = Status::Idle;
                     _MessageSize = 0;
                     break;
@@ -154,19 +379,15 @@ namespace MIDILAR::MidiFoundation {
     // **Channel Voice & Control Change Messages**
     void MessageParser::_ChannelVoiceHandler() {
         if (_MessageSize == 3) {
-            _message.SetRawData(_MessageBuffer, _MessageSize);
-
             switch (_MessageBuffer[0] & 0xF0) {
                 case MIDI_CONTROL_CHANGE:
-                    if (_controlChangeCallback.status()) {
-                        _controlChangeCallback.invoke(_message);
+
+                    if (!InvokeControlChangeCallback(_MessageBuffer, _MessageSize)) {
+                        if (!InvokeChannelVoiceCallback(_MessageBuffer, _MessageSize)) {
+                            InvokeDefaultCallback(_MessageBuffer, _MessageSize);
+                        } 
                     } 
-                    else if (_channelVoiceCallback.status()) {
-                        _channelVoiceCallback.invoke(_message);
-                    } 
-                    else if (_defaultCallback.status()) {
-                        _defaultCallback.invoke(_message);
-                    }
+
                     _Status = Status::Idle;
                     _MessageSize = 0;
                     break;
@@ -177,11 +398,11 @@ namespace MIDILAR::MidiFoundation {
                 case MIDI_PROGRAM_CHANGE:
                 case MIDI_CHANNEL_PRESSURE:
                 case MIDI_PITCH_BEND:
-                    if (_channelVoiceCallback.status()) {
-                        _channelVoiceCallback.invoke(_message);
-                    } else if (_defaultCallback.status()) {
-                        _defaultCallback.invoke(_message);
+
+                    if (!InvokeChannelVoiceCallback(_MessageBuffer, _MessageSize)) {
+                        InvokeDefaultCallback(_MessageBuffer, _MessageSize);
                     }
+
                     _Status = Status::Idle;
                     _MessageSize = 0;
                     break;
@@ -194,13 +415,10 @@ namespace MIDILAR::MidiFoundation {
     // **System Common Messages**
     void MessageParser::_SystemCommonHandler() {
         if (_MessageSize == 1) {
-            _message.SetRawData(_MessageBuffer, _MessageSize);
             switch (_MessageBuffer[0]) {
                 case MIDI_TUNING_REQUEST:
-                    if (_systemCommonCallback.status()) {
-                        _systemCommonCallback.invoke(_message);
-                    } else if (_defaultCallback.status()) {
-                        _defaultCallback.invoke(_message);
+                    if (!InvokeSystemCommonCallback(_MessageBuffer, _MessageSize)) {
+                        InvokeDefaultCallback(_MessageBuffer, _MessageSize);
                     }
                     _Status = Status::Idle;
                     _MessageSize = 0;
@@ -208,28 +426,25 @@ namespace MIDILAR::MidiFoundation {
             }
         } 
         else if (_MessageSize == 2) {
-            _message.SetRawData(_MessageBuffer, _MessageSize);
             switch (_MessageBuffer[0]) {
                 case MIDI_MTC_QUARTER_FRAME:
-                    if (_mtcCallback.status()) {
-                        _mtcCallback.invoke(_message);
+
+                    if (!InvokeMTCCallback(_MessageBuffer, _MessageSize)) { 
+                        if (!InvokeSystemCommonCallback(_MessageBuffer, _MessageSize)) {
+                            InvokeDefaultCallback(_MessageBuffer, _MessageSize);
+                        }
                     }
-                    else if (_systemCommonCallback.status()) {
-                        _systemCommonCallback.invoke(_message);
-                    } 
-                    else if (_defaultCallback.status()) {
-                        _defaultCallback.invoke(_message);
-                    }
+
                     _Status = Status::Idle;
                     _MessageSize = 0;
                     break;
 
                 case MIDI_SONG_SELECT:
-                    if (_systemCommonCallback.status()) {
-                        _systemCommonCallback.invoke(_message);
-                    } else if (_defaultCallback.status()) {
-                        _defaultCallback.invoke(_message);
+                    
+                    if (!InvokeSystemCommonCallback(_MessageBuffer, _MessageSize)) {
+                        InvokeDefaultCallback(_MessageBuffer, _MessageSize);
                     }
+
                     _Status = Status::Idle;
                     _MessageSize = 0;
                     break;
@@ -238,14 +453,13 @@ namespace MIDILAR::MidiFoundation {
             }
         }
         else if (_MessageSize == 3) {
-            _message.SetRawData(_MessageBuffer, _MessageSize);
             switch (_MessageBuffer[0]) {
                 case MIDI_SONG_POSITION_POINTER:
-                    if (_systemCommonCallback.status()) {
-                        _systemCommonCallback.invoke(_message);
-                    } else if (_defaultCallback.status()) {
-                        _defaultCallback.invoke(_message);
+
+                    if (!InvokeSystemCommonCallback(_MessageBuffer, _MessageSize)) {
+                        InvokeDefaultCallback(_MessageBuffer, _MessageSize);
                     }
+
                     _Status = Status::Idle;
                     _MessageSize = 0;
                     break;
@@ -258,12 +472,9 @@ namespace MIDILAR::MidiFoundation {
     // **SysEx Message Handling**
     void MessageParser::_SysExHandler() {
         if (_MessageSize > 0 && _MessageBuffer[_MessageSize - 1] == MIDI_SYSEX_END) { // SysEx message complete
-            _message.SetRawData(_MessageBuffer, _MessageSize);
-
-            if (_sysExCallback.status()) {
-                _sysExCallback.invoke(_message);
-            } else if (_defaultCallback.status()) {
-                _defaultCallback.invoke(_message);
+            
+            if (!InvokeSysExCallback(_MessageBuffer, _MessageSize)) {
+                InvokeDefaultCallback(_MessageBuffer, _MessageSize);
             }
 
             _Status = Status::Idle;

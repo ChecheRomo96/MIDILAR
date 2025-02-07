@@ -5,13 +5,13 @@
 
 // **Default Callback Function**
 // This function will be called when a MIDI message is processed and no specific handler is set.
-void DefaultCallback(const MIDILAR::MidiFoundation::Message& data) {
+void DefaultCallback(uint8_t* Data, size_t Size) {
     std::cout << "Default Callback Invoked -> ";
 
     // Print the raw MIDI message in a readable format
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]);
-        if (i < data.size() - 1) {
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]);
+        if (i < Size - 1) {
             std::cout << ", ";
         }
     }

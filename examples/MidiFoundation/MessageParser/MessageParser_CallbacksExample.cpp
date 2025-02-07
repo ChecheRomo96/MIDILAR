@@ -10,73 +10,73 @@
 // These functions print the message type along with its data when called.
 
 /* Handles Channel Voice messages such as Note On, Note Off, Aftertouch, etc. */
-void ChannelVoiceCallback(const MIDILAR::MidiFoundation::Message& data) {
+void ChannelVoiceCallback(uint8_t* Data, size_t Size) {
     std::cout << "[Channel Voice] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
 
 /* Handles Control Change messages (e.g., Mod Wheel, Volume). */
-void ControlChangeCallback(const MIDILAR::MidiFoundation::Message& data) {
+void ControlChangeCallback(uint8_t* Data, size_t Size) {
     std::cout << "[Control Change] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
 
 /* Handles Real-Time messages such as Timing Clock and Active Sensing. */
-void RealTimeCallback(const MIDILAR::MidiFoundation::Message& data) {
+void RealTimeCallback(uint8_t* Data, size_t Size) {
     std::cout << "[Real-Time] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
 
 /* Handles System Common messages such as Song Select and Tuning Request. */
-void SystemCommonCallback(const MIDILAR::MidiFoundation::Message& data) {
+void SystemCommonCallback(uint8_t* Data, size_t Size) {
     std::cout << "[System Common] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
 
 /* Handles System Exclusive (SysEx) messages. */
-void SysExCallback(const MIDILAR::MidiFoundation::Message& data) {
+void SysExCallback(uint8_t* Data, size_t Size) {
     std::cout << "[System Exclusive] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
 
 /* Handles MIDI Time Code (MTC) messages. */
-void MTCCallback(const MIDILAR::MidiFoundation::Message& data) {
+void MTCCallback(uint8_t* Data, size_t Size) {
     std::cout << "[MIDI Time Code] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
 
 /* Handles MIDI Show Control (MSC) messages. */
-void MSCCallback(const MIDILAR::MidiFoundation::Message& data) {
+void MSCCallback(uint8_t* Data, size_t Size) {
     std::cout << "[MIDI Show Control] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
 
 /* Default callback for unhandled messages. */
-void DefaultCallback(const MIDILAR::MidiFoundation::Message& data) {
+void DefaultCallback(uint8_t* Data, size_t Size) {
     std::cout << "[Default Callback] ";
-    for (size_t i = 0; i < data.size(); i++) {
-        std::cout << std::to_string(data.Buffer()[i]) << " ";
+    for (size_t i = 0; i < Size; i++) {
+        std::cout << std::to_string(Data[i]) << " ";
     }
     std::cout << std::endl;
 }
