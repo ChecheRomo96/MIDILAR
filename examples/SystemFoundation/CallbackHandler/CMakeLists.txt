@@ -1,0 +1,2 @@
+add_executable(MIDILAR_CallbackHandler_Example CallbackHandler_Example.cpp)
+target_link_libraries(MIDILAR_CallbackHandler_Example MIDILAR)

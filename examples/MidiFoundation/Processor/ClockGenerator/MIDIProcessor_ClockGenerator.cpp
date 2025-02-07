@@ -1,9 +1,9 @@
-#include <SystemFoundation/Clock.h>
-#include <MidiProcessor/MidiProcessor.h>
+#include <SystemFoundation/Clock/Clock.h>
+#include <MidiFoundation/Processor/Processor.h>
 
 #include <iostream>
 
-class MidiClockProcessor : public MIDILAR::MidiProcessor {
+class MidiClockProcessor : public MIDILAR::MidiFoundation::Processor {
     MIDILAR::SystemFoundation::Clock::TimePoint lastTick = 0;
 private:
     uint32_t Period;
@@ -29,18 +29,21 @@ public:
     }
 };
 
+void MidiOutCallback(const uint8_t* Message, size_t size){
+
+    std::cout << "Generated MIDI clock: ";
+    for (size_t i = 0; i < size; ++i) {
+        std::cout << std::hex << static_cast<int>(Message[i]) << " ";
+    }
+    std::cout << std::endl;
+}
+
 // Example usage
 int main() {
     MidiClockProcessor clockProcessor;
 
     // Setting up the output callback
-    clockProcessor.MidiOutApiLink([](uint8_t* Message, size_t size) {
-        std::cout << "Generated MIDI clock: ";
-        for (size_t i = 0; i < size; ++i) {
-            std::cout << std::hex << static_cast<int>(Message[i]) << " ";
-        }
-        std::cout << std::endl;
-    });
+    clockProcessor.BindMidiOut(MidiOutCallback);
 
     // Simulating system time updates
     for (int i = 0; i < 100; ++i) {

@@ -23,4 +23,8 @@
         #include "Processor/Processor.h"
     #endif
 
+    #ifdef MIDILAR_MIDI_MESSAGE_PARSER
+        #include "MessageParser/MessageParser.h"
+    #endif
+
 #endif//MIDILAR_MIDI_FOUNDATION_H

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <SystemFoundation/Clock.h>
+#include <SystemFoundation/Clock/Clock.h>
 #include <chrono>
 
 using namespace std::chrono;
@@ -63,7 +63,7 @@ namespace MIDILAR::SystemFoundation{
 TEST(CallbackHandlerTest, SpecializationTesting) {
     
     // Create instances of CallbackHandler with various parameter types
-    CallbackHandler<void,void> myCallback1;
+    CallbackHandler<void, void>   myCallback1;
     CallbackHandler<uint8_t,void> myCallback2;
     CallbackHandler<void,uint8_t> myCallback3;
 

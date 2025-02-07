@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <SystemFoundation/Clock.h>
+#include <SystemFoundation/Clock/Clock.h>
 #include <chrono>
 
 using namespace std::chrono;

@@ -1,9 +1,0 @@
-#ifndef MIDILAR_SYSTEM_FOUNDATION_H
-#define MIDILAR_SYSTEM_FOUNDATION_H
-
-    #ifdef MIDILAR_SYSTEM_CLOCK_ENABLED
-        #include "SystemClock.h"
-    #endif
-
-
-#endif//MIDILAR_SYSTEM_FOUNDATION_H

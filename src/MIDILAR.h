@@ -29,7 +29,7 @@
          * 
          * System tools provide additional utilities for the library.
          */
-        #include <SystemFoundation/MIDILAR_SystemFoundation.h>
+        #include <MIDILAR_SystemFoundation.h>
     #endif
 
 
