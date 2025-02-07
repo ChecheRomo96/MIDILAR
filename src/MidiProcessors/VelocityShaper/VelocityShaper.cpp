@@ -106,13 +106,13 @@ namespace MIDILAR::MidiProcessors {
         }
 
         void VelocityShaper::SetExpGain(float expGain) {
-            if (expGain > 0.0f && _LUT.ExponentiationGain() != expGain) {  // Ensure valid exponentiation gain
+            if (expGain > 0.0f && _LUT.GetExponentiationGain() != expGain) {  // Ensure valid exponentiation gain
                 _LUT.SetExponentiationGain(expGain);
             }
         }
 
         float VelocityShaper::ExpGain() const {
-            return _LUT.ExponentiationGain();  // Fetch current exponentiation gain from LUT
+            return _LUT.GetExponentiationGain();  // Fetch current exponentiation gain from LUT
         }
 
     //
