@@ -3,17 +3,11 @@
 
     set(MIDILAR_SOURCES_LOCAL "")
     set(MIDILAR_HEADERS_LOCAL "")
-#
-######################################################################################################
-# add subdirectories
 
-    if(${MIDILAR_SYSTEM_CLOCK})
-        add_subdirectory(Clock)
-    endif()
+    # Append Sources and headers
+    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MessageParser.h")
+    list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MessageParser.cpp")
 
-    if(${MIDILAR_CALLBACK_HANDLER})
-        add_subdirectory(CallbackHandler)
-    endif()
 #
 ######################################################################################################
 # Refresh Sources and Headers in Parent Scope
@@ -26,8 +20,8 @@
 
     # Install headers for this subdirectory
     install(
-        FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/SystemFoundation"
+    FILES ${MIDILAR_HEADERS_LOCAL}
+    DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/MidiFoundation/MessageParser"
     )
 #
 ######################################################################################################

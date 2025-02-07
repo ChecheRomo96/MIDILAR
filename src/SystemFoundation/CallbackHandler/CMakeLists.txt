@@ -5,15 +5,9 @@
     set(MIDILAR_HEADERS_LOCAL "")
 #
 ######################################################################################################
-# add subdirectories
-
-    if(${MIDILAR_SYSTEM_CLOCK})
-        add_subdirectory(Clock)
-    endif()
-
-    if(${MIDILAR_CALLBACK_HANDLER})
-        add_subdirectory(CallbackHandler)
-    endif()
+#
+    # Append Headers (local to this subdirectory)
+    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/CallbackHandler.h")
 #
 ######################################################################################################
 # Refresh Sources and Headers in Parent Scope
@@ -24,10 +18,9 @@
 ######################################################################################################
 # MIDILAR Install Process
 
-    # Install headers for this subdirectory
-    install(
-        FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/SystemFoundation"
-    )
-#
+# Install headers for this subdirectory
+install(
+    FILES ${MIDILAR_HEADERS_LOCAL}
+    DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/SystemFoundation/CallbackHandler"
+)
 ######################################################################################################

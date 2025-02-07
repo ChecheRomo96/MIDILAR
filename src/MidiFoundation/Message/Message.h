@@ -61,7 +61,6 @@
                 size_t _MessageSize;
             #endif
 
-
             public:
 
                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,8 +89,15 @@
                 * @{
                 */
                     const uint8_t* Buffer() const; ///< Returns a pointer to the first data element stored in the message
-                    const uint8_t Data(size_t index); ///< Returns the data stored at the specified index
-                    const size_t size() const;  ///< Returns the size of the message stored in the object.  
+                    uint8_t Data(size_t index) const; ///< Returns the data stored at the specified index
+                    size_t size() const;  ///< Returns the size of the message stored in the object.  
+
+                    Message& SetRawData(const uint8_t* Data, size_t Size);
+               
+                    #if __has_include(<vector>)
+                     Message& SetRawData(const std::vector<uint8_t>& Data);
+                    #endif  
+
                /**@}*/ //
                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                /** 

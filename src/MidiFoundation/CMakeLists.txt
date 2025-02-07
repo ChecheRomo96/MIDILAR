@@ -12,12 +12,18 @@
 # Conditional File Inclusion
 
     if(${MIDILAR_MIDI_MESSAGE})
+        message(STATUS "MIDILAR::SystemFoundation::Message enabled")
         add_subdirectory(Message)
     endif()
 
     if(${MIDILAR_MIDI_PROCESSOR})
+        message(STATUS "MIDILAR::SystemFoundation::Processor enabled")
         add_subdirectory(Processor)
     endif()
+
+
+    message(STATUS "MIDILAR::SystemFoundation::MessageParser enabled")
+    add_subdirectory(MessageParser)
 #
 ######################################################################################################
 # Add subdirectory

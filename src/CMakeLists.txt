@@ -19,6 +19,7 @@
         APPEND ${PROJECT_NAME_UPPER}_HEADERS_LOCAL 
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h" 
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h"
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.h"
     )
 
     list(APPEND ${PROJECT_NAME_UPPER}_HEADERS ${${PROJECT_NAME_UPPER}_HEADERS_LOCAL})
@@ -40,7 +41,13 @@
     if(${MIDILAR_MIDI_FOUNDATION})
         message(STATUS "MIDILAR::MidiFoundation enabled")
         add_subdirectory(MidiFoundation)
-        endif()
+    endif()
+
+
+    if(${MIDILAR_MIDI_PROCESORS})
+        message(STATUS "MIDILAR::MidiProcessors enabled")
+        add_subdirectory(MidiProcessors)
+    endif()
 #
 ######################################################################################################
 # Create the MIDILAR library
@@ -67,6 +74,12 @@
         target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_FOUNDATION)
         list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_FOUNDATION")
 
+        if(${MIDILAR_CALLBACK_HANDLER})
+            message(STATUS "MIDILAR::SystemFoundation::CallbackHandler enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_CALLBACK_HANDLER)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_CALLBACK_HANDLER")
+        endif()
+        
         if(${MIDILAR_SYSTEM_CLOCK})
             message(STATUS "MIDILAR::SystemFoundation::Clock enabled")
             target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_CLOCK)
@@ -91,6 +104,12 @@
             list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_MESSAGE")
         endif()
         
+        if(${MIDILAR_MIDI_MESSAGE_PARSER})
+            message(STATUS "MIDILAR::MidiFoundation::MessageParser enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_MESSAGE_PARSER)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_PROCESSOR")
+        endif()
+        
         if(${MIDILAR_MIDI_PROCESSOR})
             message(STATUS "MIDILAR::MidiFoundation::Processor enabled")
             target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_PROCESSOR)
@@ -103,8 +122,23 @@
         target_compile_definitions(MIDILAR PUBLIC MIDILAR_AUDIO_FOUNDATION)
         list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_AUDIO_FOUNDATION")
         
-
+        if(${MIDILAR_LUT})
+            message(STATUS "MIDILAR::AudioFoundation::LUT enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT")
+        endif()
     endif()
+
+    
+    if(${MIDILAR_MIDI_PROCESORS})
+        target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_PROCESORS)
+        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_PROCESORS")
+        
+        if(${MIDILAR_LUT})
+
+        endif()
+    endif()
+
 
 # Other conditional flags can be added here as needed
 ######################################################################################################
@@ -144,4 +178,4 @@
         DESTINATION lib/cmake/${PROJECT_NAME}
     )
 #
-######################################################################################################------------
+######################################################################################################

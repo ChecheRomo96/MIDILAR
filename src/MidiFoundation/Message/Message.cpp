@@ -207,18 +207,22 @@ namespace MIDILAR::MidiFoundation{
             #if __has_include(<vector>)
                 return _Data.empty() ? nullptr : _Data.data();
             #else
-                return _Data ? _Data : nullptr;
+                return (_Data && _Size > 0) ? _Data : nullptr;
             #endif
         }
 
-        const uint8_t Message::Data(size_t index){
-            if(index < size()){
-                return _Data[index];
+        uint8_t Message::Data(size_t index) const {
+            if (index < size()) {
+                #if __has_include(<vector>)
+                    return _Data[index];
+                #else
+                    return (_Data ? _Data[index] : 0);
+                #endif
             }
-            return 0;
+            return 0; // Out-of-bounds access returns 0
         }
         
-        const size_t Message::size() const{
+        size_t Message::size() const{
             
             #if __has_include(<vector>)
                 return _Data.size();
@@ -226,6 +230,41 @@ namespace MIDILAR::MidiFoundation{
                 return _Size;
             #endif
         }
+
+        Message& Message::SetRawData(const uint8_t* Data, size_t Size) {
+            if (!Data || Size == 0) {
+                _resize(0);
+                return *this;
+            }
+
+            #if __has_include(<vector>)
+                if (Data == _Data.data()){ return *this; } // Avoid unnecessary self-assignment
+                _Data.assign(Data, Data + Size);
+            #else
+                if (Data == _Data) return; // Avoid self-assignment
+                if (Size > _BufferSize) {
+                    if (!_resize(Size)) {
+                        _resize(0);
+                        return *this;
+                    }
+                }
+                memcpy(_Data, Data, Size);
+                _Size = Size;
+            #endif
+
+            return *this;
+        }
+
+
+        #if __has_include(<vector>)
+            Message& Message::SetRawData(const std::vector<uint8_t>& Data) {
+                if (Data.empty()) {
+                    _resize(0); // Ensure consistency when clearing data
+                    return *this;
+                }
+                return SetRawData(Data.data(), Data.size());
+            }
+        #endif  
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Vector API
@@ -645,12 +684,47 @@ namespace MIDILAR::MidiFoundation{
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Real-Time Messages
         
-        Message& TimingTick();
-        Message& Start();
-        Message& Continue();
-        Message& Stop();
-        Message& ActiveSensing();
-        Message& SystemReset();
+        Message& Message::TimingTick(){
+            if (_resize(1)) {
+                _Data[0] = MIDI_REALTIME_TIMING_TICK;
+            }
+            return *this;
+        }
+
+        Message& Message::Start(){
+            if (_resize(1)) {
+                _Data[0] = MIDI_REALTIME_START;
+            }
+            return *this;
+        }
+
+        Message& Message::Continue(){
+            if (_resize(1)) {
+                _Data[0] = MIDI_REALTIME_CONTINUE;
+            }
+            return *this;
+        }
+
+        Message& Message::Stop(){
+            if (_resize(1)) {
+                _Data[0] = MIDI_REALTIME_STOP;
+            }
+            return *this;
+        }
+
+        Message& Message::ActiveSensing(){
+            if (_resize(1)) {
+                _Data[0] = MIDI_REALTIME_ACTIVE_SENSING;
+            }
+            return *this;
+        }
+
+        Message& Message::SystemReset(){
+            if (_resize(1)) {
+                _Data[0] = MIDI_REALTIME_SYSTEM_RESET;
+            }
+            return *this;
+        }
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // System Common Messages
@@ -720,6 +794,44 @@ namespace MIDILAR::MidiFoundation{
         }
         //
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        Message& Message::SystemExclusive(uint8_t* Data, uint8_t Length) {
+            // Validate input
+            if (Length == 0) {
+                return *this;  // No data to process
+            }
+
+            // Calculate actual size (including 0xF0 and 0xF7 if missing)
+            size_t finalSize = Length;
+            if (Data[0] != 0xF0) finalSize++;  // Add space for 0xF0 if missing
+            if (Data[Length - 1] != 0xF7) finalSize++;  // Add space for 0xF7 if missing
+
+            // **Resize buffer before writing data**
+            if (!_resize(finalSize)) {
+                return *this;  // Memory allocation failed, return unchanged message
+            }
+
+            size_t index = 0;
+
+            // **Add SysEx Start (0xF0) if missing**
+            if (Data[0] != 0xF0) {
+                _Data[index++] = 0xF0;
+            }
+
+
+            // **Copy SysEx Data (Avoid Duplicating Start/End Bytes)**
+            for (size_t i = 0; i < Length; i++) {
+                _Data[index++] = Data[i];
+            }
+            
+            // **Add SysEx End (0xF7) if missing**
+            if (Data[Length - 1] != 0xF7) {
+                _Data[index++] = 0xF7;
+            }
+
+            return *this;
+        }
+
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
