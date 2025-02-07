@@ -8,7 +8,7 @@
 
 		class ChannelReassign : public MIDILAR::MidiFoundation::Processor{
 		protected:
-			MessageParser _MessageParser;
+			MIDILAR::MidiFoundation::MessageParser _MessageParser;
 			uint16_t _InputChannels;
 			uint16_t _OutputChannels;
 

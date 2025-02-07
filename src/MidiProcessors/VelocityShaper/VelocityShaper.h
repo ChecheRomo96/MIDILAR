@@ -16,7 +16,7 @@ namespace MIDILAR::MidiProcessors {
      */
 	    class VelocityShaper : public MIDILAR::MidiFoundation::Processor {
 	    protected:
-	        MessageParser _MessageParser;
+			MIDILAR::MidiFoundation::MessageParser _MessageParser;
 	        uint16_t _InputChannels;
 	        MIDILAR::AudioFoundation::LUT::LogExpLUT<uint8_t, uint8_t> _LUT;
 
