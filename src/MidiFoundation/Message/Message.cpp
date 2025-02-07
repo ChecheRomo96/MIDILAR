@@ -207,7 +207,7 @@ namespace MIDILAR::MidiFoundation{
             #if __has_include(<vector>)
                 return _Data.empty() ? nullptr : _Data.data();
             #else
-                return (_Data && _Size > 0) ? _Data : nullptr;
+                return (_Data && _MessageSize > 0) ? _Data : nullptr;
             #endif
         }
 
@@ -227,7 +227,7 @@ namespace MIDILAR::MidiFoundation{
             #if __has_include(<vector>)
                 return _Data.size();
             #else
-                return _Size;
+                return _MessageSize;
             #endif
         }
 
@@ -249,7 +249,7 @@ namespace MIDILAR::MidiFoundation{
                     }
                 }
                 memcpy(_Data, Data, Size);
-                _Size = Size;
+                _MessageSize = Size;
             #endif
 
             return *this;
