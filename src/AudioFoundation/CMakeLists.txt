@@ -5,10 +5,10 @@
     set(MIDILAR_HEADERS_LOCAL "")
 
     # Append Sources
-    list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
+    #list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
 
     # Append Headers
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.h")
+    #list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.h")
 #
 ######################################################################################################
 # Add Subdirectories

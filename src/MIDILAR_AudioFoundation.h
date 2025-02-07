@@ -7,4 +7,8 @@
 
     }
 
+    #include <AudioFoundation/LUT/BaseLUT.h>
+    #include <AudioFoundation/LUT/SineLUT.h>
+    #include <AudioFoundation/LUT/LogExpLUT.h>
+
 #endif//MIDILAR_AUDIO_FOUNDATION_H
