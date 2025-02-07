@@ -62,15 +62,15 @@ namespace MIDILAR::MidiProcessors{
 		_MessageParser.ProcessData(Message,Size);
 	}
 
-	void ChannelReassign::StaticChannelVoiceCallback(void* context, const MidiFoundation::Message& msg) {
+	void ChannelReassign::StaticChannelVoiceCallback(void* context, uint8_t* Data, size_t Size) {
         if (context) {
-            static_cast<ChannelReassign*>(context)->_ChannelVoiceCallback(msg);
+            static_cast<ChannelReassign*>(context)->_ChannelVoiceCallback(Data, Size);
         }
 	}
 
-	void ChannelReassign::StaticDefaultCallback(void* context, const MidiFoundation::Message& msg) {
+	void ChannelReassign::StaticDefaultCallback(void* context, uint8_t* Data, size_t Size) {
         if (context) {
-            static_cast<ChannelReassign*>(context)->_DefaultCallback(msg);
+            static_cast<ChannelReassign*>(context)->_DefaultCallback(Data, Size);
         }
 	}
 }
