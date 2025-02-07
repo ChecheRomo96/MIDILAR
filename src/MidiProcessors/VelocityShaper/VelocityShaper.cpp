@@ -48,15 +48,14 @@ namespace MIDILAR::MidiProcessors {
 
             if(Size != 3){ MidiOutput(Message,Size); return; }
             // Only process Note-On and Note-Off
-            if (Data[0]&0xF0 != MIDI_NOTE_ON && Data[0]&0xF0 != MIDI_NOTE_OFF) {
+            if (Message[0]&0xF0 != MIDI_NOTE_ON && Message[0]&0xF0 != MIDI_NOTE_OFF) {
                 MidiOutput(Message,Size);
                 return;
             }
 
-            auto messageIn = Data.Buffer();
 
-            uint8_t channel = messageIn[0] & 0x0F;
-            uint8_t velocity = messageIn[2];
+            uint8_t channel = Message[0] & 0x0F;
+            uint8_t velocity = Message[2];
 
             if(velocity == 0){
                 MidiOutput(Message,Size);
@@ -78,8 +77,8 @@ namespace MIDILAR::MidiProcessors {
 
 
             uint8_t messageOut[3];
-            messageOut[0] = messageIn[0];
-            messageOut[1] = messageIn[1];
+            messageOut[0] = Message[0];
+            messageOut[1] = Message[1];
             messageOut[2] = shapedVelocity;
 
             MidiOutput(messageOut, 3);  // Send processed message
