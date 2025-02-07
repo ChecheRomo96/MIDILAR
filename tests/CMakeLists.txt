@@ -2,18 +2,23 @@
 # Add Subdirectories for Tests
 
     # SystemFoundation
-    if(${MIDILAR_SYSTEM_FOUNDATION_STATUS})
+    if(${MIDILAR_SYSTEM_FOUNDATION})
         add_subdirectory(SystemFoundation)
+    endif()
+    
+    # SystemFoundation
+    if(${MIDILAR_MIDI_FOUNDATION})
+        add_subdirectory(MidiFoundation)
     endif()
 
     # SystemFoundation
-    if(${MIDILAR_AUDIO_FOUNDATION_STATUS})
-        add_subdirectory(AudioFoundation)
+    if(${MIDILAR_AUDIO_FOUNDATION})
+        #add_subdirectory(AudioFoundation)
     endif()
 
     # MidiProcessor
-    if(${MIDILAR_MIDI_PROCESSOR_STATUS})
-        add_subdirectory(MidiProcessor)
+    if(${MIDILAR_MIDI_PROCESSOR})
+        #add_subdirectory(MidiProcessor)
     endif()
 #
 ######################################################################################################

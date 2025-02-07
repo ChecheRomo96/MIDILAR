@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <cstring> // for std::memcmp
-#include <MidiProcessor/MidiProcessor.h>
+#include <MidiFoundation/Processor.h>
 
 using namespace MIDILAR;
 

@@ -1,0 +1,240 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+/**
+ * @addtogroup MIDI_CV_ControlChange
+ * @brief (0xB0) Control ChangeMessages for MIDI
+ * 
+ * Control Change (CC) messages form a core part of the MIDI protocol, enabling real-time manipulation of various instrument 
+ * and effect parameters. Each CC message consists of three bytes:
+ * 
+ * - **Status Byte (0xB0-0xBF)**: Indicates a Control Change message. The high nibble (0xB0) specifies the message type (Control Change), 
+ *   while the low nibble (0x0-0xF) encodes the MIDI channel (0-15). For example, 0xB0 represents a Control Change message on channel 1, 
+ *   while 0xB9 represents the same on channel 10.
+ * - **Controller Number**: Identifies the specific parameter to modify (e.g., volume, pan, modulation). Common controller numbers range from 0 to 127.
+ * - **Value**: Determines the level or state of the parameter (typically 0-127).
+ * 
+ * These messages allow musicians to add expressiveness, nuance, and control to performances. They are widely used for:
+ * - Adjusting continuous parameters like **volume**, **pan**, and **expression**.
+ * - Modulating effects such as **vibrato**, **reverb**, and **chorus**.
+ * - Controlling advanced parameters like **Registered Parameter Numbers (RPN)** and **Non-Registered Parameter Numbers (NRPN)**.
+ * 
+ * This group organizes CC messages into subgroups based on their functionality, making it easier to reference and understand 
+ * the specific commands available in MIDI.
+ * 
+ * ### Creating Control Change Messages
+ * Control Change messages can be easily created using the `Message` class. The `ControlChange` method constructs a valid CC message 
+ * by specifying the controller number, its value, and the target MIDI channel.
+ * 
+ * #### Example:
+ * ```cpp
+ * #include "MIDILAR_MidiMessage.h"
+ * 
+ * using namespace MIDILAR::MidiFoundation;
+ * 
+ * Message msg;
+ * 
+ * // Create a Control Change message to set Modulation (CC #1) to a value of 64 on channel 1.
+ * msg.ControlChange(1, 64, 1);
+ * 
+ * // Create a Control Change message to set Volume (CC #7) to a value of 127 on channel 5.
+ * msg.ControlChange(7, 127, 5);
+ * 
+ * // Access the raw MIDI data buffer.
+ * const uint8_t* data = msg.Buffer();
+ * size_t size = msg.size();
+ * ```
+ * 
+ * These methods ensure proper construction of Control Change messages, including clamping values for controller numbers, parameter values, 
+ * and channel numbers to their valid ranges.
+ * 
+ * Control Change messages are vital for adding expressiveness, modulating effects, and interacting with advanced MIDI features in real-time.
+ * @{
+ */
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_GENERAL General Continuous Controllers
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_CHANNEL_MODE Channel Mode Messages
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup NRPN_RPN Non-Registered and Registered Parameter Numbers
+     * @brief NRPN and RPN messages for extended MIDI parameter control.
+     * 
+     * These messages allow manufacturers to define custom parameters (NRPN) and handle standard MIDI parameters (RPN).
+     * @{
+     */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_CC_DATA_ENTRY Data Entry Messages
+         * @ingroup NRPN_RPN
+         * @brief Data Entry Continuous Controllers (CC #6 and CC #38).
+         * 
+         * The Data Entry controllers are used to modify the values of parameters selected via Registered Parameter Numbers (RPN) or 
+         * Non-Registered Parameter Numbers (NRPN). Together, they allow for precise control of parameter values using 7-bit or 14-bit 
+         * resolution.
+         * 
+         * ### Data Entry MSB (CC #6)
+         * - **Controller Number**: 0x06
+         * - **Description**: Specifies the most significant byte (MSB) of a parameter value.
+         * - **Range**: 0–127 (7 bits).
+         * - **Purpose**: Sets the primary value of a parameter, with optional fine-tuning using Data Entry LSB.
+         * 
+         * ### Data Entry LSB (CC #38)
+         * - **Controller Number**: 0x26
+         * - **Description**: Specifies the least significant byte (LSB) of a parameter value.
+         * - **Range**: 0–127 (7 bits).
+         * - **Purpose**: Provides finer resolution by specifying the lower 7 bits of a 14-bit value.
+         * 
+         * ### Use Cases
+         * - **RPN**: Adjust standardized parameters such as pitch bend sensitivity, fine tuning, and coarse tuning.
+         * - **NRPN**: Modify device-specific parameters, such as synthesizer settings or custom controls.
+         * - **14-bit Resolution**: Combine MSB and LSB for high-precision parameter adjustments.
+         * 
+         * ### Message Structure
+         * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1–16).
+         * - **Data Byte 1**: Controller number (0x06 for MSB, 0x26 for LSB).
+         * - **Data Byte 2**: Value (0–127).
+         * 
+         * ### Examples
+         * #### Setting a Parameter with 7-bit Resolution
+         * ```cpp
+         * #include "MIDILAR_MidiMessage.h"
+         * 
+         * using namespace MIDILAR::MidiFoundation;
+         * 
+         * Message msg;
+         * 
+         * // Set an RPN parameter value (e.g., pitch bend range) using Data Entry MSB.
+         * msg.ControlChange(MIDI_DATA_ENTRY_MSB, 12, 1); // Set MSB value to 12 on channel 1.
+         * ```
+         * 
+         * #### Setting a Parameter with 14-bit Resolution
+         * ```cpp
+         * #include "MIDILAR_MidiMessage.h"
+         * 
+         * using namespace MIDILAR::MidiFoundation;
+         * 
+         * Message msg;
+         * 
+         * // Set an RPN parameter value using Data Entry MSB and LSB.
+         * msg.ControlChange(MIDI_DATA_ENTRY_MSB, 12, 1); // Set MSB to 12 on channel 1.
+         * msg.ControlChange(MIDI_DATA_ENTRY_LSB, 34, 1); // Set LSB to 34.
+         * ```
+         * 
+         * ### Summary
+         * Data Entry Messages (CC #6 and #38) are fundamental for modifying MIDI parameter values with precision. These controllers enable 
+         * both coarse and fine adjustments for RPN and NRPN workflows, supporting both real-time control and automation.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_NRPN_MESSAGES NRPN Messages
+         * @ingroup NRPN_RPN
+         * @brief Non-Registered Parameter Number (NRPN) Messages
+         * 
+         * NRPN messages allow for device-specific parameter control by using manufacturer-defined parameter identifiers. These messages 
+         * are useful for accessing extended functionality beyond standard MIDI controllers.
+         * 
+         * ### NRPN MSB (CC #99)
+         * - **Controller Number**: 0x63
+         * - **Description**: Specifies the most significant byte (MSB) of an NRPN parameter identifier.
+         * 
+         * ### NRPN LSB (CC #98)
+         * - **Controller Number**: 0x62
+         * - **Description**: Specifies the least significant byte (LSB) of an NRPN parameter identifier.
+         * 
+         * ### Examples
+         * #### Selecting an NRPN Parameter
+         * ```cpp
+         * #include "MIDILAR_MidiMessage.h"
+         * 
+         * using namespace MIDILAR::MidiFoundation;
+         * 
+         * Message msg;
+         * 
+         * // Select NRPN parameter MSB = 2, LSB = 10 on channel 1
+         * msg.ControlChange(MIDI_NRPN_MSB, 2, 1);
+         * msg.ControlChange(MIDI_NRPN_LSB, 10, 1);
+         * ```
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_RPN_MESSAGES RPN Messages
+         * @ingroup NRPN_RPN
+         * @brief Registered Parameter Number (RPN) Messages
+         * 
+         * RPN messages are used to access standardized MIDI parameters defined by the MIDI specification, such as pitch bend sensitivity, 
+         * fine tuning, and coarse tuning.
+         * 
+         * ### RPN MSB (CC #101)
+         * - **Controller Number**: 0x65
+         * - **Description**: Specifies the most significant byte (MSB) of an RPN parameter identifier.
+         * 
+         * ### RPN LSB (CC #100)
+         * - **Controller Number**: 0x64
+         * - **Description**: Specifies the least significant byte (LSB) of an RPN parameter identifier.
+         * 
+         * ### Examples
+         * #### Selecting an RPN Parameter
+         * ```cpp
+         * #include "MIDILAR_MidiMessage.h"
+         * 
+         * using namespace MIDILAR::MidiFoundation;
+         * 
+         * Message msg;
+         * 
+         * // Select RPN parameter MSB = 0, LSB = 0 (e.g., pitch bend sensitivity) on channel 1
+         * msg.ControlChange(MIDI_RPN_MSB, 0, 1);
+         * msg.ControlChange(MIDI_RPN_LSB, 0, 1);
+         * ```
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_INCREMENT_DECREMENT_MESSAGES Data Increment/Decrement Messages
+         * @ingroup NRPN_RPN
+         * @brief Data Increment and Decrement Continuous Controllers (CC #96 and CC #97).
+         * 
+         * These controllers are used to increment or decrement the value of a parameter selected using NRPN or RPN messages.
+         * 
+         * ### Data Increment (CC #96)
+         * - **Controller Number**: 0x60
+         * - **Description**: Increments the value of the currently selected parameter.
+         * 
+         * ### Data Decrement (CC #97)
+         * - **Controller Number**: 0x61
+         * - **Description**: Decrements the value of the currently selected parameter.
+         * 
+         * ### Examples
+         * #### Incrementing a Parameter Value
+         * ```cpp
+         * #include "MIDILAR_MidiMessage.h"
+         * 
+         * using namespace MIDILAR::MidiFoundation;
+         * 
+         * Message msg;
+         * 
+         * // Increment the current parameter value on channel 1
+         * msg.ControlChange(MIDI_CC_INCREMENT, 0, 1);
+         * ```
+         * 
+         * #### Decrementing a Parameter Value
+         * ```cpp
+         * #include "MIDILAR_MidiMessage.h"
+         * 
+         * using namespace MIDILAR::MidiFoundation;
+         * 
+         * Message msg;
+         * 
+         * // Decrement the current parameter value on channel 1
+         * msg.ControlChange(MIDI_CC_DECREMENT, 0, 1);
+         * ```
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**@}*/ // End of NRPN_RPN subgroup
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**@}*/ // End of ControlChange subgroup
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

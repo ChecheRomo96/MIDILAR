@@ -9,12 +9,11 @@
 
     # Append Headers
     list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.h")
-    #list( APPEND HEADERS_LIST "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h")
 #
 ######################################################################################################
 # Add Subdirectories
-    if(${MIDILAR_LUT_STATUS})
-        #add_subdirectory(Clock)
+    if(${MIDILAR_LUT})
+        add_subdirectory(LUT)
     endif()
 #
 ######################################################################################################

@@ -1,0 +1,82 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_CV_NoteMessages
+ * @brief MIDI Note On (0x90) and Note Off (0x80) messages for triggering musical notes.
+ *
+ * MIDI Note Messages are fundamental to musical performance, allowing instruments to start (Note On) 
+ * and stop (Note Off) individual notes. They include both pitch and velocity, which determine the 
+ * intensity of attack (when a note is pressed) and release (when it is lifted).
+ *
+ * ### Message Details:
+ * - **Note On (0x90)**: Triggers a note. A velocity of zero is treated as a Note Off event.
+ * - **Note Off (0x80)**: Stops a note. The release velocity (if supported) can shape the sound's decay.
+ *
+ * ### Message Structure:
+ * ```
+ * [Status Byte]  [Note Number]  [Velocity]
+ *  0x90-0x9F        0-127         0-127  (Note On)
+ *  0x80-0x8F        0-127         0-127  (Note Off)
+ * ```
+ * - **Status Byte**: 
+ *   - `0x90-0x9F` → Note On (Channel 1-16)
+ *   - `0x80-0x8F` → Note Off (Channel 1-16)
+ * - **Note Number (0-127)**: Specifies pitch (e.g., Middle C = 60).
+ * - **Velocity (0-127)**: Controls note intensity or release behavior.
+ *
+ * ### Use Cases:
+ * - Playing notes on a MIDI instrument (piano, synth, sampler).
+ * - Controlling virtual instruments in a DAW (Digital Audio Workstation).
+ * - Triggering sound effects or controlling lighting cues in live performances.
+ *
+ * ### Creating Raw Note Messages
+ * These messages can be built using MIDI preprocessor macros.
+ *
+ * #### Example: Using Preprocessor Macros
+ * ```cpp
+ * #include "MIDILAR_MidiMessage.h"
+ * 
+ * using namespace MIDILAR::MidiFoundation;
+ * 
+ * uint8_t channel      = 0;    // Channel 1
+ * uint8_t pitch        = 60;   // Middle C
+ * uint8_t velocity_on  = 100;  // On Velocity
+ * uint8_t velocity_off = 50;   // Off Velocity
+ * 
+ * // Note On:
+ * uint8_t messageOn[3] = { MIDI_NOTE_ON + channel, pitch, velocity_on };
+ * 
+ * // Note Off:
+ * uint8_t messageOff[3] = { MIDI_NOTE_OFF + channel, pitch, velocity_off };
+ * ```
+ *
+ * ### Creating Note Messages with MIDILAR Helper Class
+ * The `MIDILAR::MidiFoundation::Message` class provides an abstraction for constructing Note On/Off messages.
+ *
+ * #### Example: Using MIDILAR Message Class
+ * ```cpp
+ * #include "MIDILAR_MidiMessage.h"
+ * 
+ * using namespace MIDILAR::MidiFoundation;
+ * 
+ * Message msg;
+ * 
+ * uint8_t channel      = 0;    // Channel 1
+ * uint8_t pitch        = 60;   // Middle C
+ * uint8_t velocity_on  = 100;  // On Velocity
+ * uint8_t velocity_off = 50;   // Off Velocity
+ * 
+ * // Note On:
+ * msg.NoteOn(pitch, velocity_on, channel);
+ * 
+ * // Note Off:
+ * msg.NoteOff(pitch, velocity_off, channel);
+ * 
+ * // Access raw MIDI buffer
+ * const uint8_t* data = msg.Buffer();
+ * size_t size = msg.size();
+ * ```
+ *
+ * These methods ensure proper MIDI message construction, clamping values for pitch, velocity, and channel 
+ * to valid ranges. Note Messages are essential for musical sequencing, live performance, and expressive playback.
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

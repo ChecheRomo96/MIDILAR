@@ -1,0 +1,15 @@
+/**
+ * @file MTC_Doxygen.h
+ * @brief Doxygen group definitions for MIDI Time Code (MTC) and related SysEx messages.
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_MTC
+ * @brief Contains all the MIDI Time Code (MTC) commands.
+ * 
+ * This group defines constants for:
+ * - MTC quarter frame messages
+ * - Time components (frames, seconds, minutes, hours)
+ * - Frame rate definitions
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

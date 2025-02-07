@@ -1,8 +1,10 @@
 ######################################################################################################
 # Add Subdirectories for Tests
-
+    #CallbackHandler
+    add_subdirectory(CallbackHandler)
+    
     # Clock
-    if(${MIDILAR_CLOCK_STATUS})
+    if(${MIDILAR_SYSTEM_CLOCK})
         add_subdirectory(Clock)
     endif()
 

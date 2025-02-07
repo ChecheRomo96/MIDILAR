@@ -23,13 +23,23 @@
      */
     #include <MIDILAR_BuildSettings.h>
 
-    #ifdef MIDILAR_SYSTEM_FOUNDATION_ENABLED
+    #ifdef MIDILAR_SYSTEM_FOUNDATION
         /**
          * @brief Include system tools if enabled in the build settings.
          * 
          * System tools provide additional utilities for the library.
          */
-        #include <SystemFoundation/MIDILAR_SystemFoundation.h>
+        #include <MIDILAR_SystemFoundation.h>
+    #endif
+
+
+    #ifdef MIDILAR_MIDI_FOUNDATION
+        /**
+         * @brief Include MIDI tools if enabled in the build settings.
+         * 
+         * MIDI tools provide the base midi functionality for the library.
+         */
+        #include <MidiFoundation/MidiFoundation.h>
     #endif
 
 #endif // MIDILAR_H

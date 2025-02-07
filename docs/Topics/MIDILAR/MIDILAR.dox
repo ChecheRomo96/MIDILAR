@@ -1,0 +1,57 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file MIDILAR.dox
+ * @brief Doxygen group definitions for the MIDILAR library.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR MIDILAR
+ * @brief Core library for MIDI handling and processing.
+ * 
+ * MIDILAR is a modular library designed to facilitate MIDI communication 
+ * and processing. It provides a structured framework for handling MIDI 
+ * messages, events, and processing pipelines efficiently.
+ * 
+ * @ingroup MIDILAR
+ * @{
+ */
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @defgroup MIDILAR_SystemFoundation System Foundation
+    * @brief Core system utilities and infrastructure for MIDILAR.
+    * 
+    * This module includes fundamental system utilities, configuration 
+    * settings, and low-level components that support the overall 
+    * functionality of MIDILAR.
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @defgroup MIDILAR_MidiFoundation MIDI Foundation
+    * @brief Core components for MIDI protocol handling.
+    * 
+    * This module contains essential classes, enums, and structures for MIDI 
+    * communication, including message parsing, protocol definitions, and 
+    * utility functions for handling raw MIDI data.
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @defgroup MIDILAR_AudioFoundation Audio Foundation
+    * @brief Components for audio-related processing.
+    * 
+    * This module provides lookup tables (LUTs), mathematical functions, and 
+    * signal processing utilities to enhance MIDI-based audio transformations.
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @defgroup MIDILAR_MidiProcessors MIDI Processors
+    * @brief MIDI processing modules for real-time message transformation.
+    * 
+    * This module includes processors that modify, filter, or enhance MIDI 
+    * messages dynamically. Examples include velocity shaping, channel 
+    * filtering, and other transformations.
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @} */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

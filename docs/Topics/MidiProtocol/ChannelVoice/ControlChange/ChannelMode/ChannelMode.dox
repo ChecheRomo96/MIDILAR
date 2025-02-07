@@ -1,0 +1,331 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_CC_CHANNEL_MODE
+ * @brief MIDI Control Change (CC) messages for configuring channel-wide behavior.
+ * 
+ * Channel Mode Messages are a specialized subset of the MIDI Control Change (CC) messages, specifically reserved for 
+ * managing global channel settings. Unlike Continuous Controllers (e.g., Modulation or Volume), which modify sound 
+ * parameters, Channel Mode Messages adjust how a MIDI channel processes incoming and outgoing messages. 
+ * 
+ * ### Common Channel Mode Messages
+ * - **All Sound Off (CC #120)**: Silences all sounds on the channel but does not reset control values.
+ * - **Reset All Controllers (CC #121)**: Resets all controller values to their default states (e.g., Modulation = 0, Pan = 64).
+ * - **Local Control On/Off (CC #122)**: Enables or disables local control of a MIDI instrument. When off, the instrument only responds to incoming MIDI messages.
+ * - **All Notes Off (CC #123)**: Turns off all currently playing notes on the channel.
+ * - **Omni Mode Off (CC #124)**: Restricts the channel to receive messages only on its assigned MIDI channel.
+ * - **Omni Mode On (CC #125)**: Allows the channel to respond to messages from all MIDI channels.
+ * - **Mono Mode On (CC #126)**: Enables Mono Mode, meaning the instrument will play one note at a time per channel.
+ * - **Poly Mode On (CC #127)**: Enables Polyphonic Mode, allowing multiple notes to play independently on the channel.
+ * 
+ * ### Message Structure
+ * Channel Mode Messages follow the same structure as Control Change messages:
+ * - **Status Byte (0xB0-0xBF)**: Indicates a Control Change message, where the lower nibble (0x0-0xF) represents the MIDI channel (0-15).
+ * - **Controller Number (120-127)**: Identifies the specific Channel Mode function.
+ * - **Value**: Determines the state of the message (e.g., 0 for Off, 127 for On).
+ * 
+ * ### Creating Channel Mode Messages
+ * These messages can be generated using the `ControlChange` method, just like other CC messages.
+ * 
+ * #### Example:
+ * ```cpp
+ * #include "MIDILAR_MidiMessage.h"
+ * 
+ * using namespace MIDILAR::MidiFoundation;
+ * 
+ * Message msg;
+ * 
+ * // Turn All Sound Off on channel 1.
+ * msg.ControlChange(MIDI_CC_ALL_SOUND_OFF, 0, 1);
+ * 
+ * // Reset All Controllers on channel 2.
+ * msg.ControlChange(MIDI_CC_RESET_ALL_CONTROLLERS, 0, 2);
+ * 
+ * // Turn Local Control Off on channel 3.
+ * msg.ControlChange(MIDI_CC_LOCAL_CONTROL, 0, 3);
+ * 
+ * // Turn All Notes Off on channel 4.
+ * msg.ControlChange(MIDI_CC_ALL_NOTES_OFF, 0, 4);
+ * 
+ * // Enable Mono Mode on channel 5.
+ * msg.ControlChange(MIDI_CC_MONO_MODE_ON, 1, 5);
+ * 
+ * // Enable Poly Mode on channel 6.
+ * msg.ControlChange(MIDI_CC_POLY_MODE_ON, 0, 6);
+ * 
+ * // Access the raw MIDI data buffer.
+ * const uint8_t* data = msg.Buffer();
+ * size_t size = msg.size();
+ * ```
+ * 
+ * These methods ensure valid ranges for controller numbers, values, and channels, providing safe and consistent 
+ * behavior for configuring channel-wide settings.
+ * 
+ * ### Use Cases
+ * - Silencing all sounds or notes on a channel in emergencies or during performance transitions.
+ * - Resetting controllers to default values for predictable behavior.
+ * - Configuring how MIDI instruments respond to internal and external MIDI messages using Local Control settings.
+ * - Switching between Mono and Polyphonic modes for specialized sound control.
+ *@{
+ */
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_ALL_SOUND_OFF All Sound Off (CC #120)
+     * @brief Preprocessor macro for constructing a MIDI "All Sound Off" message.
+     * 
+     * The **All Sound Off** controller (CC #120) is used to immediately stop all sound on a given MIDI channel. 
+     * Unlike **All Notes Off (CC #123)**, which allows notes to release naturally, this command mutes all voices 
+     * **instantly**, including those sustained via a pedal or other means.
+     * 
+     * ### Message Structure
+     * A **MIDI Control Change (CC)** message consists of three bytes:
+     * 
+     * | Byte       | Value Range      | Description                                |
+     * |-----------|----------------|--------------------------------------------|
+     * | **Status** | `0xB0 - 0xBF`  | Control Change message (`0xB` = CC, lower nibble = MIDI channel 0-15). |
+     * | **Data 1** | `0x78`         | Controller Number (120 = All Sound Off). |
+     * | **Data 2** | `0x00`         | Fixed value (0 = execute All Sound Off). |
+     * 
+     * ### Creating an "All Sound Off" Message
+     * The **All Sound Off** message can be constructed using predefined macros.
+     * 
+     * #### **Example 1: Sending "All Sound Off" on MIDI Channel 1**
+     * @code{.cpp}
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE, MIDI_CC_ALL_SOUND_OFF, 0x00}; // Channel 1
+     * @endcode
+     * 
+     * #### **Example 2: Sending "All Sound Off" on MIDI Channel 5 (Programmatically)**
+     * @code{.cpp}
+     * uint8_t channel = 4; // MIDI channels are zero-based (0 = Ch1, 4 = Ch5)
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE + channel, MIDI_CC_ALL_SOUND_OFF, 0x00}; // Channel 5
+     * @endcode
+     * 
+     * ### Using the Preprocessor Macro
+     * The following macro can be used to define the "All Sound Off" command:
+     * @code{.cpp}
+     * #define MIDI_CC_ALL_SOUND_OFF 0x78
+     * @endcode
+     * 
+     * This command is useful for **emergency stops**, **sound resets**, or **automated transitions** in a MIDI environment.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_RESET_ALL_CONTROLLERS Reset All Controllers (CC #121)
+     * @brief Preprocessor macro for constructing a MIDI "Reset All Controllers" message.
+     * 
+     * The **Reset All Controllers** command (CC #121) restores all MIDI control change (CC) values 
+     * to their default states on a given MIDI channel. This includes resetting Modulation, Expression, 
+     * Volume, Pan, Sustain Pedal, and other CC parameters back to their default values.
+     * 
+     * ### Message Structure
+     * A **MIDI Control Change (CC)** message consists of three bytes:
+     * 
+     * | Byte       | Value Range      | Description                                |
+     * |-----------|----------------|--------------------------------------------|
+     * | **Status** | `0xB0 - 0xBF`  | Control Change message (`0xB` = CC, lower nibble = MIDI channel 0-15). |
+     * | **Data 1** | `0x79`         | Controller Number (121 = Reset All Controllers). |
+     * | **Data 2** | `0x00`         | Fixed value (0 = execute Reset All Controllers). |
+     * 
+     * ### Creating a "Reset All Controllers" Message
+     * The **Reset All Controllers** message can be constructed using predefined macros.
+     * 
+     * #### **Example 1: Reset All Controllers on MIDI Channel 1**
+     * @code{.cpp}
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE, MIDI_CC_RESET_ALL_CONTROLLERS, 0x00}; // Channel 1
+     * @endcode
+     * 
+     * #### **Example 2: Reset All Controllers on MIDI Channel 3 (Programmatically)**
+     * @code{.cpp}
+     * uint8_t channel = 2; // MIDI channels are zero-based (0 = Ch1, 2 = Ch3)
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE + channel, MIDI_CC_RESET_ALL_CONTROLLERS, 0x00}; // Channel 3
+     * @endcode
+     * 
+     * **Note:** This command does not affect Program Changes, Pitch Bend, or System Exclusive (SysEx) settings.
+     * 
+     * ### Use Cases
+     * - Resetting all CC values before starting a new MIDI sequence.
+     * - Ensuring consistent performance by clearing unintended controller changes.
+     * - Avoiding sound inconsistencies due to lingering CC settings.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_LOCAL_CONTROL Local Control (CC #122)
+     * @brief Preprocessor macro for constructing a MIDI "Local Control" message.
+     * 
+     * The **Local Control** command (CC #122) determines whether a MIDI instrument plays notes 
+     * locally or only responds to external MIDI messages. It is useful for controlling whether 
+     * the instrument generates sound independently or functions as a pure MIDI controller.
+     * 
+     * ### Message Structure
+     * A **MIDI Control Change (CC)** message consists of three bytes:
+     * 
+     * | Byte       | Value Range      | Description                                |
+     * |-----------|----------------|--------------------------------------------|
+     * | **Status** | `0xB0 - 0xBF`  | Control Change message (`0xB` = CC, lower nibble = MIDI channel 0-15). |
+     * | **Data 1** | `0x7A`         | Controller Number (122 = Local Control). |
+     * | **Data 2** | `0x00` or `0x7F` | `0x00` = Local Control Off, `0x7F` = Local Control On. |
+     * 
+     * ### Local Control Modes
+     * - **Local Control Off (`0x00`)**: The instrument does **not** generate sound internally, 
+     *   but still sends MIDI messages externally.
+     * - **Local Control On (`0x7F`)**: The instrument plays notes locally while also sending 
+     *   MIDI messages.
+     * 
+     * ### Creating a "Local Control" Message
+     * The **Local Control** message can be constructed using predefined macros.
+     * 
+     * #### **Example 1: Turn Local Control Off on MIDI Channel 1**
+     * @code{.cpp}
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE, MIDI_LOCAL_CONTROL, MIDI_LOCAL_CONTROL_OFF}; // Channel 1
+     * @endcode
+     * 
+     * #### **Example 2: Turn Local Control On on MIDI Channel 2 (Programmatically)**
+     * @code{.cpp}
+     * uint8_t channel = 1; // MIDI channels are zero-based (0 = Ch1, 1 = Ch2)
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE + channel, MIDI_LOCAL_CONTROL, MIDI_LOCAL_CONTROL_ON}; // Channel 2
+     * @endcode
+     * 
+     * **Note:** Local Control is typically enabled by default on most MIDI instruments. Turning it off is useful when using the device purely as a MIDI controller without triggering its internal sounds.
+     * 
+     * ### Use Cases
+     * - Preventing internal sound generation when using a keyboard as a MIDI controller.
+     * - Ensuring that an instrument only responds to external sequencers or DAWs.
+     * - Allowing an instrument to function independently while still sending MIDI data.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_ALL_NOTES_OFF All Notes Off (CC #123)
+     * @brief Preprocessor macro for constructing a MIDI "All Notes Off" message.
+     * 
+     * The **All Notes Off** command (CC #123) stops all currently playing notes on a given MIDI channel. 
+     * Unlike **All Sound Off (CC #120)**, this message allows notes to **release naturally** if the sustain pedal 
+     * (CC #64) is engaged or the instrument has a natural release phase.
+     * 
+     * ### Message Structure
+     * A **MIDI Control Change (CC)** message consists of three bytes:
+     * 
+     * | Byte       | Value Range      | Description                                |
+     * |-----------|----------------|--------------------------------------------|
+     * | **Status** | `0xB0 - 0xBF`  | Control Change message (`0xB` = CC, lower nibble = MIDI channel 0-15). |
+     * | **Data 1** | `0x7B`         | Controller Number (123 = All Notes Off). |
+     * | **Data 2** | `0x00`         | Fixed value (0 = execute All Notes Off). |
+     * 
+     * ### Differences Between "All Notes Off" and "All Sound Off"
+     * - **All Notes Off (CC #123):** Allows notes to fade out if a sustain pedal is engaged or if the instrument 
+     *   has a natural release phase.
+     * - **All Sound Off (CC #120):** Immediately silences all sounds, regardless of sustain or release.
+     * 
+     * ### Creating an "All Notes Off" Message
+     * The **All Notes Off** message can be constructed using predefined macros.
+     * 
+     * #### **Example 1: Sending "All Notes Off" on MIDI Channel 1**
+     * @code{.cpp}
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE, MIDI_CC_ALL_NOTES_OFF, 0x00}; // Channel 1
+     * @endcode
+     * 
+     * #### **Example 2: Sending "All Notes Off" on MIDI Channel 4 (Programmatically)**
+     * @code{.cpp}
+     * uint8_t channel = 3; // MIDI channels are zero-based (0 = Ch1, 3 = Ch4)
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE + channel, MIDI_CC_ALL_NOTES_OFF, 0x00}; // Channel 4
+     * @endcode
+     * 
+     * ### Use Cases
+     * - Gracefully stopping all notes while allowing a natural release phase.
+     * - Resetting note states in case of stuck or unintended sustained notes.
+     * - Ensuring that all MIDI-driven instruments are in a consistent silent state before a new performance.
+     * 
+     * **Note:** Some MIDI devices only respond to "All Notes Off" when they are in **Omni Off** or **Poly Mode**.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_OMNI Channel Omni Messages (CC #124-125)
+     * @brief Preprocessor macros for constructing MIDI Omni Mode messages.
+     * 
+     * **Omni Mode** determines how a MIDI channel responds to incoming messages. When enabled, 
+     * the instrument listens to **all MIDI channels** instead of just its assigned channel. 
+     * When disabled, the instrument only responds to messages on its specific MIDI channel.
+     * 
+     * ### Message Structure
+     * A **MIDI Control Change (CC)** message consists of three bytes:
+     * 
+     * | Byte       | Value Range      | Description                                |
+     * |-----------|----------------|--------------------------------------------|
+     * | **Status** | `0xB0 - 0xBF`  | Control Change message (`0xB` = CC, lower nibble = MIDI channel 0-15). |
+     * | **Data 1** | `0x7C` or `0x7D` | Controller Number (124 = Omni Off, 125 = Omni On). |
+     * | **Data 2** | `0x00`         | Fixed value (0 = execute Omni Mode change). |
+     * 
+     * ### Omni Mode Commands
+     * - **Omni Mode Off (`CC #124, Value = 0`)**: The instrument only responds to messages on its assigned MIDI channel.
+     * - **Omni Mode On (`CC #125, Value = 0`)**: The instrument responds to messages from all MIDI channels.
+     * 
+     * ### Creating an Omni Mode Message
+     * The **Omni Mode** messages can be constructed using predefined macros.
+     * 
+     * #### **Example 1: Set Omni Mode Off (Listen to assigned channel only) on MIDI Channel 1**
+     * @code{.cpp}
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE, MIDI_CC_OMNI_OFF, 0x00}; // Channel 1
+     * @endcode
+     * 
+     * #### **Example 2: Enable Omni Mode (Listen to all channels) on MIDI Channel 5 (Programmatically)**
+     * @code{.cpp}
+     * uint8_t channel = 4; // MIDI channels are zero-based (0 = Ch1, 4 = Ch5)
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE + channel, MIDI_CC_OMNI_ON, 0x00}; // Channel 5
+     * @endcode
+     * 
+     * ### Use Cases
+     * - **Multi-channel setups:** Using Omni Mode On for instruments that need to respond to multiple MIDI sources.
+     * - **Isolating specific devices:** Using Omni Mode Off to ensure the instrument responds only to its dedicated MIDI channel.
+     * - **DAW and sequencer integration:** Adjusting how a MIDI controller or instrument reacts to multi-channel MIDI data.
+     * 
+     * **Note:** Some instruments require a **Mono Mode On (CC #126)** or **Poly Mode On (CC #127)** message after changing Omni Mode.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_POLYPHONY Channel Polyphony Messages (CC #126-127)
+     * @brief Preprocessor macros for constructing MIDI Mono and Poly Mode messages.
+     * 
+     * **Mono and Poly Modes** define how a MIDI instrument processes note data on a given channel. 
+     * - **Mono Mode** restricts the channel to playing only one note at a time.
+     * - **Poly Mode** allows multiple notes to be played simultaneously.
+     * 
+     * These settings are useful for synthesizers, MIDI controllers, and instruments that require 
+     * precise voice allocation, such as monophonic lead synths or polyphonic keyboards.
+     * 
+     * ### Message Structure
+     * A **MIDI Control Change (CC)** message consists of three bytes:
+     * 
+     * | Byte       | Value Range      | Description                                |
+     * |-----------|----------------|--------------------------------------------|
+     * | **Status** | `0xB0 - 0xBF`  | Control Change message (`0xB` = CC, lower nibble = MIDI channel 0-15). |
+     * | **Data 1** | `0x7E` or `0x7F` | Controller Number (126 = Mono Mode, 127 = Poly Mode). |
+     * | **Data 2** | `N` (Mono) / `0` (Poly) | `N` = Max voices (Mono), `0` = Poly Mode. |
+     * 
+     * ### Mono and Poly Mode Commands
+     * - **Mono Mode On (`CC #126, Value = N`)**: Restricts the channel to playing one note at a time, where `N` defines the maximum number of channels used for monophonic mode.
+     * - **Poly Mode On (`CC #127, Value = 0`)**: Enables polyphonic note playback, allowing multiple notes to be played simultaneously.
+     * 
+     * ### Creating a Polyphony Mode Message
+     * The **Mono and Poly Mode** messages can be constructed using predefined macros.
+     * 
+     * #### **Example 1: Enable Mono Mode with 1 Voice on MIDI Channel 2**
+     * @code{.cpp}
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE + 1, MIDI_CC_MONO_MODE_ON, 1}; // Channel 2
+     * @endcode
+     * 
+     * #### **Example 2: Enable Poly Mode on MIDI Channel 5 (Programmatically)**
+     * @code{.cpp}
+     * uint8_t channel = 4; // MIDI channels are zero-based (0 = Ch1, 4 = Ch5)
+     * uint8_t message[] = {MIDI_CONTROL_CHANGE + channel, MIDI_CC_POLY_MODE_ON, 0}; // Channel 5
+     * @endcode
+     * 
+     * ### Use Cases
+     * - **Monophonic Synths:** Enforcing single-note playback for lead synths, basslines, or wind instrument emulations.
+     * - **Polyphonic Instruments:** Allowing chords and multi-voice playback on pianos, string ensembles, and pads.
+     * - **Voice Allocation Control:** Managing note priority in MIDI-driven instruments.
+     * 
+     * **Note:** Some MIDI devices require an **Omni Mode Off (CC #124)** message before enabling Mono Mode.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**@}*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

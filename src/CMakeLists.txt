@@ -19,6 +19,7 @@
         APPEND ${PROJECT_NAME_UPPER}_HEADERS_LOCAL 
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h" 
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h"
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.h"
     )
 
     list(APPEND ${PROJECT_NAME_UPPER}_HEADERS ${${PROJECT_NAME_UPPER}_HEADERS_LOCAL})
@@ -27,23 +28,30 @@
 ######################################################################################################
 # Add Subdirectories
 
-    if(${MIDILAR_SYSTEM_FOUNDATION_STATUS})
+    if(${MIDILAR_SYSTEM_FOUNDATION})
         message(STATUS "MIDILAR::SystemFoundation enabled")
         add_subdirectory(SystemFoundation)
     endif()
 
-    if(${MIDILAR_SYSTEM_TOOLS_STATUS})
+    if(${MIDILAR_AUDIO_FOUNDATION})
         message(STATUS "MIDILAR::AudioFoundation enabled")
         add_subdirectory(AudioFoundation)
     endif()
 
-    add_subdirectory(MidiProcessor)
+    if(${MIDILAR_MIDI_FOUNDATION})
+        message(STATUS "MIDILAR::MidiFoundation enabled")
+        add_subdirectory(MidiFoundation)
+    endif()
+
+
+    if(${MIDILAR_MIDI_PROCESORS})
+        message(STATUS "MIDILAR::MidiProcessors enabled")
+        add_subdirectory(MidiProcessors)
+    endif()
 #
 ######################################################################################################
 # Create the MIDILAR library
-
-    message(STATUS "Final MIDILAR_HEADERS: ${MIDILAR_HEADERS}")
-
+    
     add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME_UPPER}_SOURCES} ${${PROJECT_NAME_UPPER}_HEADERS})
 
     message(STATUS "Created ${PROJECT_NAME} library with sources:")
@@ -62,15 +70,75 @@
     target_compile_definitions(${PROJECT_NAME} PUBLIC ${PROJECT_NAME_UPPER}_VERSION="${PROJECT_VERSION}")
 
     # Add optional features as compile definitions and update the macros list
-    if(${MIDILAR_SYSTEM_FOUNDATION_STATUS})
-        target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_FOUNDATION_ENABLED)
-        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_FOUNDATION_ENABLED")
-        if(${MIDILAR_CLOCK_STATUS})
+    if(${MIDILAR_SYSTEM_FOUNDATION})
+        target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_FOUNDATION)
+        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_FOUNDATION")
+
+        if(${MIDILAR_CALLBACK_HANDLER})
+            message(STATUS "MIDILAR::SystemFoundation::CallbackHandler enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_CALLBACK_HANDLER)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_CALLBACK_HANDLER")
+        endif()
+        
+        if(${MIDILAR_SYSTEM_CLOCK})
             message(STATUS "MIDILAR::SystemFoundation::Clock enabled")
-            target_compile_definitions(MIDILAR PUBLIC MIDILAR_CLOCK_ENABLED)
-            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_CLOCK_ENABLED")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_CLOCK)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_CLOCK")
+        endif()
+
+    endif()
+
+    if(${MIDILAR_MIDI_FOUNDATION})
+        target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_FOUNDATION)
+        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_FOUNDATION")
+
+        if(${MIDILAR_PROTOCOL_ENUMS})
+            message(STATUS "MIDILAR::MidiFoundation::Protocol enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_PROTOCOL_ENUMS)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_PROTOCOL_ENUMS")
+        endif()
+        
+        if(${MIDILAR_MIDI_MESSAGE})
+            message(STATUS "MIDILAR::MidiFoundation::Message enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_MESSAGE)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_MESSAGE")
+        endif()
+        
+        if(${MIDILAR_MIDI_MESSAGE_PARSER})
+            message(STATUS "MIDILAR::MidiFoundation::MessageParser enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_MESSAGE_PARSER)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_PROCESSOR")
+        endif()
+        
+        if(${MIDILAR_MIDI_PROCESSOR})
+            message(STATUS "MIDILAR::MidiFoundation::Processor enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_PROCESSOR)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_PROCESSOR")
+        endif()
+
+    endif()
+    
+    if(${MIDILAR_AUDIO_FOUNDATION})
+        target_compile_definitions(MIDILAR PUBLIC MIDILAR_AUDIO_FOUNDATION)
+        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_AUDIO_FOUNDATION")
+        
+        if(${MIDILAR_LUT})
+            message(STATUS "MIDILAR::AudioFoundation::LUT enabled")
+            target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT)
+            list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT")
         endif()
     endif()
+
+    
+    if(${MIDILAR_MIDI_PROCESORS})
+        target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_PROCESORS)
+        list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_PROCESORS")
+        
+        if(${MIDILAR_LUT})
+
+        endif()
+    endif()
+
 
 # Other conditional flags can be added here as needed
 ######################################################################################################
