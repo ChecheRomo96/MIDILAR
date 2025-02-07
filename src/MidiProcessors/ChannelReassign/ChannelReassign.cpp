@@ -9,9 +9,9 @@ namespace MIDILAR::MidiProcessors{
 	                        static_cast<uint32_t>(Capabilities::MidiOut));
 
 	        _MessageParser.BindChannelVoiceCallback(
-			    nullptr,  // We don't need a `CallbackReferenceType` here
-			    static_cast<void*>(this),  // Pass `this` as the instance
-			    &ChannelReassign::StaticChannelVoiceCallback  // Pass static function pointer
+			    static_cast<CallbackReferenceType>(nullptr),  	// We don't need a `CallbackReferenceType` here
+			    static_cast<void*>(this),  						// Pass `this` as the instance
+			    &ChannelReassign::StaticChannelVoiceCallback  	// Pass static function pointer
 			);
 
 	        _MessageParser.BindDefaultCallback(
