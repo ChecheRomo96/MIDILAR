@@ -78,14 +78,30 @@
 			bool ResizeBuffer(size_t NewSize);
 
 		    // **Set Callbacks Using `CallbackHandler`**
-		    void BindChannelVoiceCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
-		    void BindControlChangeCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
-		    void BindRealTimeCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
-		    void BindSystemCommonCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
-		    void BindSysExCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
-		    void BindMTCCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
-		    void BindMSCCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
-		    void BindDefaultCallback(CallbackReferenceType callback, void* instance = nullptr, void (*invokeFunc)(void*, uint8_t*, size_t) = nullptr);
+		    void BindChannelVoiceCallback(CallbackReferenceType callback);
+		    void BindChannelVoiceCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
+		    void BindControlChangeCallback(CallbackReferenceType callback);
+		    void BindControlChangeCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
+		    void BindRealTimeCallback(CallbackReferenceType callback);
+		    void BindRealTimeCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
+		    void BindSystemCommonCallback(CallbackReferenceType callback);
+		    void BindSystemCommonCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
+		    void BindSysExCallback(CallbackReferenceType callback);
+		    void BindSysExCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
+		    void BindMTCCallback(CallbackReferenceType callback);
+		    void BindMTCCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
+		    void BindMSCCallback(CallbackReferenceType callback);
+		    void BindMSCCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
+		    void BindDefaultCallback(CallbackReferenceType callback);
+		    void BindDefaultCallback(void* instance, void (*invokeFunc)(void*, uint8_t*, size_t));
+
 
 		    // **Unbind Methods**
 		    void UnbindChannelVoiceCallback();
