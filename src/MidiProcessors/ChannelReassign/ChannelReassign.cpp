@@ -23,7 +23,7 @@ namespace MIDILAR::MidiProcessors{
 
 	}
 
-	void ChannelReassign::_ChannelVoiceCallback(const MidiFoundation::Message& Data) {
+	void ChannelReassign::_ChannelVoiceCallback(const uint8_t* Data, size_t Size) {
 	    if (Data.size() == 3) {  // Only process 3-byte Channel Voice Messages
 	        uint8_t channel = Data[0] & 0x0F;  // Extract the MIDI channel number
 
@@ -43,30 +43,30 @@ namespace MIDILAR::MidiProcessors{
 	        }
 	        else{
 		        // Forward any messages that are for other channel directly
-		        _MidiOutput(Data);
+		        _MidiOutput(Data, Size);
 	        }
 	    } 
 	    else {
 	        // Forward any non-channel voice messages directly
-	        _MidiOutput(Data);
+	        _MidiOutput(Data, Size);
 	    }
 	}
 
-	void ChannelReassign::_DefaultCallback(const MidiFoundation::Message& Data){
-		_MidiOutput(Data);
+	void ChannelReassign::_DefaultCallback(const uint8_t* Data, size_t Size){
+		_MidiOutput(Data, Size);
 	}
 
 	void ChannelReassign::MidiInput(const uint8_t* Message, size_t Size) override {
 		_MessageParser.ProcessData(Message,Size);
 	}
 
-	void ChannelReassign::StaticChannelVoiceCallback(void* context, uint8_t* Data, size_t Size) {
+	void ChannelReassign::StaticChannelVoiceCallback(void* context, const uint8_t* Data, size_t Size) {
         if (context) {
             static_cast<ChannelReassign*>(context)->_ChannelVoiceCallback(Data, Size);
         }
 	}
 
-	void ChannelReassign::StaticDefaultCallback(void* context, uint8_t* Data, size_t Size) {
+	void ChannelReassign::StaticDefaultCallback(void* context, const uint8_t* Data, size_t Size) {
         if (context) {
             static_cast<ChannelReassign*>(context)->_DefaultCallback(Data, Size);
         }

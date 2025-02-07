@@ -13,8 +13,8 @@
 			uint16_t _OutputChannels;
 
 		private:
-			void _ChannelVoiceCallback(const MidiFoundation::Message& Data);
-			void _DefaultCallback(const MidiFoundation::Message& Data);
+			void _ChannelVoiceCallback(const uint8_t* Data, size_t Size);
+			void _DefaultCallback(const uint8_t* Data, size_t Size);
 
 		public:
 
@@ -22,8 +22,8 @@
 
     		void MidiInput(const uint8_t* Message, size_t Size) override;
     		
-    		static void StaticChannelVoiceCallback(void* context, uint8_t* Data, size_t Size);
-    		static void StaticDefaultCallback(void* context, uint8_t* Data, size_t Size);
+    		static void StaticChannelVoiceCallback(void* context, const uint8_t* Data, size_t Size);
+    		static void StaticDefaultCallback(void* context, const uint8_t* Data, size_t Size);
 
 		};
 
