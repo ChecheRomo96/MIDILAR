@@ -8,6 +8,7 @@
 
 #include <MIDILAR_BuildSettings.h>
 #include <stdlib.h> // For malloc/free
+#include <math.h>
 
 namespace MIDILAR::AudioFoundation::LUT {
 
@@ -175,12 +176,12 @@ namespace MIDILAR::AudioFoundation::LUT {
                         float normalizedPosition = (inputValue - _InputRangeMin) / (_InputRangeMax - _InputRangeMin);
 
                         // Proper wrapping without using fmod()
-                        normalizedPosition -= std::floor(normalizedPosition);  // Ensure it's in [0,1)
+                        normalizedPosition -= floor(normalizedPosition);  // Ensure it's in [0,1)
                         if (normalizedPosition < 0.0f) normalizedPosition += 1.0f;   // Ensure positive wrap-around
 
                         // Compute indices for interpolation
                         float indexFloat = normalizedPosition * (_bufferSize-1); // Scale correctly
-                        size_t lowerIndex = static_cast<size_t>(std::floor(indexFloat));
+                        size_t lowerIndex = static_cast<size_t>(floor(indexFloat));
                         size_t upperIndex = (lowerIndex + 1) % _bufferSize;  // Circular wrap-around
 
                         // If interpolation is disabled, return the nearest LUT value immediately
