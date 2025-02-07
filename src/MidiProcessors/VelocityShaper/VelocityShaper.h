@@ -34,7 +34,7 @@ namespace MIDILAR::MidiProcessors {
 	         * @param Message Pointer to the MIDI message buffer.
 	         * @param Size The size of the incoming message.
 	         */
-	        	void MidiInput(uint8_t* Message, size_t Size) override;
+	        	void MidiInput(const uint8_t* Message, size_t Size) override;
 	        //
 	        ///////////////////////////////////////////////////////////////////////////////////////////////
 

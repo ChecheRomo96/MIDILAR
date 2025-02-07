@@ -33,8 +33,8 @@ namespace MIDILAR::MidiProcessors {
      * @param Message Pointer to the MIDI message buffer.
      * @param Size The size of the incoming message.
      */
-        void VelocityShaper::MidiInput(uint8_t* Message, size_t Size) {
-            _MessageParser.Parse(Message, Size);
+        void VelocityShaper::MidiInput(const uint8_t* Message, size_t Size) override{
+            _MessageParser.ProcessData(Message, Size);
         }
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////

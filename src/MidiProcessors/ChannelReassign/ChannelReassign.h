@@ -20,7 +20,7 @@
 
 			ChannelReassign();
 
-    		void MidiInput(uint8_t* Message, size_t Size) override;
+    		void MidiInput(const uint8_t* Message, size_t Size) override;
 		};
 
 	}
