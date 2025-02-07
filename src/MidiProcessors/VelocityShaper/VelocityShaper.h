@@ -44,6 +44,11 @@ namespace MIDILAR::MidiProcessors {
 
 	        	void SetExpGain(float ExpGain);
 	        	float ExpGain() const;
+
+	    private:
+	    	
+    		static void StaticChannelVoiceCallback(void* context, const uint8_t* Data, size_t Size);
+    		static void StaticDefaultCallback(void* context, const uint8_t* Data, size_t Size);
 	    };
 	//
 	///////////////////////////////////////////////////////////////////////////////////////////////////////

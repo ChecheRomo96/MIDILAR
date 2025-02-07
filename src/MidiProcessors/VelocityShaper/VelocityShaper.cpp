@@ -11,13 +11,15 @@ namespace MIDILAR::MidiProcessors {
             : _InputChannels(0xFFFF) { // Default: process all channels
 
             // Bind parser callbacks
-            _MessageParser.SetChannelVoiceCallback([this](const MidiFoundation::Message& msg) {
-                this->_ChannelVoiceCallback(msg);
-            });
+            _MessageParser.BindChannelVoiceCallback(
+                this,                                         // Pass `this` as the instance
+                &VelocityShaper::StaticChannelVoiceCallback  // Pass static function pointer
+            );
 
-            _MessageParser.SetDefaultCallback([this](const MidiFoundation::Message& msg) {
-                this->_DefaultCallback(msg);
-            });
+            _MessageParser.BindDefaultCallback(
+                this,  // Pass `this` as the instance
+                &VelocityShaper::StaticDefaultCallback  // Pass static function pointer
+            );
 
             // Configure LUT
             _LUT.SetInputRange(0,127);
@@ -119,5 +121,19 @@ namespace MIDILAR::MidiProcessors {
 
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////
+
+        
+
+        void VelocityShaper::StaticChannelVoiceCallback(void* context, const uint8_t* Data, size_t Size) {
+            if (context) {
+                static_cast<VelocityShaper*>(context)->_ChannelVoiceCallback(Data, Size);
+            }
+        }
+
+        void VelocityShaper::StaticDefaultCallback(void* context, const uint8_t* Data, size_t Size) {
+            if (context) {
+                static_cast<VelocityShaper*>(context)->_DefaultCallback(Data, Size);
+            }
+        }
 
 } // namespace MIDILAR::MidiProcessors
