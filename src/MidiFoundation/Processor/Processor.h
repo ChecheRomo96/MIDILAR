@@ -6,7 +6,7 @@
     #include <SystemFoundation/CallbackHandler/CallbackHandler.h>
     #include <MidiFoundation/Message/Message.h>
     #include <stdint.h>
-    #include <cstddef>
+
     #if __has_include(<vector>)
         #include <vector>
     #endif
