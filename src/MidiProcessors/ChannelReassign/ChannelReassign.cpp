@@ -37,23 +37,23 @@ namespace MIDILAR::MidiProcessors{
 	                        Data[2]   // Velocity / Value
 	                    };
 
-	                    _MidiOutput(Message, 3);  // Send the transformed message
+	                    MidiOutput(Message, 3);  // Send the transformed message
 	                }
 	            }
 	        }
 	        else{
 		        // Forward any messages that are for other channel directly
-		        _MidiOutput(Data, Size);
+		        MidiOutput(Data, Size);
 	        }
 	    } 
 	    else {
 	        // Forward any non-channel voice messages directly
-	        _MidiOutput(Data, Size);
+	        MidiOutput(Data, Size);
 	    }
 	}
 
 	void ChannelReassign::_DefaultCallback(const uint8_t* Data, size_t Size){
-		_MidiOutput(Data, Size);
+		MidiOutput(Data, Size);
 	}
 
 	void ChannelReassign::MidiInput(const uint8_t* Message, size_t Size) override {
