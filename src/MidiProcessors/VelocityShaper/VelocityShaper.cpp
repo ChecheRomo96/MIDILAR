@@ -1,6 +1,4 @@
 #include "VelocityShaper.h"
-#include <MidiFoundation/MessageTypes.h>
-#include <AudioFoundation/LUT/LogExpLUT.h>
 
 namespace MIDILAR::MidiProcessors {
 
