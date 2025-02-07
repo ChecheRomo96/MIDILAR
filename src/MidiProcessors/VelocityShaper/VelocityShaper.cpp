@@ -96,13 +96,13 @@ namespace MIDILAR::MidiProcessors {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
         void VelocityShaper::SetMorph(float setMorph) {
-            if (_LUT.Morph() != setMorph) {  // Avoid redundant updates
+            if (_LUT.GetMorph() != setMorph) {  // Avoid redundant updates
                 _LUT.SetMorph(setMorph);
             }
         }
 
         float VelocityShaper::Morph() const {
-            return _LUT.Morph();  // Fetch current morph value from LUT
+            return _LUT.GetMorph();  // Fetch current morph value from LUT
         }
 
         void VelocityShaper::SetExpGain(float expGain) {
