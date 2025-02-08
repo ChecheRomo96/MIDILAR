@@ -1,0 +1,2 @@
+add_executable(MIDILAR_SineLUT SineLUT_Plot.cpp)
+target_link_libraries(MIDILAR_SineLUT MIDILAR)
