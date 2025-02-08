@@ -1,7 +1,6 @@
 #ifndef MIDILAR_BUILD_SETTINGS_H
 #define MIDILAR_BUILD_SETTINGS_H
     
-    #include <MIDILAR_UserSetup.h>
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // CPString Version
@@ -22,6 +21,8 @@
     // Arduino IDE
 
         #if defined(ARDUINO)
+        
+            #include <MIDILAR_UserSetup.h>
             #include <Arduino.h>
             #include "MIDILAR_UserSetup.h"
         #endif
