@@ -21,8 +21,6 @@
     // Arduino IDE
 
         #if defined(ARDUINO)
-        
-            #include <MIDILAR_UserSetup.h>
             #include <Arduino.h>
             #include <System/UserSetup.h>
         #endif
