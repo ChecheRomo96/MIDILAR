@@ -1,6 +1,7 @@
 #ifndef MIDILAR_CHANNEL_REASSIGN_PROCESSOR_H
 #define MIDILAR_CHANNEL_REASSIGN_PROCESSOR_H
 
+    #include <System/BuildSettings.h>
 	#include <MidiFoundation/Processor/Processor.h>
 	#include <MidiFoundation/MessageParser/MessageParser.h>
 

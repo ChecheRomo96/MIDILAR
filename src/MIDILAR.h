@@ -21,7 +21,7 @@
     /** 
      * @brief Include the build settings for MIDILAR.
      */
-    #include <MIDILAR_BuildSettings.h>
+    #include <System/BuildSettings.h>
 
     #ifdef MIDILAR_SYSTEM_FOUNDATION
         /**

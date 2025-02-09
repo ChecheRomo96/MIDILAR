@@ -24,7 +24,7 @@
         
             #include <MIDILAR_UserSetup.h>
             #include <Arduino.h>
-            #include "MIDILAR_UserSetup.h"
+            #include <System/UserSetup.h>
         #endif
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////

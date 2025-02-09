@@ -1,7 +1,7 @@
 #ifndef MIDILAR_SYSTEM_FOUNDATION_H
 #define MIDILAR_SYSTEM_FOUNDATION_H
 
-    #include <MIDILAR_BuildSettings.h>
+    #include <System/BuildSettings.h>
     
     #ifdef MIDILAR_CALLBACK_HANDLER
         #include "SystemFoundation/CallbackHandler/CallbackHandler.h"

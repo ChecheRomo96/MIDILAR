@@ -1,7 +1,7 @@
 #ifndef MIDILAR_MIDI_PROCESSOR_H
 #define MIDILAR_MIDI_PROCESSOR_H
 
-    #include <MIDILAR_BuildSettings.h>
+    #include <System/BuildSettings.h>
     #include <SystemFoundation/Clock/Clock.h>
     #include <SystemFoundation/CallbackHandler/CallbackHandler.h>
     #include <MidiFoundation/Message/Message.h>

@@ -1,7 +1,7 @@
 #ifndef MIDILAR_MIDI_MESSAGE_PARSER_H
 #define MIDILAR_MIDI_MESSAGE_PARSER_H
 
-	#include <MIDILAR_BuildSettings.h>
+    #include <System/BuildSettings.h>
 	#include <SystemFoundation/CallbackHandler/CallbackHandler.h>
 	#include <MidiFoundation/Message/Message.h>
 

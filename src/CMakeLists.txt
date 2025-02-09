@@ -18,7 +18,6 @@
     list(
         APPEND ${PROJECT_NAME_UPPER}_HEADERS_LOCAL 
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h" 
-        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h"
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.h"
     )
 
@@ -27,6 +26,8 @@
 #
 ######################################################################################################
 # Add Subdirectories
+
+    add_subdirectory(System)
 
     if(${MIDILAR_SYSTEM_FOUNDATION})
         message(STATUS "MIDILAR::SystemFoundation enabled")
