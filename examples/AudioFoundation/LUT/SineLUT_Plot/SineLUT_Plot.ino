@@ -16,7 +16,7 @@ void setup() {
 
     constexpr float step = 1.0f / static_cast<float>(OVERSAMPLING);
     
-    Serial.println("lut_index = [");
+    Serial.print("lut_index = [");
     for (size_t idx = 0; idx < 2 * (LUT_SIZE * OVERSAMPLING); ++idx) {
         float i = idx * step;
         Serial.print(i, 3);
@@ -24,7 +24,7 @@ void setup() {
     }
     Serial.println("];");
 
-    Serial.println("lut_value = [");
+    Serial.print("lut_value = [");
     for (size_t idx = 0; idx < 2 * (LUT_SIZE * OVERSAMPLING); ++idx) {
         float i = idx * step;
         Serial.print(sineLUT.GetValue(i), 3);
@@ -34,7 +34,7 @@ void setup() {
 
     sineLUT.OutputInterpolation_Enable();
     
-    Serial.println("lut_value_interpolated = [");
+    Serial.print("lut_value_interpolated = [");
     for (size_t idx = 0; idx < 2 * (LUT_SIZE * OVERSAMPLING); ++idx) {
         float i = idx * step;
         Serial.print(sineLUT.GetValue(i), 3);

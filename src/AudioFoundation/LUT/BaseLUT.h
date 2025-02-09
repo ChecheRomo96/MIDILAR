@@ -23,7 +23,7 @@ namespace MIDILAR::AudioFoundation::LUT {
      * @tparam LUT_TYPE The data type stored in the LUT.
      * @tparam LUT_RANGE_TYPE The range type used for indexing the LUT (default is float).
      */
-        template<typename LUT_TYPE, typename LUT_RANGE_TYPE = float>
+        template<typename LUT_TYPE, typename LUT_RANGE_TYPE = float, typename LUT_INPUT_TYPE = float>
         class BaseLUT {
 
             private:
@@ -180,7 +180,7 @@ namespace MIDILAR::AudioFoundation::LUT {
                         if (normalizedPosition < 0.0f) normalizedPosition += 1.0f;   // Ensure positive wrap-around
 
                         // Compute indices for interpolation
-                        float indexFloat = normalizedPosition * (_bufferSize-1); // Scale correctly
+                        float indexFloat = normalizedPosition * (_bufferSize); // Scale correctly
                         size_t lowerIndex = static_cast<size_t>(floor(indexFloat));
                         size_t upperIndex = (lowerIndex + 1) % _bufferSize;  // Circular wrap-around
 
