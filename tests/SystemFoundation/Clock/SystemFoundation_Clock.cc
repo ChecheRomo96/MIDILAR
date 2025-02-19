@@ -163,3 +163,12 @@ TEST(ClockTest, BindSetup) {
     clock.setFrequency(Clock::Timebase::Milliseconds);
     EXPECT_EQ(clock.getFrequency(), Clock::Timebase::Microseconds);
 }
+
+// Test getting the current time
+TEST(ClockTest, setPeriod) {
+    Clock clock(ClockCallback, Clock::Timebase::Milliseconds);
+    clock.bindSetup(SetupCallback);
+    EXPECT_EQ(clock.getFrequency(), Clock::Timebase::Milliseconds);
+    clock.setPeriod(0.000001);
+    EXPECT_EQ(clock.getFrequency(), Clock::Timebase::Microseconds);
+}

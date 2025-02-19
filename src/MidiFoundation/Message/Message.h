@@ -109,9 +109,9 @@
                     #if __has_include(<vector>)
                         const std::vector<uint8_t>& Vector() const; ///< Gets the internal data buffer.
                         std::vector<uint8_t>::iterator begin() noexcept; ///< Gets an iterator to the beginning of the buffer.
-                        std::vector<uint8_t>::const_iterator begin() const noexcept; ///< Gets a constant iterator to the beginning of the buffer.
+                        std::vector<uint8_t>::const_iterator cbegin() const noexcept; ///< Gets a constant iterator to the beginning of the buffer.
                         std::vector<uint8_t>::iterator end() noexcept; ///< Gets an iterator to the end of the buffer.
-                        std::vector<uint8_t>::const_iterator end() const noexcept; ///< Gets a constant iterator to the end of the buffer.
+                        std::vector<uint8_t>::const_iterator cend() const noexcept; ///< Gets a constant iterator to the end of the buffer.
                     #endif  
                /**@}*/ //
                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

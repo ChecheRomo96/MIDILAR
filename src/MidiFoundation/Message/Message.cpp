@@ -8,6 +8,7 @@ namespace MIDILAR::MidiFoundation{
         bool Message::_resize(size_t new_size) {
             #if __has_include(<vector>)
                 if (new_size <= _Data.size()) {
+                    _Data.resize(new_size);
                     return true; // No need to resize if the current size is already sufficient
                 }
 
@@ -284,8 +285,8 @@ namespace MIDILAR::MidiFoundation{
             }
 
             // Constant iterator to the beginning of the buffer
-            std::vector<uint8_t>::const_iterator Message::begin() const noexcept {
-                return _Data.begin();  // Return a constant iterator to the beginning
+            std::vector<uint8_t>::const_iterator Message::cbegin() const noexcept {
+                return _Data.cbegin();  // Return a constant iterator to the beginning
             }
 
             // Iterator to the end of the buffer (non-const)
@@ -294,8 +295,8 @@ namespace MIDILAR::MidiFoundation{
             }
 
             // Constant iterator to the end of the buffer
-            std::vector<uint8_t>::const_iterator Message::end() const noexcept {
-                return _Data.end();  // Return a constant iterator to the end
+            std::vector<uint8_t>::const_iterator Message::cend() const noexcept {
+                return _Data.cend();  // Return a constant iterator to the end
             }
 
         #endif // __has_include(<vector>)
@@ -767,33 +768,36 @@ namespace MIDILAR::MidiFoundation{
         //
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Constructs a Song Position Pointer message
+        
             Message& Message::SongPositionPointer(uint16_t Position) {
-            if (_resize(3)) {
-                _Data[0] = MIDI_SONG_POSITION_POINTER; // Song Position Pointer status byte
-                _Data[1] = Position & 0x7F;           // Least significant 7 bits
-                _Data[2] = (Position >> 7) & 0x7F;    // Most significant 7 bits
+                if (_resize(3)) {
+                    _Data[0] = MIDI_SONG_POSITION_POINTER; // Song Position Pointer status byte
+                    _Data[1] = Position & 0x7F;           // Least significant 7 bits
+                    _Data[2] = (Position >> 7) & 0x7F;    // Most significant 7 bits
+                }
+                return *this;
             }
-            return *this;
-        }
         //
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Constructs a Song Select message
+
             Message& Message::SongSelect(uint8_t Song) {
-            if (_resize(2)) {
-                _Data[0] = MIDI_SONG_SELECT; // Song Select status byte
-                _Data[1] = Song & 0x7F;      // Ensure only the lower 7 bits are used
+                if (_resize(2)) {
+                    _Data[0] = MIDI_SONG_SELECT; // Song Select status byte
+                    _Data[1] = Song & 0x7F;      // Ensure only the lower 7 bits are used
+                }
+                return *this;
             }
-            return *this;
-        }
         //
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Constructs a Tuning Request message
+
             Message& Message::TuningRequest() {
-            if (_resize(1)) {
-                _Data[0] = MIDI_TUNING_REQUEST; // Tuning Request status byte
+                if (_resize(1)) {
+                    _Data[0] = MIDI_TUNING_REQUEST; // Tuning Request status byte
+                }
+                return *this;
             }
-            return *this;
-        }
         //
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

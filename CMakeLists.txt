@@ -48,6 +48,18 @@
 ######################################################################################################
 # Append Source
 
+    # Apply coverage flags only if MIDILAR_COVERAGE is ON
+    if(MIDILAR_COVERAGE)
+        message(STATUS "Enabling Code Coverage")
+
+        set(COVERAGE_FLAGS "-fprofile-arcs -ftest-coverage -fprofile-abs-path --coverage -O0")
+
+        # Ensure flags only apply in Debug mode
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${COVERAGE_FLAGS}")
+        set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} ${COVERAGE_FLAGS}")
+        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} ${COVERAGE_FLAGS}")
+    endif()
+    
     # Add the src directory to the build
     add_subdirectory(src)
 #
@@ -110,17 +122,7 @@
         enable_testing()
         cmake_policy(SET CMP0135 NEW)
         
-        # Apply coverage flags only if MIDILAR_COVERAGE is ON
-        if(MIDILAR_COVERAGE)
-            message(STATUS "Enabling Code Coverage")
-
-            set(COVERAGE_FLAGS "-fprofile-arcs -ftest-coverage -fprofile-abs-path --coverage")
-
-            # Ensure flags only apply in Debug mode
-            set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${COVERAGE_FLAGS}")
-            set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} ${COVERAGE_FLAGS}")
-            set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} ${COVERAGE_FLAGS}")
-        endif()
+        
 
         # Disable GoogleTest installation
         set(INSTALL_GTEST OFF CACHE BOOL "Disable installation of GoogleTest")

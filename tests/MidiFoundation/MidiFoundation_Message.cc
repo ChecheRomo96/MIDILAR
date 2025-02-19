@@ -62,6 +62,12 @@ namespace MIDILAR::MidiFoundation {
             EXPECT_EQ(moved.Data(0), 0x91);
             EXPECT_EQ(moved.Data(1), 60);
             EXPECT_EQ(moved.Data(2), 100);
+
+            original = std::move(moved);
+            EXPECT_EQ(original.size(), 3);
+            EXPECT_EQ(original.Data(0), 0x91);
+            EXPECT_EQ(original.Data(1), 60);
+            EXPECT_EQ(original.Data(2), 100);
         }
 
         TEST(MidiMessageTest, RawBufferConstructor) {
@@ -73,6 +79,20 @@ namespace MIDILAR::MidiFoundation {
             EXPECT_EQ(msg.Data(1), 60);
             EXPECT_EQ(msg.Data(2), 100);
         }
+        
+        TEST(MidiMessageTest, AssignOperator) {
+            uint8_t buffer[] = {0x90, 60, 100};
+            Message msg(buffer, sizeof(buffer));
+
+            Message msg2;
+            msg2 = msg;
+
+            EXPECT_EQ(msg2.size(), 3);
+            EXPECT_EQ(msg2.Data(0), 0x90);
+            EXPECT_EQ(msg2.Data(1), 60);
+            EXPECT_EQ(msg2.Data(2), 100);
+        }
+        
 
         #if __has_include(<vector>)
         TEST(MidiMessageTest, VectorConstructor) {
@@ -92,6 +112,46 @@ namespace MIDILAR::MidiFoundation {
             EXPECT_EQ(msg.Data(1), 60);
             EXPECT_EQ(msg.Data(2), 100);
         }
+        
+        TEST(MidiMessageTest, VectorAssignment){
+            std::vector<uint8_t> data = {0x90, 60, 100};
+            Message msg;
+            msg = data;
+
+            EXPECT_EQ(msg.size(), 3);
+            EXPECT_EQ(msg.Data(0), 0x90);
+            EXPECT_EQ(msg.Data(1), 60);
+            EXPECT_EQ(msg.Data(2), 100);
+        }
+        
+        TEST(MidiMessageTest, VectorSetRawData){
+            std::vector<uint8_t> data = {0x90, 60, 100};
+            Message msg;
+            msg.SetRawData(data);
+
+            EXPECT_EQ(msg.size(), 3);
+            EXPECT_EQ(msg.Data(0), 0x90);
+            EXPECT_EQ(msg.Data(1), 60);
+            EXPECT_EQ(msg.Data(2), 100);
+
+            data.clear();
+
+            msg.SetRawData(data);
+            EXPECT_EQ(msg.size(), 0);
+
+        }
+        
+        TEST(MidiMessageTest, VectorMoveAssignment){
+            std::vector<uint8_t> data = {0x90, 60, 100};
+            Message msg;
+            msg = std::move(data);
+
+            EXPECT_EQ(msg.size(), 3);
+            EXPECT_EQ(msg.Data(0), 0x90);
+            EXPECT_EQ(msg.Data(1), 60);
+            EXPECT_EQ(msg.Data(2), 100);
+        }
+
         #endif
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,6 +165,7 @@ namespace MIDILAR::MidiFoundation {
             EXPECT_EQ(msg.Data(0), 0x91);
             EXPECT_EQ(msg.Data(1), 60);
             EXPECT_EQ(msg.Data(2), 100);
+            EXPECT_EQ(msg.Data(3), 0); // Out of Bounds check
         }
 
         TEST(MidiMessageTest, SizeAccess) {
@@ -113,6 +174,27 @@ namespace MIDILAR::MidiFoundation {
 
             msg.NoteOn(60, 100, 1);
             EXPECT_EQ(msg.size(), 3);
+        }
+
+        TEST(MidiMessageTest, SetRawData){
+            uint8_t rawData [3] = {
+                0x90,
+                120,
+                120
+            };
+
+            Message msg;
+
+            msg.SetRawData(rawData,3);
+
+            // Validate message contents
+            EXPECT_EQ(msg.size(), 3);
+            EXPECT_EQ(msg.Data(0), rawData[0]); // Status Byte
+            EXPECT_EQ(msg.Data(1), rawData[1]); // Data Byte 1
+            EXPECT_EQ(msg.Data(2), rawData[2]); // Data Byte 2
+
+            msg.SetRawData(nullptr,0);
+            EXPECT_EQ(msg.size(), 0);
         }
 
         #if __has_include(<vector>)
@@ -167,8 +249,8 @@ namespace MIDILAR::MidiFoundation {
             Message message(expectedBuffer);
 
             // Act
-            auto it = message.begin();
-            auto end = message.end();
+            auto it = message.cbegin();
+            auto end = message.cend();
 
             // Assert
             ASSERT_EQ(std::distance(it, end), 3);
@@ -366,6 +448,76 @@ namespace MIDILAR::MidiFoundation {
                 }
             }
         }
+        
+            TEST(MidiMessageTest, CC_Specializations) {
+                Message msg;
+            
+                uint8_t Values[3] = {0x00, 0x7F, 0x80}; // Test boundary values
+                uint8_t Channels[3] = {0x00, 0x0F, 0x10}; // Valid & out-of-range channels
+            
+                for (size_t i = 0; i < 3; i++) {
+                    for (size_t j = 0; j < 3; j++) {
+                        
+                        uint8_t expectedChannel = (Channels[i] < 15) ? Channels[i]:15;
+                        uint8_t expectedValue = (Values[j] < 127) ? Values[j]:127;
+
+                        // Test CC_BankSelect
+                        msg = msg.CC_BankSelect(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_BANK_SELECT);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_Modulation
+                        msg = msg.CC_Modulation(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_MODULATION);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_BreathControl
+                        msg = msg.CC_BreathControl(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_BREATH_CONTROL);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_FootPedal
+                        msg = msg.CC_FootPedal(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_FOOT_PEDAL);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_Portamento
+                        msg = msg.CC_Portamento(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_PORTAMENTO);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_Volume
+                        msg = msg.CC_Volume(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_VOLUME);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_Balance
+                        msg = msg.CC_Balance(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_BALANCE);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_Pan
+                        msg = msg.CC_Pan(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_PAN);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+            
+                        // Test CC_Expression
+                        msg = msg.CC_Expression(Values[j], Channels[i]);
+                        EXPECT_EQ(msg.Data(0), 0xB0 + expectedChannel);
+                        EXPECT_EQ(msg.Data(1), MIDI_EXPRESSION);
+                        EXPECT_EQ(msg.Data(2), expectedValue);
+                    }
+                }
+            }
+
         //
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Program Change messages
@@ -705,6 +857,15 @@ namespace MIDILAR::MidiFoundation {
                     msg.CC_OmniOff(channel);
                     validateMessage(MIDI_OMNI_OFF);
 
+                    msg.CC_OmniMode(static_cast<uint8_t>(0x05), channel); // Invalid OmniMode value
+                    EXPECT_EQ(msg.size(), 0); // _resize(0) should have cleared the message
+            
+                    msg.CC_OmniMode(static_cast<uint8_t>(0xFF), channel); // Completely out-of-range value
+                    EXPECT_EQ(msg.size(), 0);
+            
+                    msg.CC_OmniMode(static_cast<MidiProtocol::ChannelMode>(99), channel); // Invalid enum case
+                    EXPECT_EQ(msg.size(), 0);
+
                     ++channel;
                 } while (channel != 0); // Loop through all uint8_t values, including 255.
             }
@@ -755,6 +916,15 @@ namespace MIDILAR::MidiFoundation {
                     msg.CC_Poly(channel);
                     validateMessage(MIDI_POLY_ON);
 
+                    msg.CC_Polyphony(static_cast<uint8_t>(0x05), channel); // Arbitrary invalid value
+                    EXPECT_EQ(msg.size(), 0); // _resize(0) should have cleared the message
+            
+                    msg.CC_Polyphony(static_cast<uint8_t>(0xFF), channel); // Completely out-of-range value
+                    EXPECT_EQ(msg.size(), 0);
+            
+                    msg.CC_Polyphony(static_cast<MidiProtocol::ChannelMode>(99), channel); // Invalid enum case
+                    EXPECT_EQ(msg.size(), 0);
+
                     ++channel;
                 } while (channel != 0); // Loop through all uint8_t values, including 255.
             }
@@ -762,11 +932,225 @@ namespace MIDILAR::MidiFoundation {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Real Time Messages
+
+        TEST(MidiMessageTest, RealTimeMessages) {
+            Message msg;
+        
+            // Test TimingTick
+            msg = msg.TimingTick();
+            EXPECT_EQ(msg.size(), 1);
+            EXPECT_EQ(msg.Data(0), MIDI_REALTIME_TIMING_TICK);
+        
+            // Test Start
+            msg = msg.Start();
+            EXPECT_EQ(msg.size(), 1);
+            EXPECT_EQ(msg.Data(0), MIDI_REALTIME_START);
+        
+            // Test Continue
+            msg = msg.Continue();
+            EXPECT_EQ(msg.size(), 1);
+            EXPECT_EQ(msg.Data(0), MIDI_REALTIME_CONTINUE);
+        
+            // Test Stop
+            msg = msg.Stop();
+            EXPECT_EQ(msg.size(), 1);
+            EXPECT_EQ(msg.Data(0), MIDI_REALTIME_STOP);
+        
+            // Test ActiveSensing
+            msg = msg.ActiveSensing();
+            EXPECT_EQ(msg.size(), 1);
+            EXPECT_EQ(msg.Data(0), MIDI_REALTIME_ACTIVE_SENSING);
+        
+            // Test SystemReset
+            msg = msg.SystemReset();
+            EXPECT_EQ(msg.size(), 1);
+            EXPECT_EQ(msg.Data(0), MIDI_REALTIME_SYSTEM_RESET);
+        }
+    
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // System Common Messages
 
+        TEST(MidiMessageTest, SongPositionPointer) {
+            Message msg;
+        
+            // Test different valid positions (14-bit values)
+            uint16_t testPositions[] = {0x0000, 0x007F, 0x3FFF}; // Min, boundary, max
+        
+            for (uint16_t position : testPositions) {
+                msg = msg.SongPositionPointer(position);
+        
+                // Ensure the message is correctly resized
+                ASSERT_EQ(msg.size(), 3) << "Incorrect message size for SongPositionPointer";
+        
+                // Validate message contents
+                EXPECT_EQ(msg.Data(0), MIDI_SONG_POSITION_POINTER); // Status byte
+                EXPECT_EQ(msg.Data(1), position & 0x7F);            // LSB (Least Significant Byte)
+                EXPECT_EQ(msg.Data(2), (position >> 7) & 0x7F);     // MSB (Most Significant Byte)
+            }
+        }
+        
+        TEST(MidiMessageTest, SongSelect) {
+            Message msg;
+        
+            // Test valid song numbers (7-bit values)
+            uint8_t testSongs[] = {0x00, 0x7F}; // Min and max valid values
+        
+            for (uint8_t song : testSongs) {
+                msg = msg.SongSelect(song);
+        
+                // Ensure the message is correctly resized
+                ASSERT_EQ(msg.size(), 2) << "Incorrect message size for SongSelect";
+        
+                // Validate message contents
+                EXPECT_EQ(msg.Data(0), MIDI_SONG_SELECT); // Status byte
+                EXPECT_EQ(msg.Data(1), song & 0x7F);      // Valid 7-bit song number
+            }
+        }
+        
+        TEST(MidiMessageTest, TuningRequest) {
+            Message msg;
+        
+            msg = msg.TuningRequest();
+        
+            // Ensure the message is correctly resized
+            ASSERT_EQ(msg.size(), 1) << "Incorrect message size for TuningRequest";
+        
+            // Validate message contents
+            EXPECT_EQ(msg.Data(0), MIDI_TUNING_REQUEST); // Status byte
+        }
+        
+        TEST(MidiMessageTest, SystemExclusive) {
+            Message msg;
+        
+            // Test Case 1: Valid SysEx message (Already Includes Start and End Bytes)
+            uint8_t validSysEx[] = {0xF0, 0x01, 0x02, 0x03, 0xF7};
+            msg = msg.SystemExclusive(validSysEx, sizeof(validSysEx));
+        
+            ASSERT_EQ(msg.size(), 5) << "Incorrect message size for valid SysEx";
+            EXPECT_EQ(msg.Data(0), 0xF0);
+            EXPECT_EQ(msg.Data(1), 0x01);
+            EXPECT_EQ(msg.Data(2), 0x02);
+            EXPECT_EQ(msg.Data(3), 0x03);
+            EXPECT_EQ(msg.Data(4), 0xF7);
+        
+            // Test Case 2: SysEx Missing Start Byte (Should Add 0xF0)
+            uint8_t missingStartSysEx[] = {0x01, 0x02, 0x03, 0xF7};
+            msg = msg.SystemExclusive(missingStartSysEx, sizeof(missingStartSysEx));
+        
+            ASSERT_EQ(msg.size(), 5) << "Incorrect message size when missing 0xF0";
+            EXPECT_EQ(msg.Data(0), 0xF0);
+            EXPECT_EQ(msg.Data(1), 0x01);
+            EXPECT_EQ(msg.Data(2), 0x02);
+            EXPECT_EQ(msg.Data(3), 0x03);
+            EXPECT_EQ(msg.Data(4), 0xF7);
+        
+            // Test Case 3: SysEx Missing End Byte (Should Add 0xF7)
+            uint8_t missingEndSysEx[] = {0xF0, 0x01, 0x02, 0x03};
+            msg = msg.SystemExclusive(missingEndSysEx, sizeof(missingEndSysEx));
+        
+            ASSERT_EQ(msg.size(), 5) << "Incorrect message size when missing 0xF7";
+            EXPECT_EQ(msg.Data(0), 0xF0);
+            EXPECT_EQ(msg.Data(1), 0x01);
+            EXPECT_EQ(msg.Data(2), 0x02);
+            EXPECT_EQ(msg.Data(3), 0x03);
+            EXPECT_EQ(msg.Data(4), 0xF7);
+        
+            // Test Case 4: SysEx Missing Both Start and End Bytes (Should Add Both)
+            uint8_t missingBothSysEx[] = {0x01, 0x02, 0x03};
+            msg = msg.SystemExclusive(missingBothSysEx, sizeof(missingBothSysEx));
+        
+            ASSERT_EQ(msg.size(), 5) << "Incorrect message size when missing both 0xF0 and 0xF7";
+            EXPECT_EQ(msg.Data(0), 0xF0);
+            EXPECT_EQ(msg.Data(1), 0x01);
+            EXPECT_EQ(msg.Data(2), 0x02);
+            EXPECT_EQ(msg.Data(3), 0x03);
+            EXPECT_EQ(msg.Data(4), 0xF7);
+        
+            // Test Case 5: Empty Data (Should Not Modify Message)
+            uint8_t emptyData[] = {};
+            msg = msg.SystemExclusive(emptyData, 0);
+        
+            EXPECT_EQ(msg.size(), 5) << "SystemExclusive(0) should not modify the message"; // Expect previous state to persist
+        }
+        
 
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+    // MTC
+
+        TEST(MidiMessageTest, MTC_QuarterFrame) {
+            Message msg;
+        
+            // Test different TimeComponents and Data values
+            for (uint8_t timeComponent = 0; timeComponent < 8; timeComponent++) {
+                for (uint8_t data = 0; data < 16; data++) {
+                    msg = msg.MTC_QuarterFrame(timeComponent, data);
+        
+                    EXPECT_EQ(msg.size(), 2);
+                    EXPECT_EQ(msg.Data(0), MIDI_MTC_QUARTER_FRAME);
+                    EXPECT_EQ(msg.Data(1), ((timeComponent & 0x07) << 4) | (data & 0x0F));
+                }
+            }
+        }
+        
+        TEST(MidiMessageTest, MTC_QuarterFrame_Enum) {
+            Message msg;
+        
+            for (uint8_t data = 0; data < 16; data++) {
+                msg = msg.MTC_QuarterFrame(MidiProtocol_MTC::TimeComponent::FramesLSB, data);
+                EXPECT_EQ(msg.size(), 2);
+                EXPECT_EQ(msg.Data(0), MIDI_MTC_QUARTER_FRAME);
+                EXPECT_EQ(msg.Data(1), ((static_cast<uint8_t>(MidiProtocol_MTC::TimeComponent::FramesLSB) & 0x07) << 4) | (data & 0x0F));
+            }
+        }
+        
+        TEST(MidiMessageTest, MTC_FullFrame) {
+            Message msg;
+        
+            uint8_t hours = 23;
+            uint8_t minutes = 59;
+            uint8_t seconds = 58;
+            uint8_t frames = 29;
+            uint8_t framerate = 1; // Assume SMPTE 25 fps
+            uint8_t sysexChannel = 0x01;
+        
+            msg = msg.MTC_FullFrame(hours, minutes, seconds, frames, framerate, sysexChannel);
+        
+            EXPECT_EQ(msg.size(), 8);
+            EXPECT_EQ(msg.Data(0), MIDI_SYSEX_START);     // Start of SysEx
+            EXPECT_EQ(msg.Data(1), sysexChannel);         // SysEx Channel
+            EXPECT_EQ(msg.Data(2), MIDI_SYSEX_RT_MTC_FULL_FRAME);
+            EXPECT_EQ(msg.Data(3), ((framerate & 0x03) << 5) | (hours & 0x1F)); // Framerate + Hours
+            EXPECT_EQ(msg.Data(4), minutes & 0x3F);       // Minutes
+            EXPECT_EQ(msg.Data(5), seconds & 0x3F);       // Seconds
+            EXPECT_EQ(msg.Data(6), frames & 0x1F);        // Frames
+            EXPECT_EQ(msg.Data(7), MIDI_SYSEX_END);       // End of SysEx
+        }
+        
+        TEST(MidiMessageTest, MTC_FullFrame_Enum) {
+            Message msg;
+        
+            uint8_t hours = 12;
+            uint8_t minutes = 34;
+            uint8_t seconds = 56;
+            uint8_t frames = 20;
+            MidiProtocol_MTC::FrameRate framerate = MidiProtocol_MTC::FrameRate::FPS30;
+            uint8_t sysexChannel = 0x02;
+        
+            msg = msg.MTC_FullFrame(hours, minutes, seconds, frames, framerate, sysexChannel);
+        
+            EXPECT_EQ(msg.size(), 8);
+            EXPECT_EQ(msg.Data(0), MIDI_SYSEX_START);
+            EXPECT_EQ(msg.Data(1), sysexChannel);
+            EXPECT_EQ(msg.Data(2), MIDI_SYSEX_RT_MTC_FULL_FRAME);
+            EXPECT_EQ(msg.Data(3), ((static_cast<uint8_t>(framerate) & 0x03) << 5) | (hours & 0x1F)); // Framerate + Hours
+            EXPECT_EQ(msg.Data(4), minutes & 0x3F);
+            EXPECT_EQ(msg.Data(5), seconds & 0x3F);
+            EXPECT_EQ(msg.Data(6), frames & 0x1F);
+            EXPECT_EQ(msg.Data(7), MIDI_SYSEX_END);
+        }
+    //
     }  // namespace
 }  // namespace MIDILAR::MidiFoundation
