@@ -163,3 +163,6 @@ target_link_libraries(MyApp MIDILAR::MIDILAR)
 
 
 ---
+
+
+ctest --test-dir . -T Test -T Coverage
