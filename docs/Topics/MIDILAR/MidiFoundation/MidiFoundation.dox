@@ -1,0 +1,17 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @ingroup MIDILAR_MidiFoundation
+ * 
+ * This module contains core MIDI protocol definitions, including enums, classes, 
+ * and structs that are used throughout the library under the `Protocol` namespace. 
+ * It also includes essential classes such as `Message` for handling MIDI messages 
+ * and `Processor` for processing MIDI data.
+ * @{
+ */
+
+ 	/**
+ 	 * @defgroup MIDILAR_MF_Message Message Class
+ 	 */
+
+/**@}*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

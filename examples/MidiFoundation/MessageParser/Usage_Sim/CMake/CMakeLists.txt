@@ -1,0 +1,3 @@
+
+add_executable(MessageParser_Usage_Sim Usage_Sim.cpp)
+target_link_libraries(MessageParser_Usage_Sim PUBLIC MIDILAR) 

@@ -1,0 +1,45 @@
+/**
+ * @addtogroup MIDILAR_MidiProcessors
+ * @brief Documentation for the MIDI Processor module in MIDILAR.
+ *
+ * The `MidiProcessors` module provides real-time processing and transformation of MIDI messages.
+ * It includes various processors that modify, filter, or enhance MIDI data before forwarding
+ * it to other components in the `MIDILAR` framework.
+ *
+ * # Features
+ * - Real-time MIDI message processing
+ * - Nonlinear transformations for expressive control
+ * - Velocity shaping using LogExpLUT
+ * - MIDI channel filtering and remapping
+ * - Customizable parameter control
+ *
+ * ## Available Processors
+ *
+ * - **VelocityShaper**
+ *   - Applies a nonlinear transformation (LogExpLUT) to MIDI note velocities.
+ *   - Allows customizable morphing (`k`) and exponentiation gain (`c`).
+ *   - Can be used for expressive dynamic control in MIDI instruments.
+ *
+ * ## Example Usage
+ * @code
+ * #include <MidiProcessors/VelocityShaper.h>
+ *
+ * MIDILAR::MidiProcessors::VelocityShaper velocityShaper;
+ * velocityShaper.SetMorph(0.5f);
+ * velocityShaper.SetExpGain(3.0f);
+ *
+ * uint8_t midiMessage[] = {0x90, 60, 100}; // Note-On, Middle C, Velocity 100
+ * velocityShaper.MidiInput(midiMessage, sizeof(midiMessage));
+ * @endcode
+ *
+ * ## Dependencies
+ * - `MidiFoundation`: Provides core MIDI parsing and message handling.
+ * - `AudioFoundation`: Supplies the `LogExpLUT` for nonlinear transformations.
+ *
+ * ## Future Enhancements
+ * - Real-time control of parameters via MIDI CC.
+ * - Multi-channel independent processing.
+ * - Additional MIDI effects (e.g., MIDI gating, filtering, or modulation).
+ *
+ * @see MIDILAR::MidiProcessors::VelocityShaper
+ */

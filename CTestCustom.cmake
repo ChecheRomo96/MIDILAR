@@ -1,0 +1,7 @@
+set(CTEST_CUSTOM_COVERAGE_EXCLUDE
+    ".*_deps/.*"
+)
+
+list(APPEND CTEST_CUSTOM_TESTS_IGNORE
+	""
+)

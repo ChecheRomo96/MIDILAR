@@ -1,0 +1,84 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MTC_QuarterFrame MTC Quarter Frame Messages
+ * @ingroup MIDI_MTC
+ * @ingroup MIDI_SystemCommon
+ * @brief Defines constants for MIDI Time Code (MTC) Quarter Frame messages.
+ * 
+ * This module provides predefined constants representing MTC Quarter Frame 
+ * messages, which are used for synchronizing time-based events in MIDI systems.
+ * 
+ * MIDI Time Code (MTC) is a standard for transmitting time-related information, 
+ * such as hours, minutes, seconds, and frames, in a structured manner. 
+ * Quarter Frame messages divide this information into 8-bit segments for 
+ * sequential transmission.
+ * 
+ * The provided constants facilitate encoding and decoding of these messages, 
+ * ensuring accurate synchronization between MIDI devices.
+ * 
+ * @note This module adheres to the MIDI 1.0 specification for MTC.
+ * 
+ * @see MIDI_MTC
+ * @see MTC_FullMessage
+ * 
+ * @{
+ **/
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MTC_TimeComponents Time Components
+     * @brief Represents individual components of a MIDI Time Code (MTC) message.
+     *
+     * The MIDI Time Code protocol divides time into hierarchical components: 
+     * Frames, Seconds, Minutes, and Hours. Each component is further split 
+     * into least significant bits (LSB) and most significant bits (MSB) for 
+     * transmission efficiency over MIDI. 
+     * 
+     * This enum provides a mapping to the specific components of the time code, 
+     * enabling precise extraction or manipulation of individual time components 
+     * in MTC messages.
+     *
+     * ### Enum Values
+     * - **FramesLSB**: The least significant 4 bits of the frame count (0-15).
+     * - **FramesMSB**: The most significant 4 bits of the frame count (16-29).
+     * - **SecondsLSB**: The least significant 4 bits of the seconds count (0-15).
+     * - **SecondsMSB**: The most significant 4 bits of the seconds count (16-59).
+     * - **MinutesLSB**: The least significant 4 bits of the minutes count (0-15).
+     * - **MinutesMSB**: The most significant 4 bits of the minutes count (16-59).
+     * - **HoursLSB**: The least significant 4 bits of the hours count (0-15).
+     * - **HoursMSB**: The most significant bit of the hours count (16-23), including the FrameRate.
+     *
+     * ### Example
+     * ```cpp
+     * TimeComponent tc = TimeComponent::FramesLSB;
+     * uint8_t value = songPosition.GetPosition().GetData(tc);
+     * std::cout << "Frames LSB: " << static_cast<int>(value) << std::endl;
+     * ```
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MTC_FrameRates MIDI Time Code (MTC) Frame Rates
+     * @brief Defines constants for MIDI Time Code (MTC) frame rates.
+     * 
+     * These constants represent the standard frame rates used in MIDI Time Code (MTC) 
+     * messages, which are essential for synchronizing MIDI devices with video and 
+     * audio production systems. The frame rate information is encoded in the upper 
+     * 2 bits of the Hours byte in an MTC message.
+     * 
+     * Supported frame rates:
+     * - `MIDI_MTC_FRAME_RATE_24FPS`: 24 frames per second (commonly used in film production).
+     * - `MIDI_MTC_FRAME_RATE_25FPS`: 25 frames per second (used in PAL video standards).
+     * - `MIDI_MTC_FRAME_RATE_30FPS_DROP_FRAME`: 30 FPS with drop-frame timing 
+     *   (used in NTSC video to correct timing discrepancies).
+     * - `MIDI_MTC_FRAME_RATE_30FPS`: 30 FPS with non-drop-frame timing (standard for some NTSC applications).
+     * 
+     * @note Drop-frame timecode compensates for the NTSC frame rate of 29.97 FPS by skipping 
+     *       certain frame numbers to maintain accurate real-time synchronization.
+     * 
+     * These constants help ensure accurate encoding and decoding of time-related MIDI 
+     * messages for seamless synchronization in multimedia applications.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**@}*/ // End of StandardMTC subgroup
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

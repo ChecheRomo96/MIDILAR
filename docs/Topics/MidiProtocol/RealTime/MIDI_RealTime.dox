@@ -1,0 +1,94 @@
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @addtogroup MIDI_RealTime
+     * @brief Messages used for synchronization and transport control in MIDI communication.
+     * 
+     * MIDI Real-Time Messages are single-byte commands that control playback, synchronization, and device connection status. 
+     * These messages can be sent **at any moment** and do not require additional data bytes.
+     * 
+     * **Common Real-Time Messages:**
+     * - **Timing Tick (0xF8)**
+     * - **Start (0xFA)**
+     * - **Continue (0xFB)**
+     * - **Stop (0xFC)**
+     * - **Active Sensing (0xFE)**
+     * - **System Reset (0xFF)**
+     *@{
+     */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Timing Tick
+        /**
+         * @defgroup MIDI_RT_TimingTick Timing Tick (0xF8)
+         * @brief Sent 24 times per quarter note to synchronize tempo between MIDI devices.
+         * 
+         * The **Timing Tick** message ensures accurate synchronization in MIDI clock-based systems.
+         * It is sent at a regular interval determined by the master clock's tempo.
+         * 
+         * ### MIDI Clock and 24 PPQN Rule
+         * MIDI devices synchronize using **MIDI Timing Clock (0xF8)** messages, which are sent at a 
+         * fixed rate of **24 pulses per quarter note (PPQN)**. This system ensures that all devices 
+         * maintain precise timing, allowing accurate playback of **tempo-based note subdivisions**.
+         * 
+         * - **24 PPQN means**: The master clock sends **24 timing ticks per quarter note**.
+         * - **Why 24?** This allows for easy subdivision into **triplets, eighth notes, and sixteenth notes**.
+         * - **Example Subdivisions**:
+         *   - **Quarter Note** = 24 MIDI Clock ticks
+         *   - **Eighth Note** = 12 MIDI Clock ticks
+         *   - **Sixteenth Note** = 6 MIDI Clock ticks
+         *   - **Triplets** = 8 MIDI Clock ticks (per triplet eighth note)
+         * 
+         * ### Why PPQN Matters
+         * - Ensures **accurate tempo synchronization** between multiple MIDI devices.
+         * - Allows for proper **note quantization and sequencing**.
+         * - Essential for **drum machines, arpeggiators, and step sequencers** that rely on tempo grids.
+         * - Used in **MIDI-to-CV converters** to generate precise analog clock signals for modular synths.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_RT_Start Start (0xFA)
+         * @brief Instructs all connected MIDI devices to start playback from the beginning.
+         * 
+         * The **Start** message is used in transport control for sequencers, drum machines, and DAWs.
+         * It resets the song position to zero before beginning playback.
+         * 
+         * ### Example Usage
+         * If a MIDI device receives a **Start (0xFA)** message, it begins playback **in sync with the MIDI Clock (0xF8)**.
+         * Devices then use the **24 PPQN rule** to divide the beat into proper note subdivisions.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_RT_Continue Continue (0xFB)
+         * @brief Resumes playback from the current song position.
+         * 
+         * Unlike the Start message, **Continue** allows playback to resume without resetting the song position.
+         * This is useful when pausing and resuming a MIDI performance.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_RT_Stop Stop (0xFC)
+         * @brief Stops playback on all connected MIDI devices.
+         * 
+         * The **Stop** message is used in transport control systems to halt playback.
+         * Devices receiving this message will stop immediately but retain the last song position.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_RT_ActiveSensing Active Sensing (0xFE)
+         * @brief Sent periodically to indicate an active connection.
+         * 
+         * The **Active Sensing** message is used to detect broken MIDI connections.
+         * If a device stops receiving these messages, it may assume the connection has been lost.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MIDI_RT_SystemReset System Reset (0xFF)
+         * @brief Resets all connected MIDI devices to their default state.
+         * 
+         * The **System Reset** message forces a reset of all devices in the MIDI system.
+         * It is typically used in error recovery or to return devices to a known state.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**@}*/
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,3 @@
+
+add_executable(MessageParser_Callbacks_Sim Callbacks_Sim.cpp)
+target_link_libraries(MessageParser_Callbacks_Sim PUBLIC MIDILAR) 

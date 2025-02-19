@@ -1,0 +1,46 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR_SystemFoundation
+ * @brief Core system foundation utilities for the MIDILAR framework.
+ * 
+ * This module provides fundamental system components such as timing utilities and 
+ * callback management to support real-time MIDI operations.
+ * 
+ * @details
+ * The **System Foundation** module contains essential classes for handling:
+ * - **Clock Management** SystemFoundation::Clock Class for precise time tracking.
+ * - **Callback Handling** SystemFoundation::CallbackHandler Template Class for managing function bindings dynamically.
+ * 
+ * These utilities form the low-level building blocks for higher-level MIDI processing.
+ * 
+ * @{
+ */
+
+	/**
+	 * @defgroup MIDILAR_SF_Clock Clock Class
+	 * @brief Provides system timing utilities for MIDI synchronization.
+	 * 
+	 * The **Clock Class** is responsible for tracking and managing MIDI-related time functions,
+	 * including beat synchronization and system timestamps.
+	 * 
+	 * ### Features:
+	 * - Tracks system time with high precision.
+	 * - Supports synchronization with external MIDI clocks.
+	 * - Allows for event-driven updates based on clock ticks.
+	 */
+
+	/**
+	 * @defgroup MIDILAR_SF_CallbackHandler Callback Handler Template Class
+	 * @brief Generic callback handler for function pointers and lambdas.
+	 * 
+	 * The **Callback Handler Template** provides a mechanism to bind, unbind, and invoke function callbacks dynamically.
+	 * It supports both traditional function pointers and modern C++ lambdas.
+	 * 
+	 * ### Features:
+	 * - Supports callbacks with or without parameters.
+	 * - Allows exception handling when callbacks are unbound (configurable).
+	 * - Enables dynamic event-driven programming in MIDI processing.
+	 */
+
+/**@}*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

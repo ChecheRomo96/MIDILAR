@@ -1,0 +1,61 @@
+/*!
+ * @mainpage MIDILAR Library Documentation
+ *
+ * @section intro_section Introduction
+ *
+ * MIDILAR is a modular and flexible library designed to handle various hardware and software MIDI processes,
+ * providing a robust set of tools for system tools, clock management, and MIDI effect processing.
+ *
+ * This documentation provides an overview of the library's components, classes, and functionality, 
+ * along with detailed explanations and examples for each module.
+ *
+ * @section features_section Features
+ *
+ * - **Hardware Clock**: 
+ *   Provides precise clock management for MIDI timing.
+ * - **System Tools**: 
+ *   Utilities for handling hardware and system-level operations.
+ * - **MIDI Effects**: 
+ *   Tools for processing and manipulating MIDI data.
+ * - **Modularity**: 
+ *   Enable or disable specific modules based on your project needs.
+ *
+ * @section getting_started_section Getting Started
+ *
+ * To integrate MIDILAR into your project:
+ * 1. Clone the repository or include it as a submodule.
+ * 2. Add MIDILAR to your project using CMake:
+ *    @code{.cmake}
+ *    add_subdirectory(midilar)
+ *    target_link_libraries(MyApp MIDILAR::MIDILAR)
+ *    @endcode
+ * 3. Optionally, enable or disable specific modules with CMake options (e.g., `MIDILAR_CLOCK_STATUS=ON`).
+ *
+ * For more details, refer to the installation and usage sections in this documentation.
+ *
+ * @section examples_section Examples
+ *
+ * MIDILAR comes with various examples to help you get started:
+ * - Building and linking the library.
+ * - Using the hardware clock for MIDI timing.
+ * - Applying MIDI effects to incoming MIDI data.
+ *
+ * Check the `examples` directory in the source code for detailed sample projects.
+ *
+ * @section requirements_section Requirements
+ *
+ * - **C++ Standard**: MIDILAR requires a C++17-compliant compiler.
+ * - **Build System**: CMake (version 3.14 or higher).
+ * - **Optional Dependencies**:
+ *   - Doxygen for generating API documentation.
+ *   - GoogleTest for running unit tests.
+ *
+ * @section contact_section Contact
+ *
+ * For questions, issues, or contributions, please visit the [GitHub repository](https://github.com/your-repo-link).
+ *
+ * @section license_section License
+ *
+ * MIDILAR is licensed under the MIT License. See the LICENSE file for more details.
+ *
+ */

@@ -1,0 +1,2 @@
+add_executable(VelocityShaper_Usage Usage.cpp)
+target_link_libraries(VelocityShaper_Usage MIDILAR)

@@ -1,0 +1,2 @@
+add_executable(CallbackHandler_Usage Usage.cpp)
+target_link_libraries(CallbackHandler_Usage MIDILAR)

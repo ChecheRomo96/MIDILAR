@@ -1,0 +1,460 @@
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_CC_GENERAL
+ * @brief Standard continuous controllers (CC) for MIDI devices.
+ * 
+ * General Continuous Controllers (CC) messages are an essential part of the MIDI protocol, allowing dynamic 
+ * manipulation of sound characteristics in real time. These controllers modify key parameters such as volume, 
+ * pan, modulation, and expression, enabling nuanced and expressive performances.
+ * 
+ * ### Common Continuous Controllers
+ * - **Modulation (CC #1)**: Adds vibrato or other modulation effects to the sound.
+ * - **Volume (CC #7)**: Adjusts the overall volume of a MIDI channel.
+ * - **Pan (CC #10)**: Controls the left-to-right position of the sound in the stereo field.
+ * - **Expression (CC #11)**: Provides finer control over dynamics and volume, typically layered on top of the main volume control.
+ * 
+ * ### Message Structure
+ * A Continuous Controller message consists of three bytes:
+ * - **Status Byte (0xB0-0xBF)**: Indicates a Control Change message. The high nibble (0xB) specifies the message type, 
+ *   while the low nibble (0x0-0xF) encodes the MIDI channel (0-15). For example, 0xB0 represents a Control Change 
+ *   message on channel 1, while 0xB9 represents the same on channel 10.
+ * - **Controller Number**: Specifies the parameter to control (e.g., volume, modulation).
+ * - **Value**: The level or state of the parameter, typically ranging from 0 (minimum) to 127 (maximum).
+ * 
+ * ### Creating General CC Messages
+ * Continuous Controller messages can be created using the `Message` class. The `ControlChange` method constructs a 
+ * valid CC message by specifying the controller number, its value, and the target MIDI channel.
+ * 
+ * #### Example:
+ * ```cpp
+ * #include "MIDILAR_MidiMessage.h"
+ * 
+ * using namespace MIDILAR::MidiFoundation;
+ * 
+ * Message msg;
+ * 
+ * // Create a Modulation (CC #1) message with a value of 64 on channel 1.
+ * msg.ControlChange(MIDI_CC_MODULATION, 64, 1);
+ * 
+ * // Create a Volume (CC #7) message with a value of 127 on channel 3.
+ * msg.ControlChange(MIDI_CC_VOLUME, 127, 3);
+ * 
+ * // Create a Pan (CC #10) message with a value of 32 on channel 5.
+ * msg.ControlChange(MIDI_CC_PAN, 32, 5);
+ * 
+ * // Access the raw MIDI data buffer.
+ * const uint8_t* data = msg.Buffer();
+ * size_t size = msg.size();
+ * ```
+ * 
+ * These methods ensure that the controller numbers, values, and channel numbers are clamped to their valid ranges, 
+ * providing safe and consistent behavior when creating CC messages.
+ * 
+ * ### Use Cases
+ * - Adding dynamic effects like vibrato, tremolo, or pitch modulation.
+ * - Balancing sound levels across channels using volume and pan controls.
+ * - Controlling external effects units or software instruments in real-time.
+ * - Creating expressive performances by manipulating parameters like expression and sustain.
+ * @{
+ */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_BankSelect Bank Select
+     * @brief Bank Select (CC #0).
+     * 
+     * The Bank Select controller (CC #0) is used to select a specific bank of patches or sounds in a MIDI device. 
+     * It provides an additional layer of sound selection by combining with Program Change messages, allowing access 
+     * to a wide range of instrument presets or configurations.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x00 for Bank Select).
+     * - **Data Byte 2**: Bank number (0-127), identifying the specific bank.
+     * 
+     * ### Use Cases
+     * - Switching between different banks of sounds or instrument patches on synthesizers and sound modules.
+     * - Accessing extended preset libraries on MIDI-compatible devices.
+     * - Creating dynamic sound changes in live performances or MIDI sequences.
+     * 
+     * ### Example
+     * A Bank Select message is typically followed by a Program Change message to select a specific preset within the bank.
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Bank Select message to select bank 1 on channel 1.
+     * msg.ControlChange(MIDI_BANK_SELECT, 1, 1);
+     * 
+     * // Follow with a Program Change message to select a specific preset in the bank.
+     * msg.ProgramChange(5, 1); // Select preset 5 on channel 1.
+     * ```
+     * 
+     * ### Summary
+     * The Bank Select controller is an essential tool for accessing and organizing large collections of patches, enabling 
+     * musicians and producers to efficiently navigate and utilize the capabilities of their MIDI devices.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_Modulation Modulation
+     * @brief Modulation (CC #1)
+     * 
+     * The Modulation controller (CC #1) is commonly used to control modulation effects like vibrato, tremolo, and other expressive 
+     * sound characteristics. It is one of the most frequently used MIDI Continuous Controllers (CC), enabling dynamic, real-time 
+     * modifications to sound parameters.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x01 for Modulation).
+     * - **Data Byte 2**: Modulation value (0-127), where higher values correspond to more intense modulation.
+     * 
+     * ### Use Cases
+     * - Adding vibrato or pitch modulation to notes for expressive performance.
+     * - Controlling tremolo, filter sweeps, or other time-based effects on synthesizers and sound modules.
+     * - Adjusting modulation intensity dynamically during a live performance or automated MIDI sequence.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Modulation message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Modulation message with intensity value 64 on channel 1.
+     * msg.ControlChange(1, 64, 1);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Modulation controller is an essential tool for adding expressiveness and dynamics to musical performances. By enabling 
+     * real-time control over modulation effects, it greatly enhances the creative possibilities for musicians and producers.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_BREATH_CONTROL Breath Control
+     * @brief Breath Control (CC #2).
+     * 
+     * The Breath Control controller (CC #2) is designed to simulate breath input, commonly used with wind controllers or 
+     * MIDI devices that mimic the behavior of wind instruments. This controller provides expressive capabilities, allowing 
+     * for dynamic control over parameters such as volume, timbre, or modulation based on simulated breath intensity.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x02 for Breath Control).
+     * - **Data Byte 2**: Breath intensity value (0-127), where higher values represent stronger breath input.
+     * 
+     * ### Use Cases
+     * - Controlling the volume or dynamics of wind instrument sounds (e.g., flute, saxophone) on synthesizers.
+     * - Modulating effects such as vibrato or filter cutoff to simulate natural breath dynamics.
+     * - Enhancing expressiveness in live performances with wind or breath-like control mechanisms.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Breath Control message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Breath Control message with intensity 80 on channel 2.
+     * msg.ControlChange(MIDI_BREATH_CONTROL, 80, 2);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Breath Control controller enables musicians to emulate the expressiveness of wind instruments, providing a natural 
+     * and dynamic input method for MIDI devices. It enhances realism and emotional depth in performances and compositions.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_FOOT_PEDAL Foot Pedal
+     * @brief Foot Pedal (CC #4).
+     * 
+     * The Foot Pedal controller (CC #4) is used to manage an assignable foot pedal input, allowing performers to control 
+     * various expressive parameters in real-time. This controller is commonly associated with effects like volume, 
+     * expression, or modulation, depending on the configuration of the MIDI device.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x04 for Foot Pedal).
+     * - **Data Byte 2**: Pedal position or intensity value (0-127), where higher values indicate greater pressure or movement.
+     * 
+     * ### Use Cases
+     * - Controlling volume or swell effects for guitar, organ, or other instrument sounds.
+     * - Modulating effects such as filter sweeps or pitch bends during a performance.
+     * - Assigning to custom parameters for creative and dynamic sound design in a DAW or live setup.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Foot Pedal message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Foot Pedal message with intensity value 90 on channel 1.
+     * msg.ControlChange(MIDI_FOOT_PEDAL, 90, 1);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Foot Pedal controller enhances the expressiveness of a performance by enabling real-time control of various parameters 
+     * using a foot-operated device. It is a versatile tool for live performances and studio recordings.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_PORTAMENTO Portamento
+     * @brief Portamento (CC #5).
+     * 
+     * The Portamento controller (CC #5) is used to control the rate or activation of portamento, which is the smooth sliding 
+     * of pitch between consecutive notes. This controller enables expressive and dynamic transitions between notes, 
+     * commonly used in synthesizers and other MIDI devices that support portamento functionality.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x05 for Portamento).
+     * - **Data Byte 2**: Portamento value (0-127):
+     *   - A value of **0** typically disables portamento.
+     *   - Higher values determine the rate or intensity of the pitch slide (specific behavior may vary by device).
+     * 
+     * ### Use Cases
+     * - Enabling smooth pitch slides in monophonic synthesizers, emulating the behavior of stringed or brass instruments.
+     * - Controlling the rate of portamento dynamically during live performances or MIDI sequences.
+     * - Adding unique tonal characteristics to melodies and lead lines by adjusting the glide effect.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Portamento message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Portamento message with a rate value of 50 on channel 3.
+     * msg.ControlChange(MIDI_PORTAMENTO, 50, 3);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Portamento controller is an essential tool for creating smooth transitions between notes, adding expressiveness 
+     * and character to musical performances. By allowing dynamic control of the pitch slide rate, it enhances the versatility 
+     * of MIDI devices in live and studio settings.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_VOLUME Volume
+     * @brief Volume (CC #7).
+     * 
+     * The Volume controller (CC #7) is used to adjust the master volume of a MIDI channel. It provides control over the 
+     * overall loudness of the channel, allowing for dynamic changes in performance and sound design.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x07 for Volume).
+     * - **Data Byte 2**: Volume level (0-127), where:
+     *   - 0 represents silence (minimum volume).
+     *   - 127 represents the maximum volume.
+     * 
+     * ### Use Cases
+     * - Adjusting the overall loudness of a specific MIDI channel during a performance or composition.
+     * - Balancing multiple MIDI tracks or instruments in a mix.
+     * - Automating volume changes to create dynamics in a MIDI sequence or DAW.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Volume message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Volume message to set the volume to 100 on channel 2.
+     * msg.ControlChange(MIDI_VOLUME, 100, 2);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Volume controller is a fundamental tool for managing loudness levels across MIDI channels. It allows performers 
+     * and producers to create dynamic soundscapes and maintain balance within complex arrangements.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_BALANCE Balance
+     * @brief Balance (CC #8).
+     * 
+     * The Balance controller (CC #8) is used to adjust the left/right balance of the audio signal on a MIDI channel. 
+     * This controller allows for precise control over the stereo positioning of a sound, enabling creative and dynamic 
+     * panning effects.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x08 for Balance).
+     * - **Data Byte 2**: Balance value (0-127), where:
+     *   - **0-63**: Gradual shift to the left (0 is fully left).
+     *   - **64**: Centered (equal balance between left and right).
+     *   - **65-127**: Gradual shift to the right (127 is fully right).
+     * 
+     * ### Use Cases
+     * - Adjusting the stereo position of an instrument or sound in a live performance.
+     * - Creating automated panning effects in a MIDI sequence or DAW.
+     * - Balancing multiple audio signals in a mix to enhance spatial dynamics.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Balance message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Balance message to center the audio signal on channel 1.
+     * msg.ControlChange(MIDI_BALANCE, 64, 1);
+     * 
+     * // Send a Balance message to shift the audio signal fully to the right on channel 2.
+     * msg.ControlChange(MIDI_BALANCE, 127, 2);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Balance controller provides precise control over the stereo positioning of audio signals, making it a valuable 
+     * tool for creating dynamic and immersive soundscapes in live and studio settings.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_PAN Pan
+     * @ingroup MIDI_GeneralCC
+     * @brief Pan (CC #10).
+     * 
+     * The Pan controller (CC #10) is used to adjust the stereo panning of a sound on a MIDI channel. This controller 
+     * determines the position of the sound in the stereo field, allowing for creative spatial effects and precise 
+     * placement of instruments or audio elements in a mix.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x0A for Pan).
+     * - **Data Byte 2**: Pan value (0-127), where:
+     *   - **0-63**: Gradual shift to the left (0 is fully left).
+     *   - **64**: Centered (equal balance between left and right).
+     *   - **65-127**: Gradual shift to the right (127 is fully right).
+     * 
+     * ### Use Cases
+     * - Positioning instruments in the stereo field for a balanced mix.
+     * - Automating panning effects in a MIDI sequence or live performance.
+     * - Creating immersive soundscapes by dynamically shifting the stereo position.
+     * 
+     * ### Example
+     * The following example demonstrates how to create a Pan message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send a Pan message to center the audio signal on channel 1.
+     * msg.ControlChange(MIDI_PAN, MIDI_PAN_CENTER, 1);
+     * 
+     * // Send a Pan message to shift the audio signal fully to the left on channel 3.
+     * msg.ControlChange(MIDI_PAN, MIDI_PAN_L, 3);
+     * 
+     * // Send a Pan message to shift the audio signal fully to the right on channel 5.
+     * msg.ControlChange(MIDI_PAN, MIDI_PAN_R, 5);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Pan controller is a versatile tool for managing the stereo positioning of audio signals, enabling dynamic 
+     * spatial effects and enhancing the overall mix in live and studio environments.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MIDI_CC_EXPRESSION Expression
+     * @brief Expression (CC #11).
+     * 
+     * The Expression controller (CC #11) provides fine control over the volume and dynamics of a MIDI channel. 
+     * Unlike the master volume controller (CC #7), Expression acts as a relative adjustment, allowing for more 
+     * nuanced and dynamic changes during performances or sequences. It is often used to add expressiveness and 
+     * emotional depth to music.
+     * 
+     * ### Message Structure
+     * - **Status Byte**: 0xB0 to 0xBF (Control Change message on channels 1-16).
+     * - **Data Byte 1**: Controller number (0x0B for Expression).
+     * - **Data Byte 2**: Expression value (0-127), where:
+     *   - **0**: Silence (minimum expression).
+     *   - **127**: Full expression (maximum volume within the limits of CC #7).
+     * 
+     * ### Use Cases
+     * - Adding subtle volume swells and fades to individual instruments.
+     * - Layering dynamics over master volume changes for more complex expression.
+     * - Controlling intensity and dynamics in orchestral or cinematic music.
+     * - Simulating breath control or other natural dynamics for wind and string instruments.
+     * 
+     * ### Example
+     * The following example demonstrates how to create an Expression message using the `Message` class:
+     * 
+     * ```cpp
+     * #include "MIDILAR_MidiMessage.h"
+     * 
+     * using namespace MIDILAR::MidiFoundation;
+     * 
+     * Message msg;
+     * 
+     * // Send an Expression message to set expression to 80 on channel 2.
+     * msg.ControlChange(MIDI_EXPRESSION, 80, 2);
+     * 
+     * // Send an Expression message to set full expression (127) on channel 4.
+     * msg.ControlChange(MIDI_EXPRESSION, 127, 4);
+     * 
+     * // Access the raw MIDI data buffer.
+     * const uint8_t* data = msg.Buffer();
+     * size_t size = msg.size();
+     * ```
+     * 
+     * ### Summary
+     * The Expression controller is an essential tool for fine-tuning the dynamics of a performance, enabling greater 
+     * expressiveness and control over musical phrasing. By layering expression over other volume controls, it allows 
+     * musicians and producers to create highly dynamic and emotive compositions.
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**@}*/ 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,2 @@
+add_executable(LogExpLUT_Timing Timing.cpp)
+target_link_libraries(LogExpLUT_Timing MIDILAR)

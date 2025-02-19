@@ -1,0 +1,3 @@
+
+add_executable(MessageParser_Usage_Port Usage_Port.cpp)
+target_link_libraries(MessageParser_Usage_Port PUBLIC MIDILAR) 

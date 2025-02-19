@@ -1,0 +1,2 @@
+add_executable(MidiMessage_CreatingMessages CreatingMessages.cpp)
+target_link_libraries(MidiMessage_CreatingMessages PUBLIC MIDILAR) 

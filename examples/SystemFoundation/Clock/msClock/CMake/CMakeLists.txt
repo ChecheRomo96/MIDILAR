@@ -1,0 +1,2 @@
+add_executable(SystemClock_msClock msClock.cpp)
+target_link_libraries(SystemClock_msClock MIDILAR)

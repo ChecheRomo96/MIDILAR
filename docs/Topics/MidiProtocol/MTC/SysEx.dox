@@ -1,0 +1,105 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MTC_SysEx MTC SysEx Messages
+ * @ingroup MIDI_MTC
+ * @ingroup MIDI_SC_SysEx
+ * @brief Constants for MIDI SysEx messages related to MTC.
+ * 
+ * Includes both Real-Time and Non-Real-Time SysEx messages for MTC operations.
+ * @{
+ **/ 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MTC_NonRealTime MTC Non-Real-Time SysEx Messages
+     * @brief Constants for Non-Real-Time MIDI Time Code (MTC) SysEx messages.
+     * @{
+     **/ 
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+        * @defgroup Special Special
+        * @brief Non-Real-Time SysEx commands for Special Operations.
+        * 
+        * This group includes commands reserved for specific or undefined functions 
+        * in MIDI Time Code cueing, typically used for vendor-specific extensions or special cases.
+        */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+        * @defgroup PunchPoints Punch In/Out Points
+        * @brief Non-Real-Time SysEx commands for Punch In and Punch Out Points.
+        * 
+        * This group includes commands for setting, deleting, and managing punch-in and 
+        * punch-out points in a MIDI sequence, which are essential for managing recording or playback.
+        */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+        * @defgroup Event Event
+        * @brief Non-Real-Time SysEx commands for managing Events.
+        * 
+        * This group includes commands for managing event start points, stop points, 
+        * and event names with additional metadata in a MIDI sequence.
+        * @{
+        */
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /**
+             * @defgroup StartPoint Event Start Point
+             * @brief Event Start Point
+             * 
+             * Commands for marking the starting point of an event in a MIDI sequence. 
+             * Additional metadata can also be provided for these start points.
+             */
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /**
+             * @defgroup StopPoint Event Stop Point
+             * @brief Commands for marking the stopping point of an event in a MIDI sequence.
+             * 
+             * This group includes commands for handling event stop points, allowing precise 
+             * control over where events end. Additional metadata can also be included.
+             */
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /**
+             * @defgroup EventName Event Name with Additional Info
+             * @brief Commands for assigning descriptive names and metadata to events in a MIDI sequence.
+             * 
+             * This group includes commands for associating human-readable names and additional 
+             * information with events, aiding in better identification and context.
+             */
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /** @} */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup CuePoints Cue Points
+         * @brief Non-Real-Time SysEx commands for managing Cue Points.
+         * 
+         * This group includes commands for adding, editing, and deleting cue points 
+         * in a MIDI sequence. Cue points can also include additional metadata.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**@}*/ // End of NonRealTime
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @defgroup MTC_RealTime MTC Real-Time SysEx Messages
+     * @brief Constants for Real-Time MIDI Time Code (MTC) SysEx messages.
+     * @{
+     **/ 
+    
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MTC_RT_Commands MTC Commands Messages
+         * @brief Real-time SysEx commands for MIDI Time Code operations.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @defgroup MTC_RT_Cueing MTC Cueing Messages
+         * @brief Real-time SysEx commands for MIDI Time Code cueing operations.
+         */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+    /**@}*/ // End of MTC_RealTime
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**@}*/ // End of MTC_SysEx
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
