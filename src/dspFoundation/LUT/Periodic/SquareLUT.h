@@ -11,25 +11,6 @@
 
     namespace MIDILAR::dspFoundation::LUT::Periodic {
 
-        template<typename OUTPUT_TYPE>
-        void SquareGenerator(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DcOffset, float PhaseOffset) {
-            if (!this->_buffer || BufferSize == 0) return;
-    
-            float phaseStep = TWO_PI / static_cast<float>(BufferSize);
-            
-            // Normalize phase offset to [0, TWO_PI]
-            PhaseOffset = fmodf(PhaseOffset, TWO_PI);
-            if (PhaseOffset < 0.0f) PhaseOffset += TWO_PI;
-    
-            for (size_t i = 0; i < BufferSize; i++) {
-                float phase = fmodf(i * phaseStep + PhaseOffset, 1.0f);
-    
-                Buffer[i] = static_cast<OUTPUT_TYPE>(
-                    (phase < 0.5f) ? Amp + DcOffset : -Amp + DcOffset
-                );
-            }
-        }
-
         ///////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @class SquareLUT

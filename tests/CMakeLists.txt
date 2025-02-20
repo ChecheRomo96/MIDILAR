@@ -12,8 +12,8 @@
     endif()
 
     # SystemFoundation
-    if(${MIDILAR_AUDIO_FOUNDATION})
-        #add_subdirectory(AudioFoundation)
+    if(${MIDILAR_DSP_FOUNDATION})
+        add_subdirectory(dspFoundation)
     endif()
 
     # MidiProcessor

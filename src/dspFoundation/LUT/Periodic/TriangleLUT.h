@@ -11,29 +11,6 @@
 
     namespace MIDILAR::dspFoundation::LUT::Periodic {
 
-        template<typename OUTPUT_TYPE>
-        void TriangleGenerator(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DCOffset, float PhaseOffset) {
-            if (!Buffer || BufferSize == 0) return;
-
-            float phaseStep = TWO_PI / static_cast<float>(BufferSize);
-
-            // Normalize phase offset to [0, TWO_PI]
-            PhaseOffset = fmodf(PhaseOffset, TWO_PI);
-            if (PhaseOffset < 0.0f) PhaseOffset += TWO_PI;
-
-            for (size_t i = 0; i < BufferSize; i++) {
-                float phase = fmodf(i * phaseStep + PhaseOffset, TWO_PI);
-
-                // Normalize phase to [0,1] range
-                float normalizedPhase = phase / TWO_PI;
-
-                // Triangle wave equation (mirroring around 0.5 for symmetry)
-                float triangleValue = 2.0f * fabsf(2.0f * normalizedPhase - 1.0f) - 1.0f;
-
-                Buffer[i] = static_cast<OUTPUT_TYPE>(triangleValue * Amp + DCOffset);
-            }
-        }
-
         ///////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @class TriangleLUT

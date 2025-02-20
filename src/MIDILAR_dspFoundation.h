@@ -7,6 +7,7 @@
 
     }
 
+    #include <dspFoundation/LUT/LUT1D/LUT1D.h>
     #include <dspFoundation/LUT/Periodic/SineLUT.h>
 
 #endif//MIDILAR_DSP_FOUNDATION_H

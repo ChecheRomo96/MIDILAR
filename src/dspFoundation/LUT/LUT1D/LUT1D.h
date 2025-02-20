@@ -22,50 +22,18 @@
      * This class provides a base implementation for LUT-based interpolation.
      * Derived classes should override the `Eval()` method to populate the LUT.
      *
-     * @tparam INPUT_TYPE The range type used for indexing the LUT (default is float).
      * @tparam OUTPUT_TYPE The data type stored in the LUT.
      */
-        template<typename INPUT_TYPE = uint8_t, typename OUTPUT_TYPE = uint8_t>
+        template<typename OUTPUT_TYPE>
         class LUT1D{
-    
-            private:
-                size_t _bufferSize;         ///< The number of elements in the LUT.
-                
-                INPUT_TYPE _InputRangeMin;  ///< The minimum input range of the LUT. (x axis)
-                INPUT_TYPE _InputRangeMax;  ///< The maximum input range of the LUT. (x axis)
-                
-                float _InputGain;
-                float _InputOffset;
-                
-                enum InputPipeline : uint8_t {
-                    Bypass        = 0b000,
-                    Scaling       = 0b001,
-                    Offsetting    = 0b010,
-                    Interpolation = 0b100
-                };
+            public:
+                using Type = LUT1D<OUTPUT_TYPE>;
 
-                InputPipeline _Pipeline;
-
-                // Private Static Methods for Bitwise Operations
-                static constexpr InputPipeline CombineFlags(InputPipeline a, InputPipeline b) {
-                    return static_cast<InputPipeline>(static_cast<uint8_t>(a) | static_cast<uint8_t>(b));
-                }
-
-                // Method to Check Flags Internally
-                bool HasPipelineFlag(InputPipeline flag) const {
-                    return (_Pipeline & flag) != 0;
-                }
-
-
-            protected:
-                
-                OUTPUT_TYPE* _buffer;  ///< Pointer to the allocated LUT buffer.    
-            
             private:
 
-                    void DetectMode();
-                    void _RecalculateConstants();
                     bool _ResizeBuffer(size_t newSize);
+                    size_t _bufferSize;         ///< The number of elements in the LUT.
+                    OUTPUT_TYPE* _buffer;  ///< Pointer to the allocated LUT buffer. 
             
             protected:
             
@@ -90,22 +58,58 @@
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
-                 * @brief Sets the LUT buffer size.
-                 * 
-                 * Resizes the buffer and triggers a recalculation of the LUT.
-                 * 
-                 * @param size The new size of the buffer.
-                 * @return True if resizing was successful, false otherwise.
+                 * @brief Returns the current buffer size.
+                 * @return The number of elements in the LUT.
                  */
                     size_t BufferSize() const;
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
-                 * @brief Clears the LUT buffer but retains allocated memory.
+                 * @brief Returns a constant pointer to the LUT buffer.
+                 * @return A constant pointer to the LUT buffer.
+                 */
+                    void SetData(size_t index, OUTPUT_TYPE Data);
+                //
+                /////////////////////////////////////////////////////////////////////////
+                /**
+                 * @brief Clears the LUT buffer without deallocating memory.
                  * 
-                 * Sets all elements in the buffer to the default value of `OUTPUT_TYPE`.
+                 * Sets all buffer values to zero while keeping the allocated memory intact.
                  */
                     void ClearBuffer();
+                //
+                /////////////////////////////////////////////////////////////////////////
+                /**
+                 * @brief Move constructor.
+                 * 
+                 * Transfers ownership of the LUT buffer from another instance.
+                 * 
+                 * @param other The LUT1D instance to move from.
+                 */
+                    LUT1D(LUT1D&& other) noexcept;
+                //
+                /////////////////////////////////////////////////////////////////////////
+                /**
+                 * @brief Move assignment operator.
+                 * 
+                 * Transfers ownership of the LUT buffer from another instance.
+                 * 
+                 * @param other The LUT1D instance to move from.
+                 * @return Reference to this instance.
+                 */
+                    LUT1D& operator=(LUT1D&& other) noexcept;
+                //
+                /////////////////////////////////////////////////////////////////////////
+                /**
+                 * @brief Sets the LUT buffer data from an external source.
+                 * 
+                 * This function assigns the provided buffer data to the internal buffer.
+                 * Note: The caller must ensure proper memory management to avoid leaks.
+                 * 
+                 * @param Data A pointer to the external buffer data.
+                 * @param buffer_size The size of the provided buffer.
+                 */
+                    void SetRawData(OUTPUT_TYPE* Data, size_t buffer_size);
                 //
                 /////////////////////////////////////////////////////////////////////////
             
@@ -127,52 +131,14 @@
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
-                 * @brief Sets the input range for the LUT.
-                 * 
-                 * The range is used for interpolation during lookup operations.
-                 * 
-                 * @param minVal The minimum input range.
-                 * @param maxVal The maximum input range.
-                 */
-                    void SetInputRange(INPUT_TYPE minVal, INPUT_TYPE maxVal);
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Gets the minimum input value of the LUT.
-                 * @return The minimum range value.
-                 */
-                    inline INPUT_TYPE InputMin() const;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Gets the maximum input value of the LUT.
-                 * @return The maximum range value.
-                 */
-                    inline INPUT_TYPE InputMax() const;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
                  * @brief Retrieves an interpolated value from the LUT.
                  * 
                  * Uses linear interpolation between LUT points based on the input value.
                  * 
                  * @param inputValue The input value to lookup.
-                 * @param InterpolateOutput Whether to use interpolation.
                  * @return The interpolated LUT value.
                  */
-                    OUTPUT_TYPE GetValue(INPUT_TYPE inputValue, bool Interpolate = 0, bool Wrapping = 0) const;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Retrieves an interpolated value from the LUT.
-                 * 
-                 * Uses linear interpolation between LUT points based on the input value.
-                 * 
-                 * @param inputValue The input value to lookup.
-                 * @param InterpolateOutput Whether to use interpolation.
-                 * @return The interpolated LUT value.
-                 */
-                    void SetRawData(OUTPUT_TYPE* Data, size_t buffer_size);
+                    OUTPUT_TYPE GetValue(size_t inputValue) const;
                 //
                 /////////////////////////////////////////////////////////////////////////
         };

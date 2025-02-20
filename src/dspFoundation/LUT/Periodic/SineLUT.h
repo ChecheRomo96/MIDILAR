@@ -11,20 +11,6 @@
 
     namespace MIDILAR::dspFoundation::LUT::Periodic {
 
-        template<typename OUTPUT_TYPE>
-        void SineGenerator(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DcOffset, float PhaseOffset) {
-            if (!Buffer || BufferSize == 0) return;
-    
-            float phaseStep = TWO_PI / static_cast<float>(BufferSize);
-            
-            float phaseOffsetScaled = PhaseOffset * TWO_PI;  // Precompute once
-
-            for (size_t i = 0; i < BufferSize; i++) {
-                float phase = (i * phaseStep) + phaseOffsetScaled;
-                Buffer[i] = static_cast<OUTPUT_TYPE>(Amp * sinf(phase) + DcOffset);
-            }
-        }
-
         ///////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @class SineLUT
@@ -32,11 +18,10 @@
          * 
          * This class precomputes sawtooth wave values for fast lookup and interpolation.
          * 
-         * @tparam INPUT_TYPE  The data type stored in the LUT (default: float).
          * @tparam OUTPUT_TYPE The range type for indexing the LUT (default: float).
          */
-            template<typename INPUT_TYPE, typename OUTPUT_TYPE>
-            class SineLUT : public LUT::LUT1D<INPUT_TYPE, OUTPUT_TYPE> {
+            template<typename OUTPUT_TYPE>
+            class SineLUT : public LUT::LUT1D<OUTPUT_TYPE> {
             private:
                 float _phase_offset;  // Stored in Radians
                 float _amplitude;
@@ -48,8 +33,16 @@
                  */
                 void Eval() override {
                     size_t bufferSize = this->BufferSize();
-                    if (!this->_buffer || bufferSize == 0) return;
-                    SineGenerator(this->_buffer, bufferSize, _amplitude, _offset, _phase_offset);
+
+                    if (bufferSize == 0) return;
+                    
+                    float phaseStep = TWO_PI / static_cast<float>(bufferSize);
+                    float phaseOffsetScaled = _phase_offset * TWO_PI;  // Precompute once
+
+                    for (size_t i = 0; i < bufferSize; i++) {
+                        float phase = (i * phaseStep) + phaseOffsetScaled;
+                        this->SetData(i, static_cast<OUTPUT_TYPE>(_amplitude * sinf(phase) + _offset));
+                    }
                 }
 
             public:
@@ -57,16 +50,15 @@
                  * @brief Constructor for SineLUT.
                  */
                 SineLUT()
-                    : LUT1D<INPUT_TYPE, OUTPUT_TYPE>(),
+                    : LUT1D<OUTPUT_TYPE>(),
                     _phase_offset(0.0f),
                     _amplitude(1.0f),
                     _offset(0.0f) {
-                    this->SetInputRange(0.0f, TWO_PI); // Set LUT range to 0 - 2π
                     Eval();
                 }
                 
                 bool SetBufferSize(size_t size){
-                    return LUT::LUT1D<INPUT_TYPE, OUTPUT_TYPE>::SetBufferSize(size);
+                    return LUT::LUT1D<OUTPUT_TYPE>::SetBufferSize(size);
                 }
 
                 void SetPhaseOffset(float Offset, bool Update = true) {
