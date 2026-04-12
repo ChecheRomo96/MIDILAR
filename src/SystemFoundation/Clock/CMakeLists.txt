@@ -13,8 +13,11 @@
 ######################################################################################################
 # Refresh Sources and Headers in Parent Scope
 
-    set(MIDILAR_SOURCES "${MIDILAR_SOURCES};${MIDILAR_SOURCES_LOCAL}" PARENT_SCOPE)
-    set(MIDILAR_HEADERS "${MIDILAR_HEADERS};${MIDILAR_HEADERS_LOCAL}" PARENT_SCOPE)
+    list(APPEND MIDILAR_SOURCES ${MIDILAR_SOURCES_LOCAL})
+    list(APPEND MIDILAR_HEADERS ${MIDILAR_HEADERS_LOCAL})
+
+    set(MIDILAR_SOURCES "${MIDILAR_SOURCES}" PARENT_SCOPE)
+    set(MIDILAR_HEADERS "${MIDILAR_HEADERS}" PARENT_SCOPE)
 #
 ######################################################################################################
 # MIDILAR Install Process

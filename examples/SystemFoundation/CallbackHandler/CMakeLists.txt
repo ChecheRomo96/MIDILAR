@@ -1,1 +1,3 @@
-add_subdirectory(Usage)
+add_subdirectory(Functions)
+add_subdirectory(Methods)
+add_subdirectory(Lambdas)

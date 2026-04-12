@@ -12,15 +12,7 @@ namespace MIDILAR::MidiFoundation {
             : _Status(Status::Idle),
               _MessageBuffer(nullptr),
               _MessageBufferSize(0),
-              _MessageSize(0),
-              _channelVoiceContext({nullptr, nullptr}),
-              _controlChangeContext({nullptr, nullptr}),
-              _realTimeContext({nullptr, nullptr}),
-              _systemCommonContext({nullptr, nullptr}),
-              _sysExContext({nullptr, nullptr}),
-              _mtcContext({nullptr, nullptr}),
-              _mscContext({nullptr, nullptr}),
-              _defaultContext({nullptr, nullptr})
+              _MessageSize(0)
         {
         	ResizeBuffer(BufferSize);
         }
@@ -52,264 +44,152 @@ namespace MIDILAR::MidiFoundation {
         }
 
     // **Set Callback Handlers**
-        void MessageParser::BindChannelVoiceCallback( CallbackReferenceType callback ){
+        void MessageParser::BindChannelVoiceCallback( CallbackType callback ){
             _channelVoiceCallback.bind(callback);
-            _channelVoiceContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindChannelVoiceCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _channelVoiceCallback.unbind();
-            _channelVoiceContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindChannelVoiceCallback() {
             _channelVoiceCallback.unbind();
-            _channelVoiceContext = {nullptr, nullptr}; 
         }
 
-        bool MessageParser::InvokeChannelVoiceCallback(uint8_t* msg, size_t size) {
-            
-            if (_channelVoiceContext.instance && _channelVoiceContext.invoke) {
-                _channelVoiceContext.invoke(_channelVoiceContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeChannelVoiceCallback(const uint8_t* data, size_t size) {
             if (_channelVoiceCallback.status()) {
-                _channelVoiceCallback.invoke(msg, size);
+                _channelVoiceCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 
 
 
     // **Set Callback Handlers**
-        void MessageParser::BindControlChangeCallback( CallbackReferenceType callback ){
+        void MessageParser::BindControlChangeCallback( CallbackType callback ){
             _controlChangeCallback.bind(callback);
-            _controlChangeContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindControlChangeCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _controlChangeCallback.unbind();
-            _controlChangeContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindControlChangeCallback() {
             _controlChangeCallback.unbind();
-            _controlChangeContext = {nullptr, nullptr}; 
         }
 
-        bool MessageParser::InvokeControlChangeCallback(uint8_t* msg, size_t size) {
-            
-            if (_controlChangeContext.instance && _controlChangeContext.invoke) {
-                _controlChangeContext.invoke(_controlChangeContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeControlChangeCallback(const uint8_t* data, size_t size) {
             if (_controlChangeCallback.status()) {
-                _controlChangeCallback.invoke(msg, size);
+                _controlChangeCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 
 
 
     // **Set Callback Handlers**
-        void MessageParser::BindRealTimeCallback( CallbackReferenceType callback ){
+        void MessageParser::BindRealTimeCallback( CallbackType callback ){
             _realTimeCallback.bind(callback);
-            _realTimeContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindRealTimeCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _realTimeCallback.unbind();
-            _realTimeContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindRealTimeCallback() {
             _realTimeCallback.unbind();
-            _realTimeContext = {nullptr, nullptr}; 
         }
 
-        bool MessageParser::InvokeRealTimeCallback(uint8_t* msg, size_t size) {
-            
-            if (_realTimeContext.instance && _realTimeContext.invoke) {
-                _realTimeContext.invoke(_realTimeContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeRealTimeCallback(const uint8_t* data, size_t size) {
             if (_realTimeCallback.status()) {
-                _realTimeCallback.invoke(msg, size);
+                _realTimeCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 
 
 
     // **Set Callback Handlers**
-        void MessageParser::BindSystemCommonCallback( CallbackReferenceType callback ){
+        void MessageParser::BindSystemCommonCallback( CallbackType callback ){
             _systemCommonCallback.bind(callback);
-            _systemCommonContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindSystemCommonCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _systemCommonCallback.unbind();
-            _systemCommonContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindSystemCommonCallback() {
             _systemCommonCallback.unbind();
-            _systemCommonContext = {nullptr, nullptr}; 
         }
 
-        bool MessageParser::InvokeSystemCommonCallback(uint8_t* msg, size_t size) {
-            
-            if (_systemCommonContext.instance && _systemCommonContext.invoke) {
-                _systemCommonContext.invoke(_systemCommonContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeSystemCommonCallback(const uint8_t* data, size_t size) {
             if (_systemCommonCallback.status()) {
-                _systemCommonCallback.invoke(msg, size);
+                _systemCommonCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 
 
 
     // **Set Callback Handlers**
-        void MessageParser::BindSysExCallback( CallbackReferenceType callback ){
+        void MessageParser::BindSysExCallback( CallbackType callback ){
             _sysExCallback.bind(callback);
-            _sysExContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindSysExCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _sysExCallback.unbind();
-            _sysExContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindSysExCallback() {
             _sysExCallback.unbind();
-            _sysExContext = {nullptr, nullptr}; 
         }
 
-        bool MessageParser::InvokeSysExCallback(uint8_t* msg, size_t size) {
-            
-            if (_sysExContext.instance && _sysExContext.invoke) {
-                _sysExContext.invoke(_sysExContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeSysExCallback(const uint8_t* data, size_t size) {
             if (_sysExCallback.status()) {
-                _sysExCallback.invoke(msg, size);
+                _sysExCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 
 
 
     // **Set Callback Handlers**
-        void MessageParser::BindMTCCallback( CallbackReferenceType callback ){
+        void MessageParser::BindMTCCallback( CallbackType callback ){
             _mtcCallback.bind(callback);
-            _mtcContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindMTCCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _mtcCallback.unbind();
-            _mtcContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindMTCCallback() {
             _mtcCallback.unbind();
-            _mtcContext = {nullptr, nullptr}; 
         }
 
-        bool MessageParser::InvokeMTCCallback(uint8_t* msg, size_t size) {
-            
-            if (_mtcContext.instance && _mtcContext.invoke) {
-                _mtcContext.invoke(_mtcContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeMTCCallback(const uint8_t* data, size_t size) {
             if (_mtcCallback.status()) {
-                _mtcCallback.invoke(msg, size);
+                _mtcCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 
 
 
     // **Set Callback Handlers**
-        void MessageParser::BindMSCCallback( CallbackReferenceType callback ){
+        void MessageParser::BindMSCCallback( CallbackType callback ){
             _mscCallback.bind(callback);
-            _mscContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindMSCCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _mscCallback.unbind();
-            _mscContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindMSCCallback() {
             _mscCallback.unbind();
-            _mscContext = {nullptr, nullptr}; 
         }
 
-        bool MessageParser::InvokeMSCCallback(uint8_t* msg, size_t size) {
-            
-            if (_mscContext.instance && _mscContext.invoke) {
-                _mscContext.invoke(_mscContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeMSCCallback(const uint8_t* data, size_t size) {
             if (_mscCallback.status()) {
-                _mscCallback.invoke(msg, size);
+                _mscCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 
 
 
     // **Set Callback Handlers**
-        void MessageParser::BindDefaultCallback( CallbackReferenceType callback ){
+        void MessageParser::BindDefaultCallback( CallbackType callback ){
             _defaultCallback.bind(callback);
-            _defaultContext = {nullptr, nullptr};
-        }
-
-        void MessageParser::BindDefaultCallback( void* instance,  void (*invokeFunc)(void*, const uint8_t*, size_t) ){
-            _defaultCallback.unbind();
-            _defaultContext = {instance, invokeFunc};
         }
 
         void MessageParser::UnbindDefaultCallback() {
-            _defaultCallback.unbind();
-            _defaultContext = {nullptr, nullptr}; 
+            _defaultCallback.unbind(); 
         }
 
-        bool MessageParser::InvokeDefaultCallback(uint8_t* msg, size_t size) {
-            
-            if (_defaultContext.instance && _defaultContext.invoke) {
-                _defaultContext.invoke(_defaultContext.instance, msg, size);
-                return true;
-            } 
-            
+        bool MessageParser::InvokeDefaultCallback(const uint8_t* data, size_t size) {
             if (_defaultCallback.status()) {
-                _defaultCallback.invoke(msg, size);
+                _defaultCallback.invoke(data, size);
                 return true;
             }
-
             return false;
         }
 

@@ -1,0 +1,77 @@
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file SystemFoundation.dox
+ * @brief Overview of examples for the MIDILAR SystemFoundation module.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @defgroup MIDILAR_Examples_SystemFoundation SystemFoundation Examples
+ * @ingroup MIDILAR_Examples
+ * @brief Examples demonstrating timing and callback infrastructure in `SystemFoundation`.
+ *
+ * ---
+ *
+ * The `SystemFoundation` module provides low-level infrastructure tools such as platform-independent
+ * callback routing and real-time timekeeping utilities.
+ *
+ * This example group covers usage of the two foundational classes:
+ *
+ * - `CallbackHandler<TArgs..., TResult>`: A lightweight mechanism for binding and invoking callbacks.
+ * - `Clock`: A polling-compatible system timer abstraction designed to interface with hardware time sources.
+ *
+ * ---
+ *
+ * ## Example Categories
+ *
+ * - @ref MIDILAR_Examples_SystemFoundation_CallbackHandler
+ * - @ref MIDILAR_Examples_SystemFoundation_Clock
+ *
+ * ---
+ *
+ * ## Standard C++ Version
+ * These examples run under desktop environments using simulated timers and console-based output.
+ *
+ * ### How to Run
+ * Build the example via CMake and run the corresponding executable:
+ *
+ * ```sh
+ * cmake -B build
+ * cmake --build build
+ * ./build/bin/CallbackHandler_Usage
+ * ```
+ *
+ * ---
+ *
+ * ## Arduino-Compatible Version
+ * The Arduino versions are simplified to compile in embedded environments.
+ *
+ * ### How to Run
+ * Open from the Arduino IDE using:
+ *
+ * ```text
+ * File → Examples → MIDILAR → SystemFoundation → CallbackHandler
+ * ```
+ *
+ * Upload to your board and use **Serial Monitor** at 115200 baud to view runtime behavior.
+ *
+ * ---
+ *
+ * ## See Also
+ * - @ref MIDILAR::SystemFoundation::Clock
+ * - @ref MIDILAR::SystemFoundation::CallbackHandler
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @defgroup MIDILAR_Examples_CallbackHandler CallbackHandler Examples
+ * @ingroup MIDILAR_Examples_SystemFoundation
+ * @brief Examples for binding, unbinding, and invoking generic callbacks.
+ */
+
+/**
+ * @defgroup MIDILAR_Examples_Clock Clock Class Examples
+ * @ingroup MIDILAR_Examples_SystemFoundation
+ * @brief Examples for reading and updating timing data using the `Clock` class.
+ */

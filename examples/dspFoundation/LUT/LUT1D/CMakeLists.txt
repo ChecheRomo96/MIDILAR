@@ -1,0 +1,3 @@
+add_subdirectory(Ramp)
+add_subdirectory(WaveformGenerator)
+add_subdirectory(Log)

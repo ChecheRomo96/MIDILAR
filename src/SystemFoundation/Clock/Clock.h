@@ -45,8 +45,8 @@
                 TimePoint _currentTime;        /**< Current time as reported by the clock. */
                 Timebase _clockFrequency;      /**< The frequency of the clock. */
 
-                CallbackHandler<TimePoint, void>  _clockPoll; /**< Pointer to the hardware callback function. */
-                CallbackHandler<void, Timebase>  _clockSetup; /**< Pointer to the hardware callback function. */
+                ClockCallback  _clockPoll; /**< Pointer to the hardware callback function. */
+                SetupCallback  _clockSetup; /**< Pointer to the hardware callback function. */
 
             public:
                 /**
@@ -59,13 +59,13 @@
                  * @param hc Pointer to the hardware callback function.
                  * @param freq The clock frequency in Hz.
                  */
-                Clock(ClockCallback::CallbackReferenceType hc, float freq);
+                Clock(ClockCallback::CallbackType hc, float freq);
 
                 /**
                  * @brief Binds a hardware callback to the clock.
                  * @param hc Pointer to the hardware callback function.
                  */
-                void bindClock(ClockCallback::CallbackReferenceType hc);
+                void bindClock(ClockCallback::CallbackType hc);
 
                 /**
                  * @brief Unbinds the hardware callback from the clock.
@@ -82,7 +82,7 @@
                  * @brief Binds a hardware callback to the clock.
                  * @param hc Pointer to the hardware callback function.
                  */
-                void bindSetup(SetupCallback::CallbackReferenceType hc);
+                void bindSetup(SetupCallback::CallbackType hc);
 
                 /**
                  * @brief Unbinds the hardware callback from the clock.

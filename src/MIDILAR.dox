@@ -1,0 +1,73 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file MIDILAR.dox
+ * @brief Doxygen group definitions for the MIDILAR library.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR
+ * @brief Modular framework for MIDI control, synthesis, and signal processing.
+ * 
+ * MIDILAR is a lightweight and highly modular C++ library tailored for embedded and real-time 
+ * audio/MIDI applications. It provides a clean and extensible architecture for handling 
+ * MIDI communication, processing pipelines, and DSP transformations.
+ * 
+ * Designed with embedded efficiency and creative flexibility in mind, MIDILAR enables:
+ * - **Low-latency MIDI parsing and routing**
+ * - **Custom MIDI message transformation and shaping**
+ * - **Lookup-table-based waveform generation and nonlinear control curves**
+ * - **Real-time mapping between physical controllers and audio systems**
+ * 
+ * Whether you're building a hardware synth, a MIDI controller, or a modular DSP system, 
+ * MIDILAR provides the building blocks to handle MIDI at all levels—from raw byte parsing 
+ * to expressive shaping of control signals.
+ */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @ingroup MIDILAR
+    * @defgroup MIDILAR_SystemFoundation System Foundation
+    * @brief Core system utilities and infrastructure for MIDILAR.
+    * 
+    * This module includes fundamental system utilities, configuration 
+    * settings, and low-level components that support the overall 
+    * functionality of MIDILAR.
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @ingroup MIDILAR
+    * @defgroup MIDILAR_MidiFoundation MIDI Foundation
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @ingroup MIDILAR
+    * @defgroup MIDILAR_dspFoundation DSP Foundation
+    * @brief Core components for signal shaping, control mapping, and waveform generation.
+    * 
+    * The DSP Foundation module provides essential tools for applying signal processing 
+    * techniques in a MIDI-centered context. It includes a flexible system of 
+    * **lookup tables (LUTs)** designed for real-time performance on embedded hardware, 
+    * enabling waveform synthesis, morphing functions, nonlinear scaling, and 
+    * expressive control remapping.
+    * 
+    * Key features:
+    * - 1D, 2D, and 3D LUT classes for real-time lookup and interpolation
+    * - Periodic waveform generators (sine, square, triangle, saw)
+    * - Shaping functions for velocity curves, envelopes, and dynamic control (e.g., log-exp, sigmoid)
+    * - Modular and reusable DSP blocks compatible with real-time MIDI processing
+    * 
+    * Ideal for embedded synthesizers, MIDI processors, or interactive sound systems 
+    * where efficiency and expressiveness are critical.
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /**
+    * @ingroup MIDILAR
+    * @defgroup MIDILAR_MidiDevices MIDI Devices
+    * @brief MIDI processing modules for real-time message transformation.
+    * 
+    * This module includes processors that modify, filter, or enhance MIDI 
+    * messages dynamically. Examples include velocity shaping, channel 
+    * filtering, and other transformations.
+    */
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

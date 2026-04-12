@@ -11,5 +11,4 @@
         #include <SystemFoundation/Clock/Clock.h>
     #endif
 
-
 #endif//MIDILAR_SYSTEM_FOUNDATION_H

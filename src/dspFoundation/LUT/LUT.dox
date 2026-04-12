@@ -1,0 +1,62 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file LUT.dox
+ * @brief Documentation for the LUT (Lookup Table) module in MIDILAR.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT Lookup Tables
+ * @ingroup MIDILAR_dspFoundation
+ * @brief Core 1D, 2D, and 3D lookup table types for waveform synthesis and control mapping.
+ *
+ * This module provides the foundation for fast, flexible signal shaping using precomputed lookup tables.
+ * It includes dimensional LUT types as well as specialized LUT generators under the `Periodic` and `Shaping` namespaces.
+ *
+ * ### Topics:
+ * - @ref MIDILAR_dspFoundation_LUT_1D
+ * - @ref MIDILAR_dspFoundation_LUT_2D
+ * - @ref MIDILAR_dspFoundation_LUT_3D
+ * - @ref MIDILAR_dspFoundation_LUT_Periodic
+ * - @ref MIDILAR_dspFoundation_LUT_Shaping
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT_1D LUT1D
+ * @ingroup MIDILAR_dspFoundation_LUT
+ * @brief One-dimensional lookup tables with fast index access and linear interpolation.
+ *
+ * The base class `BaseLUT` provides the core interface for single-variable LUTs used in shaping curves and waveforms.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT_2D LUT2D
+ * @ingroup MIDILAR_dspFoundation_LUT
+ * @brief Two-dimensional lookup tables for morphing or parameter-dependent shaping.
+ *
+ * The `BaseLUT2D` class enables dynamic response curves based on two inputs, such as velocity vs morph.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT_3D LUT3D
+ * @ingroup MIDILAR_dspFoundation_LUT
+ * @brief Three-dimensional lookup tables for complex control surfaces and real-time modulation.
+ *
+ * The `BaseLUT3D` class allows interpolation across three input axes, enabling expressive signal shaping with embedded performance in mind.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT_Periodic Periodic LUT Generators
+ * @ingroup MIDILAR_dspFoundation_LUT
+ * @brief Predefined periodic waveforms: sine, triangle, square, saw, etc.
+ *
+ * These generators produce harmonically rich or smooth waveforms using LUTs optimized for phase continuity and alias-free playback.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT_Shaping Shaping LUT Generators
+ * @ingroup MIDILAR_dspFoundation_LUT
+ * @brief Nonlinear transformation generators: log-exp, sigmoid, and velocity curves.
+ *
+ * Useful for expressive dynamic control and real-time parameter mapping based on user input or MIDI data.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,88 @@
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file ChannelVoiceMessages.dox
+ * @brief Documentation for Channel Voice message construction examples.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_Message_ChannelVoice
+ * @brief Channel Voice message examples using `MIDILAR::MidiFoundation::Message`.
+ *
+ * ---
+ *
+ * This example group showcases the use of the `Message` class for constructing
+ * MIDI Channel Voice messages, which form the core of musical performance control
+ * over a MIDI interface.
+ *
+ * These include note triggering, key pressure, program changes, and pitch bend,
+ * and are compatible with all MIDI-compliant devices such as synthesizers,
+ * controllers, DAWs, and embedded instruments.
+ *
+ * ---
+ *
+ * ### Key Concepts:
+ * - Using `Message::NoteOn()` and `NoteOff()` to trigger notes
+ * - Constructing `ProgramChange`, `AfterTouch`, and `ChannelPressure`
+ * - Byte-level message inspection
+ * - Portability across desktop and Arduino environments
+ *
+ * ---
+ *
+ * ## Standard C++ Version
+ * This version runs on the desktop using a simulated MIDI message construction flow.
+ *
+ * @ref Example_ChannelVoice_cpp
+ *
+ * ### How to Run (CMake Build)
+ * After building with CMake, run from `.build/bin` as follows:
+ *
+ * **Windows**
+ * ```
+ * .<build_dir>/bin/Message_ChannelVoice.exe
+ * ```
+ *
+ * **Linux/macOS**
+ * ```
+ * ./<build_dir>/bin/Message_ChannelVoice
+ * ```
+ *
+ * ---
+ *
+ * ## Arduino-Compatible Version
+ * A simplified version can be run directly on embedded targets that print messages via `Serial`.
+ *
+ * @ref Example_ChannelVoice_Arduino
+ *
+ * ### How to Run
+ * Open via:
+ *
+ * ```
+ * File → Examples → MIDILAR → MidiFoundation → Message → ChannelVoice
+ * ```
+ *
+ * Then open the **Serial Monitor** at `115200` baud to see raw message bytes.
+ *
+ * ---
+ *
+ * See the main MIDILAR::MidiFoundation::Message API documentation for more:
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_ChannelVoice_cpp ChannelVoice.cpp
+ * @brief Demonstrates construction of Channel Voice MIDI messages using the Message class.
+ *
+ * @include Examples/MidiFoundation/Message/ChannelVoice/CMake/ChannelVoice.cpp
+ */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_ChannelVoice_Arduino ChannelVoice.ino
+ * @brief Arduino version of the Channel Voice message construction demo.
+ *
+ * @include Examples/MidiFoundation/Message/ChannelVoice/ChannelVoice.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

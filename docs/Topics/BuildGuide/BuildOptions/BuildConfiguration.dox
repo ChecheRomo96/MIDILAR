@@ -1,0 +1,50 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file BuildConfiguration.dox
+ * @brief Build-time configuration options for MIDILAR (CMake and Arduino).
+ *
+ * This file documents all available CMake options and preprocessor macros
+ * used to enable or disable features in the MIDILAR library.
+ *
+ * For Arduino and PlatformIO builds, these options are defined manually
+ * in `System/UserSetup.h`.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR_BG_BuildConfiguration
+ * @brief Reference for all compile-time MIDILAR configuration flags.
+ *
+ * These flags apply both to:
+ * - CMake-based projects (`option(...)`)
+ * - Arduino (`#define` macros)
+ *
+ * @note For Arduino users, you must manually define these in `System/UserSetup.h`.
+ *
+ * These options are declared in:
+ * ```
+ * {ArduinoRootDir}/libraries/MIDILAR/src/system/UserSetup.h
+ * ```
+ * The intended usage is to comment out unused Modules, by default all modules are enabled.
+ *
+ * `System/UserSetup.h` file using standard `#define` directives:
+ *
+ * @code{.cpp}
+ * #define MIDILAR_DSP_FOUNDATION
+ * #define MIDILAR_LUT
+ * #define MIDILAR_MIDI_MESSAGE_PARSER
+ * #define MIDILAR_GENERATORS_PERIODIC
+ * @endcode
+ *
+ * This file is included when including "MIDILAR.h", it is included in "system/BuildSettings.h",
+ * with the help of preprocessor macros to detect when it is needed.
+ */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_BG_BC_dspFoundation dspFoundation
+ * @ingroup MIDILAR_BG_BuildConfiguration
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+

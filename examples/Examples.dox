@@ -1,0 +1,37 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file Examples.dox
+ * @brief MIDILAR Example Programs
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples Example Programs
+ * @brief Illustrative usage patterns and reference implementations for the MIDILAR framework.
+ *
+ * This group provides a curated set of examples demonstrating how to use MIDILAR components
+ * in real-world scenarios. Each example focuses on showcasing recommended usage patterns,
+ * integration strategies, and modular design principles within the context of DSP and MIDI control.
+ * 
+ * Examples range from waveform generation and shaping to dynamic modulation and real-time MIDI mapping.
+ * They serve as both tutorials and functional test cases for embedded and desktop workflows.
+ *
+ * See also: `Examples.dox` for detailed summaries and links.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+/**
+ * @defgroup MIDILAR_Examples_BuildTest Build Configuration Inspector
+ * @ingroup MIDILAR_Examples
+ */
+
+ 
+/**
+ * @defgroup MIDILAR_Examples_dspFoundation DSP Foundation
+ * @ingroup MIDILAR_Examples
+ */
+
+ 
+/**
+ * @defgroup MIDILAR_Examples_MidiFoundation MIDI Foundation
+ * @ingroup MIDILAR_Examples
+ */

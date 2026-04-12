@@ -1,0 +1,2 @@
+add_executable(MidiMessage_ControlChange ControlChange.cpp)
+target_link_libraries(MidiMessage_ControlChange PUBLIC MIDILAR) 

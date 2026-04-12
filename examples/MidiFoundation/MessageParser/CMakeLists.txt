@@ -1,4 +1,7 @@
-add_subdirectory(Usage_Sim)
-add_subdirectory(Callbacks_Sim)
+add_subdirectory(StandaloneCallbacks)
+add_subdirectory(InstanceCallbacks)
 
-add_subdirectory(Usage_Port)
+add_subdirectory(ParsingSim)
+add_subdirectory(ParsingRT)
+
+add_subdirectory(BenchmarkTest)

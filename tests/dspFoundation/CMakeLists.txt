@@ -1,2 +1,1 @@
 add_subdirectory(LUT1D)
-add_subdirectory(Periodic)

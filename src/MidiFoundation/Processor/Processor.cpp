@@ -2,7 +2,7 @@
 
 namespace MIDILAR::MidiFoundation {
 
-    void Processor::BindMidiOut(MidiOut_CallbackReferenceType MidiOutHandler) {
+    void Processor::BindMidiOut(MidiOut_CallbackType MidiOutHandler) {
         _MidiOutHandler.bind(MidiOutHandler);
     }
 

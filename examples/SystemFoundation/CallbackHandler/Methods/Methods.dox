@@ -1,0 +1,55 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file Methods.dox
+ * @brief Demonstrates binding and invoking instance methods using `CallbackHandler`.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_CallbackHandler_Methods
+ * @brief Examples of binding instance (non-static) methods with `CallbackHandler`.
+ *
+ * This group focuses on how to bind methods from class instances to `CallbackHandler`,
+ * enabling callback-style dispatch from object-oriented components.
+ *
+ * It is useful for situations where member functions need to be called in response to
+ * events, messages, or asynchronous processing — both in embedded and desktop contexts.
+ *
+ * ---
+ *
+ * ### Covered Scenarios
+ *
+ * - Binding methods with `void`, non-`void` return types
+ * - Methods with and without arguments
+ * - Ensuring compatibility with `CallbackHandler<T>` template specialization system
+ * - Safe dispatch using `invoke()` with object-bound handlers
+ *
+ * ---
+ *
+ * @ref Example_Methods_cpp
+ *
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_Methods_cpp Methods.cpp
+ * @brief Binds class instance methods to `CallbackHandler`.
+ *
+ * This example demonstrates how to bind different method types:
+ *
+ * - `void(const char*)`
+ * - `int()`
+ * - `void()`
+ * - `float(int, float)`
+ *
+ * The methods are defined inside a `Printer` class and bound using:
+ *
+ * ```cpp
+ * handler.bind<ClassType, &ClassType::Method>(&instance);
+ * ```
+ *
+ * Example:
+ *
+ * ```cpp
+ * CallbackHandler<void, const char*> handler;
+ * handler.bind<Printer*

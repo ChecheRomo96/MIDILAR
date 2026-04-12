@@ -12,6 +12,15 @@
     list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/LUT1D.tpp")
 #
 ######################################################################################################
+# Dependancy Tree
+
+    set(
+        MIDILAR_LUT1D_DEPS 
+        "${MIDILAR_LUT_DEPS};MIDILAR_LUT_1D"
+        CACHE INTERNAL "Dependencies for dspFoudnation"
+    )
+#
+######################################################################################################
 # Refresh Sources List and Header List at PARENT_SCOPE
 
     set(MIDILAR_SOURCES "${MIDILAR_SOURCES};${MIDILAR_SOURCES_LOCAL}" PARENT_SCOPE)
@@ -22,7 +31,7 @@
 
     install(
         FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/AudioFoundation/LUT/LUT1D"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/LUT/LUT1D"
     )
 #
 ######################################################################################################

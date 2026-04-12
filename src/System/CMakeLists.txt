@@ -16,7 +16,11 @@
     )
 
     list(APPEND ${PROJECT_NAME_UPPER}_HEADERS ${${PROJECT_NAME_UPPER}_HEADERS_LOCAL})
-
+#
+    
+    include(ModuleDependencies.cmake)
+    include(DependencyResolution.cmake)
+    
 #
 ######################################################################################################
 # Refresh Sources and Headers in Parent Scope

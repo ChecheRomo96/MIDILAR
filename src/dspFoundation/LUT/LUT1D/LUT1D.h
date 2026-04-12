@@ -47,36 +47,75 @@
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
-                 * @brief Sets the LUT buffer size.
-                 * 
-                 * Resizes the buffer and triggers a recalculation of the LUT.
-                 * 
-                 * @param size The new size of the buffer.
-                 * @return True if resizing was successful, false otherwise.
+                 * @brief Returns a raw pointer to the LUT buffer.
+                 * Use with care. Intended for derived classes or internal use.
                  */
-                    bool SetBufferSize(size_t size);
+                    OUTPUT_TYPE* GetBuffer();
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
+                 * @brief Returns a const pointer to the internal LUT buffer.
+                 */
+                    const OUTPUT_TYPE* GetBuffer() const;
+                //
+                /////////////////////////////////////////////////////////////////////////
+                /**
+                 * @brief Sets the LUT buffer size.
+                 * 
+                 * Allocates or resizes the buffer and triggers re-evaluation
+                 * 
+                 * @param size The new number of LUT entries.
+                 * @return True if successful, false otherwise.
+                 */
+                    bool SetBufferSize(size_t size);
+                //
+                /////////////////////////////////////////////////////////////////////////   
+                /**
                  * @brief Returns the current buffer size.
-                 * @return The number of elements in the LUT.
+                 * 
+                 * @return Number of entries in the LUT.
                  */
                     size_t BufferSize() const;
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
-                 * @brief Returns a constant pointer to the LUT buffer.
-                 * @return A constant pointer to the LUT buffer.
+                 * @brief Sets a specific data value at a given bin index.
+                 * 
+                 * @param index The bin index to modify.
+                 * @param Data  The value to set.
                  */
                     void SetData(size_t index, OUTPUT_TYPE Data);
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
-                 * @brief Clears the LUT buffer without deallocating memory.
+                 * @brief Clears all LUT values without deallocating memory.
                  * 
-                 * Sets all buffer values to zero while keeping the allocated memory intact.
+                 * Sets every entry to zero.
                  */
                     void ClearBuffer();
+                //
+                /////////////////////////////////////////////////////////////////////////
+                /**
+                 * @brief Sets the LUT data from an external source.
+                 * 
+                 * Transfers external buffer data into the LUT.
+                 * Caller is responsible for memory safety.
+                 * 
+                 * @param Data Pointer to external buffer.
+                 * @param buffer_size Number of elements in the external buffer.
+                 */
+                    void SetRawData(OUTPUT_TYPE* Data, size_t buffer_size);
+                //
+                /////////////////////////////////////////////////////////////////////////
+            
+            public:
+            
+                /////////////////////////////////////////////////////////////////////////
+                /**
+                 * @brief Constructor for LUT1D.
+                 * Initializes the LUT with no allocated buffer.
+                 */
+                    LUT1D();
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
@@ -101,29 +140,6 @@
                 //
                 /////////////////////////////////////////////////////////////////////////
                 /**
-                 * @brief Sets the LUT buffer data from an external source.
-                 * 
-                 * This function assigns the provided buffer data to the internal buffer.
-                 * Note: The caller must ensure proper memory management to avoid leaks.
-                 * 
-                 * @param Data A pointer to the external buffer data.
-                 * @param buffer_size The size of the provided buffer.
-                 */
-                    void SetRawData(OUTPUT_TYPE* Data, size_t buffer_size);
-                //
-                /////////////////////////////////////////////////////////////////////////
-            
-            public:
-            
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Constructor for LUT1D.
-                 * Initializes the LUT with no allocated buffer.
-                 */
-                    LUT1D();
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
                  * @brief Destructor for LUT1D.
                  * Frees the allocated buffer memory.
                  */
@@ -138,7 +154,7 @@
                  * @param inputValue The input value to lookup.
                  * @return The interpolated LUT value.
                  */
-                    OUTPUT_TYPE GetValue(size_t inputValue) const;
+                    virtual OUTPUT_TYPE GetValue(size_t bin) const;
                 //
                 /////////////////////////////////////////////////////////////////////////
         };

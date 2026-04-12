@@ -12,6 +12,6 @@ if(${MIDILAR_MIDI_FOUNDATION})
     add_subdirectory(MidiFoundation)
 endif()
 
-if(${MIDILAR_MIDI_PROCESSORS})
-    add_subdirectory(MidiProcessors)
+if(${MIDILAR_MIDI_DEVICES})
+    add_subdirectory(MidiDevices)
 endif()

@@ -1,0 +1,35 @@
+/**
+ * @defgroup MIDILAR_dspFoundation dspFoundation
+ * @ingroup MIDILAR
+ * @brief Core DSP components for shaping, transformation, and synthesis.
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT LUT
+ * @ingroup MIDILAR_dspFoundation
+ * @brief Lookup tables for waveform shaping and control mapping.
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Generators Generators
+ * @ingroup MIDILAR_dspFoundation
+ * @brief Generator modules for waveforms, envelopes, and nonlinear curves.
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Shaping Shaping Generators
+ * @ingroup MIDILAR_dspFoundation_Generators
+ * @brief Nonlinear shaping generators (log-exp, sigmoid, etc.).
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Periodic Periodic Generators
+ * @ingroup MIDILAR_dspFoundation_Generators
+ * @brief Sinusoidal and harmonic waveform generators.
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Transforms Transforms
+ * @ingroup MIDILAR_dspFoundation
+ * @brief Spectral and time-domain transformations.
+ */

@@ -1,0 +1,2 @@
+add_executable(MidiMessage_ChannelVoice ChannelVoice.cpp)
+target_link_libraries(MidiMessage_ChannelVoice PUBLIC MIDILAR) 

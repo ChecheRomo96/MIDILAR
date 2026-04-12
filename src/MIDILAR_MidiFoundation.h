@@ -5,8 +5,7 @@
 
     namespace MIDILAR::MidiFoundation{}
 
-    #include <MidiFoundation/Protocol/Defines.h>
-    #include <MidiFoundation/Protocol/Enums.h>
+    #include <MIDILAR_MidiProtocol.h>
     
     #include <MidiFoundation/Message/Message.h>
     #include <MidiFoundation/MessageParser/MessageParser.h>

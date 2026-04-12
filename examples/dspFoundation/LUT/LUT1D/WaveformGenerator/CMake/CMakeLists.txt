@@ -1,0 +1,2 @@
+add_executable(LUT1D_WaveformGenerator WaveformGenerator.cpp)
+target_link_libraries(LUT1D_WaveformGenerator MIDILAR)

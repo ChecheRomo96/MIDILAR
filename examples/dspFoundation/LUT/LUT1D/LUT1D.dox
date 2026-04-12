@@ -1,0 +1,34 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file LUT1D.dox
+ * @brief Examples using the LUT1D base class in the MIDILAR DSP module.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR_Examples_LUT_1D
+ * @brief Practical examples showcasing 1D lookup table generation and manipulation.
+ *
+ * This group contains curated examples that demonstrate how to work with the `LUT1D` class
+ * and its derived waveform generators. These examples serve as both reference and inspiration
+ * for creating embedded-friendly, precomputed waveforms or shaping functions in control applications.
+ *
+ * Each example builds upon the LUT1D foundation and helps clarify how to integrate waveform generation
+ * and real-time LUT access in your projects.
+ *
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_Ramp Ramp Example
+ * @ingroup MIDILAR_Examples_LUT_1D
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_WaveformGenerator Waveform Generator Example
+ * @ingroup MIDILAR_Examples_LUT_1D
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_Log Log Example
+ * @ingroup MIDILAR_Examples_LUT_1D
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

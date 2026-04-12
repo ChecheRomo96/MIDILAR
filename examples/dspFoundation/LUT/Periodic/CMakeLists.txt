@@ -1,0 +1,2 @@
+add_subdirectory(SineLUT)
+add_subdirectory(TriangleLUT)

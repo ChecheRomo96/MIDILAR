@@ -1,2 +1,0 @@
-add_executable(LogExpLUT2D_Plot Plot.cpp)
-target_link_libraries(LogExpLUT2D_Plot MIDILAR)

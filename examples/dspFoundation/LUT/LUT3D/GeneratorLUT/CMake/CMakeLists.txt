@@ -1,0 +1,2 @@
+add_executable(LUT3D_GeneratorsTest GeneratorLUT.cpp)
+target_link_libraries(LUT3D_GeneratorsTest MIDILAR)

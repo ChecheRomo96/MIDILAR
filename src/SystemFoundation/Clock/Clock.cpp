@@ -14,7 +14,7 @@ namespace MIDILAR::SystemFoundation {
      * @param hc Pointer to the hardware callback function.
      * @param freq The frequency of the clock in Hz.
      */
-    Clock::Clock(ClockCallback::CallbackReferenceType hc, float freq) : Clock() {
+    Clock::Clock(ClockCallback::CallbackType hc, float freq) : Clock() {
         
         
         // Initialize the callback handler for clock polling
@@ -30,7 +30,7 @@ namespace MIDILAR::SystemFoundation {
      * @brief Links a hardware API function to the Clock.
      * @param hc Pointer to the hardware callback function.
      */
-    void Clock::bindClock(ClockCallback::CallbackReferenceType hc) {
+    void Clock::bindClock(ClockCallback::CallbackType hc) {
         _clockPoll.bind(hc);
     }
 
@@ -53,7 +53,7 @@ namespace MIDILAR::SystemFoundation {
      * @brief Binds a setup callback to adjust the hardware timebase.
      * @param sc Pointer to the setup callback function.
      */
-    void Clock::bindSetup(SetupCallback::CallbackReferenceType sc) {
+    void Clock::bindSetup(SetupCallback::CallbackType sc) {
         _clockSetup.bind(sc);
     }
 

@@ -79,7 +79,6 @@
              * @param size Size of the MIDI message buffer.
              */
                 using MidiOut_CallbackType = MIDILAR::SystemFoundation::CallbackHandler<void, const uint8_t*, size_t>::CallbackType;
-                using MidiOut_CallbackReferenceType = MIDILAR::SystemFoundation::CallbackHandler<void, const uint8_t*, size_t>::CallbackReferenceType;
             //
             /////////////////////////////////////////////////////////////////////////////////////////////
             /**
@@ -125,7 +124,7 @@
              * 
              * @param MidiOutHandler The callback function to handle MIDI output events.
              */
-                void BindMidiOut(MidiOut_CallbackReferenceType MidiOutHandler);
+                void BindMidiOut(MidiOut_CallbackType MidiOutHandler);
             //
             /////////////////////////////////////////////////////////////////////////////////////////////
             /**

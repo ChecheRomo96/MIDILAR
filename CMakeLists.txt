@@ -4,7 +4,7 @@
     #################################################################################################
     # CMake Minimum Version
         
-    cmake_minimum_required(VERSION 3.14)
+        cmake_minimum_required(VERSION 3.14)
     #
     #################################################################################################
     # Project Name, Version, and Language
@@ -48,6 +48,8 @@
 ######################################################################################################
 # Append Source
 
+    option(MIDILAR_TESTING "Enable unit testing" OFF)
+    option(MIDILAR_COVERAGE "Enable coverage testing" OFF)
     # Apply coverage flags only if MIDILAR_COVERAGE is ON
     if(MIDILAR_COVERAGE)
         message(STATUS "Enabling Code Coverage")
@@ -98,7 +100,12 @@
 #
 ######################################################################################################
 # Create the library
+
     target_compile_definitions(MIDILAR INTERFACE ${PROJECT_NAME_UPPER}_VERSION="${PROJECT_VERSION}")
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    )
 #
 ######################################################################################################
 # Append Examples
@@ -107,14 +114,12 @@
 
     if(MIDILAR_EXAMPLES)
         message(STATUS "Building ${PROJECT_NAME} Examples")
-        add_subdirectory(examples EXCLUDE_FROM_ALL)
+        add_subdirectory(examples)
     endif()
 #
 ######################################################################################################
 # Append Tests
 
-    option(MIDILAR_TESTING "Enable unit testing" OFF)
-    option(MIDILAR_COVERAGE "Enable coverage testing" OFF)
 
     if(MIDILAR_TESTING)
         message(STATUS "Building ${PROJECT_NAME} Tests")
@@ -138,9 +143,6 @@
 
         # Disable GoogleTest from being listed in CTest
         set_target_properties(gtest gtest_main PROPERTIES EXCLUDE_FROM_ALL TRUE)
-
-        # Force GoogleTest to use the same compiler settings
-        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
         # Include necessary testing frameworks
         include(GoogleTest)

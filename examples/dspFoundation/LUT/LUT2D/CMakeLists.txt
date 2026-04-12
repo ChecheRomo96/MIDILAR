@@ -1,0 +1,2 @@
+add_subdirectory(GeneratorLUT)
+add_subdirectory(MorphingLUT)

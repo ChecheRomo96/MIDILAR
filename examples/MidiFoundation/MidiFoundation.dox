@@ -1,0 +1,40 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file MidiFoundation.dox
+ * @brief Example index for the MIDILAR MIDI Foundation module.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR_Examples_MidiFoundation
+ * @brief Examples demonstrating core MIDI functionality using the MidiFoundation module.
+ *
+ * This group gathers practical examples that explore core components of the `MidiFoundation` module,
+ * including message construction, byte-level parsing, callback handling, and parser configuration.
+ *
+ * These examples serve as a reference for using MIDI communication efficiently in both desktop and
+ * embedded environments, and help clarify how to structure MIDI workflows with the MIDILAR library.
+ *
+ * The examples are divided by functionality:
+ * - Constructing and sending MIDI messages
+ * - Parsing MIDI byte streams with standalone or instance-bound callbacks
+ * - Simulating realistic MIDI input, including noise
+ * - Real-time byte-by-byte parsing for serial interfaces (e.g., Arduino)
+ *
+ * Each example is self-contained and highlights best practices for robust MIDI handling.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_Message Message Class Examples
+ * @ingroup MIDILAR_Examples_MidiFoundation
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_MessageParser Message Parser Class Examples
+ * @ingroup MIDILAR_Examples_MidiFoundation
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_Processor MIDI Processor Base Class
+ * @ingroup MIDILAR_Examples_MidiFoundation
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

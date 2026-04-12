@@ -1,0 +1,86 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file CallbackHandler.dox
+ * @brief Documentation for the `CallbackHandler` template class in SystemFoundation.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR_SF_CallbackHandler
+ * @brief Lightweight type-safe callback wrapper with support for member functions.
+ *
+ * The `CallbackHandler` class is a lightweight, header-only utility for managing
+ * callbacks in embedded and real-time systems. It supports:
+ *
+ * - Free function binding
+ * - Static function and lambda binding
+ * - Non-static member function binding with instance trampoline
+ *
+ * Internally, it safely handles invocation logic and provides runtime checks for validity.
+ *
+ * ---
+ *
+ * ## Template Parameters
+ * - `R`: Return type of the callback.
+ * - `Args...`: Parameter types of the callback function.
+ *
+ * ---
+ *
+ * ## Supported Bindings
+ *
+ * - **Function pointers**: Bind any static/global function or lambda convertible to function pointer
+ * - **Member functions**: Use `bind<T, &T::Method>(T* instance)` to bind a method
+ *
+ * ---
+ *
+ * ## Key Methods
+ *
+ * ### Function Binding
+ * ```cpp
+ * CallbackHandler<void, int> handler;
+ * handler.bind(&SomeFunction);
+ * ```
+ *
+ * ### Member Function Binding
+ * ```cpp
+ * class MyClass {
+ *     void OnEvent(int value);
+ * };
+ *
+ * MyClass obj;
+ * handler.bind<MyClass, &MyClass::OnEvent>(&obj);
+ * ```
+ *
+ * ### Unbinding and Status Check
+ * ```cpp
+ * handler.unbind();
+ * if (handler.status()) {
+ *     handler.invoke(42);
+ * }
+ * ```
+ *
+ * ---
+ *
+ * ## Notes
+ * - If no callback is bound and exceptions are enabled, invoking will throw `std::runtime_error`.
+ * - Otherwise, default-constructed return value is returned.
+ * - The bound member function is invoked through an internal trampoline generated via lambda.
+ *
+ * ---
+ *
+ * ## Example
+ * ```cpp
+ * CallbackHandler<void, const char*> handler;
+ *
+ * void PrintMessage(const char* msg) {
+ *     std::cout << msg << "\n";
+ * }
+ *
+ * handler.bind(&PrintMessage);
+ * handler.invoke("Hello!");
+ * ```
+ *
+ * ---
+ *
+ * @see MIDILAR_Examples_CallbackHandler
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

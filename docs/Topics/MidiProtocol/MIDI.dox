@@ -5,16 +5,41 @@
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDI_Protocol MIDI Protocol 
- * @brief Contains standard MIDI commands and messages.
- * 
- * This group organizes MIDI commands into logical categories:
- * - Channel Voice Messages
- * - System Common Messages
- * - Real-Time Messages
- * - MIDI Time Code (MTC) Messages
+ * @addtogroup MIDI_Protocol 
+ * @brief Core definitions and message categories of the MIDI communication standard.
+ *
+ * This group provides an overview and definitions of the standard MIDI protocol (Musical Instrument Digital Interface),
+ * as implemented in the MIDILAR framework. MIDI is a universally adopted, byte-oriented communication protocol
+ * for musical instruments, controllers, and digital audio equipment.
+ *
+ * MIDI messages are used to:
+ * - Trigger notes (e.g., from keyboards or drum pads)
+ * - Control parameters (e.g., volume, pitch bend, modulation)
+ * - Synchronize clocks and playback between devices
+ * - Exchange system-level information (e.g., song position, timecode, SysEx)
+ *
+ * ### MIDI Message Format
+ * A typical MIDI message consists of one **status byte** followed by zero or more **data bytes**:
+ *
+ * ```
+ * Status Byte  (1xxx_xxxx)  → Identifies the message type (e.g., Note On, Control Change)
+ * Data Byte(s) (0xxx_xxxx)  → Carry parameters (e.g., note number, velocity)
+ * ```
+ *
+ * - Status bytes always have the MSB (Most Significant Bit) set: `1xxxxxxx`
+ * - Data bytes always have MSB clear: `0xxxxxxx`
+ * - Channel messages are encoded in the low nibble of the status byte:  
+ *   For example, `0x90` is "Note On, Channel 1", `0x91` is "Note On, Channel 2", etc.
+ *
+ * ---
+ *
+ * @see MIDILAR_MidiFoundation for concrete enum values and parsing functions.
+ *
+ * ---
+ *
  * @{
  */
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  	/**

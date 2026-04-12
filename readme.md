@@ -1,168 +1,80 @@
+# MIDILAR
 
-# MIDILAR Build Instructions
-
-This guide explains how to build, test, and use MIDILAR, including optional features like examples, testing, and documentation.
-
-**Project Website:** [MIDILAR Documentation](https://checheromo96.github.io/MIDILAR/)
+MIDILAR is a modular, lightweight C++ framework for real-time MIDI processing and embedded digital signal processing (DSP). It is designed to support both desktop and embedded development environments, including Arduino-compatible systems.
 
 ---
 
-## Quick Start: Build, Test, and Generate Documentation
+## 🚀 Key Features
 
-1. Create a build directory:
-    ```bash
-    mkdir -p build
-    ```
-
-2. Configure the project with optional features enabled:
-    ```bash
-    cmake -B build -S . -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_DOCS=ON
-    ```
-
-3. Build the project:
-    ```bash
-    cmake --build build
-    ```
-
-4. Run tests:
-    ```bash
-    ctest --test-dir build --output-on-failure
-    ```
-
-5. Generate API documentation (requires Doxygen):
-    ```bash
-    cmake --build build --target docs
-    ```
-
-6. Access outputs:
-
-    **Examples**: Available in the build directory.
-
-    1.  Run MIDILAR_BuildTest
-        ```bash
-        ./build/bin/MIDILAR_BuildTest
-        ```
-
-    2.  Run MIDILAR_MidiProcessor_ClockGenerator
-        ```bash
-        ./build/bin/MIDILAR_MidiProcessor_ClockGenerator
-        ```
-
-    3.  Run MIDILAR_MidiProcessor_Echo
-        ```bash
-        ./build/bin/MIDILAR_MidiProcessor_Echo
-        ```
-
-    4.  Run MIDILAR_MidiProcessor_MidiFilter
-        ```bash
-        ./build/bin/MIDILAR_MidiProcessor_MidiFilter
-        ```
-
-    **Documentation**: Found in `build/docs`.
-
-    - To open the doxygen generated documentation go to the build/doxygen/html directory and open the index.html file, or run the following command.
-
-        ```bash
-        open build/doxygen/html/index.html
-        ```
+- **Real-Time MIDI Parsing & Routing**
+- **Modular DSP Infrastructure**
+- **Lookup Tables (LUTs)** for waveform generation and shaping
+- **Callback-based MIDI Message Handling**
+- **Built-in MIDI Processors** (e.g., filtering, velocity scaling, clock division)
 
 ---
 
-## Installation
+## 📚 Documentation
 
-To install MIDILAR:
+Full documentation is available at:
 
-1. Configure the build for installation:
-    ```bash
-    cmake -S . -B build -DCMAKE_INSTALL_PREFIX=<install_path>
-    ```
+👉 [MIDILAR API Documentation](https://checheromo96.github.io/MIDILAR/)
 
-2. Build and install:
-    ```bash
-    cmake --build build --target install
-    ```
+From the main **Topics** tab in the documentation, you can access:
 
-3. Installed components:
-   - **Libraries**: Located in `<install_path>/lib/`
-   - **Headers**: Located in `<install_path>/include/`
-   - **CMake Configuration**: Found in `<install_path>/lib/cmake/MIDILAR/`
+- **[Example Programs](https://checheromo96.github.io/MIDILAR/topics.html#MIDILAR_Examples)**  
+  A curated set of tutorials and minimal reference implementations showing how to use MIDILAR features in practice — ideal for learning and debugging.
 
-4. Verify installation:
-   Ensure the necessary files are in their respective directories, and your build environment can find the installed MIDILAR.
+- **[Build Instructions](https://checheromo96.github.io/MIDILAR/topics.html#BuildGuide)**  
+  Guides for building MIDILAR using either CMake or Arduino/PlatformIO. Covers library configuration, optional modules, and usage examples.
 
 ---
 
-## Advanced Configuration
+## 🔧 Getting Started
 
-### CMake Options
+You can build MIDILAR using standard CMake:
 
-| Option                            | Description                               | Default |
-|-----------------------------------|-------------------------------------------|---------|
-| `MIDILAR_TESTING`                 | Enable unit tests                         | OFF     |
-| `MIDILAR_EXAMPLES`                | Build example applications                | OFF     |
-| `MIDILAR_DOCS`                    | Generate API documentation                | OFF     |
-| `MIDILAR_SYSTEM_FOUNDATION`       | Compile MIDILAR::SystemFoundation         | ON      |
-| `MIDILAR_SYSTEM_CLOCK`            | Compile MIDILAR::SystemFoundation::Clock  | ON      |
-
-Enable features by adding options to the `cmake` command:
 ```bash
-cmake .. -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_DOCS=ON
+cmake -B build -S . -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_DOCS=ON
+cmake --build build
 ```
+
+Or configure it for embedded development using the `System/UserSetup.h` file when working with Arduino.
 
 ---
 
-## Using MIDILAR in Your Project
+## 📁 Example Usage
 
-### After Installation
-Add the following to your `CMakeLists.txt`:
-```cmake
-find_package(MIDILAR REQUIRED)
+The `examples/` folder includes various standalone and Arduino-compatible sketches. See the documentation's **Example Programs** section for visual output and detailed explanations.
 
-add_executable(MyApp main.cpp)
-target_link_libraries(MyApp MIDILAR::MIDILAR)
-```
+---
 
-Set `CMAKE_PREFIX_PATH` if MIDILAR is installed in a non-standard location:
+## 💡 Learn More
+
+- [API Reference](https://checheromo96.github.io/MIDILAR/)
+- [Example Programs](https://checheromo96.github.io/MIDILAR/topics.html#MIDILAR_Examples)
+- [Build Instructions](https://checheromo96.github.io/MIDILAR/topics.html#BuildGuide)
+
+---
+
+## 🧪 Testing & Docs
+
+Enable testing and documentation via CMake:
+
 ```bash
-cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
+cmake -B build -S . -DMIDILAR_TESTING=ON -DMIDILAR_DOCS=ON
+ctest --test-dir build
+cmake --build build --target docs
 ```
 
-### Without Installation
-Reference the MIDILAR source directory directly:
-```cmake
-add_subdirectory(path/to/MIDILAR)
-add_executable(MyApp main.cpp)
-target_link_libraries(MyApp MIDILAR::MIDILAR)
-```
+Docs will be generated under `build/doxygen/html/index.html`.
 
 ---
 
-## Support
+## License
 
-- **Clean Build:** If you encounter issues, clear the build directory and reconfigure:
-    ```bash
-    rm -rf build && mkdir build && cd build
-    cmake ..
-    ```
-
-- For detailed documentation, visit [MIDILAR Documentation](https://checheromo96.github.io/MIDILAR/).
-
+MIDILAR is licensed under the MIT License. See the LICENSE file for more details.
 
 ---
 
-./bin/MIDILAR_SystemTools_Clock_Usage
-
-
-# Running Tests
-
-## Run SystemTools_Clock_Test
-./bin/SystemTools_Clock_Test
-
-## Run MIDILAR_MidiProcessor
-./bin/MIDILAR_MidiProcessor
-
-
----
-
-
-ctest --test-dir . -T Test -T Coverage
+MIDILAR is open-source and actively maintained. Feedback, suggestions, and contributions are welcome!

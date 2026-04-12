@@ -1,0 +1,102 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file BuildGuide.dox
+ * @brief Build system configuration and setup guide for MIDILAR.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_BuildGuide
+ * @brief Instructions to build and configure MIDILAR for desktop and embedded environments.
+ *
+ * This group provides platform-specific instructions for compiling and integrating MIDILAR
+ * into your projects. It is divided into:
+ *
+ * - @ref BuildGuide_CMake for **Standard C++/CMake**
+ * - @ref BuildGuide_Arduino for **Arduino/PlatformIO**
+ * - @ref BuildOptions for **Available Build Options**
+ *
+ * These guides are independent from the main `MIDILAR` API reference and are intended
+ * to help users configure and test the library in various environments.
+ */
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_BuildGuide_CMake CMake
+ * @ingroup MIDILAR_BuildGuide
+ * @brief Using MIDILAR with CMake-based C++ projects.
+ *
+ * This guide covers:
+ *
+ * - Building the core library and optional modules
+ * - Enabling testing, examples, and documentation
+ * - CMake install instructions and configuration flags
+ *
+ * Basic build steps:
+ * @code{.bash}
+ * git clone https://github.com/checheromo96/MIDILAR.git
+ * cd MIDILAR
+ * cmake -B build -S . -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_DOCS=ON
+ * cmake --build build
+ * @endcode
+ *
+ * Available CMake options include:
+ * - `MIDILAR_TESTING`: Build and run test suite
+ * - `MIDILAR_EXAMPLES`: Include example executables
+ * - `MIDILAR_DOCS`: Generate Doxygen documentation
+ * - `MIDILAR_NO_STD`: Disable use of the C++ standard library (for embedded targets)
+ * - `MIDILAR_ENABLE_DEVICES`: Enable additional MIDI device utilities
+ *
+ * For embedded builds, pass your toolchain file:
+ * @code{.bash}
+ * cmake -DCMAKE_TOOLCHAIN_FILE=toolchain-arm-none-eabi.cmake ..
+ * @endcode
+ *
+ * Refer to the [README](https://github.com/checheromo96/MIDILAR) for the full list of options and modules.
+ */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_BuildGuide_Arduino Arduino
+ * @ingroup MIDILAR_BuildGuide
+ * @brief Using MIDILAR in Arduino-compatible environments.
+ *
+ * In Arduino or PlatformIO projects, MIDILAR configuration is handled through the
+ * `System/UserSetup.h` file instead of CMake.
+ *
+ * In this file, you can enable or disable modules such as:
+ *
+ * @code{.cpp}
+ * #define MIDILAR_DSP_FOUNDATION
+ * #define MIDILAR_LUT
+ * #define MIDILAR_MIDI_MESSAGE_PARSER
+ * @endcode
+ *
+ * Example sketches can be accessed via:
+ * ```
+ * File > Examples > MIDILAR > dspFoundation > LUT > LUT1D > GeneratorLUT
+ * ```
+ *
+ * Your Arduino sketch must include the main entry point:
+ * @code{.cpp}
+ * #include <MIDILAR.h>
+ * @endcode
+ *
+ * @note Ensure your platform supports dynamic allocation if required by your selected modules.
+ *
+ * For PlatformIO integration, include the library via GitHub in `platformio.ini`:
+ * @code
+ * lib_deps =
+ *     https://github.com/checheromo96/MIDILAR.git
+ * build_flags =
+ *     -DMIDILAR_NO_STD
+ * @endcode
+ */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_BG_BuildConfiguration Build Configuration Macros
+ * @ingroup MIDILAR_BuildGuide
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

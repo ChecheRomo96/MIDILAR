@@ -1,61 +1,107 @@
 /*!
- * @mainpage MIDILAR Library Documentation
+ * @mainpage MIDILAR Documentation
  *
- * @section intro_section Introduction
+ * Welcome to the official documentation for **MIDILAR** — a modular, lightweight C++ framework for real-time MIDI processing and embedded DSP.
  *
- * MIDILAR is a modular and flexible library designed to handle various hardware and software MIDI processes,
- * providing a robust set of tools for system tools, clock management, and MIDI effect processing.
+ * ---
  *
- * This documentation provides an overview of the library's components, classes, and functionality, 
- * along with detailed explanations and examples for each module.
+ * ## 📅 What is MIDILAR?
  *
- * @section features_section Features
+ * MIDILAR provides:
+ * - Real-time **MIDI parsing**, **routing**, and **message filtering**
+ * - A full-featured **DSP infrastructure** for control signal shaping
+ * - Lightweight **lookup tables (LUTs)** for waveform generation and nonlinear transformations
+ * - Modular **MIDI processors** for tasks like clock extraction, echo, filtering, and velocity mapping
+ * - Support for **both desktop and embedded (Arduino-compatible)** development
  *
- * - **Hardware Clock**: 
- *   Provides precise clock management for MIDI timing.
- * - **System Tools**: 
- *   Utilities for handling hardware and system-level operations.
- * - **MIDI Effects**: 
- *   Tools for processing and manipulating MIDI data.
- * - **Modularity**: 
- *   Enable or disable specific modules based on your project needs.
+ * ---
  *
- * @section getting_started_section Getting Started
+ * ## 🔍 Navigating This Documentation
  *
- * To integrate MIDILAR into your project:
- * 1. Clone the repository or include it as a submodule.
- * 2. Add MIDILAR to your project using CMake:
- *    @code{.cmake}
- *    add_subdirectory(midilar)
- *    target_link_libraries(MyApp MIDILAR::MIDILAR)
- *    @endcode
- * 3. Optionally, enable or disable specific modules with CMake options (e.g., `MIDILAR_CLOCK_STATUS=ON`).
+ * Use the **navigation panel** on the left to explore classes, namespaces, files, and modules.
  *
- * For more details, refer to the installation and usage sections in this documentation.
+ * You can also explore the following curated sections:
  *
- * @section examples_section Examples
+ * - 📁 **@ref BuildGuide "Build Guide"**  
+ *   Complete guide on how to build MIDILAR using either **CMake** or **Arduino**, including enabling/disabling modules and generating documentation.
+ * 
+ * - 🎵 **@ref MIDI_Protocol "MIDI Protocol Specification"**  
+ *   In-depth guide to how MIDI messages are represented, parsed, and processed within MIDILAR, including message types, channels, and system events.
  *
- * MIDILAR comes with various examples to help you get started:
- * - Building and linking the library.
- * - Using the hardware clock for MIDI timing.
- * - Applying MIDI effects to incoming MIDI data.
+ * - ⚙️ **@ref MIDILAR "Module Overview"**  
+ *   Overview of all major components including `SystemFoundation`, `MidiFoundation`, `dspFoundation`, and `MidiProcessors`.
  *
- * Check the `examples` directory in the source code for detailed sample projects.
+ * - 🛠️ **@ref MIDILAR_Examples "Example Programs"**  
+ *   Real-world usage examples showing how to generate waveforms, apply processing, and use the library effectively.
  *
- * @section requirements_section Requirements
+ * ---
  *
- * - **C++ Standard**: MIDILAR requires a C++17-compliant compiler.
- * - **Build System**: CMake (version 3.14 or higher).
- * - **Optional Dependencies**:
- *   - Doxygen for generating API documentation.
- *   - GoogleTest for running unit tests.
+ * ## 💡 Tips
+ * - The **search bar** (top right) is great for quickly jumping to classes or functions.
+ * - Use the **Topics** tab to discover feature-specific documentation and examples.
+ * - Prefer using the **Modules** or **Topics** section to get a guided tour before diving into individual files.
  *
- * @section contact_section Contact
+ * ---
  *
- * For questions, issues, or contributions, please visit the [GitHub repository](https://github.com/your-repo-link).
+ * ## 🌐 External Resources
+ * - [GitHub Repository](https://github.com/checheromo96/MIDILAR)
+ * - [Online Documentation](https://checheromo96.github.io/MIDILAR)
  *
- * @section license_section License
+ * ---
  *
- * MIDILAR is licensed under the MIT License. See the LICENSE file for more details.
+ * ## 🧠 Where to Start?
  *
+ * If you're new to MIDILAR or exploring its capabilities, here are some recommended entry points:
+ *
+ * - 📘 **View the Module Overview**  
+ *   Browse all the main MIDILAR components to see how everything fits together.  
+ *   → [Module Overview](@ref MIDILAR)
+ *
+ * - 🧱 **View the Topics Page**  
+ *   Browse all MIDILAR components and documentation groups to understand how the library is organized.  
+ *   → [**Topics Page**](topics.html)
+ *
+ * - 🔍 **Understand the MIDI Protocol**  
+ *   Learn how MIDI messages are composed and interpreted within MIDILAR.  
+ *   → [MIDI Protocol Specification](@ref MIDI_Protocol)
+ *
+ * - ⚡ **Parse and Handle MIDI Messages**  
+ *   Get started with message handling using the `MessageParser` class.  
+ *   → [MIDI Parser Overview](@ref MIDI_Protocol)
+ *
+ * - 🎛️ **Explore MIDI Processors**  
+ *   Try out prebuilt components for clock generation, filtering, or echo.  
+ *   → [MidiProcessors Module](@ref MIDILAR_MidiProcessors)
+ *
+ * - 🧮 **Discover DSP Utilities**  
+ *   Explore LUT-based shaping, waveform generation, and nonlinear control.  
+ *   → [DSP Foundation](@ref MIDILAR_dspFoundation)
+ *
+ * - 🧪 **Run Examples**  
+ *   Try out complete examples for waveform generation, shaping, and MIDI processing.  
+ *   → [Example Programs](@ref MIDILAR_Examples)
+ *
+ * These provide a structured entry into MIDILAR's ecosystem. Whether you're shaping 
+ * waveforms, mapping MIDI controls, or processing real-time messages.
+ *
+ * ---
+ *
+ * Happy hacking — and welcome to MIDILAR!
+ */
+
+
+/** 
+ * @defgroup MIDILAR MIDILAR
+ */
+
+/** 
+ * @defgroup MIDI_Protocol MIDI Protocol
+ */
+
+ /** 
+ * @defgroup MIDILAR_BuildGuide Build Guide
+ */
+
+/** 
+ * @defgroup MIDILAR_Examples Example Programs
  */

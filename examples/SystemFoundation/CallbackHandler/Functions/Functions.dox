@@ -1,0 +1,99 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file Functions.dox
+ * @brief Example for binding and invoking global functions using `CallbackHandler`.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_CallbackHandler_Functions
+ * @brief Demonstrates usage of `CallbackHandler` with standalone/global functions.
+ *
+ * ---
+ *
+ * This example shows how to bind free-standing (non-member) functions to a `CallbackHandler`
+ * and invoke them safely. It verifies correct execution, dynamic rebinding, and unbinding behavior.
+ *
+ * The use case is ideal for:
+ * - Simple functional callbacks
+ * - Static dispatch in embedded environments
+ * - Signal routing or event handling where context is not required
+ *
+ * ---
+ *
+ * ### Key Concepts:
+ * - Type-safe function pointer binding
+ * - Runtime invocation checks
+ * - Zero-overhead callback routing
+ * - Rebinding and unbinding at runtime
+ *
+ * ---
+ *
+ * @tableofcontents
+ *
+ * ## What It Demonstrates
+ * - Declaring a `CallbackHandler<void, const char*>`
+ * - Binding a global function that prints a message
+ * - Dynamically unbinding and re-binding a second function
+ * - Using `status()` to check binding validity
+ *
+ * ---
+ *
+ * ## Standard C++ Version
+ * This version is built using CMake and runs on the desktop (Linux/macOS/Windows).
+ *
+ * @ref Example_CallbackHandler_Functions_cpp
+ *
+ * ### How to Run (CMake Build)
+ * After building with CMake, run:
+ *
+ * **Windows**
+ * ```sh
+ * .<build_dir>/bin/CallbackHandler_Functions.exe
+ * ```
+ *
+ * **Linux/macOS**
+ * ```sh
+ * .<build_dir>/bin/CallbackHandler_Functions
+ * ```
+ *
+ * ---
+ *
+ * ## Arduino-Compatible Version
+ * A lightweight version can be built for Arduino. The messages are printed using `Serial.print()`.
+ *
+ * @ref Example_CallbackHandler_Functions_Arduino
+ *
+ * ### How to Run
+ * Upload via:
+ *
+ * ```text
+ * File → Examples → MIDILAR → SystemFoundation → CallbackHandler → Functions
+ * ```
+ *
+ * Open the **Serial Monitor** at `115200` baud to view output.
+ *
+ * Example output:
+ * ```
+ * Hello from A!
+ * Callback unbound.
+ * Hello from B!
+ * ```
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_CallbackHandler_Functions_cpp CallbackHandler_Functions.cpp
+ * @brief Demonstrates binding and invoking free functions using `CallbackHandler`.
+ *
+ * @include Examples/SystemFoundation/CallbackHandler/Functions/CMake/Functions.cpp
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_CallbackHandler_Functions_Arduino CallbackHandler_Functions.ino
+ * @brief Arduino-compatible version of the free function binding example.
+ *
+ * @include Examples/SystemFoundation/CallbackHandler/Functions/Functions.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

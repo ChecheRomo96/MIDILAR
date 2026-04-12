@@ -1,0 +1,38 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file Shaping.dox
+ * @brief Documentation for shaping LUTs in MIDILAR.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_dspFoundation_LUT_Shaping Shaping LUTs
+ * @ingroup MIDILAR_dspFoundation_LUT
+ * @brief Nonlinear lookup tables for velocity curves, envelopes, and dynamic control.
+ *
+ * This module provides flexible LUT-based shaping functions designed for expressive signal
+ * remapping in MIDI and audio applications. These shaping classes are particularly suited
+ * for tasks like:
+ *
+ * - Velocity curve adjustments
+ * - Envelope shaping
+ * - Logarithmic and exponential control mapping
+ * - Real-time morphing between nonlinear behaviors
+ *
+ * The shaping LUTs are structured in increasing dimensionality, allowing dynamic control
+ * over curve morphology:
+ *
+ * - `LogExpLUT1D` — basic 1D log-exp curve
+ * - `LogExpLUT2D` — 1D curve with morph axis
+ * - `LogExpLUT3D` — morphing and gain-controlled shape in 3D space
+ *
+ * ### Classes in this Module:
+ * - @ref MIDILAR::dspFoundation::LUT::Shaping::LogExpLUT1D
+ * - @ref MIDILAR::dspFoundation::LUT::Shaping::LogExpLUT2D
+ * - @ref MIDILAR::dspFoundation::LUT::Shaping::LogExpLUT3D
+ *
+ * These generators can be flattened into their corresponding base LUT containers
+ * (`LUT1D`, `LUT2D`, `LUT3D`) after construction for lightweight reuse.
+ *
+ * @see MIDILAR_dspFoundation_LUT
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

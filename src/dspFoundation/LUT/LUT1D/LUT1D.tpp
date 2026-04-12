@@ -35,6 +35,16 @@ namespace MIDILAR::dspFoundation::LUT {
     }
     
     template<typename OUTPUT_TYPE>
+    OUTPUT_TYPE* LUT1D<OUTPUT_TYPE>::GetBuffer() {
+        return _buffer;
+    }
+
+    template<typename OUTPUT_TYPE>
+    const OUTPUT_TYPE* LUT1D<OUTPUT_TYPE>::GetBuffer() const {
+        return _buffer;
+    }
+
+    template<typename OUTPUT_TYPE>
     bool LUT1D<OUTPUT_TYPE>::SetBufferSize(size_t size) {
         if (size == _bufferSize) return true;  // Skip if no change
         if (_ResizeBuffer(size)) {
@@ -115,12 +125,12 @@ namespace MIDILAR::dspFoundation::LUT {
     }
 
     template<typename OUTPUT_TYPE>
-    OUTPUT_TYPE LUT1D<OUTPUT_TYPE>::GetValue(size_t inputValue) const {
+    OUTPUT_TYPE LUT1D<OUTPUT_TYPE>::GetValue(size_t bin) const {
         if (!_buffer || _bufferSize == 0) {
             return OUTPUT_TYPE(); // Return default value if buffer is uninitialized
         }
         
-        size_t AdjustedIn = (inputValue<_bufferSize) ? inputValue : _bufferSize-1;
+        size_t AdjustedIn = (bin<_bufferSize) ? bin : _bufferSize-1;
     
         return _buffer[AdjustedIn];
     }

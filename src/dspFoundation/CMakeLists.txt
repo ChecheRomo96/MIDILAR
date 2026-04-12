@@ -8,12 +8,29 @@
     #list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
 
     # Append Headers
-    #list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.h")
+    #list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/TransformBase.h")
 #
 ######################################################################################################
 # Add Subdirectories
+
+    if(${MIDILAR_GENERATORS})
+        add_subdirectory(Generators)
+    endif()
+
+    if(${MIDILAR_LUT_INTERPOLATORS})
+        add_subdirectory(Interpolators)
+    endif()
+    
     if(${MIDILAR_LUT})
         add_subdirectory(LUT)
+    endif()
+    
+    if(${MIDILAR_TRANSFORMS})
+        add_subdirectory(Transforms)
+    endif()
+    
+    if(${MIDILAR_STREAMING})
+        add_subdirectory(Streaming)
     endif()
 #
 ######################################################################################################

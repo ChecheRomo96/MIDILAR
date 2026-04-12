@@ -1,0 +1,96 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file BuildTest.dox
+ * @brief Build inspection utility for MIDILAR configuration validation.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_BuildTest
+ * @brief Example to validate enabled modules and macros during compilation.
+ *
+ * This example prints the active MIDILAR version and conditionally lists each enabled module
+ * based on preprocessor defines. It serves as a diagnostic tool for verifying build-time
+ * configuration and ensuring correct setup of the MIDILAR library in your project.
+ *
+ * ---
+ *
+ * ## Purpose
+ * This example confirms:
+ * - Which MIDILAR modules are included in the current build
+ * - Which features inside each module are enabled via compile-time macros
+ * - That the build environment correctly integrates the MIDILAR core headers
+ *
+ * ---
+ *
+ * ## Output Format
+ * The program prints version and configuration data to the standard output:
+ * ```text
+ * Using MIDILAR v1.0.0
+ *
+ * Enabled Modules:
+ *
+ *  - SystemFoundation.
+ *    - CallbackHandler.
+ *    - Clock.
+ *
+ *  - dspFoundation.
+ *    - Generators.
+ *        - Periodic.
+ *        - Shaping.
+ *        - Windowing.
+ *        - Envelopes.
+ *    - LUT.
+ *        - LUT1D.
+ *        - LUT2D.
+ *        - LUT3D.
+ *        - Periodic.
+ *            - Sine.
+ *            - Triangle.
+ *            - Square.w
+ *            - Saw.
+ *        - Shaping.
+ *            - LogExp1D.
+ *            - LogExp2D.
+ *            - LogExp3D.
+ *
+ *  - MidiFoundation.
+ *    - Protocol Enums.
+ *    - Message.
+ *    - MessageParser.
+ *    - Processor.
+ *
+ *  - MidiDevices.
+ *    - Channel Reassign.
+ * ```
+ *
+ * ---
+ *
+ * ## Running the Test
+ * After building the example (e.g., with CMake), run the executable:
+ *
+ * **Windows**
+ * ```bash
+ * .<build_dir>/bin/MIDILAR_BuildTest.exe
+ * ```
+ *
+ * **Linux/macOS**
+ * ```bash
+ * ./<build_dir>/bin/MIDILAR_BuildTest
+ * ```
+ *
+ * This provides immediate feedback about which parts of the library are currently active.
+ *
+ * ---
+ *
+ * @see Example_BuildTest_cpp
+ */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_BuildTest_cpp BuildTest.cpp
+ * @brief Minimal diagnostic tool to print enabled MIDILAR features at build time.
+ *
+ * @include examples/BuildTest.cpp
+ */

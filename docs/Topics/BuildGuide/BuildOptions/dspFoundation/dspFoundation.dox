@@ -1,0 +1,51 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file BuildConfiguration_dspFoundation.dox
+ * @brief Configuration flags for MIDILAR's dspFoundation module.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR_BG_BC_dspFoundation
+ * @brief DSP Foundation Configuration
+ *
+ * This section documents all configuration flags available under the
+ * `MIDILAR::dspFoundation` namespace.
+ *
+ * These flags control the inclusion of signal generators, LUTs, and
+ * DSP-related utilities in both CMake and Arduino builds.
+ *
+ * @section buildconfig_dspfoundation_base Base Flag
+ *
+ * - `MIDILAR_DSP_FOUNDATION` : Enables all DSP modules under `dspFoundation`.
+ * This option is required to be enabled for any functionality nested inside MIDILAR::dspFoundation namespace.
+ *
+ * @section buildconfig_dspfoundation_generators Buffer Generators
+ *
+ * - **`MIDILAR_GENERATORS`** : Enable buffer generation methods
+ *
+ *     - **`MIDILAR_GENERATORS_PERIODIC`**  : Periodic waveform generators.
+ *     - **`MIDILAR_GENERATORS_SHAPING`**   : Curve-based shaping functions.
+ *     - **`MIDILAR_GENERATORS_WINDOWING`** : Window functions (e.g., Hann, Hamming).
+ *     - **`MIDILAR_GENERATORS_ENVELOPES`** : Envelope signal generators.
+ *
+ * @section buildconfig_dspfoundation_lut Lookup Tables (LUT)
+ *
+ * - **`MIDILAR_LUT`**      : Enables the base `LUT` module.
+ * - **`MIDILAR_LUT1D`**    : Enable the LUT1D class.
+ * - **`MIDILAR_LUT2D`**    : Enable the LUT2D class.
+ * - **`MIDILAR_LUT3D`**    : Enable the LUT3D class.
+ *
+ * - **`MIDILAR_LUT_PERIODIC`** : Enable periodic waveforms LUTs
+ *
+ *     - **`MIDILAR_LUT_PERIODIC_SINE`** : Enable the SineLUT class.
+ *     - **`MIDILAR_LUT_PERIODIC_TRIANGLE`** : Enable the TriangleLUT class.
+ *     - **`MIDILAR_LUT_PERIODIC_SAW`** : Enable the SawLUT class.
+ *     - **`MIDILAR_LUT_PERIODIC_SQUARE`** : Enable the SquareLUT class.
+ *
+ * - **`MIDILAR_LUT_SHAPING`** : Enable shaping waveforms LUTs
+ *
+ *     - **`MIDILAR_LUT_SHAPING_LOGEXP1D`**  : Enable the LogExp1D class.
+ *     - **`MIDILAR_LUT_SHAPING_LOGEXP2D`**  : Enable the LogExp2D class.
+ *     - **`MIDILAR_LUT_SHAPING_LOGEXP3D`**  : Enable the LogExp3D class.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

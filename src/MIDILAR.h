@@ -39,7 +39,27 @@
          * 
          * MIDI tools provide the base midi functionality for the library.
          */
-        #include <MidiFoundation/MidiFoundation.h>
+        #include <MIDILAR_MidiFoundation.h>
+    #endif
+
+
+    #ifdef MIDILAR_DSP_FOUNDATION
+        /**
+         * @brief Include MIDI tools if enabled in the build settings.
+         * 
+         * MIDI tools provide the base midi functionality for the library.
+         */
+        #include <MIDILAR_dspFoundation.h>
+    #endif
+
+
+    #ifdef MIDILAR_MIDI_DEVICES
+        /**
+         * @brief Include MIDI tools if enabled in the build settings.
+         * 
+         * MIDI tools provide the base midi functionality for the library.
+         */
+        #include <MIDILAR_MidiDevices.h>
     #endif
 
 #endif // MIDILAR_H

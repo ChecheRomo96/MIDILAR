@@ -9,6 +9,9 @@
 
     # Append Headers
     list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/SineLUT.h")
+    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/TriangleLUT.h")
+    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/SawLUT.h")
+    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/SquareLUT.h")
 #
 ######################################################################################################
 # Refresh Sources List and Header List at PARENT_SCOPE
@@ -21,7 +24,7 @@
 
     install(
         FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/AudioFoundation/LUT/Periodic"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/LUT/Periodic"
     )
 #
 ######################################################################################################
