@@ -4,7 +4,7 @@
 namespace MIDILAR::MidiDevices {
 
     VelocityShaper::VelocityShaper()
-        : MIDILAR::MidiFoundation::Processor(),
+        : MIDILAR::MidiFoundation::DeviceBase(),
           _InputChannels(0xFFFF),
           _CurrentMorph(0),
           _CurrentGain(0),
@@ -15,8 +15,8 @@ namespace MIDILAR::MidiDevices {
         _MessageParser.BindDefaultCallback<VelocityShaper, &VelocityShaper::_DefaultCallback>(this);
 
         _capabilities = static_cast<uint32_t>(
-            MIDILAR::MidiFoundation::Processor::Capabilities::MidiIn |
-            MIDILAR::MidiFoundation::Processor::Capabilities::MidiOut
+            MIDILAR::MidiFoundation::DeviceBase::Capabilities::MidiIn |
+            MIDILAR::MidiFoundation::DeviceBase::Capabilities::MidiOut
         );
 
         _LUT.SetGainRange(1.0f, 10.0f);
@@ -226,4 +226,4 @@ namespace MIDILAR::MidiDevices {
         return _LUT; 
     }
 
-} // namespace MIDILAR::MidiProcessors
+} // namespace MIDILAR::MidiDeviceBases

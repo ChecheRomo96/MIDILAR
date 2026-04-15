@@ -1,0 +1,79 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_BuildGuide_CMake CMake Build Guide
+ * @ingroup MIDILAR_BuildGuide
+ *
+ * This guide covers:
+ *
+ * - Building the core library and optional modules
+ * - Enabling testing, examples, and documentation
+ * - Installing MIDILAR and consuming it from another CMake project
+ * - Available configuration flags
+ *
+ * Basic build steps:
+ * @code{.bash}
+ * git clone https://github.com/checheromo96/MIDILAR.git
+ * cd MIDILAR
+ *
+ * cmake -B build -S . ^
+ *     -DMIDILAR_TESTING=ON ^
+ *     -DMIDILAR_EXAMPLES=ON ^
+ *     -DMIDILAR_DOCS=ON
+ *
+ * cmake --build build --config Release
+ * @endcode
+ *
+ * For Visual Studio generators, specify the build configuration:
+ * @code{.bash}
+ * cmake --build build --config Debug
+ * cmake --build build --config Release
+ * @endcode
+ *
+ * To install MIDILAR into the build/install directory:
+ * @code{.bash}
+ * cmake --install build --config Release
+ * @endcode
+ *
+ * After installation, the following structure will be created:
+ * @code{.text}
+ * build/install/
+ * ├── include/
+ * │   └── MIDILAR-<version>/
+ * ├── lib/
+ * │   └── MIDILAR.lib
+ * └── cmake/
+ * @endcode
+ *
+ * Available CMake options
+ * ([Build Configuration Macros](MIDILAR_BG_BuildConfiguration)):
+ *
+ * - `MIDILAR_TESTING`
+ *   Enable the unit test suite.
+ *
+ * - `MIDILAR_EXAMPLES`
+ *   Build all example executables.
+ *
+ * - `MIDILAR_DOCS`
+ *   Generate Doxygen documentation.
+ *
+ * - `MIDILAR_ENABLE_DEVICES`
+ *   Enable additional MIDI device utility modules.
+ *
+ * Example:
+ * @code{.bash}
+ * cmake -B build -S . ^
+ *     -DMIDILAR_TESTING=ON ^
+ *     -DMIDILAR_EXAMPLES=ON ^
+ *     -DMIDILAR_ENABLE_DEVICES=ON
+ * @endcode
+ *
+ * Consuming MIDILAR from another CMake project:
+ * @code{.cmake}
+ * find_package(MIDILAR REQUIRED)
+ *
+ * target_link_libraries(MyApplication PRIVATE MIDILAR)
+ * @endcode
+ *
+ * Refer to the README and generated documentation for the complete list
+ * of modules and configuration flags.
+ */

@@ -23,8 +23,16 @@
  *
  * - **`MIDILAR_GENERATORS`** : Enable buffer generation methods
  *
- *     - **`MIDILAR_GENERATORS_PERIODIC`**  : Periodic waveform generators.
+ *     - **`MIDILAR_GENERATORS_PERIODIC`**          : Periodic waveform generators.
+ *           - **`MIDILAR_GENERATORS_SINE`**        : Periodic sine waveform generator.
+ *           - **`MIDILAR_GENERATORS_SAW`**         : Periodic saw waveform generator.
+ *           - **`MIDILAR_GENERATORS_SQUARE`**      : Periodic square waveform generator.
+ *           - **`MIDILAR_GENERATORS_TRIANGLE`**    : Periodic triangle waveform generator.
+ *
  *     - **`MIDILAR_GENERATORS_SHAPING`**   : Curve-based shaping functions.
+ *           - **`MIDILAR_GENERATORS_GAMMA`**           : Gamma waveform generator.
+*            - **`MIDILAR_GENERATORS_ENHANCED_GAMMA`**  : Enhanced Gamma waveform generator.
+
  *     - **`MIDILAR_GENERATORS_WINDOWING`** : Window functions (e.g., Hann, Hamming).
  *     - **`MIDILAR_GENERATORS_ENVELOPES`** : Envelope signal generators.
  *

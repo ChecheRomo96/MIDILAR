@@ -3,16 +3,8 @@
 
 #include <System/BuildSettings.h>
 
-    #ifdef MIDILAR_INTERPOLATORS_LINEAR
-        #include "Linear/Linear.h"
-    #endif
-
-    #ifdef MIDILAR_INTERPOLATORS_BILINEAR
-        #include "Bilinear/Bilinear.h"
-    #endif
-
-    #ifdef MIDILAR_INTERPOLATORS_TRILINEAR
-        #include "Trilinear/Trilinear.h"
-    #endif
+    #include "Linear/Linear.h"
+    #include "Bilinear/Bilinear.h"
+    #include "Trilinear/Trilinear.h"
 
 #endif // MIDILAR_DSP_INTERPOLATORS_H

@@ -19,39 +19,14 @@
         #endif
         
         #ifdef MIDILAR_LUT_PERIODIC
-            #ifdef MIDILAR_LUT_PERIODIC_SINE
-                #include <dspFoundation/LUT/Periodic/SineLUT.h>
-            #endif
-            
-            #ifdef MIDILAR_LUT_PERIODIC_TRIANGLE
-                #include <dspFoundation/LUT/Periodic/TriangleLUT.h>
-            #endif
-            
-            #ifdef MIDILAR_LUT_PERIODIC_SAW
-                #include <dspFoundation/LUT/Periodic/SawLUT.h>
-            #endif
-            
-            #ifdef MIDILAR_LUT_PERIODIC_SQUARE
-                #include <dspFoundation/LUT/Periodic/SquareLUT.h>
-            #endif
+            #include <dspFoundation/LUT/Periodic/SineLUT.h>
+            #include <dspFoundation/LUT/Periodic/TriangleLUT.h>
+            #include <dspFoundation/LUT/Periodic/SawLUT.h>
+            #include <dspFoundation/LUT/Periodic/SquareLUT.h>
         #endif
         
         #ifdef MIDILAR_LUT_SHAPING
-            #ifdef MIDILAR_GAMMA_LUT
-                #include <dspFoundation/LUT/Periodic/SineLUT.h>
-            #endif
-            
-            #ifdef MIDILAR_LUT_PERIODIC_TRIANGLE
-                #include <dspFoundation/LUT/Periodic/TriangleLUT.h>
-            #endif
-            
-            #ifdef MIDILAR_LUT_PERIODIC_SAW
-                #include <dspFoundation/LUT/Periodic/SawLUT.h>
-            #endif
-            
-            #ifdef MIDILAR_LUT_PERIODIC_SQUARE
-                #include <dspFoundation/LUT/Periodic/SquareLUT.h>
-            #endif
+                #include <dspFoundation/LUT/Shaping/GammaLUT.h>
         #endif
     #endif
 
@@ -79,7 +54,7 @@
         #endif
     
         #ifdef MIDILAR_GENERATORS_WINDOWING
-            #include <dspFoundation/Generators/Windowing.h>
+            #include <dspFoundation/Generators/Windowing/Windowing.h>
         #endif
 
         #ifdef MIDILAR_GENERATORS_ENVELOPES
@@ -88,23 +63,7 @@
     #endif
     
     #ifdef MIDILAR_STREAMING
-        #ifdef MIDILAR_STREAMING_LOGIC
-            #ifdef MIDILAR_LEVEL_TRANSITION_TRACKER
-                #include <dspFoundation/Streaming/Logic/LevelTransitionTracker.h>
-                
-                #ifdef MIDILAR_STREAMING_EDGE_DETECTOR
-                    #include <dspFoundation/Streaming/Logic/EdgeDetector.h>
-                #endif
-                
-                #ifdef MIDILAR_STREAMING_SCHMITT_TRIGGER
-                    #include <dspFoundation/Streaming/Logic/SchmittTrigger.h>
-                #endif
-            #endif
-
-            #ifdef MIDILAR_STATE_CHANGE_GATE
-                #include <dspFoundation/Streaming/Logic/StateChangeGate.h>
-            #endif
-        #endif
+        #include <dspFoundation/Streaming/StreamingBase.h>
     #endif
 
     #ifdef MIDILAR_TRANSFORMS

@@ -1,5 +1,5 @@
-#ifndef MIDILAR_MIDI_PROCESSOR_H
-#define MIDILAR_MIDI_PROCESSOR_H
+#ifndef MIDILAR_MIDI_DeviceBase_H
+#define MIDILAR_MIDI_DeviceBase_H
 
     #include <System/BuildSettings.h>
     #include <SystemFoundation/Clock/Clock.h>
@@ -17,11 +17,11 @@
         /**
          * @brief Base class to handle MIDI processing, input, and output.
          * 
-         * The `Processor` class is designed as a foundational component for implementing MIDI devices or processors.
+         * The `DeviceBase` class is designed as a foundational component for implementing MIDI devices or DeviceBases.
          * It encapsulates the functionality required to process incoming MIDI messages, generate outgoing MIDI messages, 
          * and handle clock synchronization for time-based operations. 
          * 
-         * This class is intended to be used as a base class for more specialized MIDI processors, allowing developers 
+         * This class is intended to be used as a base class for more specialized MIDI DeviceBases, allowing developers 
          * to extend and customize its behavior for specific devices or use cases.
          * 
          * ### Key Features:
@@ -42,7 +42,7 @@
          * 
          * ### Intended Usage:
          * 
-         * - **Base Class for Derived Processors**:
+         * - **Base Class for Derived DeviceBases**:
          *   - This class provides virtual methods (`MidiInput`, `Update`, `ClockTick`) that can be overridden 
          *     in derived classes to implement custom MIDI processing behavior.
          * 
@@ -66,7 +66,7 @@
          *    - Use the capability system to enable or disable features like MIDI input, MIDI output, or 
          *      clock synchronization dynamically at runtime.
          */
-        class Processor {     
+        class DeviceBase {     
         public:
 
             /////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,11 +112,11 @@
 
             /////////////////////////////////////////////////////////////////////////////////////////////
             /**
-             * @brief Default constructor for the `Processor` class.
+             * @brief Default constructor for the `DeviceBase` class.
              * 
-             * Initializes the `Processor` with no MIDI output handler and no capabilities.
+             * Initializes the `DeviceBase` with no MIDI output handler and no capabilities.
              */
-                Processor() = default;
+                DeviceBase() = default;
             //
             /////////////////////////////////////////////////////////////////////////////////////////////
             /**
@@ -145,20 +145,6 @@
             //
             /////////////////////////////////////////////////////////////////////////////////////////////
             //
-                #if __has_include(<vector>)
-                /**
-                 * @brief Handles incoming MIDI input from a vector.
-                 * 
-                 * @param begin Iterator pointing to the beginning of the vector.
-                 * @param end Iterator pointing to the end of the vector.
-                 * 
-                 * 
-                 */
-                void MidiInput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end);
-                #endif
-            //
-            /////////////////////////////////////////////////////////////////////////////////////////////
-            //
             /**
              * @brief Handles incoming MIDI input from a raw buffer.
              * 
@@ -167,10 +153,26 @@
              */
                 void MidiInput(const MidiFoundation::Message&);
                 virtual void MidiInput(const uint8_t* Data, size_t Size);
+
+                /////////////////////////////////////////////////////////////////////////////////////////
+                //
+                    #if __has_include(<vector>)
+                        /**
+                        * @brief Handles incoming MIDI input from a vector.
+                        * 
+                        * @param begin Iterator pointing to the beginning of the vector.
+                        * @param end Iterator pointing to the end of the vector.
+                        * 
+                        * 
+                        */
+                        void MidiInput(std::vector<uint8_t>::const_iterator begin, std::vector<uint8_t>::const_iterator end);
+                    #endif
+                //
+                /////////////////////////////////////////////////////////////////////////////////////////
             //
             /////////////////////////////////////////////////////////////////////////////////////////////
             /**
-             * @brief Updates the processor state based on the system clock.
+             * @brief Updates the DeviceBase state based on the system clock.
              * 
              * @param SystemTime The current time point from the system clock.
              */
@@ -197,20 +199,6 @@
 
                 void SetCapabilities(uint32_t capabilities);
 
-                /////////////////////////////////////////////////////////////////////////////////////////
-                //
-                    #if __has_include(<vector>)
-                        /**
-                         * @brief Sends MIDI output using a vector.
-                         * 
-                         * @param begin Iterator pointing to the beginning of the vector.
-                         * @param end Iterator pointing to the end of the vector.
-                         */
-                        void MidiOutput(std::vector<uint8_t>::iterator begin, std::vector<uint8_t>::iterator end);
-                    #endif
-                //
-                /////////////////////////////////////////////////////////////////////////////////////////
-
             //
             /////////////////////////////////////////////////////////////////////////////////////////////
             /**
@@ -221,6 +209,20 @@
              */
                 void MidiOutput(const MidiFoundation::Message& message);
                 void MidiOutput(const uint8_t* Data, size_t Size);
+
+                /////////////////////////////////////////////////////////////////////////////////////////
+                //
+                    #if __has_include(<vector>)
+                        /**
+                         * @brief Sends MIDI output using a vector.
+                         * 
+                         * @param begin Iterator pointing to the beginning of the vector.
+                         * @param end Iterator pointing to the end of the vector.
+                         */
+                        void MidiOutput(std::vector<uint8_t>::const_iterator begin, std::vector<uint8_t>::const_iterator end);
+                    #endif
+                //
+                /////////////////////////////////////////////////////////////////////////////////////////
             //
             /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -229,15 +231,15 @@
 
         };
 
-        inline Processor::Capabilities operator|(
-            Processor::Capabilities lhs,
-            Processor::Capabilities rhs
+        inline DeviceBase::Capabilities operator|(
+            DeviceBase::Capabilities lhs,
+            DeviceBase::Capabilities rhs
         ) {
-            return static_cast<Processor::Capabilities>(
+            return static_cast<DeviceBase::Capabilities>(
                 static_cast<uint32_t>(lhs) | static_cast<uint32_t>(rhs)
             );
         }
 
     } // namespace MIDILAR
 
-#endif // MIDILAR_MIDI_PROCESSOR_H
+#endif // MIDILAR_MIDI_DeviceBase_H

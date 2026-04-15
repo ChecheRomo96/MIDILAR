@@ -11,8 +11,8 @@ list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/StreamingBase.h")
 ######################################################################################################
 # Add Subdirectories
 
-    if(${MIDILAR_STREAMING_LOGIC})
-        add_subdirectory(Logic)
+    if(${MIDILAR_STREAMING_FILTERS})
+        add_subdirectory(Filters)
     endif()
 
 #

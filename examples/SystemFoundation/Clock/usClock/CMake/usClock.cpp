@@ -6,7 +6,7 @@
 using namespace MIDILAR::SystemFoundation;
 
 // Define the clock callback function
-Clock::TimePoint myClockCallback() {
+static Clock::TimePoint myClockCallback() {
     auto now = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()); // Subtract start time
     return static_cast<uint32_t>(duration.count());
@@ -34,7 +34,7 @@ int main() {
         }
 
         // Print the refreshed clock value
-        std::cout << myClock.refresh() << std::endl;
+        std::cout << myClock.now() << std::endl;
     }
 
     return 0;

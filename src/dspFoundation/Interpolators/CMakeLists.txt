@@ -14,17 +14,9 @@
 ######################################################################################################
 # Add Subdirectories
 
-    if(${MIDILAR_INTERPOLATORS_LINEAR})
-        add_subdirectory(Linear)
-    endif()
-
-    if(${MIDILAR_INTERPOLATORS_BILINEAR})
-        add_subdirectory(Bilinear)
-    endif()
-
-    if(${MIDILAR_INTERPOLATORS_TRILINEAR})
-        add_subdirectory(Trilinear)
-    endif()
+    add_subdirectory(Linear)
+    add_subdirectory(Bilinear)
+    add_subdirectory(Trilinear)
 #
 ######################################################################################################
 # Refresh Sources List and Header List at PARENT_SCOPE

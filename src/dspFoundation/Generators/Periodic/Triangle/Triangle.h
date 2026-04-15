@@ -11,7 +11,7 @@
         void Triangle(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DCOffset, float PhaseOffset) {
             if (!Buffer || BufferSize == 0) return;
 
-            float twoPi = (2 * M_PI);
+            float twoPi = static_cast<float>(2 * M_PI);
             float phaseStep = twoPi / static_cast<float>(BufferSize);
 
             // Apply a 270° (3π/2) phase shift to start at midpoint with rising slope

@@ -20,7 +20,7 @@
     endif()
     
     if(${MIDILAR_GENERATORS_WINDOWING})
-        list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Windowing.h")
+        add_subdirectory(Windowing)
     endif()
 #
 ######################################################################################################

@@ -4,7 +4,7 @@
     #include <System/BuildSettings.h>
 
     #ifdef MIDILAR_EXCEPTIONS
-        #include <exception>
+        #include <stdexcept>
     #endif
 
     namespace MIDILAR::SystemFoundation {

@@ -9,7 +9,7 @@
     
     #include <MidiFoundation/Message/Message.h>
     #include <MidiFoundation/MessageParser/MessageParser.h>
-    #include <MidiFoundation/Processor/Processor.h>
+    #include <MidiFoundation/DeviceBase/DeviceBase.h>
 
 
 #endif//MIDILAR_MIDI_FOUNDATION_H

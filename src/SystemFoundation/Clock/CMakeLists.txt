@@ -2,29 +2,44 @@
 # Initialize MIDILAR_SOURCES_LOCAL and HEADERS_LIST_LOCAL as an empty string list
 
     set(MIDILAR_SOURCES_LOCAL "")
-    set(MIDILAR_HEADERS_LOCAL "")
+    set(MIDILAR_PRIVATE_HEADERS_LOCAL "")
+    set(MIDILAR_PUBLIC_HEADERS_LOCAL "")
 #
 ######################################################################################################
-#
-    # Append Headers (local to this subdirectory)
-    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Clock.h")
-    list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Clock.cpp")
+# Append Headers (local to this subdirectory)
+
+    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Clock.h"
+    )
+    
+    list(APPEND MIDILAR_SOURCES_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Clock.cpp"
+    )
 #
 ######################################################################################################
-# Refresh Sources and Headers in Parent Scope
+# Add sources to the MIDILAR target
 
-    list(APPEND MIDILAR_SOURCES ${MIDILAR_SOURCES_LOCAL})
-    list(APPEND MIDILAR_HEADERS ${MIDILAR_HEADERS_LOCAL})
+    target_sources(MIDILAR PRIVATE
+        ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        ${MIDILAR_PRIVATE_HEADERS_LOCAL}
+        ${MIDILAR_SOURCES_LOCAL}
+    )
+#
+######################################################################################################
+# Add sources for doxygen
 
-    set(MIDILAR_SOURCES "${MIDILAR_SOURCES}" PARENT_SCOPE)
-    set(MIDILAR_HEADERS "${MIDILAR_HEADERS}" PARENT_SCOPE)
+    if(MIDILAR_DOCS)
+        midilar_add_dox(
+            ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        )
+    endif()
 #
 ######################################################################################################
 # MIDILAR Install Process
 
     # Install headers for this subdirectory
     install(
-        FILES ${MIDILAR_HEADERS_LOCAL}
+        FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
         DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/SystemFoundation/Clock"
     )
 #

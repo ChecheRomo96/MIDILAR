@@ -26,36 +26,8 @@
  * @defgroup MIDILAR_BuildGuide_CMake CMake
  * @ingroup MIDILAR_BuildGuide
  * @brief Using MIDILAR with CMake-based C++ projects.
- *
- * This guide covers:
- *
- * - Building the core library and optional modules
- * - Enabling testing, examples, and documentation
- * - CMake install instructions and configuration flags
- *
- * Basic build steps:
- * @code{.bash}
- * git clone https://github.com/checheromo96/MIDILAR.git
- * cd MIDILAR
- * cmake -B build -S . -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON -DMIDILAR_DOCS=ON
- * cmake --build build
- * @endcode
- *
- * Available CMake options include:
- * - `MIDILAR_TESTING`: Build and run test suite
- * - `MIDILAR_EXAMPLES`: Include example executables
- * - `MIDILAR_DOCS`: Generate Doxygen documentation
- * - `MIDILAR_NO_STD`: Disable use of the C++ standard library (for embedded targets)
- * - `MIDILAR_ENABLE_DEVICES`: Enable additional MIDI device utilities
- *
- * For embedded builds, pass your toolchain file:
- * @code{.bash}
- * cmake -DCMAKE_TOOLCHAIN_FILE=toolchain-arm-none-eabi.cmake ..
- * @endcode
- *
- * Refer to the [README](https://github.com/checheromo96/MIDILAR) for the full list of options and modules.
  */
-
+//
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * @defgroup MIDILAR_BuildGuide_Arduino Arduino

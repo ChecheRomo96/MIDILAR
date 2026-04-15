@@ -8,10 +8,8 @@ set(MIDILAR_HEADERS_LOCAL "")
 #list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
 
 # Append Headers
-    if(${MIDILAR_GAMMA_LUT})
-        list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.h")
-        list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.tpp")
-    endif()
+    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.h")
+    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.tpp")
 #
 ######################################################################################################
 # Refresh Sources List and Header List at PARENT_SCOPE

@@ -16,21 +16,10 @@
 ######################################################################################################
 # Add Subdirectories
 
-    if(${MIDILAR_GENERATORS_SINE})
-        add_subdirectory(Sine)
-    endif()
-
-    if(${MIDILAR_GENERATORS_SQUARE})
-        add_subdirectory(Square)
-    endif()
-    
-    if(${MIDILAR_GENERATORS_TRIANGLE})
-        add_subdirectory(Triangle)
-    endif()
-    
-    if(${MIDILAR_GENERATORS_SAW})
-        add_subdirectory(Saw)
-    endif()
+    add_subdirectory(Sine)
+    add_subdirectory(Square)
+    add_subdirectory(Triangle)
+    add_subdirectory(Saw)
 #
 ######################################################################################################
 # Refresh Sources List and Header List at PARENT_SCOPE

@@ -1,18 +1,23 @@
 ######################################################################################################
-# Initialize Sources and Headers Lists
+# Append Sources and Headers
 
     set(MIDILAR_SOURCES_LOCAL "")
     set(MIDILAR_HEADERS_LOCAL "")
-#
-######################################################################################################
-# Append Sources
+
+    # Append Sources
     #list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
+
+    # Append Headers
+    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/IIR.h")
 #
 ######################################################################################################
-# Append Headers
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/LevelTransitionTracker.h")
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/EdgeDetector.h")
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/SchmittTrigger.h")
+# Dependancy Tree
+
+    set(
+        MIDILAR_LUT1D_DEPS 
+        "${MIDILAR_LUT_DEPS};MIDILAR_LUT_1D"
+        CACHE INTERNAL "Dependencies for dspFoudnation"
+    )
 #
 ######################################################################################################
 # Refresh Sources List and Header List at PARENT_SCOPE
@@ -25,7 +30,7 @@
 
     install(
         FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Streaming/Logic"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Streaming/Filters"
     )
 #
 ######################################################################################################

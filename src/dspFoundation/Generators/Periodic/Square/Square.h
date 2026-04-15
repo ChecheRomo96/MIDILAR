@@ -10,7 +10,7 @@
         void Square(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DCOffset, float PhaseOffset) {
             if (!Buffer || BufferSize == 0) return;
 
-            float twoPi = (2 * M_PI);
+            float twoPi = static_cast<float>(2 * M_PI);
             float phaseStep = twoPi / static_cast<float>(BufferSize);
 
             // Convert fractional cycle offset to radians

@@ -1,0 +1,13 @@
+if(MIDILAR_SYSTEM_CALLBACK_HANDLER)
+    message(STATUS "MIDILAR::SystemFoundation::CallbackHandler")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_CALLBACK_HANDLER)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_CALLBACK_HANDLER")
+    include(${CMAKE_CURRENT_LIST_DIR}/CallbackHandler/CMakeMacros.cmake)
+endif()
+
+if(MIDILAR_SYSTEM_CLOCK)
+    message(STATUS "MIDILAR::SystemFoundation::Clock")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_CLOCK)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_CLOCK")
+    include(${CMAKE_CURRENT_LIST_DIR}/Clock/CMakeMacros.cmake)
+endif()

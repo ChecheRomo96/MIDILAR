@@ -1,31 +1,24 @@
-######################################################################################################
-# Build and Link Tests for Clock Module
+set(MIDILAR_SYSTEM_CLOCK_TEST_SOURCES
+    Clock_ConstructionTests.cc
+    Clock_CallbackBindingTests.cc
+    Clock_FrequencyTests.cc
+    Clock_TimeRefreshTests.cc
+    Clock_EdgeCaseTests.cc
+)
 
-    # Add the test executable for Clock
-    add_executable(SystemFoundation_Clock_Test
-        SystemFoundation_Clock.cc
-    )
+add_executable(MIDILAR_System_Clock_Tests
+    ${MIDILAR_SYSTEM_CLOCK_TEST_SOURCES}
+)
 
-    # Link the test executable with gtest, gtest_main, and the MIDILAR library
-    target_link_libraries(SystemFoundation_Clock_Test
-        PRIVATE
-            gtest
-            gtest_main
-            MIDILAR
-    )
+target_link_libraries(MIDILAR_System_Clock_Tests
+    PRIVATE
+        MIDILAR
+        gtest_main
+)
 
-    # Include directories for MIDILAR headers
-    target_include_directories(SystemFoundation_Clock_Test
-        PRIVATE
-            "$<BUILD_INTERFACE:${MIDILAR_SRC_DIRECTORY}>"
-            "$<INSTALL_INTERFACE:include/MIDILAR-${MIDILAR_VERSION}>"
-    )
+target_include_directories(MIDILAR_System_Clock_Tests
+    PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}
+)
 
-    
-    target_compile_options(SystemFoundation_Clock_Test PRIVATE -coverage)
-    target_link_options(SystemFoundation_Clock_Test PRIVATE -coverage)
-
-    # Register the test with CTest
-    gtest_discover_tests(SystemFoundation_Clock_Test)
-#
-######################################################################################################
+gtest_discover_tests(MIDILAR_System_Clock_Tests)

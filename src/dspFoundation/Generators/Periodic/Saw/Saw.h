@@ -11,7 +11,7 @@
         void Saw(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DCOffset, float PhaseOffset) {
             if (!Buffer || BufferSize == 0) return;
 
-            float twoPi = (2 * M_PI);
+            float twoPi = static_cast<float>(2 * M_PI);
             float phaseStep = twoPi / static_cast<float>(BufferSize);
 
             // Apply π phase shift so signal starts at 0 (midpoint)
@@ -20,7 +20,7 @@
 
             for (size_t i = 0; i < BufferSize; i++) {
                 float phase = fmodf(i * phaseStep + offsetRad, twoPi);
-                float value = ((phase / M_PI) - 1.0f);  // Range: [-1, +1]
+                float value = ((phase / static_cast<float>(M_PI)) - 1.0f);  // Range: [-1, +1]
                 Buffer[i] = static_cast<OUTPUT_TYPE>(value * Amp + DCOffset);
             }
         }

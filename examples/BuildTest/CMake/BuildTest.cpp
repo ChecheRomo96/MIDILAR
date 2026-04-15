@@ -12,13 +12,8 @@ int main() {
         modulesEnabled = true;
         std::cout << "  - SystemFoundation." << std::endl;
 
-        #ifdef MIDILAR_CALLBACK_HANDLER
-            std::cout << "    - CallbackHandler." << std::endl;
-        #endif // MIDILAR_CALLBACK_HANDLER
-
-        #ifdef MIDILAR_SYSTEM_CLOCK
-            std::cout << "    - System Clock." << std::endl;
-        #endif // MIDILAR_SYSTEM_CLOCK
+        std::cout << "    - CallbackHandler." << std::endl;
+        std::cout << "    - System Clock." << std::endl;
         std::cout << std::endl;
     #endif // MIDILAR_SYSTEM_FOUNDATION
 
@@ -28,22 +23,11 @@ int main() {
         
         #ifdef MIDILAR_GENERATORS
             std::cout << "    - Generators." << std::endl;
-            
-            #ifdef MIDILAR_GENERATORS_PERIODIC
-                std::cout << "        - Periodic." << std::endl;
-            #endif // MIDILAR_GENERATORS_PERIODIC
-            
-            #ifdef MIDILAR_GENERATORS_SHAPING
-                std::cout << "        - Shaping." << std::endl;
-            #endif // MIDILAR_GENERATORS_SHAPING
-            
-            #ifdef MIDILAR_GENERATORS_WINDOWING
-                std::cout << "        - Windowing." << std::endl;
-            #endif // MIDILAR_GENERATORS_WINDOWING
-            
-            #ifdef MIDILAR_GENERATORS_ENVELOPES
-                std::cout << "        - Envelopes." << std::endl;
-            #endif // MIDILAR_GENERATORS_ENVELOPES
+
+            std::cout << "        - Periodic." << std::endl;
+            std::cout << "        - Shaping." << std::endl;
+            std::cout << "        - Windowing." << std::endl;
+            std::cout << "        - Envelopes." << std::endl;
         #endif // MIDILAR_GENERATORS
 
         #ifdef MIDILAR_LUT
@@ -64,37 +48,18 @@ int main() {
             #ifdef MIDILAR_LUT_PERIODIC
                 std::cout << "        - Periodic." << std::endl;
                 
-                #ifdef MIDILAR_LUT_PERIODIC_SINE
-                    std::cout << "            - Sine." << std::endl;
-                #endif // MIDILAR_LUT_PERIODIC_SINE
-
-                #ifdef MIDILAR_LUT_PERIODIC_TRIANGLE
-                    std::cout << "            - Triangle." << std::endl;
-                #endif // MIDILAR_LUT_PERIODIC_SAW
-
-                #ifdef MIDILAR_LUT_PERIODIC_SQUARE
-                    std::cout << "            - Square." << std::endl;
-                #endif // MIDILAR_LUT_PERIODIC_SAW
-                
-                #ifdef MIDILAR_LUT_PERIODIC_SAW
-                    std::cout << "            - Saw." << std::endl;
-                #endif // MIDILAR_LUT_PERIODIC_SAW
+                std::cout << "            - Sine." << std::endl;
+                std::cout << "            - Triangle." << std::endl;
+                std::cout << "            - Square." << std::endl;
+                std::cout << "            - Saw." << std::endl;
             #endif // MIDILAR_LUT_PERIODIC
 
             #ifdef MIDILAR_LUT_SHAPING
                 std::cout << "        - Shaping." << std::endl;
-                
-                #ifdef MIDILAR_LUT_SHAPING_LOGEXP1D
-                    std::cout << "            - LogExp1D." << std::endl;
-                #endif // MIDILAR_LUT_SHAPING_LOGEXP1D
 
-                #ifdef MIDILAR_LUT_SHAPING_LOGEXP2D
-                    std::cout << "            - LogExp2D." << std::endl;
-                #endif // MIDILAR_LUT_SHAPING_LOGEXP2D
-
-                #ifdef MIDILAR_LUT_SHAPING_LOGEXP3D
-                    std::cout << "            - LogExp3D." << std::endl;
-                #endif // MIDILAR_LUT_SHAPING_LOGEXP3D
+                std::cout << "            - LogExp1D." << std::endl;
+                std::cout << "            - LogExp2D." << std::endl;
+                std::cout << "            - LogExp3D." << std::endl;
             #endif // MIDILAR_LUT_SHAPING
         #endif // MIDILAR_LUT
         std::cout << std::endl;
@@ -104,25 +69,11 @@ int main() {
         modulesEnabled = true;
         std::cout << "  - MidiFoundation." << std::endl;
 
-        #ifdef MIDILAR_PROTOCOL_ENUMS
-            std::cout << "    - Protocol Enums." << std::endl;
-        #endif // MIDILAR_MIDI_ENUMS
-        
-        #ifdef MIDILAR_MIDI_MESSAGE
-            std::cout << "    - Message." << std::endl;
-        #endif // MIDILAR_MIDI_MESSAGE
-        
-        #ifdef MIDILAR_MIDI_MESSAGE_PARSER
-            std::cout << "    - MessageParser." << std::endl;
-        #endif // MIDILAR_MIDI_MESSAGE
-
-        #ifdef MIDILAR_MIDI_NOTE
-            std::cout << "    - Note." << std::endl;
-        #endif // MIDILAR_MIDI_MESSAGE
-
-        #ifdef MIDILAR_MIDI_PROCESSOR
-            std::cout << "    - Processor." << std::endl;
-        #endif // MIDILAR_MIDI_PROCESSOR
+        std::cout << "    - Protocol Enums." << std::endl;
+        std::cout << "    - Message." << std::endl;
+        std::cout << "    - MessageParser." << std::endl;
+        std::cout << "    - Note." << std::endl;
+        std::cout << "    - DeviceBase." << std::endl;
         std::cout << std::endl;
     #endif // MIDILAR_MIDI_FOUNDATION
 

@@ -5,8 +5,8 @@
     set(MIDILAR_HEADERS_LOCAL "")
 
     # Append Sources and headers
-    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Processor.h")
-    list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Processor.cpp")
+    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/DeviceBase.h")
+    list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/DeviceBase.cpp")
 
 #
 ######################################################################################################

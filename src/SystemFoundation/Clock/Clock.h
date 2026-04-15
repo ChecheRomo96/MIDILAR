@@ -114,10 +114,10 @@
                 Timebase getFrequency() const;
 
                 /**
-                 * @brief Refreshes the current time using the hardware callback.
-                 * @return The refreshed current time.
+                 * @brief Retrieves the current time using the hardware callback.
+                 * @return The current time.
                  */
-                TimePoint refresh();
+                TimePoint now();
 
                 /**
                  * @brief Retrieves the current time as reported by the clock.

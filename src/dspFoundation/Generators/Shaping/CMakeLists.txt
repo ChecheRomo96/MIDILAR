@@ -7,13 +7,8 @@
     # Append Sources
     list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Shaping.h")
 
-    if(${MIDILAR_GENERATORS_GAMMA})
-        add_subdirectory(Gamma)
-    endif()
-    
-    if(${MIDILAR_GENERATORS_ENHANCED_GAMMA})
-        add_subdirectory(EnhancedGamma)
-    endif()
+    add_subdirectory(Gamma)
+    add_subdirectory(EnhancedGamma)
     
 #
 ######################################################################################################

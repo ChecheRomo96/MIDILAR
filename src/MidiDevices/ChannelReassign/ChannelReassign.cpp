@@ -3,7 +3,8 @@
 namespace MIDILAR::MidiDevices{
 
 	ChannelReassign::ChannelReassign()
-		: _MessageParser(3)
+        : MIDILAR::MidiFoundation::DeviceBase()
+		, _MessageParser(3)
 	{
 	        SetCapabilities(static_cast<uint32_t>(Capabilities::MidiIn) |
 	                        static_cast<uint32_t>(Capabilities::MidiOut));

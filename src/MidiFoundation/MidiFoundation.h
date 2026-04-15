@@ -11,20 +11,9 @@
      */
     namespace MIDILAR::MidiFoundation{}
 
-    #ifdef MIDILAR_PROTOCOL_ENUMS
-        #include "Protocol/Enums.h"
-    #endif
-
-    #ifdef MIDILAR_MIDI_MESSAGE
-        #include "Message/Message.h"
-    #endif
-
-    #ifdef MIDILAR_MIDI_PROCESSOR
-        #include "Processor/Processor.h"
-    #endif
-
-    #ifdef MIDILAR_MIDI_MESSAGE_PARSER
-        #include "MessageParser/MessageParser.h"
-    #endif
+    #include "Protocol/Enums.h"
+    #include "Message/Message.h"
+    #include "Processor/Processor.h"
+    #include "MessageParser/MessageParser.h"
 
 #endif//MIDILAR_MIDI_FOUNDATION_H

@@ -14,17 +14,6 @@
             MIDILAR
     )
 
-    # Include directories for MIDILAR headers
-    target_include_directories(SystemFoundation_CallbackHandler_Test
-        PRIVATE
-            "$<BUILD_INTERFACE:${MIDILAR_SRC_DIRECTORY}>"
-            "$<INSTALL_INTERFACE:include/MIDILAR-${MIDILAR_VERSION}>"
-    )
-
-    
-    target_compile_options(SystemFoundation_CallbackHandler_Test PRIVATE -coverage)
-    target_link_options(SystemFoundation_CallbackHandler_Test PRIVATE -coverage)
-
     # Register the test with CTest
     gtest_discover_tests(SystemFoundation_CallbackHandler_Test)
 #

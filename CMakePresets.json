@@ -1,20 +1,55 @@
 {
-    "version": 3,
-    "cmakeMinimumRequired": {
-      "major": 3,
-      "minor": 19,
-      "patch": 0
-    },
-    "configurePresets": [
-      {
-        "name": "default",
-        "hidden": false,
-        "generator": "Unix Makefiles",
-        "binaryDir": "build",
-        "cacheVariables": {
-          "CMAKE_BUILD_TYPE": "Release"
-        }
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 19,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "release",
+      "generator": "Unix Makefiles",
+      "binaryDir": "build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "MIDILAR_EXAMPLES": "ON",
+        "MIDILAR_TESTING": "OFF",
+        "MIDILAR_COVERAGE": "OFF"
       }
-    ]
-  }
-  
+    },
+    {
+      "name": "debug",
+      "generator": "Unix Makefiles",
+      "binaryDir": "build/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "MIDILAR_FULL_BUILD": "ON",
+        "MIDILAR_TESTING": "OFF",
+        "MIDILAR_EXAMPLES": "ON",
+        "MIDILAR_COVERAGE": "OFF"
+      }
+    },
+    {
+      "name": "tests",
+      "generator": "Unix Makefiles",
+      "binaryDir": "build/tests",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "MIDILAR_TESTING": "ON",
+        "MIDILAR_EXAMPLES": "OFF",
+        "MIDILAR_COVERAGE": "OFF"
+      }
+    },
+    {
+      "name": "coverage",
+      "generator": "Unix Makefiles",
+      "binaryDir": "build/coverage",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "MIDILAR_TESTING": "ON",
+        "MIDILAR_EXAMPLES": "OFF",
+        "MIDILAR_COVERAGE": "ON"
+      }
+    }
+  ]
+}

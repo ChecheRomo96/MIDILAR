@@ -114,7 +114,7 @@ namespace MIDILAR::SystemFoundation {
      * If no callback is linked, the time remains unchanged.
      * @return The updated current time.
      */
-    Clock::TimePoint Clock::refresh() {
+    Clock::TimePoint Clock::now() {
         if (_clockPoll.status()) {
             _currentTime = _clockPoll.invoke(); // Assuming callback accepts null as argument
         }

@@ -27,6 +27,17 @@ namespace MIDILAR::MidiFoundation {
 
     // **Resize Message Buffer**
         bool MessageParser::ResizeBuffer(size_t NewSize) {
+            if(NewSize == _MessageBufferSize) {
+                return true; // No change needed
+            }
+            else if(NewSize == 0) {
+                free(_MessageBuffer);
+                _MessageBuffer = nullptr;
+                _MessageBufferSize = 0;
+                _MessageSize = 0;
+                return true;
+            }
+
     	    uint8_t* new_data = (uint8_t*)realloc(_MessageBuffer, NewSize * sizeof(uint8_t));
     	    if (new_data == nullptr) {
     	        return false; // Memory allocation failed
@@ -220,6 +231,7 @@ namespace MIDILAR::MidiFoundation {
                     } else {
                         // Buffer Overflow
                         _Status = Status::Idle;
+                        _MessageSize = 0;
                     }
                 }
 

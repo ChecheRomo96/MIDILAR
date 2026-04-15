@@ -1,8 +1,8 @@
-#ifndef MIDILAR_VELOCITY_SHAPER_H
-#define MIDILAR_VELOCITY_SHAPER_H
+#ifndef MIDILAR_VELOCITY_SHAPER_DEVICE_H
+#define MIDILAR_VELOCITY_SHAPER_DEVICE_H
 
     #include <System/BuildSettings.h>
-    #include <MidiFoundation/Processor/Processor.h>
+    #include <MidiFoundation/DeviceBase/DeviceBase.h>
     #include <MidiFoundation/MessageParser/MessageParser.h>
     #include <dspFoundation/LUT/Shaping/GammaLUT.h>
 
@@ -11,12 +11,12 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * @class VelocityShaper
-         * @brief A MIDI processor that remaps note velocity using a nonlinear shaping LUT.
+         * @brief A MIDI device that remaps note velocity using a nonlinear shaping LUT.
          *
          * Applies a precomputed 3D gamma-morph transformation to MIDI note velocities.
          * Morph and exponentiation gain can be controlled dynamically.
          */
-        class VelocityShaper : public MIDILAR::MidiFoundation::Processor {
+        class VelocityShaper : public MIDILAR::MidiFoundation::DeviceBase {
         protected:
             MIDILAR::MidiFoundation::MessageParser _MessageParser;
             uint16_t _InputChannels;
@@ -74,4 +74,4 @@
 
     } // namespace MIDILAR::MidiProcessors
 
-#endif // MIDILAR_VELOCITY_SHAPER_H
+#endif // MIDILAR_VELOCITY_SHAPER_DEVICE_H
