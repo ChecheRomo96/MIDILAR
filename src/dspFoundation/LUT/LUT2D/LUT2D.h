@@ -10,7 +10,7 @@
  #include <math.h>
  #include <stdint.h>
  
- #include <System/BuildSettings.h>
+ #include <MIDILAR_BuildSettings.h>
  
  namespace MIDILAR::dspFoundation::LUT {
  

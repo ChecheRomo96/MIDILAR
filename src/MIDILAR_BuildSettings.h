@@ -22,8 +22,7 @@
 
         #if defined(ARDUINO)
             #include <Arduino.h>
-            #include <System/UserSetup.h>
-            #include <System/DependancyResolution.h>
+            #include <System/DependencyResolution.h>
         #endif
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////

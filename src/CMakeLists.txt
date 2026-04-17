@@ -7,40 +7,80 @@
     set_target_properties(MIDILAR PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 #
 ######################################################################################################
-# Append Sources and Headers
+# Initialize MIDILAR_SOURCES_LOCAL and HEADERS_LIST_LOCAL as an empty string list
 
-    target_sources(MIDILAR PRIVATE "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h")
-    midilar_add_dox("${CMAKE_CURRENT_LIST_DIR}/MIDILAR.dox")
+    set(MIDILAR_SOURCES_LOCAL "")
+    set(MIDILAR_PRIVATE_HEADERS_LOCAL "")
+    set(MIDILAR_PUBLIC_HEADERS_LOCAL "")
+    set(MIDILAR_DOX_LOCAL "")
 #
 ######################################################################################################
-# Add Subdirectories
+# Append Headers (local to this subdirectory)
 
-    add_subdirectory(System)
+    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h"
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h"
+    )
     
+    list(APPEND MIDILAR_DOX_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.dox"
+    )
+
+#
+######################################################################################################
+# Add sources to the MIDILAR target
+
+    target_sources(MIDILAR PRIVATE
+        ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        ${MIDILAR_PRIVATE_HEADERS_LOCAL}
+        ${MIDILAR_SOURCES_LOCAL}
+    )
+#
+######################################################################################################
+# add subdirectories
+
     if(MIDILAR_SYSTEM_FOUNDATION)
-        message(STATUS "MIDILAR::SystemFoundation enabled")
-        target_sources(MIDILAR PRIVATE "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.h")
+        midilar_add_macro(PUBLIC MIDILAR_SYSTEM_FOUNDATION)
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.h"
+        )
+
         add_subdirectory(SystemFoundation)
     endif()
 
     if(MIDILAR_DSP_FOUNDATION)
-        message(STATUS "MIDILAR::dspFoundation enabled")
-        target_sources(MIDILAR PRIVATE "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_dspFoundation.h")
+        midilar_add_macro(PUBLIC MIDILAR_DSP_FOUNDATION)   
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_dspFoundation.h"
+        )
+
         add_subdirectory(dspFoundation)
     endif()
+    
 
     if(MIDILAR_MIDI_FOUNDATION)
-        message(STATUS "MIDILAR::MidiFoundation enabled")
-        target_sources(MIDILAR PRIVATE "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiFoundation.h")
+        midilar_add_macro(PUBLIC MIDILAR_MIDI_FOUNDATION)   
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiFoundation.h"
+        )
+
         add_subdirectory(MidiFoundation)
     endif()
-
+    
 
     if(MIDILAR_MIDI_DEVICES)
-        message(STATUS "MIDILAR::MidiDevices enabled")
-        target_sources(MIDILAR PRIVATE "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiDevices.h")
+        midilar_add_macro(PUBLIC MIDILAR_MIDI_DEVICES)   
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiDevices.h"
+        )
+
         add_subdirectory(MidiDevices)
     endif()
+
 #
 ######################################################################################################
 # Add Compiler Definitions
@@ -59,6 +99,16 @@
             "$<BUILD_INTERFACE:${MIDILAR_SRC_DIRECTORY}>"
             "$<INSTALL_INTERFACE:include/MIDILAR-${PROJECT_VERSION}>"
     )
+#
+######################################################################################################
+# Add sources for doxygen
+
+    if(MIDILAR_DOCS)
+        midilar_add_dox(
+            ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+            ${MIDILAR_DOX_LOCAL}
+        )
+    endif()
 #
 ######################################################################################################
 # MIDILAR install process

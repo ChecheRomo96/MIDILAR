@@ -1,7 +1,7 @@
 #ifndef MIDILAR_MIDI_FOUNDATION_PROTOCOL_ENUMS_H
 #define MIDILAR_MIDI_FOUNDATION_PROTOCOL_ENUMS_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
     #include <stdint.h>
     #include "Defines.h"
 

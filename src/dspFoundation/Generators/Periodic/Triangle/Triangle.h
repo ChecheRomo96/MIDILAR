@@ -1,7 +1,7 @@
 #ifndef MIDILAR_PERIODIC_TRIANGLE_H
 #define MIDILAR_PERIODIC_TRIANGLE_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
 
     #define _USE_MATH_DEFINES
     #include <math.h>

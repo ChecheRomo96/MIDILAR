@@ -1,7 +1,7 @@
 #ifndef MIDILAR_PERIODIC_SQUARE_H
 #define MIDILAR_PERIODIC_SQUARE_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
     #include <math.h>
 
     namespace MIDILAR::dspFoundation::Generators::Periodic {

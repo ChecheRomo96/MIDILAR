@@ -1,7 +1,7 @@
 #ifndef MIDILAR_GENERATORS_WINDOWING_INTERNAL_COMMON_H
 #define MIDILAR_GENERATORS_WINDOWING_INTERNAL_COMMON_H
 
-#include <System/BuildSettings.h>
+#include <MIDILAR_BuildSettings.h>
 #include <stddef.h>
 #include <math.h>
 

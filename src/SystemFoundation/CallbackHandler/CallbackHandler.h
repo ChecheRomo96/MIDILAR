@@ -1,7 +1,7 @@
 #ifndef MIDILAR_SYSTEM_CALLBACK_HANDLER_H
 #define MIDILAR_SYSTEM_CALLBACK_HANDLER_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
 
     #ifdef MIDILAR_EXCEPTIONS
         #include <stdexcept>

@@ -1,7 +1,7 @@
 #ifndef MIDILAR_TRIANGLE_LUT_H
 #define MIDILAR_TRIANGLE_LUT_H
 
-#include <System/BuildSettings.h>
+#include <MIDILAR_BuildSettings.h>
 #include <math.h>
 #include <dspFoundation/LUT/LUT1D/LUT1D.h>
 #include <dspFoundation/Generators/Periodic/Periodic.h>

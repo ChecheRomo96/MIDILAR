@@ -1,7 +1,7 @@
 #ifndef MIDILAR_MIDI_FOUNDATION_H
 #define MIDILAR_MIDI_FOUNDATION_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
 
     #include "Protocol/Defines.h"
     

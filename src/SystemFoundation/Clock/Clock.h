@@ -6,7 +6,7 @@
 #ifndef MIDILAR_SYSTEM_CLOCK_CLASS_H
 #define MIDILAR_SYSTEM_CLOCK_CLASS_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
     #include <stdint.h>
 
     #include <SystemFoundation/CallbackHandler/CallbackHandler.h>

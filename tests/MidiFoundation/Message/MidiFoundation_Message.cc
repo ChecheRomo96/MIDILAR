@@ -1069,7 +1069,7 @@ namespace MIDILAR::MidiFoundation {
             EXPECT_EQ(msg.Data(4), 0xF7);
         
             // Test Case 5: Empty Data (Should Not Modify Message)
-            uint8_t emptyData[] = {};
+            uint8_t emptyData[1] = {};
             msg = msg.SystemExclusive(emptyData, 0);
         
             EXPECT_EQ(msg.size(), 5) << "SystemExclusive(0) should not modify the message"; // Expect previous state to persist

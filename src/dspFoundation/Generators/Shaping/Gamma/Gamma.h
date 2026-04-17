@@ -1,7 +1,7 @@
 #ifndef MIDILAR_GENERATORS_GAMMA_H
 #define MIDILAR_GENERATORS_GAMMA_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
     #include <math.h>
 
     namespace MIDILAR::dspFoundation::Generators::Shaping {

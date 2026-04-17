@@ -6,8 +6,4 @@
     #include "Defines_RealTime.h"
     #include "Defines_MTC.h"
 
-    
-
-
-
 #endif//MIDILAR_MIDI_DEFINES_H

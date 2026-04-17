@@ -1,0 +1,23 @@
+if(MIDILAR_MIDI_PROTOCOL)
+    message(STATUS "MIDILAR::MidiFoundation::Protocol")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_PROTOCOL)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_PROTOCOL")
+endif()
+
+if(MIDILAR_MIDI_MESSAGE)
+    message(STATUS "MIDILAR::MidiFoundation::Message")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_MESSAGE)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_MESSAGE")
+endif()
+
+if(MIDILAR_MIDI_MESSAGE_PARSER)
+    message(STATUS "MIDILAR::MidiFoundation::MessageParser")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_MESSAGE_PARSER)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_MESSAGE_PARSER")
+endif()
+
+if(MIDILAR_MIDI_DEVICE_BASE)
+    message(STATUS "MIDILAR::MidiFoundation::DeviceBase")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_DEVICE_BASE)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_DEVICE_BASE")
+endif()

@@ -4,6 +4,7 @@
     set(MIDILAR_SOURCES_LOCAL "")
     set(MIDILAR_PRIVATE_HEADERS_LOCAL "")
     set(MIDILAR_PUBLIC_HEADERS_LOCAL "")
+    set(MIDILAR_DOX_LOCAL "")
 #
 ######################################################################################################
 # Append Headers (local to this subdirectory)
@@ -14,6 +15,10 @@
     
     list(APPEND MIDILAR_SOURCES_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/Clock.cpp"
+    )
+    
+    list(APPEND MIDILAR_DOX_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Clock.dox"
     )
 #
 ######################################################################################################
@@ -31,6 +36,7 @@
     if(MIDILAR_DOCS)
         midilar_add_dox(
             ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+            ${MIDILAR_DOX_LOCAL}
         )
     endif()
 #

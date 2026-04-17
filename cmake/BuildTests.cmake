@@ -2,8 +2,6 @@
 # Append Tests
 
     if(MIDILAR_TESTING)
-        message(STATUS "Building ${PROJECT_NAME} Tests")
-
         enable_testing()
         cmake_policy(SET CMP0135 NEW)
 

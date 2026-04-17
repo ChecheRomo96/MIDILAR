@@ -16,14 +16,11 @@ if(MIDILAR_SYSTEM_FOUNDATION)
 endif()
 
 if(MIDILAR_MIDI_FOUNDATION)
-message(STATUS "MIDILAR::MidiFoundation")
+    message(STATUS "MIDILAR::MidiFoundation")
     target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_FOUNDATION)
     list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_FOUNDATION")
 
-    message(STATUS "MIDILAR::MidiFoundation::Protocol")
-    message(STATUS "MIDILAR::MidiFoundation::Message")
-    message(STATUS "MIDILAR::MidiFoundation::MessageParser")
-    message(STATUS "MIDILAR::MidiFoundation::DeviceBase")
+    include(${CMAKE_CURRENT_LIST_DIR}/MidiFoundation/CMakeMacros.cmake)
 endif()
 
 if(MIDILAR_DSP_FOUNDATION)

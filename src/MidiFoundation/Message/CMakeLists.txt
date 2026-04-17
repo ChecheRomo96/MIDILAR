@@ -2,26 +2,51 @@
 # Initialize MIDILAR_SOURCES_LOCAL and HEADERS_LIST_LOCAL as an empty string list
 
     set(MIDILAR_SOURCES_LOCAL "")
-    set(MIDILAR_HEADERS_LOCAL "")
-
-    # Append Sources and headers
-    list(APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Message.h")
-    list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/Message.cpp")
-
+    set(MIDILAR_PRIVATE_HEADERS_LOCAL "")
+    set(MIDILAR_PUBLIC_HEADERS_LOCAL "")
+    set(MIDILAR_DOX_LOCAL "")
 #
 ######################################################################################################
-# Refresh Sources and Headers in Parent Scope
+# Append Headers (local to this subdirectory)
 
-    set(MIDILAR_SOURCES "${MIDILAR_SOURCES};${MIDILAR_SOURCES_LOCAL}" PARENT_SCOPE)
-    set(MIDILAR_HEADERS "${MIDILAR_HEADERS};${MIDILAR_HEADERS_LOCAL}" PARENT_SCOPE)
+    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Message.h"
+    )
+    
+    list(APPEND MIDILAR_SOURCES_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Message.cpp"
+    )
+    
+    list(APPEND MIDILAR_DOX_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Message.dox"
+    )
+#
+######################################################################################################
+# Add sources to the MIDILAR target
+
+    target_sources(MIDILAR PRIVATE
+        ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        ${MIDILAR_PRIVATE_HEADERS_LOCAL}
+        ${MIDILAR_SOURCES_LOCAL}
+    )
+#
+######################################################################################################
+# Add sources for doxygen
+
+    if(MIDILAR_DOCS)
+        midilar_add_dox(
+            ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+            ${MIDILAR_DOX_LOCAL}
+        )
+    endif()
 #
 ######################################################################################################
 # MIDILAR Install Process
 
     # Install headers for this subdirectory
     install(
-    FILES ${MIDILAR_HEADERS_LOCAL}
-    DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/MidiFoundation/Message"
+        FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/MidiFoundation/Message"
     )
 #
 ######################################################################################################

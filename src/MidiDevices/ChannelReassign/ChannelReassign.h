@@ -1,7 +1,7 @@
 #ifndef MIDILAR_CHANNEL_REASSIGN_DEVICE_H
 #define MIDILAR_CHANNEL_REASSIGN_DEVICE_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
 	#include <MidiFoundation/DeviceBase/DeviceBase.h>
 	#include <MidiFoundation/MessageParser/MessageParser.h>
 

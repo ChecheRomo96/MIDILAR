@@ -1,7 +1,7 @@
 #ifndef MIDILAR_DSP_INTERPOLATORS_H
 #define MIDILAR_DSP_INTERPOLATORS_H
 
-#include <System/BuildSettings.h>
+#include <MIDILAR_BuildSettings.h>
 
     #include "Linear/Linear.h"
     #include "Bilinear/Bilinear.h"

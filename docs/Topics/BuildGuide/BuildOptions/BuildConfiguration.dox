@@ -35,7 +35,7 @@
  * #define MIDILAR_GENERATORS_PERIODIC
  * @endcode
  *
- * This file is included when including "MIDILAR.h", it is included in "system/BuildSettings.h",
+ * This file is included when including "MIDILAR.h", it is included in "MIDILAR_BuildSettings.h",
  * with the help of preprocessor macros to detect when it is needed.
  */
 

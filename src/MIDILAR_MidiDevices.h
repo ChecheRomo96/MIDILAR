@@ -1,7 +1,7 @@
 #ifndef MIDILAR_MIDI_PROCESSORS_H
 #define MIDILAR_MIDI_PROCESSORS_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
     
     #include <MidiDevices/ChannelReassign/ChannelReassign.h>
     #include <MidiDevices/VelocityShaper/VelocityShaper.h>

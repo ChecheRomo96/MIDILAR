@@ -1,7 +1,7 @@
 #ifndef MIDILAR_DSP_INTERPOLATION_LINEAR_H
 #define MIDILAR_DSP_INTERPOLATION_LINEAR_H
 
-#include <System/BuildSettings.h>
+#include <MIDILAR_BuildSettings.h>
 
 namespace MIDILAR::dspFoundation::Interpolation {
 

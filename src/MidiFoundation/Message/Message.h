@@ -6,7 +6,7 @@
  * @brief Provides the `Message` class for creating and managing MIDI messages.
  */
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
     #include <stdint.h>
 
     #if __has_include(<vector>)

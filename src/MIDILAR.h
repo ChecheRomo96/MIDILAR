@@ -10,9 +10,9 @@
  * - Includes build settings defined in `MIDILAR_BuildSettings.h`.
  * - Optionally includes system tools if `MIDILAR_SYSTEM_TOOLS_ENABLED` is defined.
  * 
- * @author [Your Name]
- * @date [Date]
- * @version 1.0.0
+ * @author José Manuel Romo Peredo
+ * @date 2024-06-01
+ * @version 0.0.1
  */
 
 #ifndef MIDILAR_H
@@ -21,44 +21,34 @@
     /** 
      * @brief Include the build settings for MIDILAR.
      */
-    #include <System/BuildSettings.h>
+    #include "MIDILAR_BuildSettings.h"
 
-    #ifdef MIDILAR_SYSTEM_FOUNDATION
-        /**
-         * @brief Include system tools if enabled in the build settings.
-         * 
-         * System tools provide additional utilities for the library.
-         */
+    
+    #if __has_include(<MIDILAR_SystemFoundation.h>)
+        #ifndef MIDILAR_SYSTEM_FOUNDATION
+            #define MIDILAR_SYSTEM_FOUNDATION
+        #endif
         #include <MIDILAR_SystemFoundation.h>
     #endif
-
-
-    #ifdef MIDILAR_MIDI_FOUNDATION
-        /**
-         * @brief Include MIDI tools if enabled in the build settings.
-         * 
-         * MIDI tools provide the base midi functionality for the library.
-         */
+    
+    #if __has_include(<MIDILAR_MidiFoundation.h>)
+        #ifndef MIDILAR_MIDI_FOUNDATION
+            #define MIDILAR_MIDI_FOUNDATION
+        #endif
         #include <MIDILAR_MidiFoundation.h>
     #endif
-
-
-    #ifdef MIDILAR_DSP_FOUNDATION
-        /**
-         * @brief Include MIDI tools if enabled in the build settings.
-         * 
-         * MIDI tools provide the base midi functionality for the library.
-         */
+    
+    #if __has_include(<MIDILAR_dspFoundation.h>)
+        #ifndef MIDILAR_DSP_FOUNDATION
+            #define MIDILAR_DSP_FOUNDATION
+        #endif
         #include <MIDILAR_dspFoundation.h>
     #endif
 
-
-    #ifdef MIDILAR_MIDI_DEVICES
-        /**
-         * @brief Include MIDI tools if enabled in the build settings.
-         * 
-         * MIDI tools provide the base midi functionality for the library.
-         */
+    #if __has_include(<MIDILAR_MidiDevices.h>)
+        #ifndef MIDILAR_MIDI_DEVICES
+            #define MIDILAR_MIDI_DEVICES
+        #endif
         #include <MIDILAR_MidiDevices.h>
     #endif
 

@@ -1,20 +1,11 @@
-######################################################################################################
-# Build and Link Tests for CallbackHandler Module
+set(MIDILAR_SYSTEM_CALLBACK_HANDLER_TEST_SOURCES
+    CallbackHandler.cc
+    CallbackBindingTests.cc
+    FrequencyTests.cc
+    TimeRefreshTests.cc
+    EdgeCaseTests.cc
+)
 
-    # Add the test executable for CallbackHandler
-    add_executable(SystemFoundation_CallbackHandler_Test
-        SystemFoundation_CallbackHandler.cc
-    )
-
-    # Link the test executable with gtest, gtest_main, and the MIDILAR library
-    target_link_libraries(SystemFoundation_CallbackHandler_Test
-        PRIVATE
-            gtest
-            gtest_main
-            MIDILAR
-    )
-
-    # Register the test with CTest
-    gtest_discover_tests(SystemFoundation_CallbackHandler_Test)
-#
-######################################################################################################
+midilar_add_test(test_MIDILAR_CallbackHandler
+    ${MIDILAR_SYSTEM_CALLBACK_HANDLER_TEST_SOURCES}
+)

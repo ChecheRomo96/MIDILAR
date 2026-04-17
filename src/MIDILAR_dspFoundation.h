@@ -1,7 +1,7 @@
 #ifndef MIDILAR_DSP_FOUNDATION_H
 #define MIDILAR_DSP_FOUNDATION_H
 
-    #include <System/BuildSettings.h>
+    #include <MIDILAR_BuildSettings.h>
     
 
     #ifdef MIDILAR_LUT

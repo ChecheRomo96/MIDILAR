@@ -1,7 +1,7 @@
 #ifndef MIDILAR_GENERATORS_ENVELOPES_H
 #define MIDILAR_GENERATORS_ENVELOPES_H
 
-#include <System/BuildSettings.h>
+#include <MIDILAR_BuildSettings.h>
 #include <MIDILAR_SystemFoundation.h>
 
 namespace MIDILAR::dspFoundation::Generators::Envelopes {
