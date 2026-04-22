@@ -27,82 +27,82 @@ int main() {
         modulesEnabled = true;
         std::cout << "  - dspFoundation." << std::endl;
         
-        #ifdef MIDILAR_GENERATORS
+        #ifdef MIDILAR_DSP_GENERATORS
             std::cout << "    - Generators." << std::endl;
 
 
-            #ifdef MIDILAR_GENERATORS_ENVELOPES
+            #ifdef MIDILAR_DSP_GENERATORS_ENVELOPES
 			    std::cout << "      - Envelopes." << std::endl;
                 std::cout << "        - LinearSegment." << std::endl;
                 std::cout << "        - ExpSegment." << std::endl;
                 std::cout << "        - LogSegment." << std::endl;
                 std::cout << "        - LUTSegment." << std::endl;
-            #endif // MIDILAR_GENERATORS_EVNVELOPES
+            #endif // MIDILAR_DSP_GENERATORS_ENVELOPES
 
-            #ifdef MIDILAR_GENERATORS_NOISE
+            #ifdef MIDILAR_DSP_GENERATORS_NOISE
                 std::cout << "      - Noise." << std::endl;
                 std::cout << "        - White." << std::endl;
-            #endif // MIDILAR_GENERATORS_NOISE
+            #endif // MIDILAR_DSP_GENERATORS_NOISE
 
-            #ifdef MIDILAR_GENERATORS_PERIODIC
+            #ifdef MIDILAR_DSP_GENERATORS_PERIODIC
                 std::cout << "      - Periodic." << std::endl;
                 std::cout << "        - Sine." << std::endl;
                 std::cout << "        - Saw." << std::endl;
                 std::cout << "        - Triangle." << std::endl;
                 std::cout << "        - Square." << std::endl;
-            #endif // MIDILAR_GENERATORS_PERIODIC
+            #endif // MIDILAR_DSP_GENERATORS_PERIODIC
 
-            #ifdef MIDILAR_GENERATORS_SHAPING
+            #ifdef MIDILAR_DSP_GENERATORS_SHAPING
                 std::cout << "      - Shaping." << std::endl;
-            #endif // MIDILAR_GENERATORS_SHAPING
-
-            #ifdef MIDILAR_GENERATORS_WINDOWING
+            #endif // MIDILAR_DSP_GENERATORS_SHAPING
+                
+            #ifdef MIDILAR_DSP_GENERATORS_WINDOWING
                 std::cout << "      - Windowing." << std::endl;
-            #endif // MIDILAR_GENERATORS_SHAPING
+            #endif // MIDILAR_DSP_GENERATORS_SHAPING
 
         #endif // MIDILAR_GENERATORS
 
-        #ifdef MIDILAR_LUT
+        #ifdef MIDILAR_DSP_LUT
             std::cout << "    - LUT." << std::endl;
 
-            #ifdef MIDILAR_LUT1D
+            #ifdef MIDILAR_DSP_LUT1D
                 std::cout << "        - LUT1D." << std::endl;
-            #endif // MIDILAR_LUT1D
+            #endif // MIDILAR_DSP_LUT1D
             
-            #ifdef MIDILAR_LUT2D
+            #ifdef MIDILAR_DSP_LUT2D
                 std::cout << "        - LUT2D." << std::endl;
-            #endif // MIDILAR_LUT2D
+            #endif // MIDILAR_DSP_LUT2D
             
-            #ifdef MIDILAR_LUT3D
+            #ifdef MIDILAR_DSP_LUT3D
                 std::cout << "        - LUT3D." << std::endl;
-            #endif // MIDILAR_LUT3D
+            #endif // MIDILAR_DSP_LUT3D
 
-            #ifdef MIDILAR_LUT_PERIODIC
+            #ifdef MIDILAR_DSP_LUT_PERIODIC
                 std::cout << "        - Periodic." << std::endl;
                 
                 std::cout << "            - Sine." << std::endl;
                 std::cout << "            - Triangle." << std::endl;
                 std::cout << "            - Square." << std::endl;
                 std::cout << "            - Saw." << std::endl;
-            #endif // MIDILAR_LUT_PERIODIC
+            #endif // MIDILAR_DSP_LUT_PERIODIC
 
-            #ifdef MIDILAR_LUT_SHAPING
+            #ifdef MIDILAR_DSP_LUT_SHAPING
                 std::cout << "        - Shaping." << std::endl;
 
                 std::cout << "            - LogExp1D." << std::endl;
                 std::cout << "            - LogExp2D." << std::endl;
                 std::cout << "            - LogExp3D." << std::endl;
-            #endif // MIDILAR_LUT_SHAPING
-        #endif // MIDILAR_LUT
+            #endif // MIDILAR_DSP_LUT_SHAPING
+        #endif // MIDILAR_DSP_LUT
 
-        #ifdef MIDILAR_INTERPOLATORS
+        #ifdef MIDILAR_DSP_INTERPOLATORS
 		    std::cout << "    - Interpolators." << std::endl;
-        #endif // MIDILAR_INTERPOLATORS
+        #endif // MIDILAR_DSP_INTERPOLATORS
 
 
         std::cout << std::endl;
 
-    #endif // MIDILAR_AUDIO_FOUNDATION
+    #endif // MIDILAR_DSP_FOUNDATION
 
     #ifdef MIDILAR_MIDI_FOUNDATION
         modulesEnabled = true;

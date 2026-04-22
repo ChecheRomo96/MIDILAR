@@ -2,7 +2,6 @@
 #define MIDILAR_GENERATORS_NOISE_H
 
 #include <MIDILAR_BuildSettings.h>
-#include <MIDILAR_SystemFoundation.h>
 
     #include "White.h"
 

@@ -18,11 +18,13 @@
         "${CMAKE_CURRENT_LIST_DIR}/Defines_RealTime.h"
         "${CMAKE_CURRENT_LIST_DIR}/Defines_MTC.h"
         "${CMAKE_CURRENT_LIST_DIR}/Defines_MSC.h"
+        "${CMAKE_CURRENT_LIST_DIR}/Enums.h"
+        "${CMAKE_CURRENT_LIST_DIR}/Enums_MTC.h"
     )
     
-    #list(APPEND MIDILAR_SOURCES_LOCAL
-    #    "${CMAKE_CURRENT_LIST_DIR}/Clock.cpp"
-    #)
+    list(APPEND MIDILAR_SOURCES_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Enums_MTC.cpp"
+    )
     
     #list(APPEND MIDILAR_DOX_LOCAL
     #    "${CMAKE_CURRENT_LIST_DIR}/Clock.dox"
@@ -46,6 +48,11 @@
             ${MIDILAR_DOX_LOCAL}
         )
     endif()
+#
+######################################################################################################
+# Stage headers
+
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
 #
 ######################################################################################################
 # MIDILAR Install Process

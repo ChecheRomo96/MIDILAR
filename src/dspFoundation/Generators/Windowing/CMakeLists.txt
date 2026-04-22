@@ -30,7 +30,12 @@
 
     set(MIDILAR_SOURCES "${MIDILAR_SOURCES};${MIDILAR_SOURCES_LOCAL}" PARENT_SCOPE)
     set(MIDILAR_HEADERS "${MIDILAR_HEADERS};${MIDILAR_HEADERS_LOCAL}" PARENT_SCOPE)
+#
+######################################################################################################
+# Stage headers
 
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
+#
 ######################################################################################################
 # MIDILAR install process
 
@@ -38,3 +43,5 @@
         FILES ${MIDILAR_HEADERS_LOCAL}
         DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Windowing"
     )
+#
+######################################################################################################

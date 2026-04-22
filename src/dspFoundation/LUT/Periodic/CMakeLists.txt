@@ -1,29 +1,55 @@
 ######################################################################################################
-# Append Sources and Headers
+# Initialize MIDILAR_SOURCES_LOCAL and HEADERS_LIST_LOCAL as an empty string list
 
     set(MIDILAR_SOURCES_LOCAL "")
-    set(MIDILAR_HEADERS_LOCAL "")
-
-    # Append Sources
-    #list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
-
-    # Append Headers
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/SineLUT.h")
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/TriangleLUT.h")
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/SawLUT.h")
-    list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/SquareLUT.h")
+    set(MIDILAR_PRIVATE_HEADERS_LOCAL "")
+    set(MIDILAR_PUBLIC_HEADERS_LOCAL "")
+    set(MIDILAR_DOX_LOCAL "")
 #
 ######################################################################################################
-# Refresh Sources List and Header List at PARENT_SCOPE
+# Append Headers (local to this subdirectory)
 
-    set(MIDILAR_SOURCES "${MIDILAR_SOURCES};${MIDILAR_SOURCES_LOCAL}" PARENT_SCOPE)
-    set(MIDILAR_HEADERS "${MIDILAR_HEADERS};${MIDILAR_HEADERS_LOCAL}" PARENT_SCOPE)
+    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Periodic.h"
+        "${CMAKE_CURRENT_LIST_DIR}/SineLUT.h"
+        "${CMAKE_CURRENT_LIST_DIR}/SquareLUT.h"
+        "${CMAKE_CURRENT_LIST_DIR}/TriangleLUT.h"
+        "${CMAKE_CURRENT_LIST_DIR}/SawLUT.h"
+    )
+    list(APPEND MIDILAR_DOX_LOACCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Periodic.dox"
+    )
 #
 ######################################################################################################
-# MIDILAR install process
+# Add sources to the MIDILAR target
 
+    target_sources(MIDILAR PRIVATE
+        ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        ${MIDILAR_PRIVATE_HEADERS_LOCAL}
+        ${MIDILAR_SOURCES_LOCAL}
+    )
+#
+######################################################################################################
+# Add sources for doxygen
+
+    if(MIDILAR_DOCS)
+        midilar_add_dox(
+            ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+            ${MIDILAR_DOX_LOCAL}
+        )
+    endif()
+#
+######################################################################################################
+# Stage headers
+
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
+#
+######################################################################################################
+# MIDILAR Install Process
+
+    # Install headers for this subdirectory
     install(
-        FILES ${MIDILAR_HEADERS_LOCAL}
+        FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
         DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/LUT/Periodic"
     )
 #

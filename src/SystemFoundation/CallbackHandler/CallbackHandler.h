@@ -75,9 +75,8 @@
         };
 
         //////////////////////////////////////////////////////////////////////////////////////////////
-        /**
-         * @brief Specialization for callbacks with no parameters.
-         */
+        /// \cond INTERNAL
+
         template <typename R>
         class CallbackHandler<R, void> {
             private:
@@ -132,11 +131,6 @@
                 CallbackContext _context = {nullptr, nullptr};
         };
 
-        //////////////////////////////////////////////////////////////////////////////////////////////
-        /**
-         * @brief Specialization for callbacks with a `void` return type.
-         * @tparam Args Parameter types of the callback function.
-         */
         template <typename... Args>
         class CallbackHandler<void, Args...> {
             private:
@@ -192,10 +186,6 @@
                 CallbackContext _context = {nullptr, nullptr};
         };
 
-        //////////////////////////////////////////////////////////////////////////////////////////////
-        /**
-         * @brief Specialization for `void` return type with **no parameters**
-         */
         template <>
         class CallbackHandler<void, void> {
             private:
@@ -250,6 +240,8 @@
                 CallbackType _callback;
                 CallbackContext _context = {nullptr, nullptr};
         };
+        
+        /// \endcond
 
     } // namespace MIDILAR::SystemFoundation
 

@@ -28,3 +28,17 @@ function(midilar_add_test test_target)
 
     set_property(TARGET MIDILAR APPEND PROPERTY MIDILAR_TEST_TARGETS ${test_target})
 endfunction()
+
+function(midilar_stage_headers)
+    foreach(HEADER ${ARGV})
+        file(RELATIVE_PATH REL_HEADER "${MIDILAR_SRC_DIRECTORY}" "${HEADER}")
+        get_filename_component(REL_DIR "${REL_HEADER}" DIRECTORY)
+        file(MAKE_DIRECTORY "${MIDILAR_BUILD_INCLUDE_DIR}/${REL_DIR}")
+
+        configure_file(
+            "${HEADER}"
+            "${MIDILAR_BUILD_INCLUDE_DIR}/${REL_HEADER}"
+            COPYONLY
+        )
+    endforeach()
+endfunction()

@@ -37,7 +37,7 @@ if(MIDILAR_MIDI_DEVICES)
     target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_DEVICES)
     list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_DEVICES")
 
-    include(${CMAKE_CURRENT_LIST_DIR}/MidiDevices/CMakeMacros.cmake)
+    #include(${CMAKE_CURRENT_LIST_DIR}/MidiDevices/CMakeMacros.cmake)
 endif()
 
 

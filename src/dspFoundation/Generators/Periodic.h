@@ -4,7 +4,7 @@
     #include <MIDILAR_BuildSettings.h>
     
     #if __has_include(<dspFoundation/Generators/Periodic/Periodic.h>)
-        #define MIDILAR_GENERATORS_PERIODIC
+        #define MIDILAR_DSP_GENERATORS_PERIODIC
         #include <dspFoundation/Generators/Periodic/Periodic.h>
     #endif
     

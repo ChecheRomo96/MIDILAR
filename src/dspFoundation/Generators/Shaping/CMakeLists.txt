@@ -39,12 +39,17 @@
     endif()
 #
 ######################################################################################################
+# Stage headers
+
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
+#
+######################################################################################################
 # MIDILAR Install Process
 
     # Install headers for this subdirectory
     install(
         FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Shaping"
     )
 #
 ######################################################################################################

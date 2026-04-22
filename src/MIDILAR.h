@@ -22,34 +22,22 @@
      * @brief Include the build settings for MIDILAR.
      */
     #include "MIDILAR_BuildSettings.h"
-
-    
-    #if __has_include(<MIDILAR_SystemFoundation.h>)
-        #ifndef MIDILAR_SYSTEM_FOUNDATION
-            #define MIDILAR_SYSTEM_FOUNDATION
-        #endif
-        #include <MIDILAR_SystemFoundation.h>
-    #endif
-    
-    #if __has_include(<MIDILAR_MidiFoundation.h>)
-        #ifndef MIDILAR_MIDI_FOUNDATION
-            #define MIDILAR_MIDI_FOUNDATION
-        #endif
-        #include <MIDILAR_MidiFoundation.h>
-    #endif
-    
-    #if __has_include(<MIDILAR_dspFoundation.h>)
-        #ifndef MIDILAR_DSP_FOUNDATION
-            #define MIDILAR_DSP_FOUNDATION
-        #endif
-        #include <MIDILAR_dspFoundation.h>
+       
+    #ifdef MIDILAR_SYSTEM_FOUNDATION
+        #include "MIDILAR_SystemFoundation.h"
     #endif
 
-    #if __has_include(<MIDILAR_MidiDevices.h>)
-        #ifndef MIDILAR_MIDI_DEVICES
-            #define MIDILAR_MIDI_DEVICES
-        #endif
-        #include <MIDILAR_MidiDevices.h>
+    #ifdef MIDILAR_DSP_FOUNDATION
+        #include "MIDILAR_dspFoundation.h"
     #endif
+
+    #ifdef MIDILAR_MIDI_FOUNDATION
+        #include "MIDILAR_MidiFoundation.h"
+    #endif
+
+    #ifdef MIDILAR_MIDI_DEVICES
+        #include "MIDILAR_MidiDevices.h"
+    #endif
+    
 
 #endif // MIDILAR_H

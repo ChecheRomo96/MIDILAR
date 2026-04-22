@@ -5,6 +5,10 @@
     add_library(MIDILAR STATIC)
     set_target_properties(MIDILAR PROPERTIES LINKER_LANGUAGE CXX)    
     set_target_properties(MIDILAR PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+
+    set(MIDILAR_BUILD_INCLUDE_DIR
+        "${CMAKE_BINARY_DIR}/include/MIDILAR-${MIDILAR_VERSION}"
+    )
 #
 ######################################################################################################
 # Initialize MIDILAR_SOURCES_LOCAL and HEADERS_LIST_LOCAL as an empty string list
@@ -20,6 +24,10 @@
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h"
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h"
+    )
+
+    list(APPEND MIDILAR_SOURCES_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.cpp"
     )
     
     list(APPEND MIDILAR_DOX_LOCAL
@@ -65,6 +73,7 @@
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiFoundation.h"
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiProtocol.h"
         )
 
         add_subdirectory(MidiFoundation)
@@ -96,7 +105,7 @@
 
     target_include_directories(MIDILAR
         PUBLIC
-            "$<BUILD_INTERFACE:${MIDILAR_SRC_DIRECTORY}>"
+            "$<BUILD_INTERFACE:${MIDILAR_BUILD_INCLUDE_DIR}>"
             "$<INSTALL_INTERFACE:include/MIDILAR-${PROJECT_VERSION}>"
     )
 #
@@ -109,6 +118,11 @@
             ${MIDILAR_DOX_LOCAL}
         )
     endif()
+#
+######################################################################################################
+# Stage headers
+
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
 #
 ######################################################################################################
 # MIDILAR install process

@@ -19,8 +19,8 @@
 ######################################################################################################
 # Add Subdirectories
 
-    if(MIDILAR_GENERATORS_ENVELOPES)
-        midilar_add_macro(PUBLIC MIDILAR_GENERATORS_ENVELOPES)
+    if(MIDILAR_DSP_GENERATORS_ENVELOPES)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_GENERATORS_ENVELOPES)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Envelopes.h"
@@ -29,8 +29,8 @@
         add_subdirectory(Envelopes)
     endif()
     
-    if(MIDILAR_GENERATORS_NOISE)
-        midilar_add_macro(PUBLIC MIDILAR_GENERATORS_NOISE)
+    if(MIDILAR_DSP_GENERATORS_NOISE)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_GENERATORS_NOISE)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Noise.h"
@@ -39,8 +39,8 @@
         add_subdirectory(Noise)
     endif() 
     
-    if(MIDILAR_GENERATORS_PERIODIC)
-        midilar_add_macro(PUBLIC MIDILAR_GENERATORS_PERIODIC)
+    if(MIDILAR_DSP_GENERATORS_PERIODIC)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_GENERATORS_PERIODIC)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Periodic.h"
@@ -49,8 +49,8 @@
         add_subdirectory(Periodic)
     endif()
     
-    if(MIDILAR_GENERATORS_SHAPING)
-        midilar_add_macro(PUBLIC MIDILAR_GENERATORS_SHAPING)
+    if(MIDILAR_DSP_GENERATORS_SHAPING)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_GENERATORS_SHAPING)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Shaping.h"
@@ -59,8 +59,8 @@
         add_subdirectory(Shaping)
     endif()
     
-    if(MIDILAR_GENERATORS_WINDOWING)
-        midilar_add_macro(PUBLIC MIDILAR_GENERATORS_WINDOWING)
+    if(MIDILAR_DSP_GENERATORS_WINDOWING)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_GENERATORS_WINDOWING)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Windowing.h"
@@ -89,12 +89,17 @@
     endif()
 #
 ######################################################################################################
+# Stage headers
+
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
+#
+######################################################################################################
 # MIDILAR Install Process
 
     # Install headers for this subdirectory
     install(
         FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators"
     )
 #
 ######################################################################################################

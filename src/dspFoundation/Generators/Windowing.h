@@ -4,7 +4,7 @@
     #include <MIDILAR_BuildSettings.h>
     
     #if __has_include(<dspFoundation/Generators/Windowing/Windowing.h>)
-        #define MIDILAR_GENERATORS_WINDOWING
+        #define MIDILAR_DSP_GENERATORS_WINDOWING
         #include <dspFoundation/Generators/Windowing/Windowing.h>
     #endif
     

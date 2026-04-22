@@ -11,6 +11,10 @@
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/Envelopes.h"
+        "${CMAKE_CURRENT_LIST_DIR}/LinearSegment.h"
+        "${CMAKE_CURRENT_LIST_DIR}/ExpSegment.h"
+        "${CMAKE_CURRENT_LIST_DIR}/LogSegment.h"
+        "${CMAKE_CURRENT_LIST_DIR}/LUTSegment.h"
     )
     
     #list(APPEND MIDILAR_DOX_LOCAL
@@ -35,6 +39,11 @@
             ${MIDILAR_DOX_LOCAL}
         )
     endif()
+#
+######################################################################################################
+# Stage headers
+
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
 #
 ######################################################################################################
 # MIDILAR Install Process

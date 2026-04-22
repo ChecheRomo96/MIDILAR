@@ -3,12 +3,12 @@
 
     #include <MIDILAR_BuildSettings.h>
     
-    #if __has_include(<dspFoundation/dspFoundation.h>)
+    #if __has_include("dspFoundation/dspFoundation.h")
         #ifndef MIDILAR_DSP_FOUNDATION
             #define MIDILAR_DSP_FOUNDATION   
         #endif
 
-        #include <dspFoundation/dspFoundation.h>
+        #include "dspFoundation/dspFoundation.h"
     #endif
     
 

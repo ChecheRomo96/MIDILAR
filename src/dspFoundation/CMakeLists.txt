@@ -19,8 +19,8 @@
 ######################################################################################################
 # Add Subdirectories
 
-    if(MIDILAR_GENERATORS)
-        midilar_add_macro(PUBLIC MIDILAR_GENERATORS)
+    if(MIDILAR_DSP_GENERATORS)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_GENERATORS)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Generators.h"
@@ -29,8 +29,8 @@
         add_subdirectory(Generators)
     endif()
 
-    if(MIDILAR_INTERPOLATORS)
-        midilar_add_macro(PUBLIC MIDILAR_INTERPOLATORS)
+    if(MIDILAR_DSP_INTERPOLATORS)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_INTERPOLATORS)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Interpolators.h"
@@ -39,8 +39,8 @@
         add_subdirectory(Interpolators)
     endif()
 
-    if(MIDILAR_LUT)
-        midilar_add_macro(PUBLIC MIDILAR_LUT)
+    if(MIDILAR_DSP_LUT)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_LUT)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/LUT.h"
@@ -49,8 +49,8 @@
         add_subdirectory(LUT)
     endif()
 
-    if(MIDILAR_STREAMING)
-        midilar_add_macro(PUBLIC MIDILAR_STREAMING)
+    if(MIDILAR_DSP_STREAMING)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_STREAMING)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Streaming.h"
@@ -59,8 +59,8 @@
         add_subdirectory(Streaming)
     endif()
 
-    if(MIDILAR_TRANSFORMS)
-        midilar_add_macro(PUBLIC MIDILAR_TRANSFORMS)
+    if(MIDILAR_DSP_TRANSFORMS)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_TRANSFORMS)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
             "${CMAKE_CURRENT_LIST_DIR}/Transforms.h"
@@ -87,6 +87,11 @@
             ${MIDILAR_DOX_LOCAL}
         )
     endif()
+#
+######################################################################################################
+# Stage headers
+
+    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
 #
 ######################################################################################################
 # MIDILAR Install Process
