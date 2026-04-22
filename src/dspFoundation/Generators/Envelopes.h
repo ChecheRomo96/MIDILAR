@@ -8,9 +8,4 @@
         #include <dspFoundation/Generators/Envelopes/Envelopes.h>
     #endif
     
-    #if __has_include(<dspFoundation/Generators/Noise/Noise.h>)
-        #define MIDILAR_GENERATORS_NOISE
-        #include <dspFoundation/Generators/Noise/Noise.h>
-    #endif
-
 #endif//MIDILAR_DSP_GENERATORS_ENVELOPES_TOP_H

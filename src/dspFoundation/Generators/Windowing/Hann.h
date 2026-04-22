@@ -1,7 +1,7 @@
 #ifndef MIDILAR_GENERATORS_WINDOWING_HANN_H
 #define MIDILAR_GENERATORS_WINDOWING_HANN_H
 
-#include <dspFoundation/Generators/Windowing/Internal/WindowingCommon.h>
+#include <MIDILAR_BuildSettings.h>
 
 namespace MIDILAR::dspFoundation::Generators::Windowing {
 

@@ -9,15 +9,28 @@
     endif()
 #
 #################################################################################################################################
-# Envelopes
+# LUT1D
 
     option(MIDILAR_LUT1D "Enables the compilation of MIDILAR::dspFoundation::LUT::LUT1D" ON)
-    #include(${CMAKE_CURRENT_LIST_DIR}/LUT1D/CMakeOptions.cmake)
 #
 #################################################################################################################################
-# Noise
+# LUT2D
 
     option(MIDILAR_LUT2D "Enables the compilation of MIDILAR::dspFoundation::LUT::LUT2D" ON)
-    #include(${CMAKE_CURRENT_LIST_DIR}/LUT2D/CMakeOptions.cmake)
 #
 #################################################################################################################################
+# LUT3D
+
+    option(MIDILAR_LUT3D "Enables the compilation of MIDILAR::dspFoundation::LUT::LUT3D" ON)
+#
+##################################################################################################################################
+# LUTPeriodic
+
+    option(MIDILAR_LUT_PERIODIC "Enables the compilation of MIDILAR::dspFoundation::LUT::LUTPeriodic" ON)
+#
+##################################################################################################################################
+# LUTShaping
+
+    option(MIDILAR_LUT_SHAPING "Enables the compilation of MIDILAR::dspFoundation::LUT::LUTShaping" ON)
+#
+##################################################################################################################################

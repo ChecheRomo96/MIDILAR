@@ -3,9 +3,20 @@
 
     #include <MIDILAR_BuildSettings.h>
 
-    #include "Sine/Sine.h"
-    #include "Triangle/Triangle.h"
-    #include "Saw/Saw.h"
-    #include "Square/Square.h"
+    #ifdef MIDILAR_GENERATORS_PERIODIC_SINE
+        #include "Sine.h"  
+    #endif
 
+    #ifdef MIDILAR_GENERATORS_PERIODIC_TRIANGLE
+        #include "Triangle.h"
+    #endif
+
+    #ifdef MIDILAR_GENERATORS_PERIODIC_SAW
+        #include "Saw.h"
+    #endif
+
+    #ifdef MIDILAR_GENERATORS_PERIODIC_SQUARE
+        #include "Square.h"
+    #endif
+    
 #endif // MIDILAR_DSP_GENERATORS_PERIODIC_H

@@ -94,7 +94,14 @@ int main() {
                 std::cout << "            - LogExp3D." << std::endl;
             #endif // MIDILAR_LUT_SHAPING
         #endif // MIDILAR_LUT
+
+        #ifdef MIDILAR_INTERPOLATORS
+		    std::cout << "    - Interpolators." << std::endl;
+        #endif // MIDILAR_INTERPOLATORS
+
+
         std::cout << std::endl;
+
     #endif // MIDILAR_AUDIO_FOUNDATION
 
     #ifdef MIDILAR_MIDI_FOUNDATION

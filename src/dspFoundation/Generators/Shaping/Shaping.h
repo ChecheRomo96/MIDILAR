@@ -3,7 +3,7 @@
 
     #include <MIDILAR_BuildSettings.h>
 
-    #include "Gamma/Gamma.h"
-    #include "EnhancedGamma/EnhancedGamma.h"
+    #include "Gamma.h"
+    #include "EnhancedGamma.h"
 
 #endif // MIDILAR_GENERATORS_SHAPING_H

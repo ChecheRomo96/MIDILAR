@@ -14,9 +14,9 @@
         "${CMAKE_CURRENT_LIST_DIR}/White.h"
     )
     
-    #list(APPEND MIDILAR_DOX_LOCAL
-    #    "${CMAKE_CURRENT_LIST_DIR}/CallbackHandler.dox"
-    #)
+    list(APPEND MIDILAR_DOX_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Noise.dox"
+    )
 #
 ######################################################################################################
 # Add sources to the MIDILAR target
