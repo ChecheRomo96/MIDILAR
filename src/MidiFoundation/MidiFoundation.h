@@ -3,17 +3,8 @@
 
     #include <MIDILAR_BuildSettings.h>
 
-    #include "Protocol/Defines.h"
-    
-    /**
-     * @namespace MIDILAR::MidiFoundation
-     * @brief Contains classes and utilities for handling MIDI messages.
-     */
-    namespace MIDILAR::MidiFoundation{}
-
-    #include "Protocol/Enums.h"
-    #include "Message/Message.h"
-    #include "Processor/Processor.h"
-    #include "MessageParser/MessageParser.h"
+    #ifdef MIDILAR_MIDI_PROTOCOL
+        #include "Protocol.h"
+    #endif
 
 #endif//MIDILAR_MIDI_FOUNDATION_H

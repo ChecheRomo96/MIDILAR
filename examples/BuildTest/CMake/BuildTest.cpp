@@ -11,9 +11,15 @@ int main() {
     #ifdef MIDILAR_SYSTEM_FOUNDATION
         modulesEnabled = true;
         std::cout << "  - SystemFoundation." << std::endl;
+        
+        #ifdef MIDILAR_SYSTEM_CALLBACK_HANDLER
+            std::cout << "    - CallbackHandler." << std::endl;
+        #endif // MIDILAR_CALLBACK_HANDLER
 
-        std::cout << "    - CallbackHandler." << std::endl;
-        std::cout << "    - System Clock." << std::endl;
+        #ifdef MIDILAR_SYSTEM_CLOCK
+            std::cout << "    - System Clock." << std::endl;
+        #endif // MIDILAR_SYSTEM_CLOCK
+
         std::cout << std::endl;
     #endif // MIDILAR_SYSTEM_FOUNDATION
 
@@ -24,10 +30,36 @@ int main() {
         #ifdef MIDILAR_GENERATORS
             std::cout << "    - Generators." << std::endl;
 
-            std::cout << "        - Periodic." << std::endl;
-            std::cout << "        - Shaping." << std::endl;
-            std::cout << "        - Windowing." << std::endl;
-            std::cout << "        - Envelopes." << std::endl;
+
+            #ifdef MIDILAR_GENERATORS_ENVELOPES
+			    std::cout << "      - Envelopes." << std::endl;
+                std::cout << "        - LinearSegment." << std::endl;
+                std::cout << "        - ExpSegment." << std::endl;
+                std::cout << "        - LogSegment." << std::endl;
+                std::cout << "        - LUTSegment." << std::endl;
+            #endif // MIDILAR_GENERATORS_EVNVELOPES
+
+            #ifdef MIDILAR_GENERATORS_NOISE
+                std::cout << "      - Noise." << std::endl;
+                std::cout << "        - White." << std::endl;
+            #endif // MIDILAR_GENERATORS_NOISE
+
+            #ifdef MIDILAR_GENERATORS_PERIODIC
+                std::cout << "      - Periodic." << std::endl;
+                std::cout << "        - Sine." << std::endl;
+                std::cout << "        - Saw." << std::endl;
+                std::cout << "        - Triangle." << std::endl;
+                std::cout << "        - Square." << std::endl;
+            #endif // MIDILAR_GENERATORS_PERIODIC
+
+            #ifdef MIDILAR_GENERATORS_SHAPING
+                std::cout << "      - Shaping." << std::endl;
+            #endif // MIDILAR_GENERATORS_SHAPING
+
+            #ifdef MIDILAR_GENERATORS_WINDOWING
+                std::cout << "      - Windowing." << std::endl;
+            #endif // MIDILAR_GENERATORS_SHAPING
+
         #endif // MIDILAR_GENERATORS
 
         #ifdef MIDILAR_LUT

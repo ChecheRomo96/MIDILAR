@@ -1,0 +1,13 @@
+if(MIDILAR_LUT1D)
+    message(STATUS "MIDILAR::dspFoundation::LUT1D")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT1D)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT1D")
+    #include(${CMAKE_CURRENT_LIST_DIR}/LUT1D/CMakeMacros.cmake)
+endif()
+
+if(MIDILAR_LUT2D)
+    message(STATUS "MIDILAR::dspFoundation::LUT2D")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT2D)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT2D")
+    #include(${CMAKE_CURRENT_LIST_DIR}/LUT2D/CMakeMacros.cmake)
+endif()

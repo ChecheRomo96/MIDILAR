@@ -1,7 +1,7 @@
 #include <MIDILAR_MidiFoundation.h>
 #include <stdint.h>
 #include <iostream>
-#include <vector>  // Required for std::vector
+#include <vector>
 
 using namespace MIDILAR::MidiFoundation;
 

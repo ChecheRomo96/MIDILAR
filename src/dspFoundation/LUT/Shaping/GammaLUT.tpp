@@ -14,13 +14,13 @@ inline float GammaLUT<T>::Clamp(float value, float min, float max) const {
 
 template<typename T>
 inline GammaLUT<T>::GammaLUT()
-: _gainMin(1.0f),
-_gainMax(10.0f),
-_morphMin(-1.0f),
-_morphMax(1.0f),
-_outputGain(1.0){
-
-};
+: _gainMin(static_cast<T>(1.0f)),
+  _gainMax(static_cast<T>(10.0f)),
+  _morphMin(static_cast<T>(-1.0f)),
+  _morphMax(static_cast<T>(1.0f)),
+  _outputGain(static_cast<T>(1.0f))
+{
+}
 
 template<typename T>
 inline void GammaLUT<T>::Eval() {

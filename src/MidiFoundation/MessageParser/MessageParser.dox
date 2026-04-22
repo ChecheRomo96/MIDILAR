@@ -35,7 +35,7 @@
  *
  * ### Minimal Usage Example (Standalone Callback)
  * @code
- * #include <MidiFoundation/MessageParser/MessageParser.h>
+ * #include <MidiFoundation/MessageParser.h>
  * 
  * using namespace MIDILAR::MidiFoundation;
  * 

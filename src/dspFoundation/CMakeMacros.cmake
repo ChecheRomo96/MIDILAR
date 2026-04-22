@@ -1,0 +1,13 @@
+if(MIDILAR_GENERATORS)
+    message(STATUS "MIDILAR::dspFoundation::Generators")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_GENERATORS)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_GENERATORS")
+    include(${CMAKE_CURRENT_LIST_DIR}/Generators/CMakeMacros.cmake)
+endif()
+
+if(MIDILAR_LUT)
+    message(STATUS "MIDILAR::dspFoundation::LUT")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT")
+    include(${CMAKE_CURRENT_LIST_DIR}/LUT/CMakeMacros.cmake)
+endif()

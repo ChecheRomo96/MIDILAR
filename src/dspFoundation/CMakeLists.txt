@@ -1,50 +1,100 @@
 ######################################################################################################
-# Append Sources and Headers
+# Initialize MIDILAR_SOURCES_LOCAL and HEADERS_LIST_LOCAL as an empty string list
 
     set(MIDILAR_SOURCES_LOCAL "")
-    set(MIDILAR_HEADERS_LOCAL "")
+    set(MIDILAR_PRIVATE_HEADERS_LOCAL "")
+    set(MIDILAR_PUBLIC_HEADERS_LOCAL "")
+    set(MIDILAR_DOX_LOCAL "")
+#
+######################################################################################################
+# Append Headers (local to this subdirectory)
 
-    # Append Sources
-    #list( APPEND MIDILAR_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_AudioFoundation.cpp")
-
-    # Append Headers
-    #list( APPEND MIDILAR_HEADERS_LOCAL "${CMAKE_CURRENT_LIST_DIR}/TransformBase.h")
+    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/dspFoundation.h"
+    )
+    list(APPEND MIDILAR_DOX_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/dspFoundation.dox"
+    )
 #
 ######################################################################################################
 # Add Subdirectories
 
-    if(${MIDILAR_GENERATORS})
+    if(MIDILAR_GENERATORS)
+        midilar_add_macro(PUBLIC MIDILAR_GENERATORS)
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/Generators.h"
+        )
+
         add_subdirectory(Generators)
     endif()
 
-    if(${MIDILAR_LUT_INTERPOLATORS})
+    if(MIDILAR_INTERPOLATORS)
+        midilar_add_macro(PUBLIC MIDILAR_INTERPOLATORS)
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/Interpolators.h"
+        )
+
         add_subdirectory(Interpolators)
     endif()
-    
-    if(${MIDILAR_LUT})
+
+    if(MIDILAR_LUT)
+        midilar_add_macro(PUBLIC MIDILAR_LUT)
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/LUT.h"
+        )
+
         add_subdirectory(LUT)
     endif()
-    
-    if(${MIDILAR_TRANSFORMS})
-        add_subdirectory(Transforms)
-    endif()
-    
-    if(${MIDILAR_STREAMING})
+
+    if(MIDILAR_STREAMING)
+        midilar_add_macro(PUBLIC MIDILAR_STREAMING)
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/Streaming.h"
+        )
+
         add_subdirectory(Streaming)
     endif()
+
+    if(MIDILAR_TRANSFORMS)
+        midilar_add_macro(PUBLIC MIDILAR_TRANSFORMS)
+        
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/Transforms.h"
+        )
+
+        add_subdirectory(Transforms)
+    endif()
 #
 ######################################################################################################
-# Refresh Sources List and Header List at PARENT_SCOPE
+# Add sources to the MIDILAR target
 
-    set(MIDILAR_SOURCES "${MIDILAR_SOURCES};${MIDILAR_SOURCES_LOCAL}" PARENT_SCOPE)
-    set(MIDILAR_HEADERS "${MIDILAR_HEADERS};${MIDILAR_HEADERS_LOCAL}" PARENT_SCOPE)
+    target_sources(MIDILAR PRIVATE
+        ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        ${MIDILAR_PRIVATE_HEADERS_LOCAL}
+        ${MIDILAR_SOURCES_LOCAL}
+    )
 #
 ######################################################################################################
-# MIDILAR install process
+# Add sources for doxygen
 
+    if(MIDILAR_DOCS)
+        midilar_add_dox(
+            ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+            ${MIDILAR_DOX_LOCAL}
+        )
+    endif()
+#
+######################################################################################################
+# MIDILAR Install Process
+
+    # Install headers for this subdirectory
     install(
-        FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/AudioFoundation"
+        FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation"
     )
 #
 ######################################################################################################

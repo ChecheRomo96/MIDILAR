@@ -27,6 +27,8 @@ if(MIDILAR_DSP_FOUNDATION)
     message(STATUS "MIDILAR::dspFoundation")
     target_compile_definitions(MIDILAR PUBLIC MIDILAR_DSP_FOUNDATION)
     list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_DSP_FOUNDATION")
+
+    include(${CMAKE_CURRENT_LIST_DIR}/dspFoundation/CMakeMacros.cmake)
     
     if(MIDILAR_LUT)
         message(STATUS "MIDILAR::dspFoundation::LUT")

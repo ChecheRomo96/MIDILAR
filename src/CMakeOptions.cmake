@@ -20,3 +20,9 @@
     include(${CMAKE_CURRENT_LIST_DIR}/MidiFoundation/CMakeOptions.cmake)
 #
 #################################################################################################################################
+# dspFoundation
+
+    option(MIDILAR_DSP_FOUNDATION "Enables the compilation of MIDILAR::dspFoundation" ON)
+    include(${CMAKE_CURRENT_LIST_DIR}/dspFoundation/CMakeOptions.cmake)
+#
+#################################################################################################################################
