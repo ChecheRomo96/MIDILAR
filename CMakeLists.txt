@@ -63,13 +63,6 @@
     add_subdirectory(src)
 #
 ######################################################################################################
-# Enable Doxygen to build the documentation
-    if(MIDILAR_DOCS)
-        message(STATUS "Doxygen documentation generation enabled")
-        include(cmake/BuildDocs.cmake)
-    endif()
-#
-######################################################################################################
 # Create the library
 
     midilar_add_macro(PUBLIC MIDILAR_VERSION="${PROJECT_VERSION}")
@@ -84,8 +77,19 @@
     endif()
 #
 ######################################################################################################
+# Enable Doxygen to build the documentation
+
+    if(MIDILAR_DOCS)
+        message(STATUS "Doxygen documentation generation enabled")
+        include(cmake/BuildDocs.cmake)
+    endif()
+#
+######################################################################################################
+# Enable Doxygen to build the documentation
 
     if(MIDILAR_TESTING)
         message(STATUS "Building MIDILAR Tests")
         include(cmake/BuildTests.cmake)
     endif()
+#
+######################################################################################################

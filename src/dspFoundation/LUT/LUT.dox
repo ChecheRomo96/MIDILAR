@@ -5,9 +5,7 @@
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDILAR_dspFoundation_LUT Lookup Tables
- * @ingroup MIDILAR_dspFoundation
- * @brief Core 1D, 2D, and 3D lookup table types for waveform synthesis and control mapping.
+ * @addtogroup MIDILAR_dspFoundation_LUT
  *
  * This module provides the foundation for fast, flexible signal shaping using precomputed lookup tables.
  * It includes dimensional LUT types as well as specialized LUT generators under the `Periodic` and `Shaping` namespaces.

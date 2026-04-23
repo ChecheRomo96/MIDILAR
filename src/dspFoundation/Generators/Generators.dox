@@ -1,0 +1,46 @@
+/**
+ * @file Generators.dox
+ */
+
+/**
+ * @addtogroup MIDILAR_dspFoundation_Generators
+ * @{
+ *
+ * @brief Signal generation modules for synthesis, control shaping, envelopes, noise, and windowing.
+ *
+ * This module groups all DSP components responsible for generating signals
+ * and control curves used across MIDILAR.
+ *
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Periodic Periodic
+ * @ingroup MIDILAR_dspFoundation_Generators
+ * @brief Periodic waveform generators (sine, square, saw, etc.).
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Shaping Shaping
+ * @ingroup MIDILAR_dspFoundation_Generators
+ * @brief Nonlinear shaping generators for control and transfer curves.
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Envelopes Envelopes
+ * @ingroup MIDILAR_dspFoundation_Generators
+ * @brief Envelope generators (ADSR, multi-stage, time-based shaping).
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Noise Noise
+ * @ingroup MIDILAR_dspFoundation_Generators
+ * @brief Noise generators (white noise and pseudo-random sources).
+ */
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Windowing Windowing
+ * @ingroup MIDILAR_dspFoundation_Generators
+ * @brief Window function generators (Hann, Hamming, Blackman, etc.).
+ */
+
+/** @} */

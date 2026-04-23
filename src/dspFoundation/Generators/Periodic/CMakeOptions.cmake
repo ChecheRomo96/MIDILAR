@@ -11,12 +11,20 @@
 # Sine Wave
 
     option(MIDILAR_DSP_GENERATORS_PERIODIC_SINE "Enables the compilation of MIDILAR::dspFoundation::Generators::Sine" ON)
-    #include(${CMAKE_CURRENT_LIST_DIR}/Sine/CMakeOptions.cmake)
 #
 #################################################################################################################################
 # Square Wave
 
     option(MIDILAR_DSP_GENERATORS_PERIODIC_SQUARE "Enables the compilation of MIDILAR::dspFoundation::Generators::Square" ON)
-    #include(${CMAKE_CURRENT_LIST_DIR}/Square/CMakeOptions.cmake)
+#
+#################################################################################################################################
+# Triangle Wave
+
+    option(MIDILAR_DSP_GENERATORS_PERIODIC_TRIANGLE "Enables the compilation of MIDILAR::dspFoundation::Generators::Triangle" ON)
+#
+#################################################################################################################################
+# Sawtooth Wave
+
+    option(MIDILAR_DSP_GENERATORS_PERIODIC_SAW "Enables the compilation of MIDILAR::dspFoundation::Generators::Saw" ON)
 #
 #################################################################################################################################

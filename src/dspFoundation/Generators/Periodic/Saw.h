@@ -1,29 +1,14 @@
-#ifndef MIDILAR_PERIODIC_SAW_H
-#define MIDILAR_PERIODIC_SAW_H
+#ifndef MIDILAR_GENERATORS_PERIODIC_SAW_TOP_H
+#define MIDILAR_GENERATORS_PERIODIC_SAW_TOP_H
 
     #include <MIDILAR_BuildSettings.h>
 
-    #define _USE_MATH_DEFINES
-    #include <math.h>
+    #if __has_include("Saw/Saw.h")
+        #ifndef MIDILAR_DSP_GENERATORS_PERIODIC_SAW
+            #define MIDILAR_DSP_GENERATORS_PERIODIC_SAW
+        #endif
 
-    namespace MIDILAR::dspFoundation::Generators::Periodic {
-        template<typename OUTPUT_TYPE> 
-        void Saw(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DCOffset, float PhaseOffset) {
-            if (!Buffer || BufferSize == 0) return;
+        #include "Saw/Saw.h"  
+    #endif
 
-            float twoPi = static_cast<float>(2 * M_PI);
-            float phaseStep = twoPi / static_cast<float>(BufferSize);
-
-            // Apply π phase shift so signal starts at 0 (midpoint)
-            float offsetRad = fmodf((PhaseOffset + 0.5f) * twoPi, twoPi);  // 0.5 cycle = π
-            if (offsetRad < 0.0f) offsetRad += twoPi;
-
-            for (size_t i = 0; i < BufferSize; i++) {
-                float phase = fmodf(i * phaseStep + offsetRad, twoPi);
-                float value = ((phase / static_cast<float>(M_PI)) - 1.0f);  // Range: [-1, +1]
-                Buffer[i] = static_cast<OUTPUT_TYPE>(value * Amp + DCOffset);
-            }
-        }
-    }
-
-#endif//MIDILAR_PERIODIC_SAW_H
+#endif//MIDILAR_GENERATORS_PERIODIC_SAW_TOP_H

@@ -32,14 +32,24 @@
  *
  *  - SystemFoundation.
  *    - CallbackHandler.
- *    - Clock.
+ *    - System Clock.
  *
  *  - dspFoundation.
  *    - Generators.
- *        - Periodic.
- *        - Shaping.
- *        - Windowing.
- *        - Envelopes.
+ *      - Envelopes.
+ *        - LinearSegment.
+ *        - ExpSegment.
+ *        - LogSegment.
+ *        - LUTSegment.
+ *      - Noise.
+ *        - White.
+ *      - Periodic.
+ *        - Sine.
+ *        - Saw.
+ *        - Triangle.
+ *        - Square.
+ *      - Shaping.
+ *      - Windowing.
  *    - LUT.
  *        - LUT1D.
  *        - LUT2D.
@@ -47,21 +57,20 @@
  *        - Periodic.
  *            - Sine.
  *            - Triangle.
- *            - Square.w
+ *            - Square.
  *            - Saw.
  *        - Shaping.
  *            - LogExp1D.
  *            - LogExp2D.
  *            - LogExp3D.
+ *    - Interpolators.
  *
  *  - MidiFoundation.
  *    - Protocol Enums.
  *    - Message.
  *    - MessageParser.
- *    - Processor.
- *
- *  - MidiDevices.
- *    - Channel Reassign.
+ *    - Note.
+ *    - DeviceBase.
  * ```
  *
  * ---

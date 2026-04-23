@@ -1,26 +1,14 @@
-#ifndef MIDILAR_PERIODIC_SINE_H
-#define MIDILAR_PERIODIC_SINE_H
+#ifndef MIDILAR_GENERATORS_PERIODIC_SINE_TOP_H
+#define MIDILAR_GENERATORS_PERIODIC_SINE_TOP_H
 
     #include <MIDILAR_BuildSettings.h>
 
-    #define _USE_MATH_DEFINES
-    #include <math.h>
+    #if __has_include("Sine/Sine.h")
+        #ifndef MIDILAR_DSP_GENERATORS_PERIODIC_SINE
+            #define MIDILAR_DSP_GENERATORS_PERIODIC_SINE
+        #endif
 
-    namespace MIDILAR::dspFoundation::Generators::Periodic {
-        template<typename OUTPUT_TYPE>
-        void Sine(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DcOffset, float PhaseOffset) {
-            if (!Buffer || BufferSize == 0) return;
-    
-            float twoPi = static_cast<float>(2.0 * M_PI);
-            float phaseStep = twoPi / static_cast<float>(BufferSize);
-            
-            float phaseOffsetScaled = PhaseOffset * twoPi;  // Precompute once
+        #include "Sine/Sine.h"  
+    #endif
 
-            for (size_t i = 0; i < BufferSize; i++) {
-                float phase = (i * phaseStep) + phaseOffsetScaled;
-                Buffer[i] = static_cast<OUTPUT_TYPE>(Amp * sinf(phase) + DcOffset);
-            }
-        }
-    }
-
-#endif//MIDILAR_PERIODIC_SINE_H
+#endif//MIDILAR_GENERATORS_PERIODIC_SINE_TOP_H

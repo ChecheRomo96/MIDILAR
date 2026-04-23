@@ -1,0 +1,113 @@
+/**
+ * @file Triangle.dox
+ */
+
+/**
+ * @addtogroup MIDILAR_dspFoundation_Gen_Periodic_Triangle
+ * @{
+ *
+ * @brief Triangle waveform generator.
+ *
+ * Generates a triangle waveform over a buffer using an analytical implementation.
+ *
+ * The waveform is computed as a piecewise linear function over one normalized cycle:
+ *
+ * @f[
+ * y[n] =
+ * \begin{cases}
+ * A \cdot \left(4x[n] - 1\right) + B, & 0 \leq x[n] < \frac{1}{2} \\
+ * A \cdot \left(3 - 4x[n]\right) + B, & \frac{1}{2} \leq x[n] < 1
+ * \end{cases}
+ * @f]
+ *
+ * where:
+ *
+ * @f[
+ * x[n] = \left( \frac{n}{N} + \phi_0 \right) \bmod 1
+ * @f]
+ *
+ * with:
+ *
+ * @f[
+ * n \in [0, \dots, N-1], \quad \phi_0 \in [0,1)
+ * @f]
+ *
+ * where:
+ * - @f$N@f$ is the buffer size
+ * - @f$A@f$ is the amplitude
+ * - @f$B@f$ is the DC offset
+ * - @f$\phi_0@f$ is the normalized phase offset
+ * - @f$x[n]@f$ is the normalized phase at sample @f$n@f$
+ *
+ * ---
+ *
+ * ## Function
+ *
+ * @code
+ * template<typename OUTPUT_TYPE>
+ * void Triangle(OUTPUT_TYPE* Buffer,
+ *               size_t BufferSize,
+ *               float Amp,
+ *               float DcOffset,
+ *               float PhaseOffset);
+ * @endcode
+ *
+ * ---
+ *
+ * ## Parameters
+ *
+ * - **Buffer**: Pointer to output buffer
+ * - **BufferSize**: Number of samples to generate
+ * - **Amp**: Amplitude of the waveform
+ * - **DcOffset**: DC offset added to the signal
+ * - **PhaseOffset**: Phase offset in normalized units [0, 1)
+ *
+ * ---
+ *
+ * ## Behavior
+ *
+ * - Generates one full cycle across the buffer
+ * - Produces a linear rising and falling waveform
+ * - Phase is handled in normalized units
+ * - Stateless implementation (no internal memory)
+ * - Deterministic output
+ *
+ * ---
+ *
+ * ## Harmonic Content
+ *
+ * The triangle wave contains only odd harmonics with faster decay than the square wave:
+ *
+ * @f[
+ * y(t) = \frac{8A}{\pi^2} \sum_{k=1,3,5,\dots}^{\infty} \frac{(-1)^{\frac{k-1}{2}}}{k^2} \sin(k \omega t)
+ * @f]
+ *
+ * ---
+ *
+ * ## Example
+ *
+ * @code
+ * float buffer[128];
+ *
+ * MIDILAR::dspFoundation::Generators::Periodic::Triangle(
+ *     buffer,
+ *     128,
+ *     1.0f,
+ *     0.0f,
+ *     0.0f
+ * );
+ * @endcode
+ *
+ * ---
+ *
+ * ## Notes
+ *
+ * - The output type is templated to support different numeric formats
+ *   (e.g., float, int16_t, uint16_t).
+ * - For fixed-point types, scaling must be handled by the caller.
+ * - This implementation is typically not band-limited.
+ * - Aliasing is usually less severe than in square and saw waveforms.
+ *
+ */
+
+/** @} */

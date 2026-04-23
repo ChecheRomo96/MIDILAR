@@ -15,8 +15,9 @@
          * y(x) = x^\gamma
          * \f]
          * where:
-         * - \f$ x \in [0, 1] \f$ is linearly spaced
-         * - \f$ \gamma > 0 \f$ is a fixed exponent
+         * \f[ x \in [0, 1], \quad \gamma \in (0, \infty) \f] 
+         * - \f$ x \f$ is linearly spaced across the buffer
+         * - \f$ \gamma \f$ is the gamma exponent controlling the curve's shape
          *
          * @tparam OUTPUT_TYPE The output type (e.g., float, uint8_t).
          * @param Buffer Output buffer to write the curve into.

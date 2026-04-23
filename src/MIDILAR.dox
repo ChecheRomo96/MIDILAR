@@ -42,21 +42,6 @@
     * @ingroup MIDILAR
     * @defgroup MIDILAR_dspFoundation DSP Foundation
     * @brief Core components for signal shaping, control mapping, and waveform generation.
-    * 
-    * The DSP Foundation module provides essential tools for applying signal processing 
-    * techniques in a MIDI-centered context. It includes a flexible system of 
-    * **lookup tables (LUTs)** designed for real-time performance on embedded hardware, 
-    * enabling waveform synthesis, morphing functions, nonlinear scaling, and 
-    * expressive control remapping.
-    * 
-    * Key features:
-    * - 1D, 2D, and 3D LUT classes for real-time lookup and interpolation
-    * - Periodic waveform generators (sine, square, triangle, saw)
-    * - Shaping functions for velocity curves, envelopes, and dynamic control (e.g., log-exp, sigmoid)
-    * - Modular and reusable DSP blocks compatible with real-time MIDI processing
-    * 
-    * Ideal for embedded synthesizers, MIDI processors, or interactive sound systems 
-    * where efficiency and expressiveness are critical.
     */
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    /**

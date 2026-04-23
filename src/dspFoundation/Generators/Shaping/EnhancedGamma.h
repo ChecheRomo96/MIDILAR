@@ -17,7 +17,8 @@
         * y(x) = x^{G^m}
         * \f]
         * where:
-        * - \f$ x \in [0, 1] \f$ is linearly spaced across the buffer
+        * \f[ x \in [0, 1], \quad G \in [1, \infty), \quad m \in [-1, 1] \f] 
+        * - \f$ x \f$ is linearly spaced across the buffer
         * - \f$ G \f$ is the shaping base (ExpGain)
         * - \f$ m \f$ is the morph control (Morph), ranging from -1 to 1
         *
@@ -27,8 +28,8 @@
         * @tparam OUTPUT_TYPE The output data type (e.g., float or uint8_t).
         * @param Buffer Pointer to the output buffer to be filled.
         * @param BufferSize Number of samples in the buffer.
-        * @param Morph Morph value in the range [-1, 1] controlling curve shape.
-        * @param ExpGain Exponentiation base \f$ G \geq 1 \f$ controlling shaping intensity.
+        * @param Morph Morph value controlling curve shape.
+        * @param ExpGain Exponentiation base controlling shaping intensity.
         * @param OutputGain Output gain factor.
         */
             template<typename OUTPUT_TYPE>

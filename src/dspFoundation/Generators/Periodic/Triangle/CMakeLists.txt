@@ -10,43 +10,11 @@
 # Append Headers (local to this subdirectory)
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Periodic.h"
+        "${CMAKE_CURRENT_LIST_DIR}/Triangle.h"
     )
     list(APPEND MIDILAR_DOX_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Periodic.dox"
+        "${CMAKE_CURRENT_LIST_DIR}/Triangle.dox"
     )
-
-    if(MIDILAR_DSP_GENERATORS_PERIODIC_SINE)
-        add_subdirectory(Sine)
-
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Sine.h"
-        )
-    endif()
-
-    if(MIDILAR_DSP_GENERATORS_PERIODIC_TRIANGLE)
-        add_subdirectory(Triangle)
-
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Triangle.h"
-        )
-    endif()
-
-    if(MIDILAR_DSP_GENERATORS_PERIODIC_SAW)
-        add_subdirectory(Saw)
-
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Saw.h"
-        )
-    endif()
-
-    if(MIDILAR_DSP_GENERATORS_PERIODIC_SQUARE)
-        add_subdirectory(Square)
-
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Square.h"
-        )
-    endif()
 #
 ######################################################################################################
 # Add sources to the MIDILAR target
@@ -78,7 +46,7 @@
     # Install headers for this subdirectory
     install(
         FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Periodic"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Periodic/Triangle"
     )
 #
 ######################################################################################################
