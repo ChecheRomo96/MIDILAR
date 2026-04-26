@@ -1,169 +1,112 @@
+#ifndef MIDILAR_LUT_1D_H
+#define MIDILAR_LUT_1D_H
+
+#include <stdlib.h>
+#include <stdint.h>
+#include <stddef.h>
+
+#include <MIDILAR_BuildSettings.h>
+
+namespace MIDILAR::dspFoundation::LUT {
+
 /**
- * @file LUT1D.h
- * @brief Base class for Look-Up Tables (LUTs) used in dspFoundation.
+ * @class LUT1D
+ * @brief Lightweight one-dimensional lookup table container.
+ *
+ * Owns a dynamically allocated buffer and tracks active size separately from
+ * allocated capacity.
+ *
+ * @tparam T Type stored in the LUT.
  */
+template<typename T>
+class LUT1D {
+public:
+    using Type = LUT1D<T>;
 
- #ifndef MIDILAR_LUT_1D_H
- #define MIDILAR_LUT_1D_H
- 
- #include <stdlib.h> // For malloc/free
- #include <math.h>
- #include <stdint.h>
+private:
+    T* _buffer;
+    size_t _size;
+    size_t _capacity;
 
- #include <MIDILAR_BuildSettings.h>
- 
- namespace MIDILAR::dspFoundation::LUT {
-    
-    /////////////////////////////////////////////////////////////////////////////////////
+    bool _Reallocate(size_t newCapacity);
+
+public:
+    /// Constructs an empty LUT.
+    LUT1D();
+
+    /// Constructs a LUT with the requested active size.
+    explicit LUT1D(size_t size);
+
+    LUT1D(const LUT1D& other) = delete;
+    LUT1D& operator=(const LUT1D& other) = delete;
+
+    /// Moves another LUT into this one.
+    LUT1D(LUT1D&& other) noexcept;
+
+    /// Moves another LUT into this one.
+    LUT1D& operator=(LUT1D&& other) noexcept;
+
+    /// Releases the owned buffer.
+    ~LUT1D() noexcept;
+
     /**
-     * @class LUT1D
-     * @brief A template-based Look-Up Table (LUT) for efficient function approximation.
-     * 
-     * This class provides a base implementation for LUT-based interpolation.
-     * Derived classes should override the `Eval()` method to populate the LUT.
-     *
-     * @tparam OUTPUT_TYPE The data type stored in the LUT.
+     * @brief Reserves memory without changing the active size.
+     * @return true if the requested capacity is available.
      */
-        template<typename OUTPUT_TYPE>
-        class LUT1D{
-            public:
-                using Type = LUT1D<OUTPUT_TYPE>;
+    bool Reserve(size_t newCapacity);
 
-            private:
+    /**
+     * @brief Changes the active LUT size.
+     * @return true if the resize succeeds.
+     */
+    bool Resize(size_t newSize);
 
-                    bool _ResizeBuffer(size_t newSize);
-                    size_t _bufferSize;         ///< The number of elements in the LUT.
-                    OUTPUT_TYPE* _buffer;  ///< Pointer to the allocated LUT buffer. 
-            
-            protected:
-            
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Pure virtual function for LUT evaluation.
-                 * 
-                 * Derived classes must override this method to populate the LUT with appropriate values.
-                 */
-                    virtual void Eval() = 0;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Returns a raw pointer to the LUT buffer.
-                 * Use with care. Intended for derived classes or internal use.
-                 */
-                    OUTPUT_TYPE* GetBuffer();
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Returns a const pointer to the internal LUT buffer.
-                 */
-                    const OUTPUT_TYPE* GetBuffer() const;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Sets the LUT buffer size.
-                 * 
-                 * Allocates or resizes the buffer and triggers re-evaluation
-                 * 
-                 * @param size The new number of LUT entries.
-                 * @return True if successful, false otherwise.
-                 */
-                    bool SetBufferSize(size_t size);
-                //
-                /////////////////////////////////////////////////////////////////////////   
-                /**
-                 * @brief Returns the current buffer size.
-                 * 
-                 * @return Number of entries in the LUT.
-                 */
-                    size_t BufferSize() const;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Sets a specific data value at a given bin index.
-                 * 
-                 * @param index The bin index to modify.
-                 * @param Data  The value to set.
-                 */
-                    void SetData(size_t index, OUTPUT_TYPE Data);
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Clears all LUT values without deallocating memory.
-                 * 
-                 * Sets every entry to zero.
-                 */
-                    void ClearBuffer();
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Sets the LUT data from an external source.
-                 * 
-                 * Transfers external buffer data into the LUT.
-                 * Caller is responsible for memory safety.
-                 * 
-                 * @param Data Pointer to external buffer.
-                 * @param buffer_size Number of elements in the external buffer.
-                 */
-                    void SetRawData(OUTPUT_TYPE* Data, size_t buffer_size);
-                //
-                /////////////////////////////////////////////////////////////////////////
-            
-            public:
-            
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Constructor for LUT1D.
-                 * Initializes the LUT with no allocated buffer.
-                 */
-                    LUT1D();
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Move constructor.
-                 * 
-                 * Transfers ownership of the LUT buffer from another instance.
-                 * 
-                 * @param other The LUT1D instance to move from.
-                 */
-                    LUT1D(LUT1D&& other) noexcept;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Move assignment operator.
-                 * 
-                 * Transfers ownership of the LUT buffer from another instance.
-                 * 
-                 * @param other The LUT1D instance to move from.
-                 * @return Reference to this instance.
-                 */
-                    LUT1D& operator=(LUT1D&& other) noexcept;
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Destructor for LUT1D.
-                 * Frees the allocated buffer memory.
-                 */
-                    virtual ~LUT1D();
-                //
-                /////////////////////////////////////////////////////////////////////////
-                /**
-                 * @brief Retrieves an interpolated value from the LUT.
-                 * 
-                 * Uses linear interpolation between LUT points based on the input value.
-                 * 
-                 * @param inputValue The input value to lookup.
-                 * @return The interpolated LUT value.
-                 */
-                    virtual OUTPUT_TYPE GetValue(size_t bin) const;
-                //
-                /////////////////////////////////////////////////////////////////////////
-        };
-    //
-    /////////////////////////////////////////////////////////////////////////////////////
+    /// Compatibility alias for Resize().
+    bool SetBufferSize(size_t size);
 
- } // namespace MIDILAR::dspFoundation::LUT
- 
- #include "LUT1D.tpp"
- 
- #endif // MIDILAR_LUT_1D_H
- 
+    /// Returns the number of active bins.
+    size_t Size() const;
+
+    /// Compatibility alias for Size().
+    size_t BufferSize() const;
+
+    /// Returns the allocated capacity.
+    size_t Capacity() const;
+
+    /// Returns the mutable internal buffer.
+    T* GetBuffer();
+
+    /// Returns the const internal buffer.
+    const T* GetBuffer() const;
+
+    /// Returns the value at bin, or zero if bin is out of range.
+    T GetValue(size_t bin) const;
+
+    /// Writes value to bin. Out-of-range writes are ignored.
+    void SetBinValue(size_t index, T value);
+
+    /// Compatibility alias for SetBinValue().
+    void SetData(size_t index, T value);
+
+    /// Clears active bins to zero.
+    void Clear();
+
+    /// Compatibility alias for Clear().
+    void ClearBuffer();
+
+    /**
+     * @brief Copies external data into the LUT.
+     *
+     * The LUT resizes to bufferSize and copies the data. Ownership of data is
+     * not transferred.
+     *
+     * @return true if the copy succeeds.
+     */
+    bool SetRawData(const T* data, size_t bufferSize);
+};
+
+} // namespace MIDILAR::dspFoundation::LUT
+
+#include "LUT1D.tpp"
+
+#endif // MIDILAR_LUT_1D_H

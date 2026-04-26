@@ -26,9 +26,7 @@
  * - `LogExpLUT3D` — morphing and gain-controlled shape in 3D space
  *
  * ### Classes in this Module:
- * - @ref MIDILAR::dspFoundation::LUT::Shaping::LogExpLUT1D
- * - @ref MIDILAR::dspFoundation::LUT::Shaping::LogExpLUT2D
- * - @ref MIDILAR::dspFoundation::LUT::Shaping::LogExpLUT3D
+ * - @ref MIDILAR::dspFoundation::LUT::Shaping::GammaLUT
  *
  * These generators can be flattened into their corresponding base LUT containers
  * (`LUT1D`, `LUT2D`, `LUT3D`) after construction for lightweight reuse.

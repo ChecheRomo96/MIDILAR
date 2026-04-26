@@ -3,9 +3,9 @@
     
     #include <MIDILAR_BuildSettings.h>
     
-    #if __has_include(<dspFoundation/LUT/Periodic/LUTPeriodic.h>)
+    #if __has_include(<dspFoundation/LUT/Periodic/Periodic.h>)
         #define MIDILAR_LUT_PERIODIC
-        #include <dspFoundation/LUT/Periodic/LUTPeriodic.h>
+        #include <dspFoundation/LUT/Periodic/Periodic.h>
     #endif
 
 #endif //MIDILAR_LUT_PERIODIC_TOP_H

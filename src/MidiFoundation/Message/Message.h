@@ -985,7 +985,7 @@
                    * @param Length The number of bytes in the SysEx message.
                    * @return Reference to the modified Message object.
                    */
-                     Message& SystemExclusive(uint8_t* Data, uint8_t Length); ///< Constructs a System Exclusive message.
+                     Message& SystemExclusive(const uint8_t* Data, uint8_t Length); ///< Constructs a System Exclusive message.
                   //
                   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   // SystemExclusive(const std::vector<uint8_t>& Data);

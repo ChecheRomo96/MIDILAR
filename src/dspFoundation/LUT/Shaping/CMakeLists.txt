@@ -14,7 +14,7 @@
         "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.h"
         "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.tpp"
     )
-    list(APPEND MIDILAR_DOX_LOACCAL
+    list(APPEND MIDILAR_DOX_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/Shaping.dox"
     )
 #

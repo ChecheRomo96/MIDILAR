@@ -1,0 +1,2 @@
+add_executable(MIDILAR_Examples_LUT1D_ResizeReserve ResizeReserve.cpp)
+target_link_libraries(MIDILAR_Examples_LUT1D_ResizeReserve MIDILAR)

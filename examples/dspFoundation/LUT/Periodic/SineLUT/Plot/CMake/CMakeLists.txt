@@ -1,2 +1,0 @@
-add_executable(SineLUT_Plot Plot.cpp)
-target_link_libraries(SineLUT_Plot MIDILAR)

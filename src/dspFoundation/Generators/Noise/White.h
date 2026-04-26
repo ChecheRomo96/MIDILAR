@@ -30,20 +30,12 @@ namespace MIDILAR::dspFoundation::Generators::Noise {
         // Validate parameters
         if (!Buffer) return;
         if (TotalSamples == 0) return;
-        if (FirstSample >= TotalSamples) return;
-
-        // Default range to the entire buffer
-        if (LastSample == static_cast<size_t>(-1) || LastSample > TotalSamples) {
-            LastSample = TotalSamples;
-        }
-
-        if (FirstSample >= LastSample) return;
 
         // Local seed if none provided
         uint32_t LocalSeed = 0x12345678u;
         uint32_t& State = Seed ? *Seed : LocalSeed;
 
-        for (size_t i = FirstSample; i < LastSample; i++) {
+        for (size_t i = 0; i < TotalSamples; i++) {
 
             // xorshift32
             State ^= State << 13;

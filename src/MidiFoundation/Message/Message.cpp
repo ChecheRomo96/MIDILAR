@@ -65,7 +65,7 @@ namespace MIDILAR::MidiFoundation{
                 _Data = MessageBuffer._Data;  // This works because std::vector handles its own memory management
             #else
                 // Resize the buffer to accommodate the new message size
-                if (!_resize(MessageBuffer._MessageSize)) {
+                if (!_Resize(MessageBuffer._MessageSize)) {
                     // If resizing fails, handle the failure (e.g., throw an exception, or set a failure flag)
                     return;
                 }
@@ -128,7 +128,7 @@ namespace MIDILAR::MidiFoundation{
                 // If not using std::vector, we need to handle raw memory
                 if (this != &Source) {
                     // Resize the buffer if necessary
-                    if (!_resize(Source._MessageSize)) {
+                    if (!_Resize(Source._MessageSize)) {
                         return *this; // Handle failure by returning the current object
                     }
 
@@ -246,8 +246,8 @@ namespace MIDILAR::MidiFoundation{
             #else
                 if (Data == _Data) return; // Avoid self-assignment
                 if (Size > _BufferSize) {
-                    if (!_resize(Size)) {
-                        _resize(0);
+                    if (!_Resize(Size)) {
+                        _Resize(0);
                         return *this;
                     }
                 }
@@ -801,7 +801,7 @@ namespace MIDILAR::MidiFoundation{
         //
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Message& Message::SystemExclusive(uint8_t* Data, uint8_t Length) {
+        Message& Message::SystemExclusive(const uint8_t* Data, uint8_t Length) {
             // Validate input
             if (Length == 0) {
                 return *this;  // No data to process
@@ -838,6 +838,17 @@ namespace MIDILAR::MidiFoundation{
             return *this;
         }
 
+        #if __has_include(<vector>)
+        
+            Message& Message::SystemExclusive(const std::vector<uint8_t>& Data){
+                if (Data.empty()) {
+                    _resize(0); // Clear the message if the input vector is empty
+                    return *this;  // No data to process
+                }
+                return SystemExclusive(Data.data(), static_cast<uint8_t>(Data.size()));
+            }
+            
+        #endif
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

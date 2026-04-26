@@ -1,0 +1,2 @@
+add_executable(MIDILAR_Examples_LUT1D_RawData RawData.cpp)
+target_link_libraries(MIDILAR_Examples_LUT1D_RawData MIDILAR)

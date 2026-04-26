@@ -1,2 +1,0 @@
-add_executable(TriangleLUT_Plot Plot.cpp)
-target_link_libraries(TriangleLUT_Plot MIDILAR)

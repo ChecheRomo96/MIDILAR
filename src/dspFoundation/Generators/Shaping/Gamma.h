@@ -41,9 +41,36 @@
 
             Buffer[BufferSize - 1] = OutputGain;
         }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
-
     }
+
+    #if defined(MIDILAR_DSP_LUT1D)
+
+        #include <dspFoundation/LUT/LUT1D.h>
+
+        namespace MIDILAR::dspFoundation::Generators::Shaping {
+
+            template<typename T>
+            bool GammaLUT(
+                MIDILAR::dspFoundation::LUT::LUT1D<T>& lut,
+                float GammaValue,
+                T OutputGain
+            ) {
+                if (!lut.GetBuffer() || lut.Size() == 0) {
+                    return false;
+                }
+
+                Gamma<T>(
+                    lut.GetBuffer(),
+                    lut.Size(),
+                    GammaValue,
+                    OutputGain
+                );
+
+                return true;
+            }
+
+        } // namespace MIDILAR::dspFoundation::Generators::Shaping
+
+    #endif // MIDILAR_DSP_LUT1D
 
 #endif // MIDILAR_GENERATORS_GAMMA_H

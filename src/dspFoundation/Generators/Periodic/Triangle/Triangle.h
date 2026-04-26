@@ -2,34 +2,76 @@
 #define MIDILAR_PERIODIC_TRIANGLE_H
 
     #include <MIDILAR_BuildSettings.h>
-
-    #define _USE_MATH_DEFINES
+    #include <stddef.h>
     #include <math.h>
 
     namespace MIDILAR::dspFoundation::Generators::Periodic {
-        template<typename OUTPUT_TYPE>
-        void Triangle(OUTPUT_TYPE* Buffer, size_t BufferSize, float Amp, float DCOffset, float PhaseOffset) {
-            if (!Buffer || BufferSize == 0) return;
 
-            float twoPi = static_cast<float>(2 * M_PI);
-            float phaseStep = twoPi / static_cast<float>(BufferSize);
+        template<typename T>
+        void Triangle(
+            T* Buffer,
+            size_t BufferSize,
+            float Amp,
+            float DCOffset,
+            float PhaseOffset
+        ) {
+            if (!Buffer || BufferSize == 0) {
+                return;
+            }
 
-            // Apply a 270° (3π/2) phase shift to start at midpoint with rising slope
-            float offsetRad = fmodf((PhaseOffset + 0.75f) * twoPi, twoPi);
-            if (offsetRad < 0.0f) offsetRad += twoPi;
+            float phaseStep = 1.0f / static_cast<float>(BufferSize);
 
-            for (size_t i = 0; i < BufferSize; i++) {
-                float phase = fmodf(i * phaseStep + offsetRad, twoPi);
+            // +0.75 starts at midpoint with rising slope.
+            float phase = fmodf(PhaseOffset + 0.75f, 1.0f);
+            if (phase < 0.0f) {
+                phase += 1.0f;
+            }
 
-                // Normalize phase to [0, 1] range
-                float normalizedPhase = phase / twoPi;
+            for (size_t i = 0; i < BufferSize; ++i) {
+                float triangleValue = 2.0f * fabsf(2.0f * phase - 1.0f) - 1.0f;
 
-                // Triangle wave calculation (rises to +1 then falls to -1)
-                float triangleValue = 2.0f * fabsf(2.0f * normalizedPhase - 1.0f) - 1.0f;
+                Buffer[i] = static_cast<T>(triangleValue * Amp + DCOffset);
 
-                Buffer[i] = static_cast<OUTPUT_TYPE>(triangleValue * Amp + DCOffset);
+                phase += phaseStep;
+
+                if (phase >= 1.0f) {
+                    phase -= 1.0f;
+                }
             }
         }
-    }
 
-#endif//MIDILAR_PERIODIC_TRIANGLE_H
+    } // namespace MIDILAR::dspFoundation::Generators::Periodic
+
+    #if defined(MIDILAR_DSP_LUT1D)
+
+        #include <dspFoundation/LUT/LUT1D.h>
+
+        namespace MIDILAR::dspFoundation::Generators::Periodic {
+
+            template<typename T>
+            bool TriangleLUT(
+                MIDILAR::dspFoundation::LUT::LUT1D<T>& lut,
+                float Amp = 1.0f,
+                float DCOffset = 0.0f,
+                float PhaseOffset = 0.0f
+            ) {
+                if (!lut.GetBuffer() || lut.Size() == 0) {
+                    return false;
+                }
+
+                Triangle<T>(
+                    lut.GetBuffer(),
+                    lut.Size(),
+                    Amp,
+                    DCOffset,
+                    PhaseOffset
+                );
+
+                return true;
+            }
+
+        } // namespace MIDILAR::dspFoundation::Generators::Periodic
+
+    #endif // MIDILAR_DSP_LUT1D
+
+#endif // MIDILAR_PERIODIC_TRIANGLE_H
