@@ -1,88 +1,124 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * @file LUT1D.dox
- * @brief Detailed documentation for the LUT1D base class in MIDILAR.
+ * @brief Detailed documentation for the LUT1D container in MIDILAR.
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * @defgroup MIDILAR_dspFoundation_LUT_1D LUT1D
  * @ingroup MIDILAR_dspFoundation_LUT
- * @brief One-dimensional lookup table for efficient direct bin access.
+ * @brief One-dimensional lookup table container for efficient indexed access.
  *
- * The `LUT1D` class is a template-based base class that provides memory-safe buffer management
- * and index-based lookup. It is designed to be subclassed by generator classes (e.g., `SineLUT`, `TriangleLUT`),
- * which populate the buffer through the virtual `Eval()` function.
+ * The `LUT1D` class is a lightweight, template-based container that owns a contiguous buffer
+ * and provides safe access, resizing, and data manipulation utilities.
+ *
+ * Unlike earlier designs, `LUT1D` is **not a base class** and does **not implement any generator logic**.
+ * It is purely responsible for **storage and lookup**.
+ *
+ * Signal generation is handled externally by the `Generators` module, which can fill a `LUT1D`
+ * instance through its buffer interface.
  *
  * @tparam OUTPUT_TYPE The type of value stored in the LUT (e.g., float, int16_t).
  *
  * @see MIDILAR::dspFoundation::LUT::LUT1D
  *
+ * ---
+ *
  * ### Key Features
- * - Direct bin lookup via `GetValue(size_t bin)`
- * - Buffer size management via `SetBufferSize()`
+ *
+ * - Direct indexed access via `GetValue(size_t index)`
+ * - Explicit memory control via `Resize()` and `Reserve()`
+ * - Separation of **size** and **capacity**
  * - External data injection via `SetRawData()`
- * - Designed for use in both static LUTs and real-time controllers
+ * - Move-enabled for efficient ownership transfer
  *
- * ### Example: Custom Triangle Wave
- * @code
- * class TriangleLUT : public LUT1D<float> {
- * protected:
- *     void Eval() override {
- *         for (size_t i = 0; i < BufferSize(); ++i) {
- *             float x = static_cast<float>(i) / BufferSize();
- *             SetData(i, 1.0f - fabsf(2.0f * x - 1.0f));
- *         }
- *     }
- * };
- * @endcode
+ * ---
  *
- * ### Usage Pattern: Flattening a Generator
+ * ### Design Philosophy
  *
- * A derived LUT class (e.g., `SineLUT`) can be used as a waveform generator that populates a LUT via `Eval()`.
- * Once populated, you can **move** it into a `LUT1D` base instance. This discards the generator logic,
- * keeping only the buffer — a technique known as **intentional object slicing**.
+ * ```txt
+ * Generators → produce data
+ * LUT        → stores data
+ * ```
  *
- * This is useful in systems where the waveform is chosen dynamically and needs to be reused efficiently
- * without the overhead of polymorphism or generator logic at runtime.
+ * This separation avoids inheritance overhead and enables:
+ *
+ * - Reusable, stateless generators
+ * - Flexible runtime LUT population
+ * - Cleaner embedded-friendly design (no virtual calls)
+ *
+ * ---
+ *
+ * ### Example: Filling a LUT with a Generator
  *
  * @code
- * SineLUT<float> sine;
- * sine.SetBufferSize(128);
+ * using namespace MIDILAR::dspFoundation;
  *
- * LUT1D<float> waveform = std::move(sine); // Keeps only the LUT buffer
- * float value = waveform.GetValue(10);
+ * LUT::LUT1D<float> lut(128);
+ *
+ * Generators::Periodic::Sine(
+ *     lut.GetBuffer(),
+ *     lut.Size(),
+ *     1.0f,   // amplitude
+ *     0.0f,   // DC offset
+ *     0.0f    // phase offset
+ * );
+ *
+ * float value = lut.GetValue(10);
  * @endcode
  *
- * This pattern enables flexible runtime waveform switching and low-overhead LUT storage in embedded contexts.
+ * ---
  *
- * ### Group Members
- * - @ref MIDILAR::dspFoundation::LUT::LUT1D
+ * ### Example: Using a LUT Adapter
  *
- * ### Derived Classes
+ * If enabled via `MIDILAR_DSP_LUT1D`, generators may provide convenience wrappers:
  *
- * The following classes inherit from `LUT1D` and reside in specialized namespaces:
+ * @code
+ * Generators::Periodic::SineLUT(lut);
+ * @endcode
  *
- * **Periodic LUTs** (@ref MIDILAR_dspFoundation_LUT_Periodic):
- * - @ref MIDILAR::dspFoundation::LUT::Periodic::SineLUT
- * - @ref MIDILAR::dspFoundation::LUT::Periodic::TriangleLUT
- * - @ref MIDILAR::dspFoundation::LUT::Periodic::SquareLUT
- * - @ref MIDILAR::dspFoundation::LUT::Periodic::SawLUT
+ * These helpers simply forward to the underlying generator and operate directly on the LUT buffer.
  *
- * **Shaping LUTs** (@ref MIDILAR_dspFoundation_LUT_Shaping):
- * - @ref MIDILAR::dspFoundation::LUT::Shaping::LogExpLUT
- * - @ref MIDILAR::dspFoundation::LUT::Shaping::SigmoidLUT
+ * ---
  *
- * These are generator classes that implement `Eval()` and are typically used to populate a `LUT1D`
- * instance. You can use them temporarily and move them into a base LUT for flattened, efficient reuse.
+ * ### Usage Notes
  *
- * @see MIDILAR_dspFoundation_LUT_Periodic
- * @see MIDILAR_dspFoundation_LUT_Shaping
+ * - The LUT does **not enforce bounds** on write operations; users must ensure valid indexing.
+ * - `GetValue()` returns zero if the index is out of range.
+ * - `Resize()` changes active size; `Reserve()` changes capacity only.
+ * - Suitable for real-time systems where memory layout and predictability matter.
+ *
+ * ---
+ *
+ * ### Relationship with Generators
+ *
+ * Generators live in:
+ *
+ * - @ref MIDILAR::dspFoundation::Generators::Periodic
+ * - @ref MIDILAR::dspFoundation::Generators::Shaping
+ * - @ref MIDILAR::dspFoundation::Generators::Noise
+ *
+ * These modules operate on raw buffers and optionally on `LUT1D`.
+ *
+ * ---
  *
  * ### Executable Examples
  *
- * #### GeneratorLUT (custom subclass of LUT1D)
- * — Generates multiple waveform LUTs and export to MATLAB
- * - \ref dspFoundation/LUT/LUT1D/GeneratorLUT/CMake/GeneratorLUT.cpp "GeneratorLUT.cpp"
- * - \ref dspFoundation/LUT/LUT1D/GeneratorLUT/GeneratorLUT.ino "GeneratorLUT.ino"
+ * #### BasicFill
+ * - \ref dspFoundation/LUT/LUT1D/BasicFill/CMake/BasicFill.cpp "BasicFill.cpp"
+ * - \ref dspFoundation/LUT/LUT1D/BasicFill/BasicFill.ino "BasicFill.ino"
+ *
+ * #### FunctionTable
+ * - \ref dspFoundation/LUT/LUT1D/FunctionTable/CMake/FunctionTable.cpp "FunctionTable.cpp"
+ * - \ref dspFoundation/LUT/LUT1D/FunctionTable/FunctionTable.ino "FunctionTable.ino"
+ *
+ * #### ManualOscillator
+ * - \ref dspFoundation/LUT/LUT1D/ManualOscillator/CMake/ManualOscillator.cpp "ManualOscillator.cpp"
+ * - \ref dspFoundation/LUT/LUT1D/ManualOscillator/ManualOscillator.ino "ManualOscillator.ino"
+ *
+ * ---
+ *
+ * ### Group Members
+ * - @ref MIDILAR::dspFoundation::LUT::LUT1D
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

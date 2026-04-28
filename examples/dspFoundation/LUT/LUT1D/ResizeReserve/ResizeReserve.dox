@@ -1,0 +1,28 @@
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_ResizeReserve Resize & Reserve
+ * @ingroup MIDILAR_Examples_LUT_1D
+ * @brief Demonstrates explicit size and capacity management in LUT1D.
+ *
+ * This example explains the difference between logical size and allocated
+ * capacity in the LUT1D container.
+ *
+ * @section lut1d_resize_reserve_purpose Purpose
+ *
+ * The Resize & Reserve example shows how to:
+ * - Allocate storage using Resize()
+ * - Reserve additional capacity without changing logical size
+ * - Query Size() and Capacity()
+ * - Manage LUT memory explicitly
+ *
+ * @section lut1d_resize_reserve_concepts Concepts Demonstrated
+ *
+ * - Size versus capacity
+ * - Explicit memory allocation
+ * - Avoiding unexpected reallocations
+ * - Embedded-friendly memory planning
+ *
+ * @section lut1d_resize_reserve_notes Notes
+ *
+ * Resize() changes the logical number of valid elements. Reserve() changes the
+ * allocated capacity while preserving the current logical size when possible.
+ */

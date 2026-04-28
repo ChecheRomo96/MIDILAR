@@ -10,12 +10,10 @@
 # Append Headers (local to this subdirectory)
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Shaping.h"
-        "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.h"
-        "${CMAKE_CURRENT_LIST_DIR}/GammaLUT.tpp"
+        "${CMAKE_CURRENT_LIST_DIR}/GammaMorph.h"
     )
     list(APPEND MIDILAR_DOX_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Shaping.dox"
+        "${CMAKE_CURRENT_LIST_DIR}/GammaMorph.dox"
     )
 #
 ######################################################################################################
@@ -48,7 +46,7 @@
     # Install headers for this subdirectory
     install(
         FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/LUT/Shaping"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Shaping/GammaMorph"
     )
 #
 ######################################################################################################

@@ -13,7 +13,7 @@
         "${CMAKE_CURRENT_LIST_DIR}/LUT1D.h"
         "${CMAKE_CURRENT_LIST_DIR}/LUT1D.tpp"
     )
-    list(APPEND MIDILAR_DOX_LOACCAL
+    list(APPEND MIDILAR_DOX_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/LUT1D.dox"
     )
 #

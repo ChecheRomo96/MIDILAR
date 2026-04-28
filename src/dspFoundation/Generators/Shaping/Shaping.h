@@ -4,6 +4,6 @@
     #include <MIDILAR_BuildSettings.h>
 
     #include "Gamma.h"
-    #include "EnhancedGamma.h"
+    #include "GammaMorph.h"
 
 #endif // MIDILAR_GENERATORS_SHAPING_H

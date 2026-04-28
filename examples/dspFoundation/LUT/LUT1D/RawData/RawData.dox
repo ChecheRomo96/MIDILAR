@@ -1,0 +1,28 @@
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_RawData Raw Data
+ * @ingroup MIDILAR_Examples_LUT_1D
+ * @brief Demonstrates direct access to the internal LUT1D data buffer.
+ *
+ * This example shows how to retrieve a raw pointer to the LUT1D storage when
+ * lower-level systems require direct buffer access.
+ *
+ * @section lut1d_raw_data_purpose Purpose
+ *
+ * The Raw Data example shows how to:
+ * - Access the underlying LUT buffer
+ * - Pass LUT data to low-level APIs
+ * - Use LUT1D with systems that operate on raw arrays
+ *
+ * @section lut1d_raw_data_concepts Concepts Demonstrated
+ *
+ * - Raw pointer access
+ * - External processing of LUT memory
+ * - Interoperability with C-style APIs
+ * - Buffer-oriented embedded workflows
+ *
+ * @section lut1d_raw_data_warning Important Warning
+ *
+ * Raw data access should be used carefully. The caller must avoid accessing
+ * memory outside the valid LUT size and must not free memory owned by the LUT1D
+ * object.
+ */

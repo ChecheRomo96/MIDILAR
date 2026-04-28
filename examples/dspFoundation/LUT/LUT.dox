@@ -1,24 +1,46 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * @file LUT.dox
- * @brief Examples using the LUT1D base class in the MIDILAR DSP module.
- */
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @addtogroup MIDILAR_Examples_LUT
- * @brief Practical examples showcasing 1D lookup table generation and manipulation.
+ * @brief Example groups for Lookup Table utilities in MIDILAR.
  *
- * This group contains curated examples that demonstrate how to work with MIDILAR base classes
- * LUT1D, LUT2D, and LUT3D. Also its derived classes such as Periodic waveform generators, wave shapers, etc.
+ * @ingroup MIDILAR_Examples
+ *
+ * @defgroup MIDILAR_Examples_LUT LUT Examples
+ * @brief Examples demonstrating Lookup Table containers and LUT-based workflows.
+ *
+ * The LUT examples demonstrate how to create, fill, resize, access, and use
+ * lookup tables within embedded-oriented DSP workflows.
+ *
+ * The examples are organized into the following subgroups:
+ *
+ * - @ref MIDILAR_Examples_LUT_1D
+ * - @ref MIDILAR_Examples_LUT_2D
+ * - @ref MIDILAR_Examples_LUT_3D
+ * - @ref MIDILAR_Examples_LUT_Generators
  */
-///////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
- * @defgroup MIDILAR_Examples_LUT_1D 1D LUTs Examples
+ * @defgroup MIDILAR_Examples_LUT_1D LUT1D Examples
  * @ingroup MIDILAR_Examples_LUT
+ * @brief Examples for one-dimensional lookup tables.
+ *
+ * These examples cover basic LUT1D usage, including allocation, filling,
+ * indexed access, resizing, and capacity handling.
  */
-///////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
- * @defgroup MIDILAR_Examples_LUT_2D 2D LUTs Examples
+ * @defgroup MIDILAR_Examples_LUT_2D LUT2D Examples
  * @ingroup MIDILAR_Examples_LUT
+ * @brief Examples for two-dimensional lookup tables.
+ *
+ * These examples cover LUT2D usage with flattened 2D buffers, x/y indexing,
+ * table filling, and surface-style data organization.
  */
-///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @defgroup MIDILAR_Examples_LUT_3D LUT3D Examples
+ * @ingroup MIDILAR_Examples_LUT
+ * @brief Examples for three-dimensional lookup tables.
+ *
+ * These examples cover LUT3D usage for parameterized tables, such as
+ * phase-by-morph-by-gain lookup structures.
+ */

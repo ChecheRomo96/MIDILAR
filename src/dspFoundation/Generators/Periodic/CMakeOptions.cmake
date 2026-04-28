@@ -10,21 +10,21 @@
 #################################################################################################################################
 # Sine Wave
 
-    option(MIDILAR_DSP_GENERATORS_PERIODIC_SINE "Enables the compilation of MIDILAR::dspFoundation::Generators::Sine" ON)
+    option(MIDILAR_DSP_GENERATORS_PERIODIC_SINE "Enables the compilation of MIDILAR::dspFoundation::Generators::Periodic::Sine" ON)
 #
 #################################################################################################################################
 # Square Wave
 
-    option(MIDILAR_DSP_GENERATORS_PERIODIC_SQUARE "Enables the compilation of MIDILAR::dspFoundation::Generators::Square" ON)
+    option(MIDILAR_DSP_GENERATORS_PERIODIC_SQUARE "Enables the compilation of MIDILAR::dspFoundation::Generators::Periodic::Square" ON)
 #
 #################################################################################################################################
 # Triangle Wave
 
-    option(MIDILAR_DSP_GENERATORS_PERIODIC_TRIANGLE "Enables the compilation of MIDILAR::dspFoundation::Generators::Triangle" ON)
+    option(MIDILAR_DSP_GENERATORS_PERIODIC_TRIANGLE "Enables the compilation of MIDILAR::dspFoundation::Generators::Periodic::Triangle" ON)
 #
 #################################################################################################################################
 # Sawtooth Wave
 
-    option(MIDILAR_DSP_GENERATORS_PERIODIC_SAW "Enables the compilation of MIDILAR::dspFoundation::Generators::Saw" ON)
+    option(MIDILAR_DSP_GENERATORS_PERIODIC_SAW "Enables the compilation of MIDILAR::dspFoundation::Generators::Periodic::Saw" ON)
 #
 #################################################################################################################################

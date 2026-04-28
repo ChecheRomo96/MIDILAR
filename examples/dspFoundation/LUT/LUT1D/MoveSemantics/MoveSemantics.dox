@@ -1,0 +1,27 @@
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_MoveSemantics Move Semantics
+ * @ingroup MIDILAR_Examples_LUT_1D
+ * @brief Demonstrates ownership transfer behavior for LUT1D objects.
+ *
+ * This example shows how LUT1D instances can transfer ownership of their
+ * internal buffer using move construction or move assignment.
+ *
+ * @section lut1d_move_semantics_purpose Purpose
+ *
+ * The Move Semantics example shows how to:
+ * - Move a LUT1D object without copying its buffer
+ * - Transfer ownership of allocated memory
+ * - Leave the moved-from object in a valid empty state
+ *
+ * @section lut1d_move_semantics_concepts Concepts Demonstrated
+ *
+ * - Move constructor behavior
+ * - Move assignment behavior
+ * - Ownership transfer
+ * - Avoiding unnecessary memory copies
+ *
+ * @section lut1d_move_semantics_embedded Embedded Notes
+ *
+ * Move semantics are useful when LUT containers need to be returned from
+ * factory-style functions or reassigned without duplicating large buffers.
+ */

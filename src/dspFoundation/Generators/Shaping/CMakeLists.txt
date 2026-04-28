@@ -11,13 +11,27 @@
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/Shaping.h"
-        "${CMAKE_CURRENT_LIST_DIR}/Gamma.h"
-        "${CMAKE_CURRENT_LIST_DIR}/EnhancedGamma.h"
     )
 
     list(APPEND MIDILAR_DOX_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/Shaping.dox"
     )
+
+
+    if(MIDILAR_DSP_GENERATORS_SHAPING_GAMMA)
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/Gamma.h"
+        )
+        add_subdirectory(Gamma)
+    endif()
+
+    if(MIDILAR_DSP_GENERATORS_SHAPING_GAMMA_MORPH)
+        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+            "${CMAKE_CURRENT_LIST_DIR}/GammaMorph.h"
+        )
+
+        add_subdirectory(GammaMorph)
+    endif()
 #
 ######################################################################################################
 # Add sources to the MIDILAR target

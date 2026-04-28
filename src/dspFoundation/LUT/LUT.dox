@@ -5,17 +5,111 @@
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @addtogroup MIDILAR_dspFoundation_LUT
+ * @addtogroup MIDILAR_dspFoundation_LUT Lookup Tables (LUT)
  *
- * This module provides the foundation for fast, flexible signal shaping using precomputed lookup tables.
- * It includes dimensional LUT types as well as specialized LUT generators under the `Periodic` and `Shaping` namespaces.
+ * @brief Core module for deterministic, high-performance data mapping using lookup tables.
  *
- * ### Topics:
- * - @ref MIDILAR_dspFoundation_LUT_1D
- * - @ref MIDILAR_dspFoundation_LUT_2D
- * - @ref MIDILAR_dspFoundation_LUT_3D
- * - @ref MIDILAR_dspFoundation_LUT_Periodic
- * - @ref MIDILAR_dspFoundation_LUT_Shaping
+ * This module provides lightweight, memory-efficient containers for storing precomputed data
+ * used in digital signal processing (DSP), control systems, and embedded applications.
+ *
+ * Lookup tables (LUTs) enable fast, predictable evaluation of functions by replacing
+ * runtime computation with indexed memory access.
+ *
+ * ---
+ *
+ * @section lut_concept Concept
+ *
+ * A lookup table represents a discrete sampling of a function:
+ *
+ * \f[
+ * y = f(x)
+ * \f]
+ *
+ * where values are precomputed and stored in memory for constant-time access.
+ *
+ * This approach is especially useful in:
+ * - Real-time systems
+ * - Embedded environments
+ * - Performance-critical DSP pipelines
+ *
+ * ---
+ *
+ * @section lut_architecture Architecture
+ *
+ * The LUT module is designed with a strict separation of responsibilities:
+ *
+ * - **LUT containers** → store data
+ * - **Generators** → populate LUTs with meaningful values
+ *
+ * ```text
+ * Generators (Periodic / Shaping)
+ *         ↓
+ *      LUT1D / LUT2D / LUT3D
+ *         ↓
+ *   Application / DSP pipeline
+ * ```
+ *
+ * This separation ensures:
+ * - Flexibility (any generator can fill any buffer)
+ * - Reusability
+ * - Minimal coupling between modules
+ *
+ * ---
+ *
+ * @section lut_dimensions LUT Types
+ *
+ * The module includes multiple dimensional containers:
+ *
+ * - @ref MIDILAR_dspFoundation_LUT_1D → 1D mapping (e.g., shaping curves)
+ * - @ref MIDILAR_dspFoundation_LUT_2D → 2D surfaces (e.g., morphing, interpolation)
+ * - @ref MIDILAR_dspFoundation_LUT_3D → volumetric mappings (e.g., parameter spaces)
+ *
+ * ---
+ *
+ * @section lut_usage Usage
+ *
+ * Typical workflow:
+ *
+ * 1. Allocate a LUT container
+ * 2. Populate it using a generator
+ * 3. Access values in real-time
+ *
+ * @code{.cpp}
+ * LUT1D<float> lut(256);
+ *
+ * Generators::Shaping::Gamma(lut.Data(), lut.Size(), 2.2f, 1.0f);
+ *
+ * float y = lut.GetData(index);
+ * @endcode
+ *
+ * ---
+ *
+ * @section lut_design Design Principles
+ *
+ * - Deterministic memory usage
+ * - Explicit buffer management
+ * - No dependency on the C++ standard library
+ * - Constant-time indexed access (O(1))
+ * - Suitable for embedded and real-time systems
+ *
+ * ---
+ *
+ * @section lut_relationship Relationship with Generators
+ *
+ * LUT containers do not define behavior.
+ * All functional behavior is implemented in the Generators module:
+ *
+ * - Periodic → waveform generation (sine, saw, etc.)
+ * - Shaping → nonlinear mappings (gamma, tanh, etc.)
+ *
+ * ---
+ *
+ * @section lut_related Related Modules
+ *
+ * - @ref MIDILAR_dspFoundation_Generators
+ * - @ref MIDILAR_dspFoundation_Gen_Periodic
+ * - @ref MIDILAR_dspFoundation_Gen_Shaping
+ *
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -40,21 +134,5 @@
  * @brief Three-dimensional lookup tables for complex control surfaces and real-time modulation.
  *
  * The `BaseLUT3D` class allows interpolation across three input axes, enabling expressive signal shaping with embedded performance in mind.
- */
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @defgroup MIDILAR_dspFoundation_LUT_Periodic Periodic LUT Generators
- * @ingroup MIDILAR_dspFoundation_LUT
- * @brief Predefined periodic waveforms: sine, triangle, square, saw, etc.
- *
- * These generators produce harmonically rich or smooth waveforms using LUTs optimized for phase continuity and alias-free playback.
- */
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @defgroup MIDILAR_dspFoundation_LUT_Shaping Shaping LUT Generators
- * @ingroup MIDILAR_dspFoundation_LUT
- * @brief Nonlinear transformation generators: log-exp, sigmoid, and velocity curves.
- *
- * Useful for expressive dynamic control and real-time parameter mapping based on user input or MIDI data.
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

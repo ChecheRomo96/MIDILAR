@@ -50,25 +50,6 @@
         add_subdirectory(LUT3D)
     endif()
 
-    if(MIDILAR_DSP_LUT_SHAPING)
-        midilar_add_macro(PUBLIC MIDILAR_DSP_LUT_SHAPING)
-
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Shaping.h"
-        )
-
-        add_subdirectory(Shaping)
-    endif()
-
-    if(MIDILAR_DSP_LUT_PERIODIC)
-        midilar_add_macro(PUBLIC MIDILAR_DSP_LUT_PERIODIC)
-
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Periodic.h"
-        )
-
-        add_subdirectory(Periodic)
-    endif()
 #
 ######################################################################################################
 # Add sources to the MIDILAR target

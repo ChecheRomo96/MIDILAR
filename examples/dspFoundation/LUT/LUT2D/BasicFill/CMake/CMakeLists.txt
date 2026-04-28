@@ -1,0 +1,2 @@
+add_executable(MIDILAR_Examples_LUT2D_BasicFill BasicFill.cpp)
+target_link_libraries(MIDILAR_Examples_LUT2D_BasicFill MIDILAR)

@@ -1,0 +1,28 @@
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_GeneratorsTest Generators Test
+ * @ingroup MIDILAR_Examples_LUT_1D
+ * @brief Demonstrates how LUT1D can be populated using generator-style logic.
+ *
+ * This example is intended to validate workflows where LUT data is produced
+ * by a generator function, generator class, or procedural initialization step.
+ *
+ * @section lut1d_generators_test_purpose Purpose
+ *
+ * The Generators Test example shows how to:
+ * - Fill a LUT1D from generated values
+ * - Separate table storage from value generation
+ * - Test generator output using LUT-backed data
+ *
+ * @section lut1d_generators_test_concepts Concepts Demonstrated
+ *
+ * - Generator-based initialization
+ * - LUT-backed generated data
+ * - Reusable data generation patterns
+ * - Deterministic table construction
+ *
+ * @section lut1d_generators_test_notes Notes
+ *
+ * This example is useful when testing future generator modules such as
+ * waveform generators, shaping generators, windowing functions, or envelope
+ * curves that write their output into a LUT container.
+ */

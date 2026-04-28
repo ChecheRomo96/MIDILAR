@@ -1,0 +1,107 @@
+/**
+ * @addtogroup MIDILAR_MidiFoundation_Message
+ *
+ * This module provides the `Message` class, a lightweight container and builder
+ * for MIDI messages.
+ *
+ * The class is designed to construct, store, and expose raw MIDI byte sequences
+ * while keeping the API convenient for common MIDI message types.
+ *
+ * ---
+ *
+ * @section midi_message_concept Concept
+ *
+ * A MIDI message is represented as an ordered sequence of bytes:
+ *
+ * - Status byte
+ * - Optional data bytes
+ * - Optional variable-length payload for SysEx messages
+ *
+ * The `Message` class provides helper functions for constructing these byte
+ * sequences without requiring the user to manually assemble status and data
+ * bytes.
+ *
+ * ---
+ *
+ * @section midi_message_categories Supported Message Categories
+ *
+ * The `Message` class supports construction of:
+ *
+ * - Channel Voice messages
+ * - Control Change messages
+ * - Channel Mode messages
+ * - Real-Time messages
+ * - System Common messages
+ * - System Exclusive messages
+ * - MIDI Time Code messages
+ *
+ * ---
+ *
+ * @section midi_message_memory Memory Model
+ *
+ * The class supports two internal storage models depending on platform support:
+ *
+ * - `std::vector<uint8_t>` when the C++ standard library is available
+ * - Raw pointer storage when `std::vector` is unavailable
+ *
+ * This allows the same interface to target both desktop and embedded
+ * environments.
+ *
+ * ---
+ *
+ * @section midi_message_api API Overview
+ *
+ * Main API groups include:
+ *
+ * - Constructors and assignment operators
+ * - Raw data access
+ * - Optional vector access
+ * - Channel Voice message builders
+ * - Control Change helpers
+ * - Real-Time message builders
+ * - System Common message builders
+ * - SysEx message builders
+ *
+ * ---
+ *
+ * @section midi_message_example Example
+ *
+ * @code{.cpp}
+ * #include <MidiFoundation/Message/Message.h>
+ *
+ * using namespace MIDILAR::MidiFoundation;
+ *
+ * int main() {
+ *     Message msg;
+ *
+ *     msg.NoteOn(60, 127, 0);
+ *
+ *     const uint8_t* data = msg.Buffer();
+ *     size_t size = msg.size();
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * ---
+ *
+ * @section midi_message_design Design Notes
+ *
+ * - The class stores complete MIDI byte sequences.
+ * - Helper methods return `Message&` to allow chained construction.
+ * - Channel values are expected in the range `0–15`.
+ * - Data values are expected in the range `0–127` unless otherwise documented.
+ * - SysEx messages may require variable-length storage.
+ *
+ * ---
+ *
+ * @section midi_message_related Related Modules
+ *
+ * - @ref MIDILAR_MidiFoundation
+ * - @ref MIDI_CV_NoteMessages
+ * - @ref MIDI_CV_ControlChange
+ * - @ref MIDI_RT_TimingTick
+ * - @ref MTC_QuarterFrame
+ * - @ref MTC_RT_FullFrame
+ *
+ */

@@ -1,0 +1,31 @@
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_FunctionTable Function Table
+ * @ingroup MIDILAR_Examples_LUT_1D
+ * @brief Demonstrates how to use LUT1D as a sampled function table.
+ *
+ * This example shows how a LUT1D can store precomputed samples of a mathematical
+ * function for fast runtime access.
+ *
+ * @section lut1d_function_table_purpose Purpose
+ *
+ * The Function Table example shows how to:
+ * - Sample a function over a fixed domain
+ * - Store the sampled values inside a LUT1D
+ * - Use table lookup instead of recomputing the function repeatedly
+ *
+ * @section lut1d_function_table_concepts Concepts Demonstrated
+ *
+ * - Precomputed function evaluation
+ * - Mapping table indices to normalized input values
+ * - Reducing runtime computation cost
+ * - Lookup-table based DSP workflows
+ *
+ * @section lut1d_function_table_usecases Common Use Cases
+ *
+ * Function tables are commonly used for:
+ * - Waveshaping curves
+ * - Transfer functions
+ * - Envelope curves
+ * - Nonlinear mappings
+ * - Fast approximations of expensive functions
+ */

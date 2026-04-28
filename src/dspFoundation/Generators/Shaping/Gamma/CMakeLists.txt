@@ -10,14 +10,10 @@
 # Append Headers (local to this subdirectory)
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Periodic.h"
-        "${CMAKE_CURRENT_LIST_DIR}/SineLUT.h"
-        "${CMAKE_CURRENT_LIST_DIR}/SquareLUT.h"
-        "${CMAKE_CURRENT_LIST_DIR}/TriangleLUT.h"
-        "${CMAKE_CURRENT_LIST_DIR}/SawLUT.h"
+        "${CMAKE_CURRENT_LIST_DIR}/Gamma.h"
     )
-    list(APPEND MIDILAR_DOX_LOACCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Periodic.dox"
+    list(APPEND MIDILAR_DOX_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/Gamma.dox"
     )
 #
 ######################################################################################################
@@ -50,7 +46,7 @@
     # Install headers for this subdirectory
     install(
         FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/LUT/Periodic"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Periodic/Saw"
     )
 #
 ######################################################################################################

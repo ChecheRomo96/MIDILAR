@@ -1,0 +1,28 @@
+/**
+ * @defgroup MIDILAR_Examples_LUT_1D_ManualOscillator Manual Oscillator
+ * @ingroup MIDILAR_Examples_LUT_1D
+ * @brief Demonstrates a simple LUT1D-based manual oscillator workflow.
+ *
+ * This example shows how a LUT1D can be used as a wavetable for manually
+ * stepping through waveform samples.
+ *
+ * @section lut1d_manual_oscillator_purpose Purpose
+ *
+ * The Manual Oscillator example shows how to:
+ * - Store one waveform cycle inside a LUT1D
+ * - Use a phase/index variable to read samples from the table
+ * - Manually advance through the wavetable
+ *
+ * @section lut1d_manual_oscillator_concepts Concepts Demonstrated
+ *
+ * - Wavetable storage
+ * - Phase-based lookup
+ * - Periodic sample generation
+ * - Embedded-friendly oscillator structure
+ *
+ * @section lut1d_manual_oscillator_notes Notes
+ *
+ * This example is intentionally simple and manual. It is useful for explaining
+ * the relationship between lookup tables, phase accumulation, and oscillator
+ * output before introducing more complete streaming oscillator classes.
+ */

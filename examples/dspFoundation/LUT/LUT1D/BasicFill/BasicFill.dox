@@ -1,0 +1,10 @@
+/**
+ * @addtogroup MIDILAR_Examples_LUT_1D_BasicFill
+ *
+ * @brief Examples showing how to initialize and populate LUT1D buffers.
+ *
+ * These examples focus on:
+ * - Sequential filling
+ * - Deterministic initialization
+ * - Basic usage patterns
+ */

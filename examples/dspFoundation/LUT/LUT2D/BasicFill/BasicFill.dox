@@ -1,0 +1,28 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file BasicFill.dox
+ * @brief Documentation for the LUT2D BasicFill example.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @example dspFoundation/LUT/LUT2D/BasicFill/CMake/BasicFill.cpp
+ * @brief Demonstrates basic indexed writing and reading with LUT2D.
+ *
+ * This example creates a small 2D lookup table and fills each cell manually using:
+ *
+ * @code
+ * value = x + y
+ * @endcode
+ *
+ * It demonstrates:
+ *
+ * - Creating a `LUT2D<float>` with fixed dimensions
+ * - Writing values with `SetBinValue(x, y, value)`
+ * - Reading values with `GetValue(x, y)`
+ * - Understanding row/column traversal
+ *
+ * The same concept is also available as an Arduino sketch:
+ *
+ * @example dspFoundation/LUT/LUT2D/BasicFill/BasicFill.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
