@@ -1,0 +1,22 @@
+/**
+ * @page MIDILAR_Examples_Shaping_AtanNorm_Bias_Buffer AtanNorm_Bias_Buffer
+ * @ingroup MIDILAR_Examples_dspFoundation_Generators_Shaping
+ *
+ * @brief Generates a normalized biased atan shaping curve into a plain buffer.
+ *
+ * Formula:
+ * @f[
+ * y(x)=\frac{\operatorname{atan}(a x + b)}{M}
+ * @f]
+ *
+ * Domain:
+ * @f[
+ * x \in [-1,1]
+ * @f]
+ *
+ * Desktop source:
+ * @include AtanNorm_Bias_Buffer/AtanNorm_Bias_Buffer.cpp
+ *
+ * Arduino source:
+ * @include AtanNorm_Bias_Buffer/AtanNorm_Bias_Buffer.ino
+ */

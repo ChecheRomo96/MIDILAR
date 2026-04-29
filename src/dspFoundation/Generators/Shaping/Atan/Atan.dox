@@ -1,0 +1,134 @@
+/**
+ * @file atan.dox
+ * @addtogroup MIDILAR_dspFoundation_Gen_Shaping_Atan
+ * @brief Arctangent-based shaping generators.
+ *
+ * This module provides arctangent (atan) based shaping generators.
+ * These functions are widely used for soft clipping and nonlinear signal shaping,
+ * offering a different saturation profile compared to tanh.
+ *
+ * The arctangent function provides a softer transition into saturation and
+ * a more gradual slope around the origin, making it useful for smooth distortion.
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_variants Available Variants
+ *
+ * Four main variants are provided:
+ *
+ * - **Atan**: Standard arctangent shaping
+ * - **AtanNorm**: Normalized atan (unity gain at x = 1)
+ * - **AtanHalf**: Half-domain atan (optimized for LUT symmetry)
+ * - **AtanHalfNorm**: Half-domain normalized atan
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_standard Standard Atan
+ *
+ * @subsection atan_equation Equation
+ * @f[
+ * y(x) = \arctan(a x)
+ * @f]
+ *
+ * @subsection atan_parameters Parameters
+ * - @f$ x @f$: Input signal
+ * - @f$ a @f$: Drive / saturation factor
+ *
+ * @subsection atan_behavior Behavior
+ * - Smooth nonlinear compression
+ * - Output asymptotically approaches:
+ *   @f[
+ *   \lim_{x \to \pm \infty} y(x) = \pm \frac{\pi}{2}
+ *   @f]
+ * - Compared to tanh:
+ *   - Slower saturation
+ *   - More linear region near zero
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_norm Normalized Atan
+ *
+ * @subsection atan_norm_equation Equation
+ * @f[
+ * y(x) = \frac{\arctan(a x)}{\arctan(a)}
+ * @f]
+ *
+ * @subsection atan_norm_behavior Behavior
+ * - Ensures:
+ *   @f[
+ *   y(1) = 1
+ *   @f]
+ * - Keeps output amplitude consistent regardless of @f$ a @f$
+ * - Suitable for controlled soft clipping
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_half Half-Domain Atan
+ *
+ * @subsection atan_half_equation Equation
+ * @f[
+ * y(x) = \arctan(a x), \quad x \in [0,1]
+ * @f]
+ *
+ * @subsection atan_half_behavior Behavior
+ * - Defined only for positive domain
+ * - Can be extended to full domain using:
+ *   @f[
+ *   y(x) = \text{sign}(x) \cdot \text{LUT}(|x|)
+ *   @f]
+ * - Reduces LUT memory usage
+ * - Improves resolution efficiency in embedded systems
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_half_norm Half-Domain Normalized Atan
+ *
+ * @subsection atan_half_norm_equation Equation
+ * @f[
+ * y(x) = \frac{\arctan(a x)}{\arctan(a)}, \quad x \in [0,1]
+ * @f]
+ *
+ * @subsection atan_half_norm_behavior Behavior
+ * - Combines normalization and half-domain optimization
+ * - Ensures:
+ *   @f[
+ *   y(1) = 1
+ *   @f]
+ * - Ideal for LUT-based embedded implementations
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_lut Considerations for LUT Usage
+ *
+ * - Full-domain LUT:
+ *   - Range: @f$ x \in [-1,1] @f$
+ *   - Direct lookup, simpler implementation
+ *
+ * - Half-domain LUT:
+ *   - Range: @f$ x \in [0,1] @f$
+ *   - Requires sign reconstruction
+ *   - More memory efficient
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_vs_tanh Comparison with Tanh
+ *
+ * - **atan**:
+ *   - Slower saturation
+ *   - More linear near zero
+ *   - Output range: @f$ [-\frac{\pi}{2}, \frac{\pi}{2}] @f$
+ *
+ * - **tanh**:
+ *   - Faster saturation
+ *   - Stronger compression
+ *   - Output range: @f$ [-1, 1] @f$
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_use_cases Use Cases
+ *
+ * - Soft clipping in audio processing
+ * - Analog-style distortion emulation
+ * - Dynamic range shaping
+ * - Control signal smoothing
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section atan_notes Notes
+ *
+ * - The parameter @f$ a @f$ controls the intensity of saturation.
+ * - Normalized variants are preferred when consistent amplitude is required.
+ * - Half-domain variants are ideal for embedded LUT implementations.
+ *
+ */

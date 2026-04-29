@@ -10,44 +10,11 @@
 # Append Headers (local to this subdirectory)
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Shaping.h"
+        "${CMAKE_CURRENT_LIST_DIR}/Tanh.h"
     )
-
     list(APPEND MIDILAR_DOX_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Shaping.dox"
+        "${CMAKE_CURRENT_LIST_DIR}/Tanh.dox"
     )
-
-
-    if(MIDILAR_DSP_GENERATORS_SHAPING_GAMMA)
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Gamma.h"
-        )
-        add_subdirectory(Gamma)
-    endif()
-
-    if(MIDILAR_DSP_GENERATORS_SHAPING_GAMMA_MORPH)
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/GammaMorph.h"
-        )
-
-        add_subdirectory(GammaMorph)
-    endif()
-
-    if(MIDILAR_DSP_GENERATORS_SHAPING_ATAN)
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Atan.h"
-        )
-
-        add_subdirectory(Atan)
-    endif()
-
-    if(MIDILAR_DSP_GENERATORS_SHAPING_TANH)
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/Tanh.h"
-        )
-
-        add_subdirectory(Tanh)
-    endif()
 #
 ######################################################################################################
 # Add sources to the MIDILAR target
@@ -79,7 +46,7 @@
     # Install headers for this subdirectory
     install(
         FILES ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Shaping"
+        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}/dspFoundation/Generators/Shaping/Tanh"
     )
 #
 ######################################################################################################

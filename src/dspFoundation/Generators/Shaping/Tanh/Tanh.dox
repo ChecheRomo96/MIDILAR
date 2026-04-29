@@ -1,0 +1,118 @@
+/**
+ * @addtogroup MIDILAR_dspFoundation_Gen_Shaping_Tanh
+ * @brief Hyperbolic tangent shaping generators.
+ *
+ * This module provides a set of hyperbolic tangent (tanh) based shaping generators.
+ * These functions are commonly used for soft-clipping, saturation, and nonlinear
+ * signal shaping in DSP applications.
+ *
+ * The tanh function naturally compresses signals while maintaining smooth transitions,
+ * making it ideal for audio distortion and dynamic range control.
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_variants Available Variants
+ *
+ * Four main variants are provided:
+ *
+ * - **Tanh**: Standard hyperbolic tangent
+ * - **TanhNorm**: Normalized tanh (unity gain at x = 1)
+ * - **TanhHalf**: Half-domain tanh (optimized for LUT symmetry)
+ * - **TanhHalfNorm**: Half-domain normalized tanh
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_standard Standard Tanh
+ *
+ * @subsection tanh_equation Equation
+ * @f[
+ * y(x) = \tanh(a x)
+ * @f]
+ *
+ * @subsection tanh_parameters Parameters
+ * - @f$ x @f$: Input signal
+ * - @f$ a @f$: Drive / saturation factor
+ *
+ * @subsection tanh_behavior Behavior
+ * - Smooth soft clipping
+ * - Output asymptotically approaches:
+ *   @f[
+ *   \lim_{x \to \pm \infty} y(x) = \pm 1
+ *   @f]
+ * - Increasing @f$ a @f$ results in harder clipping
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_norm Normalized Tanh
+ *
+ * @subsection tanh_norm_equation Equation
+ * @f[
+ * y(x) = \frac{\tanh(a x)}{\tanh(a)}
+ * @f]
+ *
+ * @subsection tanh_norm_behavior Behavior
+ * - Ensures:
+ *   @f[
+ *   y(1) = 1
+ *   @f]
+ * - Maintains consistent output amplitude regardless of @f$ a @f$
+ * - Ideal for controlled distortion where unity gain is required
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_half Half-Domain Tanh
+ *
+ * @subsection tanh_half_equation Equation
+ * @f[
+ * y(x) = \tanh(a x), \quad x \in [0,1]
+ * @f]
+ *
+ * @subsection tanh_half_behavior Behavior
+ * - Defined only for positive domain
+ * - Can be extended to full domain using:
+ *   @f[
+ *   y(x) = \text{sign}(x) \cdot \text{LUT}(|x|)
+ *   @f]
+ * - Reduces memory usage in LUT implementations by exploiting symmetry
+ * - Enables higher resolution for the same memory footprint
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_half_norm Half-Domain Normalized Tanh
+ *
+ * @subsection tanh_half_norm_equation Equation
+ * @f[
+ * y(x) = \frac{\tanh(a x)}{\tanh(a)}, \quad x \in [0,1]
+ * @f]
+ *
+ * @subsection tanh_half_norm_behavior Behavior
+ * - Combines normalization and half-domain optimization
+ * - Ensures:
+ *   @f[
+ *   y(1) = 1
+ *   @f]
+ * - Ideal for embedded LUT-based shaping systems
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_lut Considerations for LUT Usage
+ *
+ * - Full-domain LUT:
+ *   - Range: @f$ x \in [-1,1] @f$
+ *   - Simpler but less memory efficient
+ *
+ * - Half-domain LUT:
+ *   - Range: @f$ x \in [0,1] @f$
+ *   - Requires sign reconstruction
+ *   - Doubles effective resolution
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_use_cases Use Cases
+ *
+ * - Audio soft clipping
+ * - Analog-style distortion emulation
+ * - Dynamic range compression
+ * - Nonlinear control shaping (e.g., velocity curves)
+ *
+ * -------------------------------------------------------------------------------------------------
+ * @section tanh_notes Notes
+ *
+ * - The parameter @f$ a @f$ controls the "aggressiveness" of the saturation.
+ * - Normalized variants are recommended when consistent output scaling is required.
+ * - Half-domain variants are recommended for memory-constrained embedded systems.
+ *
+ */

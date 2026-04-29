@@ -1,10 +1,6 @@
 /**
  * @file LUT.dox
- * @brief Example groups for Lookup Table utilities in MIDILAR.
- *
- * @ingroup MIDILAR_Examples
- *
- * @defgroup MIDILAR_Examples_LUT LUT Examples
+ * @addtogroup MIDILAR_Examples_dsp_LUT LUT Examples
  * @brief Examples demonstrating Lookup Table containers and LUT-based workflows.
  *
  * The LUT examples demonstrate how to create, fill, resize, access, and use

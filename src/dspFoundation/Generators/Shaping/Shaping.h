@@ -5,5 +5,7 @@
 
     #include "Gamma.h"
     #include "GammaMorph.h"
+    #include "Tanh.h"
+    #include "Atan.h"
 
 #endif // MIDILAR_GENERATORS_SHAPING_H

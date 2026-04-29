@@ -7,4 +7,6 @@ if(MIDILAR_DSP_LUT)
 endif()
 
 
-add_subdirectory(Transforms)
+if(MIDILAR_DSP_GENERATORS)
+    add_subdirectory(Generators)
+endif()

@@ -25,6 +25,19 @@
  * @brief Parametric gamma shaping with morph control.
  */
 
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Shaping_Tanh Hiperbolic Tangent
+ * @ingroup MIDILAR_dspFoundation_Gen_Shaping
+ * @brief Parametric gamma shaping with morph control.
+ */
+
+
+/**
+ * @defgroup MIDILAR_dspFoundation_Gen_Shaping_Atan Arc Tangent
+ * @ingroup MIDILAR_dspFoundation_Gen_Shaping
+ * @brief Parametric gamma shaping with morph control.
+ */
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
