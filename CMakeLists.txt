@@ -90,6 +90,7 @@
     if(MIDILAR_TESTING)
         message(STATUS "Building MIDILAR Tests")
         include(cmake/BuildTests.cmake)
+        add_subdirectory(tests)
     endif()
 #
 ######################################################################################################

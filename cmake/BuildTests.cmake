@@ -32,9 +32,6 @@
         # Include testing helpers
         include(CTest)
         include(GoogleTest)
-
-        # Add the tests subdirectory
-        add_subdirectory(${MIDILAR_ROOT_DIRECTORY}/tests)
     endif()
 #
 ######################################################################################################

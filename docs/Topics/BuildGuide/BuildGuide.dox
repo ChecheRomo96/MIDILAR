@@ -12,9 +12,9 @@
  * This group provides platform-specific instructions for compiling and integrating MIDILAR
  * into your projects. It is divided into:
  *
- * - @ref BuildGuide_CMake for **Standard C++/CMake**
- * - @ref BuildGuide_Arduino for **Arduino/PlatformIO**
- * - @ref BuildOptions for **Available Build Options**
+ * - @ref MIDILAR_BuildGuide_CMake for **Standard C++/CMake**
+ * - @ref MIDILAR_BuildGuide_Arduino for **Arduino/PlatformIO**
+ * - @ref MIDILAR_BG_BuildConfiguration for **Available Build Options**
  *
  * These guides are independent from the main `MIDILAR` API reference and are intended
  * to help users configure and test the library in various environments.

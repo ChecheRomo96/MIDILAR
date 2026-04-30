@@ -1,4 +1,4 @@
-#include <MIDILAR/dspFoundation/Generators/Shaping/TanhHalfNorm.h>
+#include <dspFoundation/Generators/Shaping/Tanh.h>
 #include <stdio.h>
 #include <stddef.h>
 
@@ -8,7 +8,7 @@ int main() {
 
     const float Drive = 3.0f;
 
-    MIDILAR::dspFoundation::Generators::Shaping::TanhHalfNorm<float>::Generate(
+    MIDILAR::dspFoundation::Generators::Shaping::TanhHalfNorm<float>(
         buffer,
         BufferSize,
         Drive

@@ -22,7 +22,7 @@
          * @tparam T The output type (e.g., float, uint8_t).
          * @param Buffer Output buffer to write the curve into.
          * @param BufferSize Number of samples.
-         * @param Gamma The gamma exponent to apply.
+         * @param GammaValue The gamma exponent to apply.
          * @param OutputScale Output scaling factor. Use 1.0f for normalized floating-point output, or values such as 255 for integer LUTs.
          */
         template<typename T>

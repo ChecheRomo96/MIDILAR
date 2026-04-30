@@ -25,7 +25,8 @@
  *
  * ## Output Format
  * The program prints version and configuration data to the standard output:
- * ```text
+ *
+ * @code{.text}
  * Using MIDILAR v1.0.0
  *
  * Enabled Modules:
@@ -71,35 +72,64 @@
  *    - MessageParser.
  *    - Note.
  *    - DeviceBase.
- * ```
+ * @endcode
  *
  * ---
  *
- * ## Running the Test
- * After building the example (e.g., with CMake), run the executable:
+ * ## Running the Test (CMake / Desktop)
+ *
+ * After building the example with CMake, run the executable:
  *
  * **Windows**
- * ```bash
- * .<build_dir>/bin/MIDILAR_BuildTest.exe
- * ```
+ * @code{.bash}
+ * .\build\<config>\bin\MIDILAR_BuildTest.exe
+ * @endcode
  *
  * **Linux/macOS**
- * ```bash
- * ./<build_dir>/bin/MIDILAR_BuildTest
- * ```
+ * @code{.bash}
+ * ./build/<config>/bin/MIDILAR_BuildTest
+ * @endcode
  *
  * This provides immediate feedback about which parts of the library are currently active.
  *
  * ---
  *
- * @see Example_BuildTest_cpp
- */
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * @page Example_BuildTest_cpp BuildTest.cpp
- * @brief Minimal diagnostic tool to print enabled MIDILAR features at build time.
+ * ## Arduino Version
  *
- * @include examples/BuildTest.cpp
+ * The Arduino sketch provides the same build-configuration inspection, but prints the
+ * result through the Serial Monitor instead of standard output.
+ *
+ * This is especially useful when validating MIDILAR on embedded targets, where compile-time
+ * macros may differ due to memory constraints or feature toggles.
+ *
+ * ### Steps:
+ * 1. Open the `.ino` file in the Arduino IDE.
+ * 2. Select your target board.
+ * 3. Upload the sketch.
+ * 4. Open the Serial Monitor.
+ * 5. Set baud rate to **115200** (or the value defined in the sketch).
+ *
+ * ### Expected Behavior:
+ * - Serial communication initializes.
+ * - MIDILAR version is printed.
+ * - Enabled modules and features are listed using compile-time macros.
+ *
+ * ---
+ *
+ * ## Notes
+ *
+ * - This example relies entirely on preprocessor macros.
+ * - No runtime detection is performed.
+ * - Output reflects the **exact configuration used at compile time**.
+ *
+ * ---
+ *
+ * ## Source Files
+ *
+ * ### CMake Example
+ * @include examples/BuildTest/CMake/BuildTest.cpp
+ *
+ * ### Arduino Example
+ * @include examples/BuildTest/BuildTest.ino
+ *
  */

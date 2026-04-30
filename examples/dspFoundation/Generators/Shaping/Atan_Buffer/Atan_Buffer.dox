@@ -15,8 +15,8 @@
  * @f]
  *
  * Desktop source:
- * @include Atan_Buffer/Atan_Buffer.cpp
+ * @include Cmake/Atan_Buffer.cpp
  *
  * Arduino source:
- * @include Atan_Buffer/Atan_Buffer.ino
+ * @include Atan_Buffer.ino
  */

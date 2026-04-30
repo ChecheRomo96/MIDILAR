@@ -1,40 +1,40 @@
 /**
- * @defgroup MIDILAR_Examples_LUT_1D LUT1D Examples
- * @ingroup MIDILAR_Examples_LUT
+ * @defgroup MIDILAR_Examples_dsp_LUT1D LUT1D Examples
+ * @ingroup MIDILAR_Examples_dsp_LUT
  * @brief Examples demonstrating the use of the LUT1D container.
  */
 
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_BasicFill Basic Fill
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_BasicFill Basic Fill
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  */
 
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_FunctionTable Function Table
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_FunctionTable Function Table
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  */
 
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_GeneratorsTest Generators Test
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_GeneratorsTest Generators Test
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  */
 
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_ManualOscillator Manual Oscillator
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_ManualOscillator Manual Oscillator
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  */
 
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_MoveSemantics Move Semantics
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_MoveSemantics Move Semantics
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  */
 
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_RawData Raw Data
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_RawData Raw Data
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  */
 
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_ResizeReserve Resize & Reserve
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_ResizeReserve Resize & Reserve
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  */

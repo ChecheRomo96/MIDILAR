@@ -1,4 +1,4 @@
-#include <MIDILAR/dspFoundation/Generators/Shaping/Gamma.h>
+#include <dspFoundation/Generators/Shaping/Gamma.h>
 #include <stdio.h>
 #include <stddef.h>
 
@@ -8,7 +8,7 @@ int main() {
 
     const float GammaValue = 2.2f;
 
-    MIDILAR::dspFoundation::Generators::Shaping::Gamma<float>::Generate(
+    MIDILAR::dspFoundation::Generators::Shaping::Gamma<float>(
         buffer,
         BufferSize,
         GammaValue

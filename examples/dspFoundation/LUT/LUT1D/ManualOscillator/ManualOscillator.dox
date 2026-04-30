@@ -1,6 +1,6 @@
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_ManualOscillator Manual Oscillator
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_ManualOscillator Manual Oscillator
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  * @brief Demonstrates a simple LUT1D-based manual oscillator workflow.
  *
  * This example shows how a LUT1D can be used as a wavetable for manually

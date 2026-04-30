@@ -10,18 +10,16 @@ namespace MIDILAR::dspFoundation::Generators::Noise {
     /**
      * @brief Generates white noise in the range [-Amp, +Amp] + DcOffset.
      *
-     * @tparam OUTPUT_TYPE Output buffer data type
+     * @tparam T Output buffer data type
      * @param Buffer Output buffer
      * @param TotalSamples Total number of samples in the buffer
      * @param Amp Peak amplitude of the noise
      * @param DcOffset DC offset added to the signal
      * @param Seed Pseudo-random generator seed/state
-     * @param FirstSample First sample index to write
-     * @param LastSample Last sample index (exclusive)
      */
-    template<typename OUTPUT_TYPE>
+    template<typename T>
     void White(
-        OUTPUT_TYPE* Buffer,
+        T* Buffer,
         size_t TotalSamples,
         float Amp = 1.0f,
         float DcOffset = 0.0f,
@@ -51,7 +49,7 @@ namespace MIDILAR::dspFoundation::Generators::Noise {
             // Apply amplitude and offset
             float Value = (RandomSigned * Amp) + DcOffset;
 
-            Buffer[i] = static_cast<OUTPUT_TYPE>(Value);
+            Buffer[i] = static_cast<T>(Value);
         }
     }
 

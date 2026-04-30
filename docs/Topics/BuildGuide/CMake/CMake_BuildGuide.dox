@@ -1,7 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDILAR_BuildGuide_CMake CMake Build Guide
- * @ingroup MIDILAR_BuildGuide
+ * @addtogroup MIDILAR_BuildGuide_CMake
  *
  * This guide covers:
  *

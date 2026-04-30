@@ -1,6 +1,6 @@
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_RawData Raw Data
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_RawData Raw Data
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  * @brief Demonstrates direct access to the internal LUT1D data buffer.
  *
  * This example shows how to retrieve a raw pointer to the LUT1D storage when

@@ -72,6 +72,7 @@
  * @ingroup MIDILAR_dspFoundation
  * @brief Streaming-based DSP processing modules for real-time systems.
  */
+ #endif
 
 
 /* ========================================================= */
@@ -83,6 +84,7 @@
  * @defgroup MIDILAR_dspFoundation_Transforms Transforms
  * @ingroup MIDILAR_dspFoundation
  * @brief Spectral and time-domain transformations.
- */ #endif
+ */ 
+ #endif
 
 /** @} */

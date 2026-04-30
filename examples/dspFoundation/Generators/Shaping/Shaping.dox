@@ -96,6 +96,6 @@
  *
  * @section MIDILAR_Examples_dsp_generators_shaping_related Related Documentation
  *
- * - @ref MIDILAR_dspFoundation_Generators_Shaping
+ * - @ref MIDILAR_dspFoundation_Gen_Shaping
  * - @ref MIDILAR_dspFoundation_LUT
  */

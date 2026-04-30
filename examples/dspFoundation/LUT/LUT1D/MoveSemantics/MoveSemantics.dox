@@ -1,6 +1,6 @@
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_MoveSemantics Move Semantics
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_MoveSemantics Move Semantics
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  * @brief Demonstrates ownership transfer behavior for LUT1D objects.
  *
  * This example shows how LUT1D instances can transfer ownership of their

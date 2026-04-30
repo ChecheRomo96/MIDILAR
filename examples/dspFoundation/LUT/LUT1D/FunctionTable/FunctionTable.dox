@@ -1,6 +1,6 @@
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_FunctionTable Function Table
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_FunctionTable Function Table
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  * @brief Demonstrates how to use LUT1D as a sampled function table.
  *
  * This example shows how a LUT1D can store precomputed samples of a mathematical

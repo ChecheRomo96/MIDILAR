@@ -1,6 +1,6 @@
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_ResizeReserve Resize & Reserve
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_ResizeReserve Resize & Reserve
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  * @brief Demonstrates explicit size and capacity management in LUT1D.
  *
  * This example explains the difference between logical size and allocated

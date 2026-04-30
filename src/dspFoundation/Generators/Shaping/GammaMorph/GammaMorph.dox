@@ -1,5 +1,5 @@
 /**
- * @defgroup MIDILAR_dspFoundation_Gen_Shaping_GammaMorph
+ * @addtogroup MIDILAR_dspFoundation_Gen_Shaping_GammaMorph
  *
  * This module implements a nonlinear shaping function defined as:
  *
@@ -97,8 +97,8 @@
  *
  * @section gammamorph_related Related Modules
  *
- * - @ref MIDILAR_Generators_Shaping_Gamma
- * - @ref MIDILAR_Generators_Shaping
- * - @ref MIDILAR_dspFoundation_LUT_LUT1D
+ * - @ref MIDILAR_dspFoundation_Gen_Shaping_Gamma
+ * - @ref MIDILAR_dspFoundation_Gen_Shaping
+ * - @ref MIDILAR_dspFoundation_LUT1D
  *
  */

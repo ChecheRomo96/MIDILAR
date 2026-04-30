@@ -8,12 +8,23 @@ namespace MIDILAR::dspFoundation::Interpolation {
     /**
     * @brief Performs trilinear interpolation on a 2x2x2 grid.
     * 
-    * @tparam T Data type of grid values
-    * @param x0, x1 Bounds along X axis
-    * @param y0, y1 Bounds along Y axis
-    * @param z0, z1 Bounds along Z axis
-    * @param f000 - f111 Values at the corners of the cube
-    * @param x, y, z Query coordinates
+    * @param x0 Lower bound along X axis
+    * @param x1 Upper bound along X axis
+    * @param y0 Lower bound along Y axis
+    * @param y1 Upper bound along Y axis
+    * @param z0 Lower bound along Z axis
+    * @param z1 Upper bound along Z axis
+    * @param f000 Value at (0,0,0)
+    * @param f001 Value at (0,0,1)
+    * @param f010 Value at (0,1,0)
+    * @param f011 Value at (0,1,1)
+    * @param f100 Value at (1,0,0)
+    * @param f101 Value at (1,0,1)
+    * @param f110 Value at (1,1,0)
+    * @param f111 Value at (1,1,1)
+    * @param x Query coordinate along X axis
+    * @param y Query coordinate along Y axis
+    * @param z Query coordinate along Z axis
     * @return Interpolated value at (x, y, z)
     */
     template<typename T>

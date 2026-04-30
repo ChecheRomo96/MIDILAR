@@ -5,7 +5,7 @@
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @addtogroup MIDILAR_dspFoundation_LUT_2D
+ * @addtogroup MIDILAR_dspFoundation_LUT2D
  *
  * The `LUT2D` class is a lightweight, template-based container that stores data in a
  * flattened 2D buffer and provides indexed access using `(x, y)` coordinates.

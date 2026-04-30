@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <MIDILAR/dspFoundation/LUT/LUT1D/LUT1D.h>
+#include <dspFoundation/LUT/LUT1D.h>
 
 using namespace MIDILAR::dspFoundation::LUT;
 

@@ -5,7 +5,7 @@
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @addtogroup MIDILAR_dspFoundation_LUT Lookup Tables (LUT)
+ * @addtogroup MIDILAR_dspFoundation_LUT
  *
  * @brief Core module for deterministic, high-performance data mapping using lookup tables.
  *
@@ -60,9 +60,9 @@
  *
  * The module includes multiple dimensional containers:
  *
- * - @ref MIDILAR_dspFoundation_LUT_1D → 1D mapping (e.g., shaping curves)
- * - @ref MIDILAR_dspFoundation_LUT_2D → 2D surfaces (e.g., morphing, interpolation)
- * - @ref MIDILAR_dspFoundation_LUT_3D → volumetric mappings (e.g., parameter spaces)
+ * - @ref MIDILAR_dspFoundation_LUT1D → 1D mapping (e.g., shaping curves)
+ * - @ref MIDILAR_dspFoundation_LUT2D → 2D surfaces (e.g., morphing, interpolation)
+ * - @ref MIDILAR_dspFoundation_LUT3D → volumetric mappings (e.g., parameter spaces)
  *
  * ---
  *
@@ -113,15 +113,15 @@
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDILAR_dspFoundation_LUT_1D LUT1D
+ * @defgroup MIDILAR_dspFoundation_LUT1D LUT1D
  * @ingroup MIDILAR_dspFoundation_LUT
- * @brief One-dimensional lookup tables with fast index access and linear interpolation.
+ * @brief One-dimensional lookup table container for efficient indexed access.
  *
  * The base class `BaseLUT` provides the core interface for single-variable LUTs used in shaping curves and waveforms.
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDILAR_dspFoundation_LUT_2D LUT2D
+ * @defgroup MIDILAR_dspFoundation_LUT2D LUT2D
  * @ingroup MIDILAR_dspFoundation_LUT
  * @brief Two-dimensional lookup tables for morphing or parameter-dependent shaping.
  *
@@ -129,7 +129,7 @@
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDILAR_dspFoundation_LUT_3D LUT3D
+ * @defgroup MIDILAR_dspFoundation_LUT3D LUT3D
  * @ingroup MIDILAR_dspFoundation_LUT
  * @brief Three-dimensional lookup tables for complex control surfaces and real-time modulation.
  *

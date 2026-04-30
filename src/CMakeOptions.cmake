@@ -26,3 +26,9 @@
     include(${CMAKE_CURRENT_LIST_DIR}/dspFoundation/CMakeOptions.cmake)
 #
 #################################################################################################################################
+# Midi Devices
+
+    option(MIDILAR_MIDI_DEVICES "Enables the compilation of MIDILAR::MidiDevices" ON)
+    #include(${CMAKE_CURRENT_LIST_DIR}/MidiDevices/CMakeOptions.cmake)
+#
+#################################################################################################################################

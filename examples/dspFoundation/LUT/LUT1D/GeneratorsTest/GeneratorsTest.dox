@@ -1,6 +1,6 @@
 /**
- * @defgroup MIDILAR_Examples_LUT_1D_GeneratorsTest Generators Test
- * @ingroup MIDILAR_Examples_LUT_1D
+ * @defgroup MIDILAR_Examples_dsp_LUT1D_GeneratorsTest Generators Test
+ * @ingroup MIDILAR_Examples_dsp_LUT1D
  * @brief Demonstrates how LUT1D can be populated using generator-style logic.
  *
  * This example is intended to validate workflows where LUT data is produced

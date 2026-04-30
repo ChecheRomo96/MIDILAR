@@ -357,7 +357,7 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * @defgroup MIDI_CC_PAN Pan
-     * @ingroup MIDI_GeneralCC
+     * @ingroup MIDI_CC_GENERAL
      * @brief Pan (CC #10).
      * 
      * The Pan controller (CC #10) is used to adjust the stereo panning of a sound on a MIDI channel. This controller 

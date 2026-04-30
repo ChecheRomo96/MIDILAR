@@ -5,9 +5,7 @@
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDILAR_dspFoundation_LUT_1D LUT1D
- * @ingroup MIDILAR_dspFoundation_LUT
- * @brief One-dimensional lookup table container for efficient indexed access.
+ * @addtogroup MIDILAR_dspFoundation_LUT1D
  *
  * The `LUT1D` class is a lightweight, template-based container that owns a contiguous buffer
  * and provides safe access, resizing, and data manipulation utilities.
@@ -18,7 +16,7 @@
  * Signal generation is handled externally by the `Generators` module, which can fill a `LUT1D`
  * instance through its buffer interface.
  *
- * @tparam OUTPUT_TYPE The type of value stored in the LUT (e.g., float, int16_t).
+ * @tparam T The type of value stored in the LUT (e.g., float, int16_t).
  *
  * @see MIDILAR::dspFoundation::LUT::LUT1D
  *
@@ -104,17 +102,9 @@
  *
  * ### Executable Examples
  *
- * #### BasicFill
- * - \ref dspFoundation/LUT/LUT1D/BasicFill/CMake/BasicFill.cpp "BasicFill.cpp"
- * - \ref dspFoundation/LUT/LUT1D/BasicFill/BasicFill.ino "BasicFill.ino"
- *
- * #### FunctionTable
- * - \ref dspFoundation/LUT/LUT1D/FunctionTable/CMake/FunctionTable.cpp "FunctionTable.cpp"
- * - \ref dspFoundation/LUT/LUT1D/FunctionTable/FunctionTable.ino "FunctionTable.ino"
- *
- * #### ManualOscillator
- * - \ref dspFoundation/LUT/LUT1D/ManualOscillator/CMake/ManualOscillator.cpp "ManualOscillator.cpp"
- * - \ref dspFoundation/LUT/LUT1D/ManualOscillator/ManualOscillator.ino "ManualOscillator.ino"
+ * - \ref MIDILAR_Examples_dsp_LUT1D_BasicFill
+ * - \ref MIDILAR_Examples_dsp_LUT1D_FunctionTable
+ * - \ref MIDILAR_Examples_dsp_LUT1D_ManualOscillator
  *
  * ---
  *

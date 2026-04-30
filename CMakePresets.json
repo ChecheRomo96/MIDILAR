@@ -28,13 +28,24 @@
       }
     },
     {
-      "name": "tests",
+      "name": "dev_full",
       "binaryDir": "build/tests",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
+        "MIDILAR_FULL_BUILD": "ON",
+        "MIDILAR_DOCS": "ON",
         "MIDILAR_TESTING": "ON",
-        "MIDILAR_EXAMPLES": "OFF",
-        "MIDILAR_COVERAGE": "OFF"
+        "MIDILAR_EXAMPLES": "ON"
+      }
+    },
+    {
+      "name": "full_docs",
+      "binaryDir": "build/full_docs",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "MIDILAR_FULL_BUILD": "ON",
+        "MIDILAR_DOCS": "ON",
+        "MIDILAR_EXAMPLES": "ON"
       }
     },
     {

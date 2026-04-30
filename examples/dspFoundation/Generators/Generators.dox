@@ -37,8 +37,6 @@
  *
  * - @ref MIDILAR_Examples_dsp_generators_periodic
  * - @ref MIDILAR_Examples_dsp_generators_shaping
- * - @ref MIDILAR_Examples_dsp_generators_windows
- * - @ref MIDILAR_Examples_dsp_generators_envelopes
  * - @ref MIDILAR_Examples_dsp_generators_noise
  *
  * @section MIDILAR_Examples_dsp_generators_common_pattern Common Pattern
@@ -69,4 +67,11 @@
  * @defgroup MIDILAR_Examples_dsp_generators_shaping Shaping Generators Examples
  * @ingroup MIDILAR_Examples_dsp_generators
  * @brief Examples demonstrating shaping (non-linear) DSP generators.
+ */
+ 
+
+/**
+ * @defgroup MIDILAR_Examples_dsp_generators_noise Noise Generators Examples
+ * @ingroup MIDILAR_Examples_dsp_generators
+ * @brief Examples demonstrating noise DSP generators.
  */

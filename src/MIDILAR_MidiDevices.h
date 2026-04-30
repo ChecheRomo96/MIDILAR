@@ -3,7 +3,7 @@
 
     #include <MIDILAR_BuildSettings.h>
     
-    #include <MidiDevices/ChannelReassign/ChannelReassign.h>
-    #include <MidiDevices/VelocityShaper/VelocityShaper.h>
+    //#include <MidiDevices/ChannelReassign/ChannelReassign.h>
+    //#include <MidiDevices/VelocityShaper/VelocityShaper.h>
 
 #endif//MIDILAR_MIDI_PROCESSORS_H

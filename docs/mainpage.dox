@@ -22,7 +22,7 @@
  *
  * You can also explore the following curated sections:
  *
- * - 📁 **@ref BuildGuide "Build Guide"**  
+ * - 📁 **@ref MIDILAR_BuildGuide "Build Guide"**  
  *   Complete guide on how to build MIDILAR using either **CMake** or **Arduino**, including enabling/disabling modules and generating documentation.
  * 
  * - 🎵 **@ref MIDI_Protocol "MIDI Protocol Specification"**  
@@ -71,7 +71,7 @@
  *
  * - 🎛️ **Explore MIDI Processors**  
  *   Try out prebuilt components for clock generation, filtering, or echo.  
- *   → [MidiProcessors Module](@ref MIDILAR_MidiProcessors)
+ *   → [MidiProcessors Module](@ref MIDILAR_MidiDevices)
  *
  * - 🧮 **Discover DSP Utilities**  
  *   Explore LUT-based shaping, waveform generation, and nonlinear control.  
