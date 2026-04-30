@@ -1,4 +1,4 @@
-#include <MIDILAR/dspFoundation/Generators/Shaping/Atan.h>
+#include <dspFoundation/Generators/Shaping/Atan.h>
 #include <stdio.h>
 #include <stddef.h>
 
@@ -9,7 +9,7 @@ int main() {
     const float Drive = 4.0f;
     const float Bias = 0.25f;
 
-    MIDILAR::dspFoundation::Generators::Shaping::Atan<float>::Generate(
+    MIDILAR::dspFoundation::Generators::Shaping::Atan<float>(
         buffer,
         BufferSize,
         Drive, Bias

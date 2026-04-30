@@ -8,7 +8,6 @@
   "configurePresets": [
     {
       "name": "release",
-      "generator": "Unix Makefiles",
       "binaryDir": "build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
@@ -19,7 +18,6 @@
     },
     {
       "name": "debug",
-      "generator": "Unix Makefiles",
       "binaryDir": "build/debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
@@ -31,7 +29,6 @@
     },
     {
       "name": "tests",
-      "generator": "Unix Makefiles",
       "binaryDir": "build/tests",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
@@ -42,7 +39,6 @@
     },
     {
       "name": "coverage",
-      "generator": "Unix Makefiles",
       "binaryDir": "build/coverage",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
