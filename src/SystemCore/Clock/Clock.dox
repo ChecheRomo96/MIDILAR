@@ -1,0 +1,12 @@
+/**
+ * @addtogroup MIDILAR_SF_Clock
+ * @brief Provides system timing utilities for MIDI synchronization.
+ * 
+ * The **Clock Class** is responsible for tracking and managing MIDI-related time functions,
+ * including beat synchronization and system timestamps.
+ * 
+ * ### Features:
+ * - Tracks system time with high precision.
+ * - Supports synchronization with external MIDI clocks.
+ * - Allows for event-driven updates based on clock ticks.
+ */

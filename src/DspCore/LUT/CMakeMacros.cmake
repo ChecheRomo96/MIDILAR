@@ -1,0 +1,17 @@
+if(MIDILAR_DSP_LUT1D)
+    message(STATUS "MIDILAR::DspCore::LUT1D")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT1D)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT1D")
+endif()
+
+if(MIDILAR_DSP_LUT2D)
+    message(STATUS "MIDILAR::DspCore::LUT2D")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT2D)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT2D")
+endif()
+
+if(MIDILAR_DSP_LUT3D)
+    message(STATUS "MIDILAR::DspCore::LUT3D")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_LUT3D)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_LUT3D")
+endif()

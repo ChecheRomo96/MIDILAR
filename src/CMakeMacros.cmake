@@ -7,28 +7,28 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC ${PROJECT_NAME_UPPER}_VERSION=
 
 message(STATUS "Enabled ${PROJECT_NAME} features:")
 
-if(MIDILAR_SYSTEM_FOUNDATION)
-    message(STATUS "MIDILAR::SystemFoundation")
-    target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_FOUNDATION)
-    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_FOUNDATION")
+if(MIDILAR_SYSTEM_CORE)
+    message(STATUS "MIDILAR::SystemCore")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_SYSTEM_CORE)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_SYSTEM_CORE")
 
-    include(${CMAKE_CURRENT_LIST_DIR}/SystemFoundation/CMakeMacros.cmake)
+    include(${CMAKE_CURRENT_LIST_DIR}/SystemCore/CMakeMacros.cmake)
 endif()
 
-if(MIDILAR_MIDI_FOUNDATION)
-    message(STATUS "MIDILAR::MidiFoundation")
-    target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_FOUNDATION)
-    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_FOUNDATION")
+if(MIDILAR_MIDI_CORE)
+    message(STATUS "MIDILAR::MidiCore")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_MIDI_CORE)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_MIDI_CORE")
 
-    include(${CMAKE_CURRENT_LIST_DIR}/MidiFoundation/CMakeMacros.cmake)
+    include(${CMAKE_CURRENT_LIST_DIR}/MidiCore/CMakeMacros.cmake)
 endif()
 
-if(MIDILAR_DSP_FOUNDATION)
-    message(STATUS "MIDILAR::dspFoundation")
-    target_compile_definitions(MIDILAR PUBLIC MIDILAR_DSP_FOUNDATION)
-    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_DSP_FOUNDATION")
+if(MIDILAR_DSP_CORE)
+    message(STATUS "MIDILAR::DspCore")
+    target_compile_definitions(MIDILAR PUBLIC MIDILAR_DSP_CORE)
+    list(APPEND ${PROJECT_NAME_UPPER}_MACROS "MIDILAR_DSP_CORE")
 
-    include(${CMAKE_CURRENT_LIST_DIR}/dspFoundation/CMakeMacros.cmake)
+    include(${CMAKE_CURRENT_LIST_DIR}/DspCore/CMakeMacros.cmake)
 endif()
 
 

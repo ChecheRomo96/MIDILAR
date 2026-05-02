@@ -23,10 +23,10 @@
  * to expressive shaping of control signals.
  */
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   #ifdef MIDILAR_SYSTEM_FOUNDATION
+   #ifdef MIDILAR_SYSTEM_CORE
    /**
     * @ingroup MIDILAR
-    * @defgroup MIDILAR_SystemFoundation System Foundation
+    * @defgroup MIDILAR_SystemCore System Core
     * @brief Core system utilities and infrastructure for MIDILAR.
     * 
     * This module includes fundamental system utilities, configuration 
@@ -35,17 +35,17 @@
     */
    #endif
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   #ifdef MIDILAR_MIDI_FOUNDATION
+   #ifdef MIDILAR_MIDI_CORE
    /**
     * @ingroup MIDILAR
-    * @defgroup MIDILAR_MidiFoundation MIDI Foundation
+    * @defgroup MIDILAR_MidiCore MIDI Core
     */
    #endif
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   #ifdef MIDILAR_DSP_FOUNDATION
+   #ifdef MIDILAR_DSP_CORE
    /**
     * @ingroup MIDILAR
-    * @defgroup MIDILAR_dspFoundation DSP Foundation
+    * @defgroup MIDILAR_DspCore DSP Core
     * @brief Core components for signal shaping, control mapping, and waveform generation.
     */
    #endif

@@ -1,0 +1,32 @@
+/**
+ * @file Interpolators.dox
+ */
+
+/**
+ * @addtogroup MIDILAR_DspCore_Interpolators
+ * @{
+ *
+ * This module groups all DSP components responsible for interpolating values
+ * between discrete samples or lookup table entries used across MIDILAR.
+ *
+ */
+
+/**
+ * @defgroup MIDILAR_DspCore_Interp_Linear Linear
+ * @ingroup MIDILAR_DspCore_Interpolators
+ * @brief Linear interpolation for one-dimensional data.
+ */
+
+/**
+ * @defgroup MIDILAR_DspCore_Interp_Bilinear Bilinear
+ * @ingroup MIDILAR_DspCore_Interpolators
+ * @brief Bilinear interpolation for two-dimensional data.
+ */
+
+/**
+ * @defgroup MIDILAR_DspCore_Interp_Trilinear Trilinear
+ * @ingroup MIDILAR_DspCore_Interpolators
+ * @brief Trilinear interpolation for three-dimensional data.
+ */
+
+/** @} */

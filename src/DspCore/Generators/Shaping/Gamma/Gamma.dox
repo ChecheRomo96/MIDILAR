@@ -1,0 +1,98 @@
+/**
+ * @addtogroup MIDILAR_DspCore_Gen_Shaping_Gamma
+ *
+ * This module implements a static nonlinear shaping function defined as:
+ *
+ * \f[
+ * y(x) = x^\gamma
+ * \f]
+ *
+ * where:
+ *
+ * - \f$ x \in [0, 1] \f$ is the normalized input
+ * - \f$ \gamma > 0 \f$ is the exponent controlling the curve shape
+ *
+ * ---
+ *
+ * @section gamma_behavior Behavior
+ *
+ * The Gamma function modifies the curvature of a normalized signal:
+ *
+ * - \f$ \gamma = 1 \Rightarrow y = x \f$ (linear)
+ * - \f$ \gamma > 1 \Rightarrow \f$ convex curve (attenuates low values)
+ * - \f$ 0 < \gamma < 1 \Rightarrow \f$ concave curve (boosts low values)
+ *
+ * ---
+ *
+ * @section gamma_properties Properties
+ *
+ * - Monotonic increasing over \f$ [0, 1] \f$
+ * - Continuous and stable for all \f$ \gamma > 0 \f$
+ * - Output remains in \f$ [0, 1] \f$
+ * - Deterministic and suitable for LUT generation
+ *
+ * ---
+ *
+ * @section gamma_usage Usage
+ *
+ * Example using a raw buffer:
+ *
+ * @code{.cpp}
+ * #include <MIDILAR/DspCore/Generators/Shaping/Gamma.h>
+ *
+ * float buffer[256];
+ *
+ * MIDILAR::DspCore::Generators::Shaping::Gamma(
+ *     buffer,
+ *     256,
+ *     2.2f,   // Gamma
+ *     1.0f    // OutputGain
+ * );
+ * @endcode
+ *
+ * Example using LUT1D:
+ *
+ * @code{.cpp}
+ * #include <MIDILAR/DspCore/LUT/LUT1D/LUT1D.h>
+ * #include <MIDILAR/DspCore/Generators/Shaping/Gamma.h>
+ *
+ * using namespace MIDILAR::DspCore;
+ *
+ * LUT::LUT1D<float> lut(256);
+ *
+ * Generators::Shaping::GammaLUT(
+ *     lut,
+ *     2.2f,
+ *     1.0f
+ * );
+ * @endcode
+ *
+ * ---
+ *
+ * @section gamma_usecases Use Cases
+ *
+ * Common applications include:
+ *
+ * - MIDI velocity response curves
+ * - Envelope shaping (ADSR)
+ * - Perceptual scaling (e.g., brightness, loudness)
+ * - Control signal mapping
+ *
+ * ---
+ *
+ * @section gamma_design Design Notes
+ *
+ * - The function operates in normalized domain \f$ x \in [0, 1] \f$
+ * - Input normalization must be handled externally
+ * - Intended for LUT precomputation or offline buffer generation
+ * - No dependency on standard library containers
+ *
+ * ---
+ *
+ * @section gamma_related Related Modules
+ *
+ * - @ref MIDILAR_DspCore_Gen_Shaping_GammaMorph
+ * - @ref MIDILAR_DspCore_Gen_Shaping
+ * - @ref MIDILAR_DspCore_LUT1D
+ *
+ */

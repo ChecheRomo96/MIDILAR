@@ -1,0 +1,30 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file FunctionSurface.dox
+ * @brief Documentation for the LUT2D FunctionSurface example.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @example DspCore/LUT/LUT2D/FunctionSurface/CMake/FunctionSurface.cpp
+ * @brief Demonstrates using LUT2D as a sampled 2D function surface.
+ *
+ * This example fills a 2D LUT with a normalized surface:
+ *
+ * @code
+ * z = x * y
+ * @endcode
+ *
+ * where both `x` and `y` are normalized to the range `[0, 1]`.
+ *
+ * It demonstrates:
+ *
+ * - Mapping integer LUT coordinates to normalized coordinates
+ * - Storing a sampled 2D function
+ * - Reading the generated surface through `GetValue(x, y)`
+ * - Using `LUT2D` as a basis for future 2D interpolation or morphing systems
+ *
+ * The same concept is also available as an Arduino sketch:
+ *
+ * @example DspCore/LUT/LUT2D/FunctionSurface/FunctionSurface.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

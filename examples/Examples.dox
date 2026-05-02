@@ -24,14 +24,16 @@
  * @ingroup MIDILAR_Examples
  */
 
- 
+#ifdef MIDILAR_DSP_CORE
 /**
- * @defgroup MIDILAR_Examples_dspFoundation DSP Foundation
+ * @defgroup MIDILAR_Examples_DspCore DSP Core
  * @ingroup MIDILAR_Examples
  */
+#endif
 
- 
+#ifdef MIDILAR_MIDI_CORE
 /**
- * @defgroup MIDILAR_Examples_MidiFoundation MIDI Foundation
+ * @defgroup MIDILAR_Examples_MidiCore MIDI Core
  * @ingroup MIDILAR_Examples
  */
+#endif

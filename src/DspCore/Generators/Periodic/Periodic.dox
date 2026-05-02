@@ -1,0 +1,51 @@
+/**
+ * @file Periodic.dox
+ */
+
+/**
+ * @addtogroup MIDILAR_DspCore_Gen_Periodic
+ * @{
+ *
+ * @brief Periodic waveform generators.
+ *
+ * This module contains generators that produce periodic waveforms
+ * commonly used in audio synthesis and DSP applications.
+ */
+
+/**
+ * @defgroup MIDILAR_DspCore_Gen_Periodic_Sine Sine
+ * @ingroup MIDILAR_DspCore_Gen_Periodic
+ * @brief Sinusoidal waveform generator.
+ *
+ * Generates a smooth periodic waveform defined by a sine function.
+ * This waveform contains a single frequency component (fundamental).
+ */
+
+/**
+ * @defgroup MIDILAR_DspCore_Gen_Periodic_Square Square
+ * @ingroup MIDILAR_DspCore_Gen_Periodic
+ * @brief Square waveform generator.
+ *
+ * Generates a waveform alternating between two levels.
+ * Rich in odd harmonics.
+ */
+
+/**
+ * @defgroup MIDILAR_DspCore_Gen_Periodic_Saw Saw
+ * @ingroup MIDILAR_DspCore_Gen_Periodic
+ * @brief Sawtooth waveform generator.
+ *
+ * Generates a ramp waveform with strong harmonic content.
+ * Contains both even and odd harmonics.
+ */
+
+/**
+ * @defgroup MIDILAR_DspCore_Gen_Periodic_Triangle Triangle
+ * @ingroup MIDILAR_DspCore_Gen_Periodic
+ * @brief Triangle waveform generator.
+ *
+ * Generates a linear rising and falling waveform.
+ * Contains only odd harmonics with faster decay than square.
+ */
+
+/** @} */

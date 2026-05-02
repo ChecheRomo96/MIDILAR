@@ -1,23 +1,23 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @file dspFoundation.dox
- * @brief Configuration flags for MIDILAR's dspFoundation module.
+ * @file DspCore.dox
+ * @brief Configuration flags for MIDILAR's DspCore module.
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @addtogroup MIDILAR_BG_BC_dspFoundation
- * @brief DSP Foundation Configuration
+ * @addtogroup MIDILAR_BG_BC_DspCore
+ * @brief DSP Core Configuration
  *
  * This section documents all configuration flags available under the
- * `MIDILAR::dspFoundation` namespace.
+ * `MIDILAR::DspCore` namespace.
  *
  * These flags control the inclusion of signal generators, LUTs, and
  * DSP-related utilities in both CMake and Arduino builds.
  *
  * @section buildconfig_dspfoundation_base Base Flag
  *
- * - `MIDILAR_DSP_FOUNDATION` : Enables all DSP modules under `dspFoundation`.
- * This option is required to be enabled for any functionality nested inside MIDILAR::dspFoundation namespace.
+ * - `MIDILAR_DSP_CORE` : Enables all DSP modules under `DspCore`.
+ * This option is required to be enabled for any functionality nested inside MIDILAR::DspCore namespace.
  *
  * @section buildconfig_dspfoundation_generators Buffer Generators
  *

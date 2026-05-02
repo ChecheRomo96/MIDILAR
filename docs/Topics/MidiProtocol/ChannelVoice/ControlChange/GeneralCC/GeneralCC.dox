@@ -30,7 +30,7 @@
  * ```cpp
  * #include "MIDILAR_MidiMessage.h"
  * 
- * using namespace MIDILAR::MidiFoundation;
+ * using namespace MIDILAR::MidiCore;
  * 
  * Message msg;
  * 
@@ -83,7 +83,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -123,7 +123,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -164,7 +164,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -205,7 +205,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -248,7 +248,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -291,7 +291,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -335,7 +335,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -383,7 +383,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -434,7 +434,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 

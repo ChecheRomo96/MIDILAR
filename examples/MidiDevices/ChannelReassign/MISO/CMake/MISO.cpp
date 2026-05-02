@@ -3,7 +3,7 @@
 #include <vector>
 #include <iomanip>  // For formatting hex output
 #include <MIDILAR_MidiDevices.h>  // Include ChannelReassign
-#include <MIDILAR_MidiFoundation.h>
+#include <MIDILAR_MidiCore.h>
 
 using namespace MIDILAR::MidiDevices;
 

@@ -71,7 +71,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -125,7 +125,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -173,7 +173,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * Message msg;
      * 
@@ -219,7 +219,7 @@
      * ```cpp
      * #include "MIDILAR_MidiMessage.h"
      * 
-     * using namespace MIDILAR::MidiFoundation;
+     * using namespace MIDILAR::MidiCore;
      * 
      * // Declare variables for various types of pitch bend inputs.
      * uint8_t  bendA = 0;    // Unsigned 8-bit pitch bend value (scaled internally).

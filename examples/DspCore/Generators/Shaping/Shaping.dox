@@ -1,0 +1,101 @@
+/**
+ * @addtogroup MIDILAR_Examples_dsp_generators_shaping
+ *
+ * This group contains examples of shaping generators, which apply non-linear
+ * transformations to an input domain. These generators are commonly used for:
+ *
+ * - Waveshaping
+ * - Soft clipping / saturation
+ * - Dynamic response curves
+ * - Control signal remapping
+ *
+ * Unlike periodic generators, shaping generators do not represent signals
+ * over time, but instead define a function:
+ *
+ * @f[
+ * y = f(x)
+ * @f]
+ *
+ * where typically:
+ *
+ * @f[
+ * x \in [-1, 1]
+ * @f]
+ *
+ * @section MIDILAR_Examples_dsp_generators_shaping_tanh_example Tanh Generator Example
+ *
+ * This example shows how to generate a soft-clipping curve using a normalized
+ * hyperbolic tangent function.
+ *
+ * @code{.cpp}
+ * #include <MIDILAR/DspCore/Generators/Shaping/Tanh.h>
+ *
+ * constexpr size_t BufferSize = 128;
+ * float buffer[BufferSize];
+ *
+ * float drive = 3.0f;
+ *
+ * bool ok = MIDILAR::DspCore::Generators::Shaping::Tanh::FillBuffer(
+ *     buffer,
+ *     BufferSize,
+ *     drive,
+ *     -1.0f,
+ *     1.0f,
+ *     true // normalized
+ * );
+ *
+ * if (!ok) {
+ *     // Handle error
+ * }
+ * @endcode
+ *
+ * The generated curve corresponds to:
+ *
+ * @f[
+ * y(x) = \frac{\tanh(a x)}{\tanh(a)}
+ * @f]
+ *
+ * where @f$ a @f$ controls the amount of saturation.
+ *
+ * @section MIDILAR_Examples_dsp_generators_shaping_gamma_example Gamma Generator Example
+ *
+ * Example of a power-law shaping curve:
+ *
+ * @code{.cpp}
+ * #include <MIDILAR/DspCore/Generators/Shaping/Gamma.h>
+ *
+ * constexpr size_t BufferSize = 128;
+ * float buffer[BufferSize];
+ *
+ * float gamma = 2.2f;
+ *
+ * bool ok = MIDILAR::DspCore::Generators::Shaping::Gamma::FillBuffer(
+ *     buffer,
+ *     BufferSize,
+ *     gamma
+ * );
+ * @endcode
+ *
+ * This produces:
+ *
+ * @f[
+ * y(x) = x^\gamma
+ * @f]
+ *
+ * @section MIDILAR_Examples_dsp_generators_shaping_usage Usage Notes
+ *
+ * - Shaping generators are typically used with LUTs:
+ *
+ * @code{.cpp}
+ * LUT1D<float> lut(256);
+ * Tanh::FillBuffer(lut.Data(), lut.Size(), 3.0f);
+ * @endcode
+ *
+ * - Input values should be normalized before lookup.
+ * - Output values are typically in the same range as input.
+ *
+ * @section MIDILAR_Examples_dsp_generators_shaping_related Related Documentation
+ *
+ * - @ref MIDILAR_DspCore_Gen_Shaping
+ * - @ref MIDILAR_DspCore_LUT
+ */

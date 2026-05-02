@@ -8,9 +8,9 @@ int main() {
 
     bool modulesEnabled = false; // Track if any module is enabled
 
-    #ifdef MIDILAR_SYSTEM_FOUNDATION
+    #ifdef MIDILAR_SYSTEM_CORE
         modulesEnabled = true;
-        std::cout << "  - SystemFoundation." << std::endl;
+        std::cout << "  - SystemCore." << std::endl;
         
         #ifdef MIDILAR_SYSTEM_CALLBACK_HANDLER
             std::cout << "    - CallbackHandler." << std::endl;
@@ -21,11 +21,11 @@ int main() {
         #endif // MIDILAR_SYSTEM_CLOCK
 
         std::cout << std::endl;
-    #endif // MIDILAR_SYSTEM_FOUNDATION
+    #endif // MIDILAR_SYSTEM_CORE
 
-    #ifdef MIDILAR_DSP_FOUNDATION
+    #ifdef MIDILAR_DSP_CORE
         modulesEnabled = true;
-        std::cout << "  - dspFoundation." << std::endl;
+        std::cout << "  - DspCore." << std::endl;
         
         #ifdef MIDILAR_DSP_GENERATORS
             std::cout << "    - Generators." << std::endl;
@@ -102,11 +102,11 @@ int main() {
 
         std::cout << std::endl;
 
-    #endif // MIDILAR_DSP_FOUNDATION
+    #endif // MIDILAR_DSP_CORE
 
-    #ifdef MIDILAR_MIDI_FOUNDATION
+    #ifdef MIDILAR_MIDI_CORE
         modulesEnabled = true;
-        std::cout << "  - MidiFoundation." << std::endl;
+        std::cout << "  - MidiCore." << std::endl;
 
         std::cout << "    - Protocol Enums." << std::endl;
         std::cout << "    - Message." << std::endl;
@@ -114,7 +114,7 @@ int main() {
         std::cout << "    - Note." << std::endl;
         std::cout << "    - DeviceBase." << std::endl;
         std::cout << std::endl;
-    #endif // MIDILAR_MIDI_FOUNDATION
+    #endif // MIDILAR_MIDI_CORE
 
     
     #ifdef MIDILAR_MIDI_DEVICES

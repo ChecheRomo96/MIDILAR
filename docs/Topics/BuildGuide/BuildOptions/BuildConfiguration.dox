@@ -29,7 +29,7 @@
  * `System/UserSetup.h` file using standard `#define` directives:
  *
  * @code{.cpp}
- * #define MIDILAR_DSP_FOUNDATION
+ * #define MIDILAR_DSP_CORE
  * #define MIDILAR_LUT
  * #define MIDILAR_MIDI_MESSAGE_PARSER
  * #define MIDILAR_GENERATORS_PERIODIC
@@ -41,7 +41,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @defgroup MIDILAR_BG_BC_dspFoundation dspFoundation
+ * @defgroup MIDILAR_BG_BC_DspCore DspCore
  * @ingroup MIDILAR_BG_BuildConfiguration
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////

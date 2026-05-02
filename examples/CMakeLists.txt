@@ -5,16 +5,16 @@ midilar_add_dox(
 
 add_subdirectory(BuildTest)
 
-if(MIDILAR_SYSTEM_FOUNDATION)
-    add_subdirectory(SystemFoundation)
+if(MIDILAR_SYSTEM_CORE)
+    add_subdirectory(SystemCore)
 endif()
 
-if(MIDILAR_DSP_FOUNDATION)
-    add_subdirectory(dspFoundation)
+if(MIDILAR_DSP_CORE)
+    add_subdirectory(DspCore)
 endif()
 
-if(MIDILAR_MIDI_FOUNDATION)
-    add_subdirectory(MidiFoundation)
+if(MIDILAR_MIDI_CORE)
+    add_subdirectory(MidiCore)
 endif()
 
 if(MIDILAR_MIDI_DEVICES)

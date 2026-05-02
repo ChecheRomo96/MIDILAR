@@ -40,14 +40,14 @@
  * In this file, you can enable or disable modules such as:
  *
  * @code{.cpp}
- * #define MIDILAR_DSP_FOUNDATION
+ * #define MIDILAR_DSP_CORE
  * #define MIDILAR_LUT
  * #define MIDILAR_MIDI_MESSAGE_PARSER
  * @endcode
  *
  * Example sketches can be accessed via:
  * ```
- * File > Examples > MIDILAR > dspFoundation > LUT > LUT1D > GeneratorLUT
+ * File > Examples > MIDILAR > DspCore > LUT > LUT1D > GeneratorLUT
  * ```
  *
  * Your Arduino sketch must include the main entry point:

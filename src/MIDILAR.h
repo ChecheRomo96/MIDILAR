@@ -23,21 +23,11 @@
      */
     #include "MIDILAR_BuildSettings.h"
        
-    #ifdef MIDILAR_SYSTEM_FOUNDATION
-        #include "MIDILAR_SystemFoundation.h"
-    #endif
+    #include "MIDILAR_Core.h"
 
-    #ifdef MIDILAR_DSP_FOUNDATION
-        #include "MIDILAR_dspFoundation.h"
-    #endif
-
-    #ifdef MIDILAR_MIDI_FOUNDATION
-        #include "MIDILAR_MidiFoundation.h"
-    #endif
-
-    #ifdef MIDILAR_MIDI_DEVICES
-        #include "MIDILAR_MidiDevices.h"
-    #endif
+    #include "MIDILAR_SystemCore.h"
+    #include "MIDILAR_DspCore.h"
+    #include "MIDILAR_MidiCore.h"
+    #include "MIDILAR_MidiDevices.h"
     
-
 #endif // MIDILAR_H

@@ -1,29 +1,29 @@
 #################################################################################################################################
 # CMake options for MIDILAR
     if(MIDILAR_FULL_BUILD)
-        set(MIDILAR_SYSTEM_FOUNDATION ON)
-        set(MIDILAR_DSP_FOUNDATION ON)
-        set(MIDILAR_MIDI_FOUNDATION ON)
+        set(MIDILAR_SYSTEM_CORE ON)
+        set(MIDILAR_DSP_CORE ON)
+        set(MIDILAR_MIDI_CORE ON)
         set(MIDILAR_MIDI_DEVICES ON)
     endif()
 #
 #################################################################################################################################
-# SystemFoundation
+# SystemCore
 
-    option(MIDILAR_SYSTEM_FOUNDATION "Enables the compilation of MIDILAR::SystemFoundation" ON)
-    include(${CMAKE_CURRENT_LIST_DIR}/SystemFoundation/CMakeOptions.cmake)
+    option(MIDILAR_SYSTEM_CORE "Enables the compilation of MIDILAR::SystemCore" ON)
+    include(${CMAKE_CURRENT_LIST_DIR}/SystemCore/CMakeOptions.cmake)
 #
 #################################################################################################################################
-# SystemFoundation
+# SystemCore
 
-    option(MIDILAR_MIDI_FOUNDATION "Enables the compilation of MIDILAR::MidiFoundation" ON)
-    include(${CMAKE_CURRENT_LIST_DIR}/MidiFoundation/CMakeOptions.cmake)
+    option(MIDILAR_MIDI_CORE "Enables the compilation of MIDILAR::MidiCore" ON)
+    include(${CMAKE_CURRENT_LIST_DIR}/MidiCore/CMakeOptions.cmake)
 #
 #################################################################################################################################
-# dspFoundation
+# DspCore
 
-    option(MIDILAR_DSP_FOUNDATION "Enables the compilation of MIDILAR::dspFoundation" ON)
-    include(${CMAKE_CURRENT_LIST_DIR}/dspFoundation/CMakeOptions.cmake)
+    option(MIDILAR_DSP_CORE "Enables the compilation of MIDILAR::DspCore" ON)
+    include(${CMAKE_CURRENT_LIST_DIR}/DspCore/CMakeOptions.cmake)
 #
 #################################################################################################################################
 # Midi Devices

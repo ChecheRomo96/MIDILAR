@@ -46,37 +46,42 @@
 #
 ######################################################################################################
 # add subdirectories
+    
+    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_Core.h"
+    )
+    add_subdirectory(Core)
 
-    if(MIDILAR_SYSTEM_FOUNDATION)
-        midilar_add_macro(PUBLIC MIDILAR_SYSTEM_FOUNDATION)
+    if(MIDILAR_SYSTEM_CORE)
+        midilar_add_macro(PUBLIC MIDILAR_SYSTEM_CORE)
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.h"
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemCore.h"
         )
 
-        add_subdirectory(SystemFoundation)
+        add_subdirectory(SystemCore)
     endif()
 
-    if(MIDILAR_DSP_FOUNDATION)
-        midilar_add_macro(PUBLIC MIDILAR_DSP_FOUNDATION)   
+    if(MIDILAR_DSP_CORE)
+        midilar_add_macro(PUBLIC MIDILAR_DSP_CORE)   
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_dspFoundation.h"
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_DspCore.h"
         )
 
-        add_subdirectory(dspFoundation)
+        add_subdirectory(DspCore)
     endif()
     
 
-    if(MIDILAR_MIDI_FOUNDATION)
-        midilar_add_macro(PUBLIC MIDILAR_MIDI_FOUNDATION)   
+    if(MIDILAR_MIDI_CORE)
+        midilar_add_macro(PUBLIC MIDILAR_MIDI_CORE)   
         
         list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiFoundation.h"
+            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiCore.h"
             "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiProtocol.h"
         )
 
-        add_subdirectory(MidiFoundation)
+        add_subdirectory(MidiCore)
     endif()
     
 

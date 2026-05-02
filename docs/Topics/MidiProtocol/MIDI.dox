@@ -33,7 +33,7 @@
  *
  * ---
  *
- * @see MIDILAR_MidiFoundation for concrete enum values and parsing functions.
+ * @see MIDILAR_MidiCore for concrete enum values and parsing functions.
  *
  * ---
  *

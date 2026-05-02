@@ -13,9 +13,9 @@ void setup() {
 
     bool modulesEnabled = false; // Track if any module is enabled
 
-    #ifdef MIDILAR_SYSTEM_FOUNDATION
+    #ifdef MIDILAR_SYSTEM_CORE
         modulesEnabled = true;
-        Serial.println("  MIDILAR::SystemFoundation.");
+        Serial.println("  MIDILAR::SystemCore.");
 
         #ifdef MIDILAR_CALLBACK_HANDLER
             Serial.println("    - CallbackHandler.");
@@ -26,11 +26,11 @@ void setup() {
         #endif // MIDILAR_SYSTEM_CLOCK
 
         Serial.println();
-    #endif // MIDILAR_SYSTEM_FOUNDATION
+    #endif // MIDILAR_SYSTEM_CORE
 
-    #ifdef MIDILAR_AUDIO_FOUNDATION
+    #ifdef MIDILAR_AUDIO_CORE
         modulesEnabled = true;
-        Serial.println("  MIDILAR::AudioFoundation.");
+        Serial.println("  MIDILAR::AudioCore.");
 
         #ifdef MIDILAR_LUT
             Serial.println("    - BaseLUT.");
@@ -39,11 +39,11 @@ void setup() {
         #endif
 
         Serial.println();
-    #endif // MIDILAR_AUDIO_FOUNDATION
+    #endif // MIDILAR_AUDIO_CORE
 
-    #ifdef MIDILAR_MIDI_FOUNDATION
+    #ifdef MIDILAR_MIDI_CORE
         modulesEnabled = true;
-        Serial.println("  MIDILAR::MidiFoundation.");
+        Serial.println("  MIDILAR::MidiCore.");
 
         #ifdef MIDILAR_PROTOCOL_ENUMS
             Serial.println("    - Protocol Namespace.");
@@ -66,7 +66,7 @@ void setup() {
         #endif // MIDILAR_MIDI_PROCESSOR
 
         Serial.println();
-    #endif // MIDILAR_MIDI_FOUNDATION
+    #endif // MIDILAR_MIDI_CORE
 
     if (!modulesEnabled) {
         Serial.println("  No modules enabled.");

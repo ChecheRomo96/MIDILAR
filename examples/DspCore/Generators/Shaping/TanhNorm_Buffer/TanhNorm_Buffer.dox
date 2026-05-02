@@ -1,0 +1,22 @@
+/**
+ * @page MIDILAR_Examples_Shaping_TanhNorm_Buffer TanhNorm_Buffer
+ * @ingroup MIDILAR_Examples_DspCore_Generators_Shaping
+ *
+ * @brief Generates a normalized bipolar tanh shaping curve into a plain buffer.
+ *
+ * Formula:
+ * @f[
+ * y(x)=\frac{\tanh(a x)}{\tanh(a)}
+ * @f]
+ *
+ * Domain:
+ * @f[
+ * x \in [-1,1]
+ * @f]
+ *
+ * Desktop source:
+ * @include TanhNorm_Buffer/TanhNorm_Buffer.cpp
+ *
+ * Arduino source:
+ * @include TanhNorm_Buffer/TanhNorm_Buffer.ino
+ */

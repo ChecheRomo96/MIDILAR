@@ -4,7 +4,7 @@ MIDILAR is a modular, lightweight C++ framework for real-time MIDI processing an
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 - **Real-Time MIDI Parsing & Routing**
 - **Modular DSP Infrastructure**
@@ -14,11 +14,11 @@ MIDILAR is a modular, lightweight C++ framework for real-time MIDI processing an
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Full documentation is available at:
 
-👉 [MIDILAR API Documentation](https://checheromo96.github.io/MIDILAR/)
+[MIDILAR API Documentation](https://checheromo96.github.io/MIDILAR/)
 
 From the main **Topics** tab in the documentation, you can access:
 
@@ -30,7 +30,7 @@ From the main **Topics** tab in the documentation, you can access:
 
 ---
 
-## 🔧 Getting Started
+## Getting Started
 
 You can build MIDILAR using standard CMake:
 
@@ -43,13 +43,13 @@ Or configure it for embedded development using the `System/UserSetup.h` file whe
 
 ---
 
-## 📁 Example Usage
+## Example Usage
 
 The `examples/` folder includes various standalone and Arduino-compatible sketches. See the documentation's **Example Programs** section for visual output and detailed explanations.
 
 ---
 
-## 💡 Learn More
+## Learn More
 
 - [API Reference](https://checheromo96.github.io/MIDILAR/)
 - [Example Programs](https://checheromo96.github.io/MIDILAR/topics.html#MIDILAR_Examples)
@@ -57,7 +57,7 @@ The `examples/` folder includes various standalone and Arduino-compatible sketch
 
 ---
 
-## 🧪 Testing & Docs
+## Testing & Docs
 
 Enable testing and documentation via CMake:
 

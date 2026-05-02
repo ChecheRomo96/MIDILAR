@@ -1,0 +1,114 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file ParsingRT.dox
+ * @brief Documentation for the real-time parsing test using MessageParser.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_MessageParser_ParsingRT
+ * @brief Real-time MIDI byte-by-byte parsing with MessageParser.
+ *
+ * ---
+ *
+ * This example demonstrates how to use the `MessageParser` class in a true real-time context
+ * by feeding MIDI data **one byte at a time** as it arrives from a serial interface like `Serial1`.
+ *
+ * This model is essential for **embedded MIDI hardware** that handles incoming streams from DIN MIDI
+ * ports or USB-to-serial adapters, where messages are not buffered in advance.
+ *
+ * ---
+ *
+ * ### Core Concepts
+ * - Real-time byte-wise parsing via `ProcessByte()`
+ * - MIDI message streaming over `Serial1.read()`
+ * - Interrupt-safe, low-latency callback dispatching
+ * - Embedded-compatible design for boards like Arduino, Teensy, etc.
+ *
+ * ---
+ *
+ * @tableofcontents
+ *
+ * ## Byte-by-Byte Processing
+ * Unlike buffer-based parsing, this example calls:
+ *
+ * @code
+ * parser.ProcessByte(byte);
+ * @endcode
+ *
+ * immediately after receiving each byte from the UART. This ensures:
+ * - Minimal latency
+ * - Accurate state machine behavior
+ * - Real-time responsiveness even on low-end microcontrollers
+ *
+ * Example usage on Arduino:
+ *
+ * @code
+ * if (Serial1.available()) {
+ *     uint8_t byte = Serial1.read();
+ *     parser.ProcessByte(byte);
+ * }
+ * @endcode
+ *
+ * This method is robust and works well even under MIDI traffic bursts.
+ *
+ * ---
+ *
+ * ## Example Output
+ * The parser outputs only once full messages are reconstructed:
+ *
+ * ```
+ * [Note On] 90 3C 7F
+ * [Control Change] B0 01 40
+ * [System Common] F0 7D 01 02 03 F7
+ * ...
+ * ```
+ *
+ * ---
+ *
+ * ## Standard C++ Version
+ * Although primarily intended for embedded use, this logic can also be tested in simulation
+ * by introducing byte delays between calls to `ProcessByte()`.
+ *
+ * @ref Example_ParsingRT_cpp
+ *
+ * ### How to Run (CMake Build)
+ * ```
+ * .<build_dir>/bin/MessageParser_ParsingRT
+ * ```
+ *
+ * ---
+ *
+ * ## Arduino-Compatible Version
+ * This is the **recommended usage mode** for real hardware. The sketch uses `Serial1.read()`
+ * to read incoming bytes one at a time, then routes them through the parser.
+ *
+ * @ref Example_ParsingRT_Arduino
+ *
+ * ### How to Run
+ * Open via:
+ *
+ * ```
+ * File → Examples → MIDILAR → MidiCore → MessageParser → ParsingRT
+ * ```
+ *
+ * Upload the sketch and open the **Serial Monitor** at `115200` baud to view parsed output.
+ * Ensure that MIDI is being transmitted into the correct hardware serial port (`Serial1` or fallback).
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_ParsingRT_cpp ParsingRT.cpp
+ * @brief Simulates real-time MIDI stream parsing using ProcessByte().
+ *
+ * @include Examples/MidiCore/MessageParser/ParsingRT/CMake/ParsingRT.cpp
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_ParsingRT_Arduino ParsingRT.ino
+ * @brief Arduino-compatible example for real-time MIDI parsing over Serial1.
+ *
+ * @include Examples/MidiCore/MessageParser/ParsingRT/ParsingRT.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <MIDILAR_MidiProcessors.h>  // Include ChannelReassign
-#include <MIDILAR_MidiFoundation.h>
+#include <MIDILAR_MidiCore.h>
 
 using namespace MIDILAR::MidiProcessors;
 

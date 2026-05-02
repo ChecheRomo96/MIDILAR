@@ -1,10 +1,13 @@
 #include "VelocityShaper.h"
-#include <dspFoundation/Interpolators/Interpolators.h>
+
+/*
+
+#include <DspCore/Interpolators/Interpolators.h>
 
 namespace MIDILAR::MidiDevices {
 
     VelocityShaper::VelocityShaper()
-        : MIDILAR::MidiFoundation::DeviceBase(),
+        : MIDILAR::MidiCore::DeviceBase(),
           _InputChannels(0xFFFF),
           _CurrentMorph(0),
           _CurrentGain(0),
@@ -15,8 +18,8 @@ namespace MIDILAR::MidiDevices {
         _MessageParser.BindDefaultCallback<VelocityShaper, &VelocityShaper::_DefaultCallback>(this);
 
         _capabilities = static_cast<uint32_t>(
-            MIDILAR::MidiFoundation::DeviceBase::Capabilities::MidiIn |
-            MIDILAR::MidiFoundation::DeviceBase::Capabilities::MidiOut
+            MIDILAR::MidiCore::DeviceBase::Capabilities::MidiIn |
+            MIDILAR::MidiCore::DeviceBase::Capabilities::MidiOut
         );
 
         _LUT.SetGainRange(1.0f, 10.0f);
@@ -54,7 +57,7 @@ namespace MIDILAR::MidiDevices {
         float morphRange = _LUT.MorphMax() - _LUT.MorphMin();
         float gainRange  = _LUT.GainMax()  - _LUT.GainMin();
 
-        return MIDILAR::dspFoundation::Interpolation::Trilinear<float>(
+        return MIDILAR::DspCore::Interpolation::Trilinear<float>(
             0, 1, 0, 1, 0, 1,
             _LUT.GetValueFloat(x0, y0, z0), _LUT.GetValueFloat(x1, y0, z0),
             _LUT.GetValueFloat(x0, y1, z0), _LUT.GetValueFloat(x1, y1, z0),
@@ -222,8 +225,10 @@ namespace MIDILAR::MidiDevices {
         return _LUT.ResizeLUT(_LUT.Width(), _LUT.Height(), Gain);
     }
     
-    const MIDILAR::dspFoundation::LUT::Shaping::GammaLUT<uint8_t>& VelocityShaper::GetLUT() const {
+    const MIDILAR::DspCore::LUT::Shaping::GammaLUT<uint8_t>& VelocityShaper::GetLUT() const {
         return _LUT; 
     }
 
 } // namespace MIDILAR::MidiDeviceBases
+
+*/

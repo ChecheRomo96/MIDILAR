@@ -1,0 +1,77 @@
+/**
+ * @addtogroup MIDILAR_Examples_dsp_generators
+ *
+ * This section contains examples for using the generator utilities in
+ * @ref MIDILAR_DspCore_Generators.
+ *
+ * Generators are lightweight function-based utilities that write calculated
+ * values into user-provided buffers. They do not own memory and do not behave
+ * as runtime DSP processors by themselves.
+ *
+ * Typical usage:
+ *
+ * @code{.cpp}
+ * float buffer[128];
+ *
+ * MIDILAR::DspCore::Generators::Shaping::Tanh::FillBuffer(
+ *     buffer,
+ *     128,
+ *     3.0f
+ * );
+ * @endcode
+ *
+ * @section MIDILAR_Examples_dsp_generators_design Design Idea
+ *
+ * A generator is responsible only for creating values:
+ *
+ * @code{.cpp}
+ * output[i] = f(x);
+ * @endcode
+ *
+ * The generated buffer may then be used directly, copied into a LUT, exported,
+ * plotted, or used as test data.
+ *
+ * @section MIDILAR_Examples_dsp_generators_categories Generator Categories
+ *
+ * The DSP generator examples are organized by category:
+ *
+ * - @ref MIDILAR_Examples_dsp_generators_periodic
+ * - @ref MIDILAR_Examples_dsp_generators_shaping
+ * - @ref MIDILAR_Examples_dsp_generators_noise
+ *
+ * @section MIDILAR_Examples_dsp_generators_common_pattern Common Pattern
+ *
+ * Most generator examples follow this structure:
+ *
+ * @code{.cpp}
+ * constexpr size_t BufferSize = 128;
+ * float buffer[BufferSize];
+ *
+ * bool ok = GeneratorNamespace::FillBuffer(buffer, BufferSize);
+ *
+ * if (!ok) {
+ *     // Handle invalid buffer or invalid size.
+ * }
+ * @endcode
+ *
+ */
+
+/**
+ * @defgroup MIDILAR_Examples_dsp_generators_periodic Periodic Generators Examples
+¨* @ingroup MIDILAR_Examples_dsp_generators
+ * @brief Examples demonstrating periodic DSP generators.
+ */
+ 
+
+/**
+ * @defgroup MIDILAR_Examples_dsp_generators_shaping Shaping Generators Examples
+ * @ingroup MIDILAR_Examples_dsp_generators
+ * @brief Examples demonstrating shaping (non-linear) DSP generators.
+ */
+ 
+
+/**
+ * @defgroup MIDILAR_Examples_dsp_generators_noise Noise Generators Examples
+ * @ingroup MIDILAR_Examples_dsp_generators
+ * @brief Examples demonstrating noise DSP generators.
+ */

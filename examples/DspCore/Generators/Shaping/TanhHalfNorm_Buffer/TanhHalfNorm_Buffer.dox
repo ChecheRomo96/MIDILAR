@@ -1,0 +1,22 @@
+/**
+ * @page MIDILAR_Examples_Shaping_TanhHalfNorm_Buffer TanhHalfNorm_Buffer
+ * @ingroup MIDILAR_Examples_DspCore_Generators_Shaping
+ *
+ * @brief Generates a normalized half-range tanh shaping curve into a plain buffer.
+ *
+ * Formula:
+ * @f[
+ * y(x)=\frac{\tanh(a x)}{\tanh(a)}
+ * @f]
+ *
+ * Domain:
+ * @f[
+ * x \in [0,1]
+ * @f]
+ *
+ * Desktop source:
+ * @include TanhHalfNorm_Buffer/TanhHalfNorm_Buffer.cpp
+ *
+ * Arduino source:
+ * @include TanhHalfNorm_Buffer/TanhHalfNorm_Buffer.ino
+ */

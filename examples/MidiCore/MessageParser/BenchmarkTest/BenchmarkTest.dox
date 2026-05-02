@@ -1,0 +1,105 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file BenchmarkTest.dox
+ * @brief Documentation for the MessageParser benchmarking and stress test.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_MessageParser_BenchmarkTest
+ * @brief MessageParser performance benchmarking and stress testing.
+ *
+ * ---
+ *
+ * This example measures the performance and robustness of the `MessageParser` class
+ * by feeding large amounts of MIDI data and timing the overall processing cost.
+ *
+ * It is designed to help evaluate the parser’s suitability for real-time systems, MIDI routers,
+ * or embedded platforms with strict timing constraints.
+ *
+ * ---
+ *
+ * ### Key Concepts:
+ * - High-throughput MIDI message generation
+ * - Timing and performance measurement
+ * - Parser robustness under load
+ * - Baseline benchmarking for embedded deployment
+ *
+ * ---
+ *
+ * @tableofcontents
+ *
+ * ## What It Measures
+ * The benchmark test performs the following:
+ * - Constructs hundreds or thousands of MIDI messages using the `Message` class
+ * - Feeds them to the `MessageParser` using `ProcessData()` or `ProcessByte()`
+ * - Times the execution and prints results
+ *
+ * Output format:
+ *
+ * ```
+ * Parsed 10000 messages in 12.34 ms
+ * Avg: 0.00123 ms per message
+ * ```
+ *
+ * ---
+ *
+ * ## Standard C++ Version
+ * This version is built using CMake and runs on the desktop (Linux/macOS/Windows).
+ * It allows benchmarking on fast machines, virtual machines, or CI pipelines.
+ *
+ * @ref Example_BenchmarkTest_cpp
+ *
+ * ### How to Run (CMake Build)
+ * After building with CMake, execute from your build folder:
+ *
+ * **Windows**
+ * ```
+ * .<build_dir>/bin/MessageParser_BenchmarkTest.exe
+ * ```
+ *
+ * **Linux/macOS**
+ * ```
+ * .<build_dir>/bin/MessageParser_BenchmarkTest
+ * ```
+ *
+ * ---
+ *
+ * ## Arduino-Compatible Version
+ * A lightweight Arduino version prints timing info via `Serial`.
+ * It runs a fixed number of messages and outputs parsing duration in milliseconds.
+ *
+ * @ref Example_BenchmarkTest_Arduino
+ *
+ * ### How to Run
+ * Open via:
+ *
+ * ```
+ * File → Examples → MIDILAR → MidiCore → MessageParser → BenchmarkTest
+ * ```
+ *
+ * Upload the sketch and open the **Serial Monitor** at `115200` baud.
+ * You will see something like:
+ *
+ * ```
+ * Benchmarking 1000 messages...
+ * Done in 8 ms
+ * ```
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_BenchmarkTest_cpp BenchmarkTest.cpp
+ * @brief Measures parsing performance with a large number of MIDI messages.
+ *
+ * @include Examples/MidiCore/MessageParser/BenchmarkTest/CMake/BenchmarkTest.cpp
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_BenchmarkTest_Arduino BenchmarkTest.ino
+ * @brief Arduino-compatible benchmark for measuring `MessageParser` throughput.
+ *
+ * @include Examples/MidiCore/MessageParser/BenchmarkTest/BenchmarkTest.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

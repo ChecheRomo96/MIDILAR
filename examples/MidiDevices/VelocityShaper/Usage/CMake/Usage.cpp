@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <MIDILAR_MidiDevices.h>  // Include VelocityShaper
-#include <MIDILAR_MidiFoundation.h>
+#include <MIDILAR_MidiCore.h>
 
 using namespace MIDILAR::MidiDevices;
 

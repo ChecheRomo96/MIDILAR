@@ -3,8 +3,8 @@
 
     #include <MIDILAR_BuildSettings.h>
 	
-    #include <MidiFoundation/Protocol/Defines.h>
-    #include <MidiFoundation/Protocol/Enums.h>
+    #include <MidiCore/Protocol/Defines.h>
+    #include <MidiCore/Protocol/Enums.h>
 	
 
 #endif//MIDILAR_MIDI_PROTOCOL_H

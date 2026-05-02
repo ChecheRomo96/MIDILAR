@@ -35,7 +35,7 @@
  * ```cpp
  * #include "MIDILAR_MidiMessage.h"
  * 
- * using namespace MIDILAR::MidiFoundation;
+ * using namespace MIDILAR::MidiCore;
  * 
  * uint8_t channel      = 0;    // Channel 1
  * uint8_t pitch        = 60;   // Middle C
@@ -50,13 +50,13 @@
  * ```
  *
  * ### Creating Note Messages with MIDILAR Helper Class
- * The `MIDILAR::MidiFoundation::Message` class provides an abstraction for constructing Note On/Off messages.
+ * The `MIDILAR::MidiCore::Message` class provides an abstraction for constructing Note On/Off messages.
  *
  * #### Example: Using MIDILAR Message Class
  * ```cpp
  * #include "MIDILAR_MidiMessage.h"
  * 
- * using namespace MIDILAR::MidiFoundation;
+ * using namespace MIDILAR::MidiCore;
  * 
  * Message msg;
  * 

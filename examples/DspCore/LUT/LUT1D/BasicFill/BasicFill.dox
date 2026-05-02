@@ -1,0 +1,16 @@
+/**
+ * @addtogroup MIDILAR_Examples_dsp_LUT1D_BasicFill
+ *
+ * @brief Examples showing how to initialize and populate LUT1D buffers.
+ *
+ * These examples focus on:
+ * - Sequential filling
+ * - Deterministic initialization
+ * - Basic usage patterns
+ *
+ * @par CMake Example
+ * @include examples/DspCore/LUT/LUT1D/BasicFill/CMake/BasicFill.cpp
+ *
+ * @par Arduino Example
+ * @include examples/DspCore/LUT/LUT1D/BasicFill/BasicFill.ino
+ */

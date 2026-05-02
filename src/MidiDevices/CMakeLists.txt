@@ -5,14 +5,14 @@ set(MIDILAR_SOURCES_LOCAL "")
 set(MIDILAR_HEADERS_LOCAL "")
 
 # Append Sources
-#list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemFoundation.cpp")
+#list(APPEND MIDILAR_SOURCES_LOCAL "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemCore.cpp")
 
 #
 ######################################################################################################
 # Conditional File Inclusion
 
     #if(${MIDILAR_MIDI_MESSAGE})
-    #    message(STATUS "MIDILAR::SystemFoundation::Message enabled")
+    #    message(STATUS "MIDILAR::SystemCore::Message enabled")
     #    add_subdirectory(Message)
     #endif()
 #

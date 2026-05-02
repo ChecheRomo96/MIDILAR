@@ -1,0 +1,138 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file InstanceCallbacks.dox
+ * @brief Documentation for the instance-bound callbacks MIDI parsing example.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_MessageParser_InstanceCallbacks
+ * @brief MessageParser example using instance-bound (object-oriented) callbacks.
+ *
+ * ---
+ *
+ * This example demonstrates how to use the `MessageParser` class with instance methods
+ * (i.e. class member functions) as callback handlers for different MIDI message types.
+ *
+ * It is well-suited for applications that require context-aware message routing, such as
+ * interactive controllers, MIDI mappers, or embedded class-based drivers.
+ *
+ * The example constructs a `MidiPrinter` class that binds all possible MIDI message
+ * categories to its member functions, enabling fully structured message handling.
+ *
+ * ### Core Logic (Minimal Instance-Bound Binding)
+ *
+ * This example shows how to bind a single member function (`Channel Voice`) to the `MessageParser`.
+ * It demonstrates the full structure: class definition, static trampoline (bouncer),
+ * instance handler, and binding within the constructor.
+ *
+ * @code
+ * class MidiPrinter {
+ * public:
+ *     MidiPrinter(size_t bufferSize = 256) : _parser(bufferSize) {
+ *         _parser.BindChannelVoiceCallback(this, &MidiPrinter::StaticChannelVoice);
+ *     }
+ *
+ *     void Feed(const uint8_t* data, size_t size) {
+ *         _parser.ProcessData(data, size);
+ *     }
+ *
+ * private:
+ *     MIDILAR::MidiCore::MessageParser _parser;
+ *
+ *     // Static trampoline
+ *     static void StaticChannelVoice(void* ctx, const uint8_t* data, size_t size) {
+ *         static_cast<MidiPrinter*>(ctx)->HandleChannelVoice(data, size);
+ *     }
+ *
+ *     // Instance method
+ *     void HandleChannelVoice(const uint8_t* data, size_t size) {
+ *         Serial.print("[Channel Voice] ");
+ *         for (size_t i = 0; i < size; ++i) {
+ *             if (data[i] < 0x10) Serial.print("0");
+ *             Serial.print(data[i], HEX);
+ *             Serial.print(" ");
+ *         }
+ *         Serial.println();
+ *     }
+ * };
+ * @endcode
+ *
+ * ---
+ *
+ * ### Key Concepts:
+ * - MIDI message simulation using the `Message` class
+ * - Class-bound callbacks using `parser.Bind<Type>Callback(this, &Class::Method)`
+ * - Parsing with `MessageParser::ProcessData()`
+ * - Handling multiple MIDI categories via object state
+ *
+ * ---
+ *
+ * @tableofcontents
+ *
+ * ## Example Output
+ * The output format is the same as the standalone version, with each callback printing:
+ *
+ * ```
+ * [Channel Voice] 90 3C 7F
+ * [Control Change] B0 01 40
+ * [System Exclusive] F0 7D 01 02 03 F7
+ * ...
+ * ```
+ *
+ * ---
+ *
+ * ## Standard C++ Version
+ * This version runs on the desktop using a simulated MIDI message stream and
+ * shows how to bind instance methods to the parser.
+ *
+ * @ref Example_InstanceCallback_cpp
+ *
+ * ### How to Run (CMake Build)
+ * After building with CMake, run from `.build/bin` as follows:
+ *
+ * **Windows**
+ * ```
+ * .<build_dir>/bin/MessageParser_InstanceCallbacks.exe
+ * ```
+ *
+ * **Linux/macOS**
+ * ```
+ * .<build_dir>/bin/MessageParser_InstanceCallbacks
+ * ```
+ *
+ * ---
+ *
+ * ## Arduino-Compatible Version
+ * A simplified embedded version uses a class to route callbacks through instance-bound functions.
+ *
+ * @ref Example_InstanceCallback_Arduino
+ *
+ * ### How to Run
+ * Open via:
+ *
+ * ```
+ * File → Examples → MIDILAR → MidiCore → MessageParser → InstanceCallbacks
+ * ```
+ *
+ * Upload to your board and open the **Serial Monitor** at `115200` baud
+ * to observe categorized output in real-time as MIDI data is streamed in.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_InstanceCallback_cpp InstanceCallbacks.cpp
+ * @brief Demonstrates object-oriented MIDI parsing using instance-bound callbacks.
+ *
+ * @include Examples/MidiCore/MessageParser/InstanceCallbacks/CMake/InstanceCallbacks.cpp
+ */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_InstanceCallback_Arduino InstanceCallbacks.ino
+ * @brief Arduino version using a `MidiPrinter` class and instance-bound callback routing.
+ *
+ * @include Examples/MidiCore/MessageParser/InstanceCallbacks/InstanceCallbacks.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

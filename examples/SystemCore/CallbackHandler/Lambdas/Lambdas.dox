@@ -1,0 +1,113 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file Lambdas.dox
+ * @brief Documentation for using lambda expressions with `CallbackHandler`.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @addtogroup MIDILAR_Examples_CallbackHandler_Lambdas
+ * @brief Demonstrates captureless lambda usage with `CallbackHandler`.
+ *
+ * ---
+ *
+ * This example showcases how to use C++ **captureless lambda expressions** as
+ * lightweight function handlers with `CallbackHandler`. Since these lambdas can be
+ * implicitly converted to function pointers, they can be safely passed to embedded-safe
+ * abstractions that expect no allocation or stateful closures.
+ *
+ * Lambdas are useful when:
+ * - You need short, inline behavior without defining a separate function
+ * - You want to rebind or redefine behavior at runtime
+ * - You are working on embedded platforms that disallow `std::function`
+ *
+ * ---
+ *
+ * > ⚠️ **Limitations**  
+ * > Only lambdas **without captures** are supported (e.g., `[](int x){}`).
+ * > Lambdas that capture variables (e.g., `[&]`, `[=]`) do **not decay** to function pointers
+ * > and are **incompatible** with `CallbackHandler`. See `CallbackHandler` implementation notes.
+ *
+ * ---
+ *
+ * ### Key Concepts:
+ * - `CallbackHandler<void, const char*>` with lambdas
+ * - Binding and invoking lambdas with parameters
+ * - Using lambdas with various return types (e.g., `void`, `int`, `float`)
+ * - Compatible with embedded systems and desktop builds
+ *
+ * ---
+ *
+ * @tableofcontents
+ *
+ * ## What It Demonstrates
+ * - Using lambdas with `CallbackHandler`
+ * - Rebinding behavior dynamically
+ * - Calling multiple types of bound lambdas
+ *
+ * ---
+ *
+ * ## Standard C++ Version
+ * The C++ version demonstrates console output via `std::cout`. Multiple `CallbackHandler`
+ * instances are created to show different use cases and parameter types.
+ *
+ * @ref Example_CallbackHandler_Lambdas_cpp
+ *
+ * ### How to Run (CMake)
+ * Build using CMake and run:
+ *
+ * **Windows**
+ * ```sh
+ * .<build_dir>/bin/CallbackHandler_Lambdas.exe
+ * ```
+ *
+ * **Linux/macOS**
+ * ```sh
+ * .<build_dir>/bin/CallbackHandler_Lambdas
+ * ```
+ *
+ * ---
+ *
+ * ## Arduino-Compatible Version
+ * The Arduino sketch demonstrates the same principles using `Serial.print()` for embedded logging.
+ * It uses the `setup()` function to demonstrate callback execution at startup.
+ *
+ * @ref Example_CallbackHandler_Lambdas_Arduino
+ *
+ * ### How to Run (Arduino IDE)
+ * Open from the IDE via:
+ *
+ * ```
+ * File → Examples → MIDILAR → SystemCore → CallbackHandler → Lambdas
+ * ```
+ *
+ * Then upload and monitor output using the **Serial Monitor** at `115200` baud.
+ *
+ * **Example Output:**
+ * ```
+ * == CallbackHandler Lambda Binding (Arduino) ==
+ * [Lambda Message] Hello from lambda!
+ * [Lambda Int] Returning 123
+ * [handlerInt] Result = 123
+ * [Lambda Void] Called
+ * [Lambda Multiply] 4 * 1.50 = 6.00
+ * [handlerMath] Returned = 6.00
+ * ```
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_CallbackHandler_Lambdas_cpp CallbackHandler_Lambdas.cpp
+ * @brief Full example of binding lambdas to `CallbackHandler` in C++.
+ *
+ * @include Examples/SystemCore/CallbackHandler/Lambdas/CMake/Lambdas.cpp
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @page Example_CallbackHandler_Lambdas_Arduino CallbackHandler_Lambdas.ino
+ * @brief Arduino-compatible version of the lambda callback example.
+ *
+ * @include Examples/SystemCore/CallbackHandler/Lambdas/Lambdas.ino
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

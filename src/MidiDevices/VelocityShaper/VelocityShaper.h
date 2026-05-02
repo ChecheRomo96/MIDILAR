@@ -1,10 +1,10 @@
 #ifndef MIDILAR_VELOCITY_SHAPER_DEVICE_H
 #define MIDILAR_VELOCITY_SHAPER_DEVICE_H
 
-    #include <MIDILAR_BuildSettings.h>
-    #include <MidiFoundation/DeviceBase/DeviceBase.h>
-    #include <MidiFoundation/MessageParser/MessageParser.h>
-    #include <dspFoundation/LUT/Shaping/GammaLUT.h>
+/*    #include <MIDILAR_BuildSettings.h>
+    #include <MidiCore/DeviceBase/DeviceBase.h>
+    #include <MidiCore/MessageParser/MessageParser.h>
+    #include <DspCore/LUT/Shaping/GammaLUT.h>
 
     namespace MIDILAR::MidiDevices {
 
@@ -15,12 +15,12 @@
          *
          * Applies a precomputed 3D gamma-morph transformation to MIDI note velocities.
          * Morph and exponentiation gain can be controlled dynamically.
-         */
-        class VelocityShaper : public MIDILAR::MidiFoundation::DeviceBase {
+         
+        class VelocityShaper : public MIDILAR::MidiCore::DeviceBase {
         protected:
-            MIDILAR::MidiFoundation::MessageParser _MessageParser;
+            MIDILAR::MidiCore::MessageParser _MessageParser;
             uint16_t _InputChannels;
-            MIDILAR::dspFoundation::LUT::Shaping::GammaLUT<uint8_t> _LUT;
+            MIDILAR::DspCore::LUT::Shaping::GammaLUT<uint8_t> _LUT;
 
             float _CurrentMorph = 0, _CurrentGain = 0;
             uint8_t _minVel = 0, _maxVel = 127;
@@ -63,7 +63,7 @@
             float GainMin() const;
             float GainMax() const;
 
-            const MIDILAR::dspFoundation::LUT::Shaping::GammaLUT<uint8_t>& GetLUT() const;
+            const MIDILAR::DspCore::LUT::Shaping::GammaLUT<uint8_t>& GetLUT() const;
 
         private:
             static void _ChannelVoiceCallback(void* context, const uint8_t* Data, size_t Size);
@@ -73,5 +73,5 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
     } // namespace MIDILAR::MidiProcessors
-
+*/
 #endif // MIDILAR_VELOCITY_SHAPER_DEVICE_H

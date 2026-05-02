@@ -1,0 +1,66 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file MessageParser.dox
+ * @brief Overview of the MessageParser class in the MIDILAR MIDI Core module.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_MF_MessageParser MessageParser Class
+ * @ingroup MIDILAR_MidiCore
+ * @brief A flexible parser for interpreting and routing MIDI byte streams.
+ *
+ * The `MessageParser` class provides a lightweight but robust mechanism for parsing raw MIDI data 
+ * into complete messages, suitable for both embedded and desktop applications.
+ *
+ * It supports real-time parsing of serial MIDI streams and dispatches parsed messages to user-defined 
+ * callback functions categorized by MIDI message type (e.g., Channel Voice, SysEx, Real-Time).
+ *
+ * ### Key Features:
+ * - Byte-by-byte streaming for real-time MIDI input
+ * - Supports all major MIDI message types, including:
+ *   - Channel Voice
+ *   - Control Change
+ *   - System Common
+ *   - Real-Time
+ *   - System Exclusive (SysEx)
+ *   - MIDI Time Code (MTC)
+ *   - MIDI Show Control (MSC)
+ * - User-defined callbacks for each category
+ * - Optional default callback for uncategorized or unhandled messages
+ * - Configurable buffer size for handling variable-length messages (e.g. SysEx)
+ *
+ * This parser is designed to be highly modular and suitable for integration in audio hardware, 
+ * embedded control systems, or desktop MIDI utilities. If no size is setted, the buffer size defaults
+ * to 3 bytes. Which is enough for most MIDI messages.
+ *
+ * ### Minimal Usage Example (Standalone Callback)
+ * @code
+ * #include <MidiCore/MessageParser.h>
+ * 
+ * using namespace MIDILAR::MidiCore;
+ * 
+ * void HandleChannelVoice(const uint8_t* data, size_t size) {
+ *     // Print or route the received MIDI message
+ * }
+ * 
+ * MessageParser parser(16);
+ * 
+ * void setup() {
+ *     parser.BindChannelVoiceCallback(HandleChannelVoice);
+ * }
+ * 
+ * void loop() {
+ *     if (Serial.available()) {
+ *         uint8_t byte = Serial.read();
+ *         parser.ProcessByte(byte);
+ *     }
+ * }
+ * @endcode
+ *
+ * **See Also**
+ * - @ref MIDILAR::MidiCore::MessageParser "MessageParser class documentation"
+ * - @ref MIDILAR_Examples_MessageParser "MessageParser Examples"
+ * - @ref MIDILAR_MF_Message "MidiCore::Message Class"
+ * - @ref MIDILAR_MF_Processor "MidiCore::Processor Class"
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

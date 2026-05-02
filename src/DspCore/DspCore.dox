@@ -1,0 +1,90 @@
+/**
+ * @file DspCore.dox
+ */
+
+/**
+ * @addtogroup MIDILAR_DspCore
+ * @brief Core DSP components for shaping, transformation, and synthesis.
+ *
+ * The DSP Core module provides essential tools for applying signal processing
+ * techniques in a MIDI-centered context. It includes a flexible system of
+ * **lookup tables (LUTs)** designed for real-time performance on embedded hardware,
+ * enabling waveform synthesis, morphing functions, nonlinear scaling, and
+ * expressive control remapping.
+ *
+ * Key features:
+ * - 1D, 2D, and 3D LUT classes for real-time lookup and interpolation
+ * - Periodic waveform generators (sine, square, triangle, saw)
+ * - Shaping functions for velocity curves, envelopes, and dynamic control
+ * - Modular and reusable DSP blocks compatible with real-time MIDI processing
+ *
+ * Ideal for embedded synthesizers, MIDI processors, and interactive sound systems
+ * where efficiency and expressiveness are critical.
+ * @{
+ */
+
+
+/* ========================================================= */
+/* ======================= LUT ============================== */
+/* ========================================================= */
+
+#if defined(MIDILAR_DSP_LUT)
+/**
+ * @defgroup MIDILAR_DspCore_LUT LUT
+ * @ingroup MIDILAR_DspCore
+ * @brief Core lookup table types for waveform synthesis and control mapping.
+ */
+#endif
+
+/* ========================================================= */
+/* ==================== GENERATORS ========================== */
+/* ========================================================= */
+
+#if defined(MIDILAR_DSP_GENERATORS)
+/**
+ * @defgroup MIDILAR_DspCore_Generators Generators
+ * @ingroup MIDILAR_DspCore
+ * @brief Generator modules for waveforms, envelopes, and nonlinear curves.
+ */
+ #endif
+
+
+/* ========================================================= */
+/* ==================== INTERPOLATORS ======================= */
+/* ========================================================= */
+
+#if defined(MIDILAR_DSP_INTERPOLATORS)
+/**
+ * @defgroup MIDILAR_DspCore_Interpolators Interpolators
+ * @ingroup MIDILAR_DspCore
+ * @brief Interpolation methods for signal reconstruction and LUT access.
+ */
+ #endif
+
+
+/* ========================================================= */
+/* ====================== STREAMING ========================= */
+/* ========================================================= */
+
+#if defined(MIDILAR_DSP_STREAMING)
+/**
+ * @defgroup MIDILAR_DspCore_Streaming Streaming
+ * @ingroup MIDILAR_DspCore
+ * @brief Streaming-based DSP processing modules for real-time systems.
+ */
+ #endif
+
+
+/* ========================================================= */
+/* ===================== TRANSFORMS ========================= */
+/* ========================================================= */
+
+#if defined(MIDILAR_DSP_TRANSFORMS)
+/**
+ * @defgroup MIDILAR_DspCore_Transforms Transforms
+ * @ingroup MIDILAR_DspCore
+ * @brief Spectral and time-domain transformations.
+ */ 
+ #endif
+
+/** @} */

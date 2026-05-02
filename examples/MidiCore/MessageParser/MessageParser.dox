@@ -1,0 +1,50 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file MessageParser.dox
+ * @brief Examples using the MessageParser class from the MIDILAR MIDI Core module.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDILAR_Examples_MessageParser
+ * @brief Practical examples showcasing MIDI message parsing using the MessageParser class.
+ *
+ * This group includes curated examples demonstrating how to use the `MessageParser` class
+ * to interpret raw MIDI byte streams and route them to specific callback handlers.
+ *
+ * Each example explores a different use case for parsing and handling MIDI messages,
+ * such as real-time byte streaming, structured message simulation, or callback routing.
+ * These examples are intended to clarify the usage of the parser in both embedded
+ * and desktop environments.
+ *
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_MessageParser_StandaloneCallbacks Standalone Callback Example
+ * @ingroup MIDILAR_Examples_MessageParser
+ * @brief Demonstrates how to bind simple standalone functions to the MessageParser.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_MessageParser_InstanceCallbacks Instance Callback Example
+ * @ingroup MIDILAR_Examples_MessageParser
+ * @brief Demonstrates how to bind member functions of a class to the MessageParser.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_MessageParser_ParsingSim Simulated Parsing Example
+ * @ingroup MIDILAR_Examples_MessageParser
+ * @brief Feeds a stream of valid and invalid MIDI data to the parser to test routing and robustness.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_MessageParser_ParsingRT Real-Time Parsing Example
+ * @ingroup MIDILAR_Examples_MessageParser
+ * @brief Demonstrates real-time, byte-by-byte parsing using serial or MIDI stream input.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDILAR_Examples_MessageParser_BenchmarkTest Benchmark Test
+ * @ingroup MIDILAR_Examples_MessageParser
+ * @brief Benchmark test of parsing delay.
+ */
+///////////////////////////////////////////////////////////////////////////////////////////////////

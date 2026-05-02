@@ -2,14 +2,14 @@
 #define MIDILAR_CHANNEL_REASSIGN_DEVICE_H
 
     #include <MIDILAR_BuildSettings.h>
-	#include <MidiFoundation/DeviceBase/DeviceBase.h>
-	#include <MidiFoundation/MessageParser/MessageParser.h>
+	#include <MidiCore/DeviceBase/DeviceBase.h>
+	#include <MidiCore/MessageParser/MessageParser.h>
 
 	namespace MIDILAR::MidiDevices{
 
-		class ChannelReassign : public MIDILAR::MidiFoundation::DeviceBase {
+		class ChannelReassign : public MIDILAR::MidiCore::DeviceBase {
 		protected:
-			MIDILAR::MidiFoundation::MessageParser _MessageParser;
+			MIDILAR::MidiCore::MessageParser _MessageParser;
 			uint16_t _InputChannels;
 			uint16_t _OutputChannels;
 			

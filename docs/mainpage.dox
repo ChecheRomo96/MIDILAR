@@ -5,7 +5,7 @@
  *
  * ---
  *
- * ## 📅 What is MIDILAR?
+ * ## What is MIDILAR?
  *
  * MIDILAR provides:
  * - Real-time **MIDI parsing**, **routing**, and **message filtering**
@@ -16,68 +16,68 @@
  *
  * ---
  *
- * ## 🔍 Navigating This Documentation
+ * ## Navigating This Documentation
  *
  * Use the **navigation panel** on the left to explore classes, namespaces, files, and modules.
  *
  * You can also explore the following curated sections:
  *
- * - 📁 **@ref MIDILAR_BuildGuide "Build Guide"**  
+ * - **@ref MIDILAR_BuildGuide "Build Guide"**  
  *   Complete guide on how to build MIDILAR using either **CMake** or **Arduino**, including enabling/disabling modules and generating documentation.
  * 
- * - 🎵 **@ref MIDI_Protocol "MIDI Protocol Specification"**  
+ * - **@ref MIDI_Protocol "MIDI Protocol Specification"**  
  *   In-depth guide to how MIDI messages are represented, parsed, and processed within MIDILAR, including message types, channels, and system events.
  *
- * - ⚙️ **@ref MIDILAR "Module Overview"**  
- *   Overview of all major components including `SystemFoundation`, `MidiFoundation`, `dspFoundation`, and `MidiProcessors`.
+ * - **@ref MIDILAR "Module Overview"**  
+ *   Overview of all major components including `SystemCore`, `MidiCore`, `DspCore`, and `MidiProcessors`.
  *
- * - 🛠️ **@ref MIDILAR_Examples "Example Programs"**  
+ * - **@ref MIDILAR_Examples "Example Programs"**  
  *   Real-world usage examples showing how to generate waveforms, apply processing, and use the library effectively.
  *
  * ---
  *
- * ## 💡 Tips
+ * ## Tips
  * - The **search bar** (top right) is great for quickly jumping to classes or functions.
  * - Use the **Topics** tab to discover feature-specific documentation and examples.
  * - Prefer using the **Modules** or **Topics** section to get a guided tour before diving into individual files.
  *
  * ---
  *
- * ## 🌐 External Resources
+ * ## External Resources
  * - [GitHub Repository](https://github.com/checheromo96/MIDILAR)
  * - [Online Documentation](https://checheromo96.github.io/MIDILAR)
  *
  * ---
  *
- * ## 🧠 Where to Start?
+ * ## Where to Start?
  *
  * If you're new to MIDILAR or exploring its capabilities, here are some recommended entry points:
  *
- * - 📘 **View the Module Overview**  
+ * - **View the Module Overview**  
  *   Browse all the main MIDILAR components to see how everything fits together.  
  *   → [Module Overview](@ref MIDILAR)
  *
- * - 🧱 **View the Topics Page**  
+ * - **View the Topics Page**  
  *   Browse all MIDILAR components and documentation groups to understand how the library is organized.  
  *   → [**Topics Page**](topics.html)
  *
- * - 🔍 **Understand the MIDI Protocol**  
+ * - **Understand the MIDI Protocol**  
  *   Learn how MIDI messages are composed and interpreted within MIDILAR.  
  *   → [MIDI Protocol Specification](@ref MIDI_Protocol)
  *
- * - ⚡ **Parse and Handle MIDI Messages**  
+ * - **Parse and Handle MIDI Messages**  
  *   Get started with message handling using the `MessageParser` class.  
  *   → [MIDI Parser Overview](@ref MIDI_Protocol)
  *
- * - 🎛️ **Explore MIDI Processors**  
+ * - **Explore MIDI Processors**  
  *   Try out prebuilt components for clock generation, filtering, or echo.  
  *   → [MidiProcessors Module](@ref MIDILAR_MidiDevices)
  *
- * - 🧮 **Discover DSP Utilities**  
+ * - **Discover DSP Utilities**  
  *   Explore LUT-based shaping, waveform generation, and nonlinear control.  
- *   → [DSP Foundation](@ref MIDILAR_dspFoundation)
+ *   → [DSP Core](@ref MIDILAR_DspCore)
  *
- * - 🧪 **Run Examples**  
+ * - **Run Examples**  
  *   Try out complete examples for waveform generation, shaping, and MIDI processing.  
  *   → [Example Programs](@ref MIDILAR_Examples)
  *

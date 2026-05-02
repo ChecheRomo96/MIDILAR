@@ -1,0 +1,22 @@
+/**
+ * @page MIDILAR_Examples_Shaping_Atan_Buffer Atan_Buffer
+ * @ingroup MIDILAR_Examples_DspCore_Generators_Shaping
+ *
+ * @brief Generates a biased atan shaping curve into a plain buffer.
+ *
+ * Formula:
+ * @f[
+ * y(x)=\operatorname{atan}(a x + b)
+ * @f]
+ *
+ * Domain:
+ * @f[
+ * x \in [-1,1]
+ * @f]
+ *
+ * Desktop source:
+ * @include Cmake/Atan_Buffer.cpp
+ *
+ * Arduino source:
+ * @include Atan_Buffer.ino
+ */
