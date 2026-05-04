@@ -21,7 +21,7 @@
         #include "LUT.h"
     #endif
     
-    #if __has_include("DspCore/Interpolators/Interpolators.h")
+    #if __has_include(<DspCore/Interpolators/Interpolators.h>)
 
         #ifndef MIDILAR_DSP_INTERPOLATORS
             #define MIDILAR_DSP_INTERPOLATORS
@@ -30,7 +30,7 @@
         #include "Interpolators.h"
     #endif
     
-    #if __has_include("DspCore/Streaming/Streaming.h")
+    #if __has_include(<DspCore/Streaming/Streaming.h>)
 
         #ifndef MIDILAR_DSP_STREAMING
             #define MIDILAR_DSP_STREAMING

@@ -3,12 +3,11 @@
 
     #include <MIDILAR_BuildSettings.h>
     
-    #if __has_include("DspCore/DspCore.h")
+    #if __has_include(<DspCore/DspCore.h>)
         #ifndef MIDILAR_DSP_CORE
             #define MIDILAR_DSP_CORE   
         #endif
-
-        #include "DspCore/DspCore.h"
+        #include <DspCore/DspCore.h>
     #endif
     
 

@@ -11,10 +11,8 @@
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/Clock.h"
-    )
-    
-    list(APPEND MIDILAR_SOURCES_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/Clock.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/ClockTypes.h"
+        "${CMAKE_CURRENT_LIST_DIR}/ClockController.h"
     )
     
     list(APPEND MIDILAR_DOX_LOCAL

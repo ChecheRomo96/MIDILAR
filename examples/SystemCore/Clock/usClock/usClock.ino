@@ -16,14 +16,14 @@ Clock::TimePoint myClockCallback() {
 // ===============================
 // Arduino Setup & Loop
 // ===============================
-Clock myClock(myClockCallback, Clock::Timebase::Microseconds);
+Clock myClock(myClockCallback, Clock::Freq::Microseconds);
 
 void setup() {
     Serial.begin(115200);
 
     // Initialize Clock with callback and set frequency
     myClock.bindClock(myClockCallback);
-    myClock.setFrequency(Clock::Timebase::Microseconds);
+    myClock.setFrequency(Clock::Freq::Microseconds);
 
     Serial.println("Clock Initialized!");
 }

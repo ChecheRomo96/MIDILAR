@@ -14,11 +14,11 @@ static Clock::TimePoint myClockCallback() {
 
 int main() {
     // Initialize the clock with the callback and set timebase to milliseconds
-    Clock myClock(myClockCallback, Clock::Timebase::Milliseconds);
+    Clock myClock(myClockCallback, Clock::Freq::Milliseconds);
 
     // Link the hardware API to the callback
     myClock.bindClock(myClockCallback);
-    myClock.setFrequency(Clock::Timebase::Milliseconds);
+    myClock.setFrequency(Clock::Freq::Milliseconds);
 
     // Get the start time
     auto start = std::chrono::high_resolution_clock::now();

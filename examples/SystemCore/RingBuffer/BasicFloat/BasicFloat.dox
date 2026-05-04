@@ -1,0 +1,15 @@
+/**
+ * @defgroup MIDILAR_Examples_SystemCore_RingBuffer_BasicFloat BasicFloat
+ * @ingroup MIDILAR_Examples_SystemCore_RingBuffer
+ *
+ * @brief Minimal RingBuffer example using float values.
+ *
+ * This example demonstrates:
+ * - External memory ownership
+ * - Push and Pop operations
+ * - Available and free-space queries
+ * - Empty-state detection
+ *
+ * @ref CMake/BasicFloat.cpp
+ * @ref BasicFloat.ino
+ */

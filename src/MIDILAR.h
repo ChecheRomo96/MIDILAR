@@ -18,9 +18,6 @@
 #ifndef MIDILAR_H
 #define MIDILAR_H
 
-    /** 
-     * @brief Include the build settings for MIDILAR.
-     */
     #include "MIDILAR_BuildSettings.h"
        
     #include "MIDILAR_Core.h"

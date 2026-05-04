@@ -1,12 +1,45 @@
 /**
  * @addtogroup MIDILAR_SF_Clock
- * @brief Provides system timing utilities for MIDI synchronization.
- * 
- * The **Clock Class** is responsible for tracking and managing MIDI-related time functions,
- * including beat synchronization and system timestamps.
- * 
+ * @brief Provides core timing utilities and clock abstraction for MIDILAR.
+ *
+ * The **Clock module** defines a set of lightweight and portable abstractions
+ * for representing and managing time within the system.
+ *
+ * It separates:
+ * - **Time representation** (ticks, frequency, and conversions)
+ * - **Clock control** (hardware or software time sources)
+ *
+ * ### Components:
+ * - @ref MIDILAR::SystemCore::Clock::Freq "Clock::Freq"
+ *   Strongly-typed frequency representation in Hz.
+ *
+ * - @ref MIDILAR::SystemCore::Clock::TimePoint "Clock::TimePoint"
+ *   Represents a timestamp with an associated frequency, allowing unit conversion.
+ *
+ * - @ref MIDILAR::SystemCore::Clock::Controller "Clock::Controller"
+ *   Provides an interface for retrieving and managing system time via callbacks.
+ *
  * ### Features:
- * - Tracks system time with high precision.
- * - Supports synchronization with external MIDI clocks.
- * - Allows for event-driven updates based on clock ticks.
+ * - Header-only, lightweight design suitable for embedded systems.
+ * - Strong typing for frequency and time representation.
+ * - Supports multiple clock sources (hardware timers, software counters, etc.).
+ * - Enables conversion between ticks and real-world time units.
+ *
+ * ### Usage:
+ * @code
+ * using namespace MIDILAR::SystemCore;
+ *
+ * Clock::Controller clock;
+ *
+ * clock.SetFrequency(16 * Clock::Freq::MHz);
+ *
+ * Clock::Tick now = clock.Now();
+ *
+ * Clock::TimePoint tp = clock.NowTimePoint();
+ * float ms = tp.ToMilliseconds();
+ * @endcode
+ *
+ * @note
+ * The Clock module is independent of MIDI and can be reused for DSP,
+ * scheduling, and general timing applications.
  */

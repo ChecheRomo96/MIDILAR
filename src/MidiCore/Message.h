@@ -1,5 +1,5 @@
-#ifndef MIDILAR_MIDI_MESSAGE_H
-#define MIDILAR_MIDI_MESSAGE_H
+#ifndef MIDILAR_MIDI_MESSAGE_TOP_H
+#define MIDILAR_MIDI_MESSAGE_TOP_H
 
     #include <MIDILAR_BuildSettings.h>
     
@@ -8,4 +8,4 @@
         #include <MidiCore/Message/Message.h>
     #endif
 
-#endif//MIDILAR_MIDI_MESSAGE_H
+#endif//MIDILAR_MIDI_MESSAGE_TOP_H

@@ -26,6 +26,24 @@ namespace MIDILAR::SystemCore {
         _available++;
         return true;
     }
+    
+
+    template <typename T>
+    bool RingBuffer<T>::Push(T&& value) {
+        if (_available >= _size) {
+            return false;
+        }
+
+        _buffer[_writeIndex] = MIDILAR::move(value);
+
+        _writeIndex++;
+        if (_writeIndex >= _size) {
+            _writeIndex = 0;
+        }
+
+        _available++;
+        return true;
+    }
 
     template <typename T>
     bool RingBuffer<T>::Pop(T& out) {
@@ -33,7 +51,7 @@ namespace MIDILAR::SystemCore {
             return false;
         }
 
-        out = _buffer[_readIndex];
+        out = MIDILAR::move(_buffer[_readIndex]);
 
         _readIndex++;
         if (_readIndex >= _size) {

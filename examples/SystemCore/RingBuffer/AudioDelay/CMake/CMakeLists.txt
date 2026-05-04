@@ -1,0 +1,2 @@
+add_executable(RingBuffer_AudioDelay AudioDelay.cpp)
+target_link_libraries(RingBuffer_AudioDelay PUBLIC MIDILAR)

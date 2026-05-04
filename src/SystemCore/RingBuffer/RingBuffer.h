@@ -1,6 +1,7 @@
 #ifndef MIDILAR_SYSTEM_RINGBUFFER_H
 #define MIDILAR_SYSTEM_RINGBUFFER_H
 
+#include <MIDILAR_BuildSettings.h>
 #include <stddef.h>
 
 namespace MIDILAR::SystemCore {
@@ -19,6 +20,8 @@ namespace MIDILAR::SystemCore {
         RingBuffer(T* buffer, size_t size);
 
         bool Push(const T& value);
+        bool Push(T&& value);
+
         bool Pop(T& out);
 
         size_t GetAvailable() const;

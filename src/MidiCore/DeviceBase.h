@@ -1,5 +1,5 @@
-    #ifndef MIDILAR_MIDI_DEVICE_BASE_H
-    #define MIDILAR_MIDI_DEVICE_BASE_H
+    #ifndef MIDILAR_MIDI_DEVICE_BASE_TOP_H
+    #define MIDILAR_MIDI_DEVICE_BASE_TOP_H
 
     #include <MIDILAR_BuildSettings.h>
     
@@ -8,4 +8,4 @@
         #include <MidiCore/DeviceBase/DeviceBase.h>
     #endif
 
-#endif//MIDILAR_MIDI_DEVICE_BASE_H
+#endif//MIDILAR_MIDI_DEVICE_BASE_TOP_H

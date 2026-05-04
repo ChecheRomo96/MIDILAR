@@ -1,0 +1,2 @@
+add_executable(RingBuffer_MoveSemantics MoveSemantics.cpp)
+target_link_libraries(RingBuffer_MoveSemantics PUBLIC MIDILAR)

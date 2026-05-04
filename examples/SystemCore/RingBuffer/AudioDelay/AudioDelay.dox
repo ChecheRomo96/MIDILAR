@@ -1,0 +1,15 @@
+/**
+ * @defgroup MIDILAR_Examples_SystemCore_RingBuffer_AudioDelay AudioDelay
+ * @ingroup MIDILAR_Examples_SystemCore_RingBuffer
+ *
+ * @brief Demonstrates a RingBuffer used as an audio delay line.
+ *
+ * This example shows the common audio pattern:
+ * - Pop one delayed sample
+ * - Send or print the delayed output
+ * - Generate one new sample
+ * - Push the new sample into the buffer
+ *
+ * @ref CMake/AudioDelay.cpp
+ * @ref AudioDelay.ino
+ */

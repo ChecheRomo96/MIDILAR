@@ -4,8 +4,8 @@
     #include <MIDILAR_BuildSettings.h>
     
     #if __has_include(<DspCore/LUT/LUT2D/LUT2D.h>)
-        #ifndef MIDILAR_LUT2D
-            #define MIDILAR_LUT2D
+        #ifndef MIDILAR_DSP_LUT2D
+            #define MIDILAR_DSP_LUT2D
         #endif
         #include <DspCore/LUT/LUT2D/LUT2D.h>
     #endif

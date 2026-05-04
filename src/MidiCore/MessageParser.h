@@ -1,5 +1,5 @@
-#ifndef MIDILAR_MIDI_MESSAGE_PARSER_H
-#define MIDILAR_MIDI_MESSAGE_PARSER_H
+#ifndef MIDILAR_MIDI_MESSAGE_PARSER_TOP_H
+#define MIDILAR_MIDI_MESSAGE_PARSER_TOP_H
 
     #include <MIDILAR_BuildSettings.h>
     
@@ -8,4 +8,4 @@
         #include <MidiCore/MessageParser/MessageParser.h>
     #endif
 
-#endif//MIDILAR_MIDI_MESSAGE_PARSER_H
+#endif//MIDILAR_MIDI_MESSAGE_PARSER_TOP_H

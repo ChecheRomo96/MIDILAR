@@ -3,8 +3,9 @@
 
     #include <MIDILAR_BuildSettings.h>
 
-    #ifdef MIDILAR_MIDI_PROTOCOL
-        #include "Protocol.h"
-    #endif
+    #include "Protocol.h"
+    #include "Message.h"
+    #include "MessageParser.h"
+    #include "DeviceBase.h"
 
 #endif//MIDILAR_MIDI_CORE_H

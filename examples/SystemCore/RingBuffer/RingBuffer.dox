@@ -1,0 +1,27 @@
+/**
+ * @defgroup MIDILAR_Examples_SystemCore_RingBuffer RingBuffer Examples
+ * @ingroup MIDILAR_Examples_SystemCore
+ *
+ * @brief Examples showing how to use the SystemCore RingBuffer utility.
+ *
+ * These examples demonstrate basic push/pop behavior, audio-style delay buffers,
+ * synchronized frame buffering, and move semantics with heavier objects.
+ *
+ * ## Examples
+ *
+ * ### BasicFloat
+ * - \ref examples/SystemCore/RingBuffer/BasicFloat/CMake/BasicFloat.cpp "BasicFloat.cpp"
+ * - \ref examples/SystemCore/RingBuffer/BasicFloat/BasicFloat.ino "BasicFloat.ino"
+ *
+ * ### AudioDelay
+ * - \ref examples/SystemCore/RingBuffer/AudioDelay/CMake/AudioDelay.cpp "AudioDelay.cpp"
+ * - \ref examples/SystemCore/RingBuffer/AudioDelay/AudioDelay.ino "AudioDelay.ino"
+ *
+ * ### StructFrame
+ * - \ref examples/SystemCore/RingBuffer/StructFrame/CMake/StructFrame.cpp "StructFrame.cpp"
+ * - \ref examples/SystemCore/RingBuffer/StructFrame/StructFrame.ino "StructFrame.ino"
+ *
+ * ### MoveSemantics
+ * - \ref examples/SystemCore/RingBuffer/MoveSemantics/CMake/MoveSemantics.cpp "MoveSemantics.cpp"
+ * - \ref examples/SystemCore/RingBuffer/MoveSemantics/MoveSemantics.ino "MoveSemantics.ino"
+ */

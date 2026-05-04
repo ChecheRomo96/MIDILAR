@@ -1,15 +1,13 @@
-#ifndef MIDILAR_MIDI_CORE_H
-#define MIDILAR_MIDI_CORE_H
+#ifndef MIDILAR_MIDI_CORE_TOP_H
+#define MIDILAR_MIDI_CORE_TOP_H
 
     #include <MIDILAR_BuildSettings.h>
 
-    namespace MIDILAR::MidiCore{}
+    #if __has_include(<MidiCore/MidiCore.h>)
+        #ifndef MIDILAR_MIDI_CORE
+            #define MIDILAR_MIDI_CORE   
+        #endif
+        #include <MidiCore/MidiCore.h>
+    #endif
 
-    #include <MIDILAR_MidiProtocol.h>
-    
-    #include <MidiCore/Message/Message.h>
-    #include <MidiCore/MessageParser/MessageParser.h>
-    #include <MidiCore/DeviceBase/DeviceBase.h>
-
-
-#endif//MIDILAR_MIDI_CORE_H
+#endif//MIDILAR_MIDI_CORE_TOP_H

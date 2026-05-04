@@ -11,7 +11,6 @@
 
     list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
         "${CMAKE_CURRENT_LIST_DIR}/Core.h"
-        "${CMAKE_CURRENT_LIST_DIR}/Move.h"
     )
 
     #list(APPEND MIDILAR_DOX_LOCAL

@@ -8,16 +8,16 @@ namespace MIDILAR::Tests::SystemCore {
     class ClockMock {
     public:
         using TimePoint = MIDILAR::SystemCore::Clock::TimePoint;
-        using Timebase  = MIDILAR::SystemCore::Clock::Timebase;
+        using Freq  = MIDILAR::SystemCore::Clock::Freq;
 
     private:
         TimePoint _CurrentTime;
-        Timebase  _Frequency;
+        Freq  _Frequency;
 
     public:
         ClockMock() :
             _CurrentTime(0),
-            _Frequency(Timebase::Seconds) {
+            _Frequency(Freq::Seconds) {
         }
 
         TimePoint GetCurrentTime() const {
@@ -36,17 +36,17 @@ namespace MIDILAR::Tests::SystemCore {
             _CurrentTime -= Delta;
         }
 
-        Timebase GetFrequency() const {
+        Freq GetFrequency() const {
             return _Frequency;
         }
 
-        void SetFrequency(Timebase Frequency) {
+        void SetFrequency(Freq Frequency) {
             _Frequency = Frequency;
         }
 
         void Reset() {
             _CurrentTime = 0;
-            _Frequency = Timebase::Seconds;
+            _Frequency = Freq::Seconds;
         }
     };
 
@@ -56,7 +56,7 @@ namespace MIDILAR::Tests::SystemCore {
         return GClockMock.GetCurrentTime();
     }
 
-    inline void ClockMockSetupCallback(MIDILAR::SystemCore::Clock::Timebase Frequency) {
+    inline void ClockMockSetupCallback(MIDILAR::SystemCore::Clock::Freq Frequency) {
         GClockMock.SetFrequency(Frequency);
     }
 

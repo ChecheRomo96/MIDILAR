@@ -1,0 +1,2 @@
+add_executable(RingBuffer_StructFrame StructFrame.cpp)
+target_link_libraries(RingBuffer_StructFrame PUBLIC MIDILAR)
