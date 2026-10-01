@@ -1,21 +1,20 @@
 /**
  * @defgroup MIDILAR_Specification MIDI-Domain Specification
- * @brief Invariants every MIDILAR type will follow, written before the code.
+ * @brief Invariants every MIDILAR type follows, written before the code.
  *
- * Each invariant gets a stable identifier (`SPEC-MIDI-1`, ...) referenced from
- * the unit tests that prove it, as in MCC's music-domain specification. This
- * page starts with the scope and the design rules; the protocol invariants are
- * written in phase 1 of `ACTION_PLAN.md`, before any MIDI type exists.
+ * Each invariant has a stable identifier referenced from the unit tests that
+ * prove it, as in MCC's music-domain specification.
  *
  * @section MIDILARSpecScope Scope
  *
- * - MIDILAR owns MIDI 1.0 protocol data: status and data bytes, channels,
- *   note numbers, velocities, controllers, system common, real-time, MTC and
- *   SysEx; parsing a byte stream into messages; routing; and devices that
- *   transform message streams.
+ * - MIDILAR owns MIDI protocol data: MIDI 1.0 byte streams, MIDI 2.0 Universal
+ *   MIDI Packets (UMP), channels and groups, notes, velocities, controllers,
+ *   system common, real-time, MTC and System Exclusive; parsing and encoding;
+ *   routing; timing; and devices that transform message streams. MIDI-CI
+ *   follows in a later phase.
  * - Music theory (pitches, spelling, scales, chords, keys) belongs to MCC.
- *   MIDILAR converts between MIDI note numbers and `MCC::Pitch` with explicit
- *   range checks, and spells incoming notes through `MCC::Key`.
+ *   MIDILAR converts between note numbers and `MCC::Pitch` with explicit range
+ *   checks, and spells incoming notes through `MCC::Key`.
  * - General utilities (buffers, callbacks, time, scheduling, flash data)
  *   belong to Foundation. Signal processing belongs to the future DSPCore.
  *
@@ -27,8 +26,81 @@
  *   at compile time for every target (`src/MIDILAR.cpp`).
  * - SPEC-RT-3: Every value type has one canonical invalid value; invalid input
  *   produces it instead of undefined behavior.
- * - SPEC-RT-4: Variable-length data (SysEx) is read from and written to
- *   caller-provided buffers.
+ * - SPEC-RT-4: Variable-length data (System Exclusive) is read from and
+ *   written to caller-provided buffers.
  * - SPEC-RT-5: Constant tables live in program memory on AVR through
  *   `FOUNDATION_FLASH`.
+ *
+ * @section MIDILARSpecModel Internal model
+ *
+ * - SPEC-MIDI-1: The internal message model is the MIDI 2.0 Universal MIDI
+ *   Packet: 32-, 64-, 96- and 128-bit packets with a message type and a group.
+ *   Devices, routing and timing work on UMP only.
+ * - SPEC-MIDI-2: MIDI 1.0 byte streams (DIN/UART, USB MIDI 1.0) are translated
+ *   at the edges: a parser turns bytes into UMP and an encoder turns UMP back
+ *   into bytes, following the MIDI 2.0 translation rules.
+ * - SPEC-MIDI-3: Values are kept at MIDI 2.0 resolution: 16-bit velocity and
+ *   32-bit controller, pressure and pitch-bend values. MIDI 1.0 values are
+ *   scaled up with the specification's min-center-max rule and scaled down by
+ *   keeping the most significant bits, so a 1.0 value survives a round trip.
+ *
+ * @section MIDILARSpecValues Channels, groups and values
+ *
+ * - SPEC-MIDI-4: `Channel` and `Group` store the wire and UMP value `0-15`.
+ *   They are built only through named constructors, `FromWire(0-15)` and
+ *   `FromNumber(1-16)`, and read back through `Wire()` and `Number()`, so the
+ *   numbering is always explicit. Any other input is the invalid value, and a
+ *   valid `Channel` or `Group` is always one a message can carry.
+ * - SPEC-MIDI-5: Omni and "every group" are not channel or group values.
+ *   Filters, receivers and routes use `ChannelMask` and `GroupMask`, 16-bit
+ *   sets with `All()`, `Only()`, union and intersection; Omni is
+ *   `ChannelMask::All()`.
+ * - SPEC-MIDI-6: `NoteNumber`, `ControllerNumber` and `ProgramNumber` are 7-bit
+ *   values in `[0, 127]` in both protocols, with one invalid value each.
+ *
+ * @section MIDILARSpecNotes Notes and pitches
+ *
+ * - SPEC-MIDI-7: Note number `n` equals `MCC::ChromaticIndex(n)`: MIDI 60 is
+ *   `C4` and MIDI 69 is `A4`. Converting a pitch outside `[0, 127]` yields the
+ *   invalid note number; converting a note number yields a pitch spelled by an
+ *   `MCC::Key` (default: C major).
+ * - SPEC-MIDI-8: A MIDI 1.0 Note On with velocity 0 becomes a Note Off with
+ *   velocity 0 when it enters MIDILAR, so consumers see one release message
+ *   kind. A MIDI 2.0 Note On with velocity 0 stays a Note On, as the MIDI 2.0
+ *   protocol defines.
+ *
+ * @section MIDILARSpecStream MIDI 1.0 byte-stream rules
+ *
+ * - SPEC-MIDI-9: A byte with bit 7 set is a status byte; every data byte is in
+ *   `[0, 127]`, including System Exclusive data.
+ * - SPEC-MIDI-10: Running status is always accepted on input: after a channel
+ *   message, data bytes without a new status reuse the previous channel status.
+ *   System common messages and System Exclusive clear running status;
+ *   real-time messages do not. The encoder writes full status bytes by default,
+ *   and running status on output is an explicit option.
+ * - SPEC-MIDI-11: Real-time bytes (`0xF8-0xFF`) may appear anywhere, including
+ *   inside another message or a System Exclusive message; they are delivered
+ *   immediately and leave the interrupted message intact.
+ * - SPEC-MIDI-12: A status byte that arrives where a data byte was expected
+ *   aborts the incomplete message and starts the new one. Undefined status
+ *   bytes (`0xF4`, `0xF5`, `0xF9`, `0xFD`) are ignored.
+ *
+ * @section MIDILARSpecSysEx System Exclusive
+ *
+ * - SPEC-MIDI-13: A MIDI 1.0 System Exclusive message runs from `0xF0` to
+ *   `0xF7`; any non-real-time status byte other than `0xF7` ends it as
+ *   unterminated. In UMP it travels as 7-bit System Exclusive packets (six
+ *   data bytes each); 8-bit System Exclusive uses its own UMP packets.
+ * - SPEC-MIDI-14: System Exclusive payloads are assembled into a
+ *   caller-provided buffer. When the payload does not fit, the first bytes are
+ *   kept, the message is flagged as truncated and reading continues to the end
+ *   of the message, so the stream stays synchronized without allocating.
+ *   Chunked delivery for very large payloads may be added later.
+ *
+ * @section MIDILARSpecDiagnostics Diagnostics
+ *
+ * - SPEC-MIDI-15: Error counters (aborted messages, ignored bytes, truncated
+ *   System Exclusive) exist only when the build enables the
+ *   `MIDILAR_PARSER_DIAGNOSTICS` option; by default the parser keeps no
+ *   counters and spends no memory on them.
  */
