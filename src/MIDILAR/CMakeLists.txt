@@ -4,6 +4,10 @@ if(MIDILAR_CORE)
     list(APPEND MIDILAR_MODULE_HEADERS "${CMAKE_CURRENT_LIST_DIR}/Core.h")
 endif()
 
+if(MIDILAR_PROTOCOL)
+    list(APPEND MIDILAR_MODULE_HEADERS "${CMAKE_CURRENT_LIST_DIR}/Protocol.h")
+endif()
+
 target_sources(MIDILAR PRIVATE ${MIDILAR_MODULE_HEADERS})
 midilar_stage_headers(${MIDILAR_MODULE_HEADERS})
 midilar_add_dox(${MIDILAR_MODULE_HEADERS})
@@ -16,3 +20,7 @@ if(MIDILAR_CORE)
     add_subdirectory(Core)
 endif()
 
+
+if(MIDILAR_PROTOCOL)
+    add_subdirectory(Protocol)
+endif()

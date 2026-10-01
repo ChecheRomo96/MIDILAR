@@ -2,9 +2,29 @@
 
 // SPEC-EMB-1..2: size budgets and trivial copyability of MIDILAR value types
 // are checked here, when the library is built for every target, AVR and Arm
-// included. Value types are added by later reconstruction phases.
+// included.
 #define MIDILAR_CHECK_VALUE_TYPE(Type, MaximumBytes)                                  \
     static_assert(sizeof(Type) <= (MaximumBytes), #Type " exceeds its size budget"); \
     static_assert(__is_trivially_copyable(Type), #Type " must be trivially copyable")
+
+#if defined(MIDILAR_PROTOCOL)
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Channel, 1);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Group, 1);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ChannelMask, 2);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::GroupMask, 2);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::NoteNumber, 1);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerNumber, 1);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ProgramNumber, 1);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Velocity, 2);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerValue, 4);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PressureValue, 4);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PitchBend, 4);
+
+// SPEC-MIDI-3: scaling stays constexpr on every compiler, GCC 7 (Arduino AVR)
+// included.
+static_assert(MIDILAR::Protocol::ScaleUp(127, 7, 32) == 0xFFFFFFFFu, "7->32 maximum");
+static_assert(MIDILAR::Protocol::ScaleUp(8192, 14, 32) == 0x80000000u, "14->32 center");
+static_assert(MIDILAR::Protocol::ChannelMask::All().Count() == 16, "sixteen channels");
+#endif
 
 #undef MIDILAR_CHECK_VALUE_TYPE

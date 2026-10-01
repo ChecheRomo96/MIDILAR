@@ -71,6 +71,8 @@ Decisions:
 
 ## Phase 2 - Protocol primitives
 
+Status: complete (`MIDILAR::Protocol`)
+
 `Channel`, `Group`, `ChannelMask`, `GroupMask`, `NoteNumber`, `ControllerNumber`, `ProgramNumber`,
 `Velocity` (16-bit) and 32-bit controller, pressure and pitch-bend values as
 `constexpr` value types with invalid states, MIDI 1.0 views and the

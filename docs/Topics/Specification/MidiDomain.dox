@@ -24,8 +24,10 @@
  *   memory dynamically and never throw exceptions.
  * - SPEC-RT-2: Value types are trivially copyable, with size budgets checked
  *   at compile time for every target (`src/MIDILAR.cpp`).
- * - SPEC-RT-3: Every value type has one canonical invalid value; invalid input
- *   produces it instead of undefined behavior.
+ * - SPEC-RT-3: Every value type with spare bit patterns has one canonical
+ *   invalid value; invalid input produces it instead of undefined behavior.
+ *   Full-width types (masks, 16-bit velocity, 32-bit values) use every bit
+ *   pattern and have no invalid value; their MIDI 1.0 constructors clamp.
  * - SPEC-RT-4: Variable-length data (System Exclusive) is read from and
  *   written to caller-provided buffers.
  * - SPEC-RT-5: Constant tables live in program memory on AVR through

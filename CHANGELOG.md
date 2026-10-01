@@ -19,3 +19,8 @@ This file records user-visible changes to MIDILAR. Release dates use the
   Arduino library layout, Doxygen documentation and CI (native, embedded,
   Arduino, documentation, sanitizers and clang-tidy).
 - `MIDILAR::Core::Version()`, `MCCVersion()` and `FoundationVersion()`.
+- `MIDILAR::Protocol` primitives: `Channel` and `Group` (wire `0-15`),
+  `ChannelMask` and `GroupMask`, 7-bit `NoteNumber`, `ControllerNumber` and
+  `ProgramNumber`, 16-bit `Velocity`, 32-bit `ControllerValue`,
+  `PressureValue` and `PitchBend`, and the MIDI 2.0 min-center-max
+  `ScaleUp()`/`ScaleDown()`.
