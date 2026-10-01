@@ -34,7 +34,7 @@ unless the user explicitly includes it.
   `cmake/MIDILARMCC.cmake`; keep their pinned versions in step with the
   Arduino CI job.
 - General utilities belong in Foundation, music theory in MCC, and signal
-  processing in the future DSPCore library; only MIDI concepts belong here.
+  processing in the future DspCore library; only MIDI concepts belong here.
 - Real-time paths never allocate memory dynamically and never throw
   exceptions. Value types are trivially copyable with compile-time size
   budgets in `src/MIDILAR.cpp`.

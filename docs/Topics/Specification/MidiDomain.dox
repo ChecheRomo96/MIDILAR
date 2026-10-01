@@ -16,7 +16,7 @@
  *   MIDILAR converts between note numbers and `MCC::Pitch` with explicit range
  *   checks, and spells incoming notes through `MCC::Key`.
  * - General utilities (buffers, callbacks, time, scheduling, flash data)
- *   belong to Foundation. Signal processing belongs to the future DSPCore.
+ *   belong to Foundation. Signal processing belongs to the future DspCore.
  *
  * @section MIDILARSpecRules Design rules
  *
@@ -98,6 +98,19 @@
  *   kept, the message is flagged as truncated and reading continues to the end
  *   of the message, so the stream stays synchronized without allocating.
  *   Chunked delivery for very large payloads may be added later.
+ *
+ * @section MIDILARSpecPackets UMP packets
+ *
+ * - SPEC-MIDI-16: A `Packet` holds one to four 32-bit words; its size follows
+ *   the message type (`0-2`, `6-7`: 1 word; `3-4`, `8-A`: 2; `B-C`: 3;
+ *   `5`, `D-F`: 4). Utility and stream messages carry no group.
+ * - SPEC-MIDI-17: Named constructors produce the exact bit layouts of the UMP
+ *   specification, and every query returns what its constructor stored.
+ * - SPEC-MIDI-18: A MIDI 1.0 Note On packet never carries velocity 0; a
+ *   velocity that scales down to 0 is sent as 1.
+ * - SPEC-MIDI-19: Invalid constructor arguments produce the invalid packet;
+ *   queries on packets of another kind return the invalid value, or zero or
+ *   the minimum for types without one.
  *
  * @section MIDILARSpecDiagnostics Diagnostics
  *

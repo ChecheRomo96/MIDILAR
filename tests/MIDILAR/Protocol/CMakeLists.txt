@@ -1,1 +1,1 @@
-midilar_add_test(MIDILARProtocolTests ScalingTests.cc ChannelTests.cc ValuesTests.cc)
+midilar_add_test(MIDILARProtocolTests ScalingTests.cc ChannelTests.cc ValuesTests.cc PacketTests.cc)

@@ -26,7 +26,7 @@ the `rebuild` branch and in the read-only audit, as design input only.
   installable CMake package, Arduino library layout and Doxygen.
 - MIDI concepts live in MIDILAR; music theory stays in MCC; general utilities
   (buffers, callbacks, time, scheduling, flash data) come from Foundation.
-- Signal processing is out of scope: it moves to the future DSPCore library.
+- Signal processing is out of scope: it moves to the future DspCore library.
 - The generic Euclidean distribution goes to Foundation; MIDILAR's sequencer
   consumes it.
 - Value types are trivially copyable, `constexpr` where practical, with one
@@ -79,6 +79,11 @@ Status: complete (`MIDILAR::Protocol`)
 min-center-max scaling, with exhaustive tests.
 
 ## Phase 3 - UMP packets and messages
+
+Status: complete (`MIDILAR::Protocol::Packet`). MIDI 2.0 per-note,
+registered/assignable controller messages, 8-bit System Exclusive, flex data
+and stream messages are classified but get typed constructors when a later
+phase needs them.
 
 The UMP packet types (32/64/96/128-bit), message-type and status
 classification, and typed constructors and queries for MIDI 1.0 and MIDI 2.0
