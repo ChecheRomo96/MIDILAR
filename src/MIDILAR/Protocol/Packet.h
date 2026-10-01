@@ -66,7 +66,7 @@ enum class VoiceStatus : uint8_t {
     ControlChange = 0xB,
     ProgramChange = 0xC,
     ChannelPressure = 0xD,
-    PitchBend = 0xE,
+    PitchBendChange = 0xE,
     PerNoteManagement = 0xF
 };
 
@@ -284,7 +284,7 @@ public:
     /** @brief Pitch bend, 14-bit as LSB then MSB. */
     static constexpr Packet Midi1PitchBend(Protocol::Group group, Protocol::Channel channel,
                                            Protocol::PitchBend bend) noexcept {
-        return Midi1Voice(group, channel, Protocol::VoiceStatus::PitchBend, bend.Midi1() & 0x7Fu,
+        return Midi1Voice(group, channel, Protocol::VoiceStatus::PitchBendChange, bend.Midi1() & 0x7Fu,
                           bend.Midi1() >> 7);
     }
     ///@}
@@ -356,7 +356,7 @@ public:
     /** @brief Pitch bend. */
     static constexpr Packet Midi2PitchBend(Protocol::Group group, Protocol::Channel channel,
                                            Protocol::PitchBend bend) noexcept {
-        return Midi2Voice(group, channel, Protocol::VoiceStatus::PitchBend, 0, bend.Midi2());
+        return Midi2Voice(group, channel, Protocol::VoiceStatus::PitchBendChange, 0, bend.Midi2());
     }
     ///@}
 
@@ -482,7 +482,7 @@ public:
 
     /** @brief Returns the bend of a pitch bend packet; `Min()` otherwise. */
     constexpr Protocol::PitchBend PitchBend() const noexcept {
-        return !IsVoice(Protocol::VoiceStatus::PitchBend) ? Protocol::PitchBend::Min()
+        return !IsVoice(Protocol::VoiceStatus::PitchBendChange) ? Protocol::PitchBend::Min()
             : IsMidi1() ? Protocol::PitchBend::FromMidi1(
                               static_cast<int32_t>((Field(0, 0, 0x7Fu) << 7) | Field(0, 8, 0x7Fu)))
                         : Protocol::PitchBend::FromMidi2(_words[1]);
