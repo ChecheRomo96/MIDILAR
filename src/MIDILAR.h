@@ -7,4 +7,8 @@
     #include <MIDILAR_Core.h>
 #endif
 
+#if __has_include(<MIDILAR_Protocol.h>)
+    #include <MIDILAR_Protocol.h>
+#endif
+
 #endif // MIDILAR_H

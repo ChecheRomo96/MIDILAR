@@ -1,0 +1,21 @@
+/**
+ * @defgroup MIDILAR_Protocol Protocol
+ * @ingroup MIDILAR
+ * @brief MIDI protocol primitives: channels, groups, masks and data values.
+ *
+ * - `Channel` and `Group` store the wire value `0-15`, built through
+ *   `FromWire()` or `FromNumber()` (SPEC-MIDI-4).
+ * - `ChannelMask` and `GroupMask` are sets of the sixteen addresses; Omni is
+ *   `ChannelMask::All()` (SPEC-MIDI-5).
+ * - `NoteNumber`, `ControllerNumber` and `ProgramNumber` are 7-bit values
+ *   (SPEC-MIDI-6).
+ * - `Velocity` (16-bit), `ControllerValue`, `PressureValue` and `PitchBend`
+ *   (32-bit) keep MIDI 2.0 resolution with a MIDI 1.0 view, converted by
+ *   `ScaleUp()` and `ScaleDown()` (SPEC-MIDI-3).
+ */
+
+/**
+ * @namespace MIDILAR::Protocol
+ * @ingroup MIDILAR_Protocol
+ * @brief MIDI protocol primitives.
+ */

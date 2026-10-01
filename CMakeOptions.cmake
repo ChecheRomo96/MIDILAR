@@ -5,7 +5,9 @@ option(MIDILAR_FULL_BUILD "Enable every MIDILAR module" OFF)
 option(MIDILAR_COVERAGE "Enable coverage instrumentation" OFF)
 
 option(MIDILAR_CORE "Enable MIDILAR::Core" ON)
+option(MIDILAR_PROTOCOL "Enable MIDILAR::Protocol" ON)
 
 if(MIDILAR_FULL_BUILD)
     set(MIDILAR_CORE ON CACHE BOOL "Enable MIDILAR::Core" FORCE)
+    set(MIDILAR_PROTOCOL ON CACHE BOOL "Enable MIDILAR::Protocol" FORCE)
 endif()
