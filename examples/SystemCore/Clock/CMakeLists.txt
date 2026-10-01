@@ -1,2 +1,0 @@
-add_subdirectory(msClock)
-add_subdirectory(usClock)

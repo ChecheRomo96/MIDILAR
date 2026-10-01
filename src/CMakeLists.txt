@@ -1,155 +1,73 @@
-######################################################################################################
-# Store this directory as a variable called MIDILAR_SRC_DIRECTORY to reference in deeper directories
+set(MIDILAR_SRC_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}")
 
-    set(MIDILAR_SRC_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-    add_library(MIDILAR STATIC)
-    set_target_properties(MIDILAR PROPERTIES LINKER_LANGUAGE CXX)    
-    set_target_properties(MIDILAR PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+add_library(MIDILAR STATIC)
+add_library(MIDILAR::MIDILAR ALIAS MIDILAR)
 
-    set(MIDILAR_BUILD_INCLUDE_DIR
-        "${CMAKE_BINARY_DIR}/include/MIDILAR-${MIDILAR_VERSION}"
-    )
-#
-######################################################################################################
-# Initialize MIDILAR_SOURCES_LOCAL and HEADERS_LIST_LOCAL as an empty string list
+target_compile_features(MIDILAR PUBLIC cxx_std_${MIDILAR_REQUIRED_CXX_STANDARD})
+target_link_libraries(MIDILAR PUBLIC Foundation::Foundation MCC::MCC)
 
-    set(MIDILAR_SOURCES_LOCAL "")
-    set(MIDILAR_PRIVATE_HEADERS_LOCAL "")
-    set(MIDILAR_PUBLIC_HEADERS_LOCAL "")
-    set(MIDILAR_DOX_LOCAL "")
-#
-######################################################################################################
-# Append Headers (local to this subdirectory)
+set(MIDILAR_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/artifacts")
+set_target_properties(MIDILAR PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${MIDILAR_OUTPUT_DIRECTORY}/lib"
+    ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${MIDILAR_OUTPUT_DIRECTORY}/lib"
+    ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${MIDILAR_OUTPUT_DIRECTORY}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${MIDILAR_OUTPUT_DIRECTORY}/lib"
+    LIBRARY_OUTPUT_DIRECTORY_DEBUG "${MIDILAR_OUTPUT_DIRECTORY}/lib"
+    LIBRARY_OUTPUT_DIRECTORY_RELEASE "${MIDILAR_OUTPUT_DIRECTORY}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${MIDILAR_OUTPUT_DIRECTORY}/bin"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${MIDILAR_OUTPUT_DIRECTORY}/bin"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${MIDILAR_OUTPUT_DIRECTORY}/bin"
+    OUTPUT_NAME "MIDILAR"
+    DEBUG_POSTFIX "_d")
 
-    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h"
-        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h"
-    )
+set(MIDILAR_BUILD_INCLUDE_DIR
+    "${CMAKE_BINARY_DIR}/include/MIDILAR-${PROJECT_VERSION}")
 
-    list(APPEND MIDILAR_SOURCES_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.cpp"
-    )
-    
-    list(APPEND MIDILAR_DOX_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.dox"
-    )
+set(MIDILAR_TOP_LEVEL_HEADERS
+    "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.h"
+    "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_BuildSettings.h")
 
-#
-######################################################################################################
-# Add sources to the MIDILAR target
+if(MIDILAR_CORE)
+    list(APPEND MIDILAR_TOP_LEVEL_HEADERS
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_Core.h")
+endif()
 
-    target_sources(MIDILAR PRIVATE
-        ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-        ${MIDILAR_PRIVATE_HEADERS_LOCAL}
-        ${MIDILAR_SOURCES_LOCAL}
-    )
-#
-######################################################################################################
-# add subdirectories
-    
-    list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_Core.h"
-    )
-    add_subdirectory(Core)
+target_sources(MIDILAR PRIVATE
+    "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.cpp"
+    ${MIDILAR_TOP_LEVEL_HEADERS})
 
-    if(MIDILAR_SYSTEM_CORE)
-        midilar_add_macro(PUBLIC MIDILAR_SYSTEM_CORE)
-        
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_SystemCore.h"
-        )
+target_include_directories(MIDILAR
+    PUBLIC
+        $<BUILD_INTERFACE:${MIDILAR_BUILD_INCLUDE_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-        add_subdirectory(SystemCore)
-    endif()
+midilar_stage_headers(${MIDILAR_TOP_LEVEL_HEADERS})
+midilar_add_dox(
+    ${MIDILAR_TOP_LEVEL_HEADERS}
+    "${CMAKE_CURRENT_LIST_DIR}/MIDILARTop.dox")
 
-    if(MIDILAR_DSP_CORE)
-        midilar_add_macro(PUBLIC MIDILAR_DSP_CORE)   
-        
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_DspCore.h"
-        )
+if(MIDILAR_CORE)
+    midilar_add_macro(PUBLIC MIDILAR_CORE)
+endif()
 
-        add_subdirectory(DspCore)
-    endif()
-    
+if(MIDILAR_CORE)
+    add_subdirectory(MIDILAR)
+endif()
 
-    if(MIDILAR_MIDI_CORE)
-        midilar_add_macro(PUBLIC MIDILAR_MIDI_CORE)   
-        
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiCore.h"
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiProtocol.h"
-        )
+install(TARGETS MIDILAR
+    EXPORT MIDILARTargets
+    CONFIGURATIONS Release
+    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
-        add_subdirectory(MidiCore)
-    endif()
-    
+install(FILES ${MIDILAR_TOP_LEVEL_HEADERS}
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    CONFIGURATIONS Release)
 
-    if(MIDILAR_MIDI_DEVICES)
-        midilar_add_macro(PUBLIC MIDILAR_MIDI_DEVICES)   
-        
-        list(APPEND MIDILAR_PUBLIC_HEADERS_LOCAL
-            "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_MidiDevices.h"
-        )
-
-        add_subdirectory(MidiDevices)
-    endif()
-
-#
-######################################################################################################
-# Add Compiler Definitions
-
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/CMakeMacros.cmake")
-        include("${CMAKE_CURRENT_SOURCE_DIR}/CMakeMacros.cmake")
-    else()
-        message(WARNING "src/CMakeMacros.cmake not found! Impossible to add compiler macro definitions to targets.")
-    endif()
-# 
-######################################################################################################
-# Include directories for build and install
-
-    target_include_directories(MIDILAR
-        PUBLIC
-            "$<BUILD_INTERFACE:${MIDILAR_BUILD_INCLUDE_DIR}>"
-            "$<INSTALL_INTERFACE:include/MIDILAR-${PROJECT_VERSION}>"
-    )
-#
-######################################################################################################
-# Add sources for doxygen
-
-    if(MIDILAR_DOCS)
-        midilar_add_dox(
-            ${MIDILAR_PUBLIC_HEADERS_LOCAL}
-            ${MIDILAR_DOX_LOCAL}
-        )
-    endif()
-#
-######################################################################################################
-# Stage headers
-
-    midilar_stage_headers(${MIDILAR_PUBLIC_HEADERS_LOCAL})
-#
-######################################################################################################
-# MIDILAR install process
-
-    install(TARGETS MIDILAR
-        EXPORT MIDILARTargets
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib
-        RUNTIME DESTINATION bin
-        INCLUDES DESTINATION include/MIDILAR-${MIDILAR_VERSION}
-    )
-
-    install(
-        FILES ${MIDILAR_HEADERS_LOCAL}
-        DESTINATION "include/MIDILAR-${MIDILAR_VERSION}"
-    )
-
-    # Export targets for find_package
-    install(EXPORT MIDILARTargets
-        FILE MIDILARTargets.cmake
-        NAMESPACE MIDILAR::
-        DESTINATION lib/cmake/MIDILAR
-    )
-#
-######################################################################################################
+install(EXPORT MIDILARTargets
+    FILE MIDILARTargets.cmake
+    NAMESPACE MIDILAR::
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/MIDILAR"
+    CONFIGURATIONS Release)

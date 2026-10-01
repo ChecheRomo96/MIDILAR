@@ -1,2 +1,0 @@
-add_executable(ChannelReassign_SIMO SIMO.cpp)
-target_link_libraries(ChannelReassign_SIMO PUBLIC MIDILAR) 

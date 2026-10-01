@@ -1,2 +1,0 @@
-add_executable(ChannelReassign_MIMO MIMO.cpp)
-target_link_libraries(ChannelReassign_MIMO PUBLIC MIDILAR) 

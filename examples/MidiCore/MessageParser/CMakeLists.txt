@@ -1,7 +1,0 @@
-add_subdirectory(StandaloneCallbacks)
-add_subdirectory(InstanceCallbacks)
-
-add_subdirectory(ParsingSim)
-add_subdirectory(ParsingRT)
-
-add_subdirectory(BenchmarkTest)

@@ -1,3 +1,0 @@
-
-add_executable(MessageParser_StandaloneCallbacks StandaloneCallbacks.cpp)
-target_link_libraries(MessageParser_StandaloneCallbacks PUBLIC MIDILAR) 

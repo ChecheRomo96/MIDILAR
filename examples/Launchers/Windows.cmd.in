@@ -1,0 +1,70 @@
+@echo off
+setlocal EnableExtensions EnableDelayedExpansion
+
+:menu
+cls
+echo MIDILAR Examples
+echo ===================
+echo.
+
+set "MIDILAR_EXAMPLE_COUNT=0"
+for %%F in ("%~dp0MIDILAR_*.exe") do (
+    if exist "%%~fF" (
+        set /a MIDILAR_EXAMPLE_COUNT+=1
+        set "MIDILAR_EXAMPLE[!MIDILAR_EXAMPLE_COUNT!]=%%~fF"
+        echo   !MIDILAR_EXAMPLE_COUNT!^) %%~nF
+    )
+)
+
+if !MIDILAR_EXAMPLE_COUNT! EQU 0 goto no_examples
+
+echo.
+set "MIDILAR_SELECTION="
+set /p "MIDILAR_SELECTION=Select an example [1-!MIDILAR_EXAMPLE_COUNT!] or q to quit: "
+
+if /I "!MIDILAR_SELECTION!"=="Q" exit /b 0
+if "!MIDILAR_SELECTION!"=="" goto invalid_selection
+for /f "delims=0123456789" %%A in ("!MIDILAR_SELECTION!") do goto invalid_selection
+if !MIDILAR_SELECTION! LSS 1 goto invalid_selection
+if !MIDILAR_SELECTION! GTR !MIDILAR_EXAMPLE_COUNT! goto invalid_selection
+
+set "MIDILAR_SELECTED_EXAMPLE="
+for /L %%I in (1,1,!MIDILAR_EXAMPLE_COUNT!) do (
+    if "!MIDILAR_SELECTION!"=="%%I" (
+        set "MIDILAR_SELECTED_EXAMPLE=!MIDILAR_EXAMPLE[%%I]!"
+    )
+)
+
+echo.
+echo Running !MIDILAR_SELECTED_EXAMPLE!...
+echo.
+
+"!MIDILAR_SELECTED_EXAMPLE!"
+set "MIDILAR_STATUS=!ERRORLEVEL!"
+
+echo ----------------------------------------
+echo Process finished with exit code !MIDILAR_STATUS!
+echo.
+
+:run_another
+set "MIDILAR_RUN_ANOTHER="
+set /p "MIDILAR_RUN_ANOTHER=Run another example? [Y/n]: "
+if "!MIDILAR_RUN_ANOTHER!"=="" goto menu
+if /I "!MIDILAR_RUN_ANOTHER!"=="Y" goto menu
+if /I "!MIDILAR_RUN_ANOTHER!"=="N" exit /b 0
+if /I "!MIDILAR_RUN_ANOTHER!"=="Q" exit /b 0
+echo Please enter Y or N.
+goto run_another
+
+:invalid_selection
+echo.
+echo Invalid selection.
+pause
+goto menu
+
+:no_examples
+echo No executable examples were found in:
+echo %~dp0
+echo.
+pause
+exit /b 1

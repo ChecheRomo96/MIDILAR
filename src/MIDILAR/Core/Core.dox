@@ -1,0 +1,20 @@
+/**
+ * @defgroup MIDILAR_Core Core
+ * @ingroup MIDILAR
+ * @brief Version information for MIDILAR and its dependencies.
+ *
+ * The reconstruction scaffold exposes only `MIDILAR::Core::Version()`,
+ * `MCCVersion()` and `FoundationVersion()`. MIDI modules are added in small,
+ * tested phases (see `ACTION_PLAN.md`).
+ */
+
+/**
+ * @namespace MIDILAR
+ * @brief MIDILAR public namespace.
+ */
+
+/**
+ * @namespace MIDILAR::Core
+ * @ingroup MIDILAR_Core
+ * @brief MIDILAR core services.
+ */

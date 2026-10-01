@@ -1,0 +1,30 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(Foundation @MIDILAR_FOUNDATION_VERSION@ CONFIG)
+find_dependency(MCC @MIDILAR_MCC_VERSION@ CONFIG)
+
+include("${CMAKE_CURRENT_LIST_DIR}/MIDILARBuildInfo.cmake")
+
+if(DEFINED Foundation_PLATFORM AND
+   NOT Foundation_PLATFORM STREQUAL "" AND
+   NOT Foundation_PLATFORM STREQUAL MIDILAR_PLATFORM)
+    set(MIDILAR_FOUND FALSE)
+    string(CONCAT MIDILAR_NOT_FOUND_MESSAGE
+        "MIDILAR package '${MIDILAR_PLATFORM}' cannot use Foundation package "
+        "'${Foundation_PLATFORM}'.")
+    return()
+endif()
+
+if(DEFINED Foundation_CXX_STANDARD AND
+   Foundation_CXX_STANDARD GREATER MIDILAR_CXX_STANDARD)
+    set(MIDILAR_FOUND FALSE)
+    string(CONCAT MIDILAR_NOT_FOUND_MESSAGE
+        "Foundation requires C++${Foundation_CXX_STANDARD}, but MIDILAR was "
+        "built for C++${MIDILAR_CXX_STANDARD}.")
+    return()
+endif()
+
+include("${CMAKE_CURRENT_LIST_DIR}/MIDILARTargets.cmake")
+
+check_required_components(MIDILAR)

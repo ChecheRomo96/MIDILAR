@@ -1,2 +1,0 @@
-add_executable(CallbackHandler_Methods Methods.cpp)
-target_link_libraries(CallbackHandler_Methods PUBLIC MIDILAR) 

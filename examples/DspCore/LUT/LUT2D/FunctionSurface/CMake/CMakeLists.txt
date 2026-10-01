@@ -1,2 +1,0 @@
-add_executable(MIDILAR_Examples_LUT2D_FunctionSurface FunctionSurface.cpp)
-target_link_libraries(MIDILAR_Examples_LUT2D_FunctionSurface MIDILAR)

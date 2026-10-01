@@ -1,0 +1,42 @@
+{
+    "version": 6,
+
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+
+            "binaryDir": "${sourceDir}/build/${presetName}",
+
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+
+                "MIDILAR_FULL_BUILD": "OFF",
+                "MIDILAR_DOCS": "OFF",
+                "MIDILAR_TESTING": "OFF",
+                "MIDILAR_EXAMPLES": "OFF",
+                "MIDILAR_COVERAGE": "OFF"
+            }
+        },
+
+        {
+            "name": "docs_base",
+            "hidden": true,
+            "inherits": "base",
+
+            "cacheVariables": {
+                "MIDILAR_DOCS": "ON"
+            }
+        },
+
+        {
+            "name": "testing_base",
+            "hidden": true,
+            "inherits": "base",
+
+            "cacheVariables": {
+                "MIDILAR_TESTING": "ON"
+            }
+        }
+    ]
+}
