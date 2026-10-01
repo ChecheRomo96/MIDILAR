@@ -1,9 +1,11 @@
 /**
  * @mainpage MIDILAR
  *
- * MIDILAR is the MIDI layer of the RoModular ecosystem: protocol, messages,
- * parsing, routing and real-time devices for desktop and embedded targets,
- * built on Foundation (general utilities) and MCC (music theory).
+ * MIDILAR is the MIDI layer of the RoModular ecosystem: MIDI 1.0 and MIDI 2.0
+ * protocol, messages, parsing, routing and real-time devices for desktop and
+ * embedded targets, built on Foundation (general utilities) and MCC (music
+ * theory). MIDI 2.0 Universal MIDI Packets are the internal model; MIDI 1.0
+ * byte streams are translated at the edges.
  *
  * @note MIDILAR is being rebuilt from scratch on the `rebuild` branch. Version
  * 0.1.0 is the scaffold; features arrive in the phases of `ACTION_PLAN.md`.
