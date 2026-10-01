@@ -1,4 +1,0 @@
-add_subdirectory(BasicFloat)
-add_subdirectory(AudioDelay)
-add_subdirectory(StructFrame)
-add_subdirectory(MoveSemantics)

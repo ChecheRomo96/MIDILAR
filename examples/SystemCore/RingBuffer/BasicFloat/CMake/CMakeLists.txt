@@ -1,2 +1,0 @@
-add_executable(RingBuffer_BasicFloat BasicFloat.cpp)
-target_link_libraries(RingBuffer_BasicFloat PUBLIC MIDILAR)

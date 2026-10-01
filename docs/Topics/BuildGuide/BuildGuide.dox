@@ -1,74 +1,19 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * @file BuildGuide.dox
- * @brief Build system configuration and setup guide for MIDILAR.
- */
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * @addtogroup MIDILAR_BuildGuide
- * @brief Instructions to build and configure MIDILAR for desktop and embedded environments.
+ * @defgroup MIDILAR_BuildGuide Build Guide
+ * @brief Configure MIDILAR against a matching Foundation package.
  *
- * This group provides platform-specific instructions for compiling and integrating MIDILAR
- * into your projects. It is divided into:
+ * MIDILAR locates or fetches Foundation automatically (see
+ * @ref MIDILAR_BuildGuide_Dependency):
  *
- * - @ref MIDILAR_BuildGuide_CMake for **Standard C++/CMake**
- * - @ref MIDILAR_BuildGuide_Arduino for **Arduino/PlatformIO**
- * - @ref MIDILAR_BG_BuildConfiguration for **Available Build Options**
- *
- * These guides are independent from the main `MIDILAR` API reference and are intended
- * to help users configure and test the library in various environments.
- */
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @defgroup MIDILAR_BuildGuide_CMake CMake
- * @ingroup MIDILAR_BuildGuide
- * @brief Using MIDILAR with CMake-based C++ projects.
- */
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @defgroup MIDILAR_BuildGuide_Arduino Arduino
- * @ingroup MIDILAR_BuildGuide
- * @brief Using MIDILAR in Arduino-compatible environments.
- *
- * In Arduino or PlatformIO projects, MIDILAR configuration is handled through the
- * `System/UserSetup.h` file instead of CMake.
- *
- * In this file, you can enable or disable modules such as:
- *
- * @code{.cpp}
- * #define MIDILAR_DSP_CORE
- * #define MIDILAR_LUT
- * #define MIDILAR_MIDI_MESSAGE_PARSER
+ * @code{.bash}
+ * ./scripts/configure.sh macos_arm64 --fresh
+ * ./scripts/build.sh macos_arm64 --config Debug
  * @endcode
  *
- * Example sketches can be accessed via:
- * ```
- * File > Examples > MIDILAR > DspCore > LUT > LUT1D > GeneratorLUT
- * ```
+ * To use a specific Foundation package, point MIDILAR at its prefix:
  *
- * Your Arduino sketch must include the main entry point:
- * @code{.cpp}
- * #include <MIDILAR.h>
- * @endcode
- *
- * @note Ensure your platform supports dynamic allocation if required by your selected modules.
- *
- * For PlatformIO integration, include the library via GitHub in `platformio.ini`:
- * @code
- * lib_deps =
- *     https://github.com/checheromo96/MIDILAR.git
- * build_flags =
- *     -DMIDILAR_NO_STD
+ * @code{.bash}
+ * ./scripts/configure.sh macos_arm64 --fresh -- \
+ *   -DMIDILAR_FOUNDATION_PREFIX=../Foundation/dist/macos_arm64
  * @endcode
  */
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @defgroup MIDILAR_BG_BuildConfiguration Build Configuration Macros
- * @ingroup MIDILAR_BuildGuide
- */
-///////////////////////////////////////////////////////////////////////////////////////////////////

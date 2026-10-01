@@ -1,72 +1,22 @@
 #ifndef MIDILAR_BUILD_SETTINGS_H
 #define MIDILAR_BUILD_SETTINGS_H
-    
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //  Version
 
-        #ifndef MIDILAR_VERSION
-            #define MIDILAR_VERSION "0.x.1"
-        #endif
+#ifndef MIDILAR_VERSION
+    #define MIDILAR_VERSION "0.1.0"
+#endif
 
-    //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Doxygen
+#ifndef MIDILAR_CPLUSPLUS
+    #if defined(_MSVC_LANG)
+        #define MIDILAR_CPLUSPLUS _MSVC_LANG
+    #elif defined(__cplusplus)
+        #define MIDILAR_CPLUSPLUS __cplusplus
+    #else
+        #define MIDILAR_CPLUSPLUS 0L
+    #endif
+#endif
 
-        #ifdef DOXYGEN
-            #define __has_include(x) 1 // bypass header checks for Doxygen
-        #endif
-    //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Arduino IDE
+#if !defined(DOXYGEN) && (MIDILAR_CPLUSPLUS < 201703L)
+    #error "MIDILAR requires C++17 or newer"
+#endif
 
-        #if defined(ARDUINO)
-        
-
-        
-        #endif
-    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // AVR 
-
-        #if defined(__AVR__) || defined(__avr__)
-            
-            #include <avr/pgmspace.h>
-
-            #ifndef PROGMEM_MACRO
-                #define PROGMEM_MACRO PROGMEM
-            #endif
-
-        #else
-            #ifndef PROGMEM_MACRO
-                #define PROGMEM_MACRO
-            #endif
-        #endif
-    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ESP32 
- 
-        #if defined(ESP32)
-
-        #endif
-    //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PSoC Creator
-    
-        #if defined(PSOC_CREATOR)
-
-        #endif
-    //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Building as a target for a desktop system
-    
-        #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__APPLE__) || defined(linux)
-
-
-        #endif
-    //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    #include <MIDILAR_Core.h>
-
-#endif//MIDILAR_BUILD_SETTINGS_H
+#endif // MIDILAR_BUILD_SETTINGS_H

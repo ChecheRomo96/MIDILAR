@@ -1,9 +1,12 @@
 # MIDILAR agent instructions
 
-MIDILAR is the MIDI, transport, device, and real-time music-technology layer of
-the RoModular ecosystem. The current repository is legacy code pending a
-deliberate reconstruction, so preserve evidence and avoid broad modernization
-unless the user explicitly scopes it.
+MIDILAR is the MIDI layer of the RoModular ecosystem: protocol data, parsing,
+routing, timing and devices. Keep it independently buildable for desktop and
+embedded consumers, and preserve the dependency direction
+`Foundation <- MCC <- MIDILAR`.
+
+MIDILAR is being rebuilt from scratch on the `rebuild` branch. Follow
+`ACTION_PLAN.md` phase by phase; each phase needs the user's approval.
 
 ## Shared RoModular guidance
 
@@ -22,45 +25,41 @@ unless the user explicitly includes it.
 
 ## Repository rules
 
-- Preserve the dependency direction `Foundation <- MCC <- MIDILAR`. General
-  utilities belong in Foundation, music-theory concepts belong in MCC, and
-  MIDI protocol, transport, routing, devices, and real-time processing belong
-  here.
-- Treat the current source, examples, tests, CMake files, and documentation as
-  migration evidence. Do not delete or mechanically rewrite legacy material
-  before its behavior and replacement destination are understood.
-- The repository has not adopted RoModularBuild yet. Do not bypass its current
-  CMake interface or introduce a partial shared-build migration without an
-  explicit migration task and validation plan.
-- Preserve the current C++17 requirement until a compatibility decision is
-  documented and tested for every supported consumer.
-- Keep real-time and embedded paths allocation-conscious, exception-free where
-  required by the target, and free from mandatory full-STL assumptions.
-- Keep Arduino examples and desktop examples aligned around shared public API
-  demonstrations. Examples are not unit tests; unit tests remain under
-  `tests/`.
-- Verify claims in `readme.md`, generated documentation, package metadata, and
-  build files against the implementation. This legacy repository may contain
-  stale or contradictory documentation.
-- `CMakeCache.txt` is currently tracked by the repository. Treat its removal as
-  a deliberate cleanup change, not as incidental generated-file deletion.
+- Treat `CMakePresets.json`, its included preset files, and the scripts under
+  `scripts/` as the supported build interface, with Bash and PowerShell
+  parity.
+- Initialize the pinned `tools/RoModularBuild` submodule before invoking a
+  workflow in a fresh checkout, and treat it as read-only.
+- Foundation and MCC are resolved by `cmake/MIDILARFoundation.cmake` and
+  `cmake/MIDILARMCC.cmake`; keep their pinned versions in step with the
+  Arduino CI job.
+- General utilities belong in Foundation, music theory in MCC, and signal
+  processing in the future DSPCore library; only MIDI concepts belong here.
+- Real-time paths never allocate memory dynamically and never throw
+  exceptions. Value types are trivially copyable with compile-time size
+  budgets in `src/MIDILAR.cpp`.
+- Keep the MIDI-domain specification (`docs/Topics/Specification/MidiDomain.dox`)
+  ahead of the code; tests reference its invariants.
+- Examples demonstrate public APIs; unit tests live under `tests/MIDILAR/`
+  and use GoogleTest through CTest.
+- Keep public headers, examples, tests, version metadata, `ACTION_PLAN.md`,
+  `CHANGELOG.md` and Doxygen synchronized with public API changes.
+- Separate compile/link validation from hardware execution evidence.
 - Preserve unrelated work and do not commit, tag, push, publish, or merge
   unless the user explicitly requests it.
 
-## Current entry points
+## Supported entry points
 
-Until the repository is reconstructed, use its checked-in CMake configuration:
+Use the PowerShell equivalent on Windows.
 
 ```text
-cmake -B build -S . -DMIDILAR_TESTING=ON -DMIDILAR_EXAMPLES=ON
-cmake --build build
-ctest --test-dir build
+./scripts/configure.sh <preset> [--fresh] [-- <cmake-options>]
+./scripts/build.sh <preset> [--fresh] [--config <configuration>] [--examples-on]
+./scripts/test.sh <preset> [--fresh] [--config <configuration>]
+./scripts/install.sh <preset>
+./scripts/export.sh <preset> [--fresh] [--examples-on]
+./scripts/test-package.sh <preset> [--fresh]
+./scripts/test-arduino.sh [--fqbn <board>] [--foundation <dir>] [--mcc <dir>]
+./scripts/analyze.sh <preset> [--fresh]
+./scripts/docs.sh [--fresh]
 ```
-
-The presets in `CMakePresets.json` are legacy convenience configurations, not
-yet a RoModularBuild compatibility contract. Inspect their cache variables and
-binary directories before using or changing them.
-
-Run narrowly scoped checks first. State clearly which desktop compiler,
-Arduino toolchain, cross-compiler, and hardware checks were not available on
-the current host.

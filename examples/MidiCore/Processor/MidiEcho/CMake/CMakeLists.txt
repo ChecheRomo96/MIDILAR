@@ -1,2 +1,0 @@
-add_executable(MidiProcessor_MidiEcho MidiEcho.cpp)
-target_link_libraries(MidiProcessor_MidiEcho MIDILAR)

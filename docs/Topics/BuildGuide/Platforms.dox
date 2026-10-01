@@ -1,0 +1,14 @@
+/**
+ * @defgroup MIDILAR_BuildGuide_Platforms Platform Presets
+ * @ingroup MIDILAR_BuildGuide
+ * @brief Public MIDILAR presets backed by pinned RoModularBuild profiles.
+ *
+ * MIDILAR provides native Windows, macOS, and Linux presets plus AVR-GCC and GNU
+ * Arm Embedded profiles. The public preset names and `MIDILAR_*` options live in
+ * this repository. Compiler, generator, and generic cross-toolchain mechanics
+ * are inherited from the pinned `tools/RoModularBuild` submodule.
+ *
+ * A preset is usable only when the required compiler toolchain and a compatible
+ * Foundation package or source fallback are available. See
+ * @ref MIDILAR_Workflows_SharedInfrastructure for the ownership boundary.
+ */

@@ -1,2 +1,0 @@
-add_executable(CallbackHandler_Lambdas Lambdas.cpp)
-target_link_libraries(CallbackHandler_Lambdas PUBLIC MIDILAR) 

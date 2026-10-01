@@ -1,0 +1,1 @@
+midilar_add_test(MIDILARCoreTests VersionTests.cc)

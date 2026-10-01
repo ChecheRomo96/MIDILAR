@@ -1,2 +1,0 @@
-add_executable(MessageParser_InstanceCallbacks InstanceCallbacks.cpp)
-target_link_libraries(MessageParser_InstanceCallbacks PUBLIC MIDILAR) 

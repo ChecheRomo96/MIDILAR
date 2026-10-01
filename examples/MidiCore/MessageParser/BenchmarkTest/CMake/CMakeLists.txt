@@ -1,2 +1,0 @@
-add_executable(MessageParser_BenchmarkTest BenchmarkTest.cpp)
-target_link_libraries(MessageParser_BenchmarkTest PUBLIC MIDILAR) 

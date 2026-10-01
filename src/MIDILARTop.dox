@@ -1,0 +1,9 @@
+/**
+ * @defgroup MIDILAR MIDILAR
+ * @brief Portable MIDI protocol, parsing and device processing built on
+ * Foundation and MCC.
+ *
+ * MIDILAR uses the `MIDILAR` namespace and consumes the stable CMake targets
+ * `Foundation::Foundation` and `MCC::MCC`. Applications may include `MIDILAR.h` for the complete
+ * enabled surface or a documented module/component header for narrow access.
+ */
