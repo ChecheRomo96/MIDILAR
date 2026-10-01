@@ -19,12 +19,17 @@ MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Velocity, 2);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PressureValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PitchBend, 4);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Packet, 16);
 
 // SPEC-MIDI-3: scaling stays constexpr on every compiler, GCC 7 (Arduino AVR)
 // included.
 static_assert(MIDILAR::Protocol::ScaleUp(127, 7, 32) == 0xFFFFFFFFu, "7->32 maximum");
 static_assert(MIDILAR::Protocol::ScaleUp(8192, 14, 32) == 0x80000000u, "14->32 center");
 static_assert(MIDILAR::Protocol::ChannelMask::All().Count() == 16, "sixteen channels");
+static_assert(MIDILAR::Protocol::Packet::Midi2NoteOn(MIDILAR::Protocol::Group::FromWire(0),
+                  MIDILAR::Protocol::Channel::FromWire(0), MIDILAR::Protocol::NoteNumber::FromValue(60),
+                  MIDILAR::Protocol::Velocity::Max()).Word(1) == 0xFFFF0000u,
+              "MIDI 2.0 Note On layout");
 #endif
 
 #undef MIDILAR_CHECK_VALUE_TYPE

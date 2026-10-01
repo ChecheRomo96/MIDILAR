@@ -24,3 +24,7 @@ This file records user-visible changes to MIDILAR. Release dates use the
   `ProgramNumber`, 16-bit `Velocity`, 32-bit `ControllerValue`,
   `PressureValue` and `PitchBend`, and the MIDI 2.0 min-center-max
   `ScaleUp()`/`ScaleDown()`.
+- `MIDILAR::Protocol::Packet`: UMP packets with typed constructors and
+  queries for utility, system common and real-time, MIDI 1.0 and MIDI 2.0
+  channel voice (including note attributes and banked program change) and
+  7-bit System Exclusive packets.
