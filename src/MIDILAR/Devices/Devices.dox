@@ -6,8 +6,10 @@
  * Every device has `Process(const Packet&)` and an `Output()` callback
  * (`Foundation::Functional::Callback`), so devices are chained without
  * virtual functions or allocation: `ChannelFilter`, `ChannelReassign`,
- * `Transpose`, `VelocityCurve`, `ScaleFilter` on `MCC::Scale`, and a
- * fan-out `Router`.
+ * `Transpose`, `VelocityCurve`, `ScaleFilter` on `MCC::Scale`,
+ * `ChordGenerator` on `MCC::ChordPattern`, and a fan-out `Router`. Note
+ * devices remember held notes (`HeldValues`) so they never leave notes
+ * hanging.
  */
 
 /**

@@ -108,9 +108,9 @@ Closes MCC phase 10 and MIG-008.
 
 ## Phase 6 - Devices and routing
 
-Status: in progress. Done: device output wiring, `Router`, `ChannelFilter`,
-`ChannelReassign`, `Transpose`, `VelocityCurve` and `ScaleFilter`. Next: chord
-generation on `MCC::Chords`.
+Status: complete (`MIDILAR::Devices`): device output wiring, `Router`,
+`ChannelFilter`, `ChannelReassign`, `Transpose`, `VelocityCurve`,
+`ScaleFilter`, `ChordGenerator` and `HeldNotes`/`HeldValues`.
 
 A device interface on UMP and `Foundation::Functional::Callback`; channel and
 group filters and reassignment, velocity curves, transposition, `ScaleFilter`

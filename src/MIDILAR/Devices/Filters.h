@@ -87,7 +87,7 @@ public:
             Emit(packet);
             return;
         }
-        const Protocol::NoteNumber mapped = _held.Route(packet, Map(note));
+        const Protocol::NoteNumber mapped = Protocol::NoteNumber::FromValue(_held.Route(packet, Map(note).Value()));
         if (mapped.IsValid()) {
             Emit(packet.WithNote(mapped));
         }

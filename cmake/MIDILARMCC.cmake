@@ -22,7 +22,7 @@
 # and the internal cache entry MIDILAR_MCC_RESOLVED_PREFIX (empty when
 # MCC is built from source and installed alongside MIDILAR).
 
-set(MIDILAR_MCC_VERSION "0.5.1")
+set(MIDILAR_MCC_VERSION "0.5.2")
 
 # MCC packages declare find_dependency(Foundation). Let that nested search see
 # the Foundation package MIDILAR already resolved.

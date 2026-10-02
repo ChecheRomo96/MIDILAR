@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include <MCC/Chord/Chords.h>
+#include <MCC/Scale/Scales.h>
 #include <MIDILAR.h>
 
 #ifndef MIDILAR_DEVICES
@@ -292,4 +294,40 @@ TEST(MIDILARDevicesTests, HeldNotesBeyondCapacityUseTheCurrentMapping) {
     ASSERT_EQ(sink.packets.size(), HeldNotes::Capacity + 3u);
     EXPECT_EQ(sink.packets[HeldNotes::Capacity + 1u], NoteOff2(1));
     EXPECT_EQ(sink.packets[HeldNotes::Capacity + 2u], NoteOff2(HeldNotes::Capacity + 2));
+}
+
+TEST(MIDILARDevicesTests, ChordGeneratorPlaysEveryTone) {
+    ChordGenerator chords;
+    Sink sink;
+    Connect(chords, sink);
+    chords.Process(NoteOn(60));
+    chords.SetChord(MCC::Chords::Pattern(MCC::Chords::Id::Major));
+    EXPECT_EQ(chords.Shape(), (1u << 0) | (1u << 4) | (1u << 7));
+    chords.Process(NoteOn(60));
+    chords.Process(Clock);
+    chords.Process(NoteOn(125)); // 129 and 132 are out of range
+    ASSERT_EQ(sink.packets.size(), 6u);
+    EXPECT_EQ(sink.packets[0], NoteOn(60));
+    EXPECT_EQ(sink.packets[1], NoteOn(60));
+    EXPECT_EQ(sink.packets[2], NoteOn(64));
+    EXPECT_EQ(sink.packets[3], NoteOn(67));
+    EXPECT_EQ(sink.packets[4], Clock);
+    EXPECT_EQ(sink.packets[5], NoteOn(125));
+}
+
+TEST(MIDILARDevicesTests, ChordGeneratorReleasesTheChordANoteStarted) {
+    ChordGenerator chords;
+    Sink sink;
+    Connect(chords, sink);
+    chords.SetChord(MCC::Chords::Pattern(MCC::Chords::Id::DominantSeventh));
+    chords.Process(NoteOn(48));
+    chords.SetChord(MCC::Chords::Pattern(MCC::Chords::Id::Minor));
+    chords.Process(NoteOff2(48));
+    ASSERT_EQ(sink.packets.size(), 8u);
+    EXPECT_EQ(sink.packets[4], NoteOff2(48));
+    EXPECT_EQ(sink.packets[5], NoteOff2(52));
+    EXPECT_EQ(sink.packets[6], NoteOff2(55));
+    EXPECT_EQ(sink.packets[7], NoteOff2(58));
+    chords.SetChord(MCC::ChordPattern());
+    EXPECT_EQ(chords.Shape(), 1u);
 }

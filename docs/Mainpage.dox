@@ -20,7 +20,7 @@
  * @section MIDILARMainDependency Dependencies
  *
  * MIDILAR links `Foundation::Foundation` (Foundation 1.4 or a newer 1.x
- * release) and `MCC::MCC` (MCC 0.5.1 or a newer 0.x release). It uses local
+ * release) and `MCC::MCC` (MCC 0.5.2 or a newer 0.x release). It uses local
  * packages when available and otherwise fetches the pinned releases from
  * GitHub; see @ref MIDILAR_BuildGuide_Dependency.
  */
