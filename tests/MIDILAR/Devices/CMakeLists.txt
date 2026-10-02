@@ -1,0 +1,1 @@
+midilar_add_test(MIDILARDevicesTests DeviceTests.cc)

@@ -11,4 +11,8 @@
     #include <MIDILAR_Protocol.h>
 #endif
 
+#if __has_include(<MIDILAR_Devices.h>)
+    #include <MIDILAR_Devices.h>
+#endif
+
 #endif // MIDILAR_H

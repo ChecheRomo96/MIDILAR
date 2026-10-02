@@ -6,9 +6,15 @@ option(MIDILAR_COVERAGE "Enable coverage instrumentation" OFF)
 
 option(MIDILAR_CORE "Enable MIDILAR::Core" ON)
 option(MIDILAR_PROTOCOL "Enable MIDILAR::Protocol" ON)
+option(MIDILAR_DEVICES "Enable MIDILAR::Devices (requires MIDILAR_PROTOCOL)" ON)
 option(MIDILAR_PARSER_DIAGNOSTICS "Count aborted messages and ignored bytes in Midi1Parser" OFF)
 
 if(MIDILAR_FULL_BUILD)
     set(MIDILAR_CORE ON CACHE BOOL "Enable MIDILAR::Core" FORCE)
     set(MIDILAR_PROTOCOL ON CACHE BOOL "Enable MIDILAR::Protocol" FORCE)
+    set(MIDILAR_DEVICES ON CACHE BOOL "Enable MIDILAR::Devices (requires MIDILAR_PROTOCOL)" FORCE)
+endif()
+
+if(MIDILAR_DEVICES AND NOT MIDILAR_PROTOCOL)
+    message(FATAL_ERROR "MIDILAR_DEVICES requires MIDILAR_PROTOCOL")
 endif()

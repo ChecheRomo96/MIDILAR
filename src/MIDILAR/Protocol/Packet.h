@@ -425,12 +425,57 @@ public:
                                 : Protocol::Channel::Invalid();
     }
 
-    /** @brief Returns the note of a Note On, Note Off or poly pressure packet. */
-    constexpr NoteNumber Note() const noexcept {
+    /**
+     * @brief Returns `true` for packets addressed to one note: Note On, Note
+     * Off and poly pressure, and the MIDI 2.0 per-note controller, per-note
+     * pitch bend and per-note management packets.
+     */
+    constexpr bool HasNote() const noexcept {
         return IsVoice(Protocol::VoiceStatus::NoteOn) || IsVoice(Protocol::VoiceStatus::NoteOff) ||
-                       IsVoice(Protocol::VoiceStatus::PolyPressure)
-            ? NoteNumber::FromValue(static_cast<int32_t>(Field(0, 8, 0xFFu)))
-            : NoteNumber::Invalid();
+            IsVoice(Protocol::VoiceStatus::PolyPressure) ||
+            (Type() == MessageType::Midi2ChannelVoice &&
+             (VoiceStatus() == Protocol::VoiceStatus::RegisteredPerNoteController ||
+              VoiceStatus() == Protocol::VoiceStatus::AssignablePerNoteController ||
+              VoiceStatus() == Protocol::VoiceStatus::PerNotePitchBend ||
+              VoiceStatus() == Protocol::VoiceStatus::PerNoteManagement));
+    }
+
+    /** @brief Returns the note of a packet for which `HasNote()` is `true`. */
+    constexpr NoteNumber Note() const noexcept {
+        return HasNote() ? NoteNumber::FromValue(static_cast<int32_t>(Field(0, 8, 0xFFu))) : NoteNumber::Invalid();
+    }
+
+    /**
+     * @brief Returns a copy on `group`; packets without a group are returned
+     * unchanged and an invalid group gives the invalid packet.
+     */
+    constexpr Packet WithGroup(Protocol::Group group) const noexcept {
+        return !Group().IsValid() ? *this
+            : !group.IsValid()    ? Packet()
+                                  : Packet((_words[0] & 0xF0FFFFFFu) | (static_cast<uint32_t>(group.Wire()) << 24),
+                                           _words[1], _words[2], _words[3]);
+    }
+
+    /**
+     * @brief Returns a copy on `channel`; packets without a channel are
+     * returned unchanged and an invalid channel gives the invalid packet.
+     */
+    constexpr Packet WithChannel(Protocol::Channel channel) const noexcept {
+        return !IsChannelVoice()   ? *this
+            : !channel.IsValid()   ? Packet()
+                                   : Packet((_words[0] & 0xFFF0FFFFu) | (static_cast<uint32_t>(channel.Wire()) << 16),
+                                            _words[1], _words[2], _words[3]);
+    }
+
+    /**
+     * @brief Returns a copy addressed to `note`; packets without a note are
+     * returned unchanged and an invalid note gives the invalid packet.
+     */
+    constexpr Packet WithNote(NoteNumber note) const noexcept {
+        return !HasNote()       ? *this
+            : !note.IsValid()   ? Packet()
+                                : Packet((_words[0] & 0xFFFF00FFu) | (static_cast<uint32_t>(note.Value()) << 8),
+                                         _words[1], _words[2], _words[3]);
     }
 
     /** @brief Returns the velocity of a Note On or Note Off packet. */

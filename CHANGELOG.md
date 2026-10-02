@@ -37,3 +37,7 @@ This file records user-visible changes to MIDILAR. Release dates use the
 - MCC integration: `ToChromaticIndex()`, `ToNoteNumber()` (from a chromatic
   index or any spelling of an `MCC::Pitch`, invalid outside 0-127) and
   `ToPitch()` (spelled in an `MCC::Key`, C major by default).
+- `MIDILAR::Devices`: devices chained through `Foundation::Functional::Callback`
+  outputs (`ChannelFilter`, `ChannelReassign`, `Transpose`, `VelocityCurve`,
+  `ScaleFilter` on `MCC::Scale`) and a fan-out `Router`. `Packet` gains
+  `HasNote()`, `WithGroup()`, `WithChannel()` and `WithNote()`.
