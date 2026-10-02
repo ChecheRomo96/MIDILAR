@@ -165,6 +165,17 @@
  *   adding the two frames they take to arrive, or from a full frame;
  *   out-of-order pieces restart the assembly.
  *
+ * @section MIDILARSpecUsb USB MIDI 1.0
+ *
+ * - SPEC-USB-1: A USB MIDI 1.0 event (cable and Code Index Number, then up
+ *   to three bytes) maps to one packet on the group equal to the cable.
+ *   System Exclusive events become 7-bit System Exclusive packets of up to
+ *   three bytes whose position comes from the `0xF0` and `0xF7` they carry,
+ *   so decoding needs no state. Reserved and malformed events are rejected.
+ * - SPEC-USB-2: Packets are encoded through their MIDI 1.0 bytes onto the
+ *   cable equal to their group; System Exclusive bytes that do not fill an
+ *   event wait for the next packet of the same message on that cable.
+ *
  * @section MIDILARSpecDiagnostics Diagnostics
  *
  * - SPEC-MIDI-15: Error counters (aborted messages, ignored bytes, truncated

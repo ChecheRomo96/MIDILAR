@@ -53,5 +53,9 @@ This file records user-visible changes to MIDILAR. Release dates use the
 - MIDI Time Code: `TimeCode` (24, 25, 29.97 drop-frame and 30 fps,
   quarter-frame encoding), `MtcGenerator` (quarter frames without drift and
   full frames) and `MtcReceiver`. New `Devices/MtcOut` example.
+- USB MIDI 1.0: `DecodeUsbMidi1()` turns 4-byte event packets into UMP
+  (cable = group) and `UsbMidi1Encoder` turns UMP into events, with System
+  Exclusive kept per cable. Hardware transports belong to separate
+  libraries.
 - `ChordGenerator`: plays an `MCC::ChordPattern` on every note and releases
   each held note with the chord it started with.

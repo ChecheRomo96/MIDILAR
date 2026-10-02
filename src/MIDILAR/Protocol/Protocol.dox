@@ -23,6 +23,9 @@
  *   `Midi1Encoder` turns packets back into bytes and `SysExAssembler`
  *   collects System Exclusive payloads into a caller buffer
  *   (SPEC-MIDI-8..15).
+ * - `DecodeUsbMidi1()` and `UsbMidi1Encoder` convert USB MIDI 1.0 event
+ *   packets (SPEC-USB-1..2). Hardware transports live in separate libraries
+ *   built on these conversions.
  */
 
 /**
