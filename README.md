@@ -7,15 +7,30 @@ MIDI 1.0 byte streams are translated at the edges. It is
 built on Foundation (general utilities) and MCC (music theory), and it never
 allocates memory or throws exceptions in real-time paths.
 
-> **Status: rebuilt from scratch.** Version 0.1.0 is the scaffold on the
-> `rebuild` branch: build, packaging, CI and version information only. MIDI
-> features arrive in the phases of `ACTION_PLAN.md`; the
-> branch merges into `main` once it is stable.
+> **Status: 0.2.0, rebuilt from scratch.** The first release of the rebuilt
+> library is prepared on the `rebuild` branch and merges into `main` after
+> hardware validation. Until then, add `-b rebuild` to the clone command.
+
+## Features
+
+- **Protocol** (`MIDILAR::Protocol`): channels, groups and their masks;
+  note, controller and program numbers; velocity, controller, pressure and
+  pitch-bend values at MIDI 2.0 resolution with MIDI 1.0 views; UMP
+  `Packet`s; MIDI 1.0 byte-stream parsing and encoding with running status
+  and System Exclusive; USB MIDI 1.0 event packets; MIDI Time Code; and note
+  number / `MCC::Pitch` conversions.
+- **Devices** (`MIDILAR::Devices`): channel filter and reassignment,
+  transposition, velocity curves, scale filter and chord generation on MCC,
+  a router, MIDI clock generator and receiver, a Euclidean step sequencer,
+  and MTC generator and receiver. Devices chain through callbacks, never
+  allocate and never leave notes hanging.
+- Hardware transports (UART, USB stacks, desktop MIDI APIs) are separate
+  libraries built on these conversions. MIDI-CI is deferred.
 
 Clone with the pinned build infrastructure:
 
 ```bash
-git clone --recurse-submodules -b rebuild https://github.com/ChecheRomo96/MIDILAR.git
+git clone --recurse-submodules https://github.com/ChecheRomo96/MIDILAR.git
 ```
 
 For an existing checkout:

@@ -7,14 +7,20 @@
  * theory). MIDI 2.0 Universal MIDI Packets are the internal model; MIDI 1.0
  * byte streams are translated at the edges.
  *
- * @note MIDILAR is being rebuilt from scratch on the `rebuild` branch. Version
- * 0.1.0 is the scaffold; features arrive in the phases of `ACTION_PLAN.md`.
+ * @note Version 0.2.0 is the first release of the rebuilt library, prepared
+ * on the `rebuild` branch; it merges into `main` after hardware validation.
  *
  * @section MIDILARMainModules Modules
  *
  * - @ref MIDILAR_Core "Core": MIDILAR, MCC and Foundation version information.
+ * - @ref MIDILAR_Protocol "Protocol": channels, groups, values, UMP packets,
+ *   MIDI 1.0 and USB MIDI 1.0 translation, MIDI Time Code and MCC pitch
+ *   conversions.
+ * - @ref MIDILAR_Devices "Devices": filters, transforms, scale filter and
+ *   chord generation, router, MIDI clock, step sequencer and MTC.
  *
- * The rules MIDILAR types will follow are collected in the
+ * Hardware transports are separate libraries built on the Protocol
+ * conversions. The rules MIDILAR types follow are collected in the
  * @ref MIDILAR_Specification "MIDI-Domain Specification".
  *
  * @section MIDILARMainDependency Dependencies

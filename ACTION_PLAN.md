@@ -152,23 +152,23 @@ hardware:
 
 ## Phase 10 - MIDI-CI
 
-Discovery, profile configuration and property exchange over UMP.
+Status: deferred (2026-10-02), with no date. Discovery, profile
+configuration and property exchange over UMP; byte layouts to be validated
+against the MIDI-CI 1.2 specification when the phase resumes.
 
 ## Phase 11 - Quality and merge
 
-Hardware validation of the transports, release workflow and merge of
-`rebuild` into `main`.
+Status: in progress. Release 0.2.0 is prepared on `rebuild` (version
+metadata, changelog, documentation). Pending: hardware runs of the
+`Devices/TransposeThru`, `Devices/ClockOut` and `Devices/MtcOut` sketches on
+an Uno with a MIDI shield, then the fast-forward merge into `main`, the
+`v0.2.0` tag and the release workflow.
 
 ## Proposed releases
 
 | Version | Scope |
 | --- | --- |
-| `0.1.0` | Scaffold (phase 0) |
-| `0.2.0` | Specification and protocol primitives |
-| `0.3.0` | UMP packets, messages and MIDI 1.0 translation |
-| `0.4.0` | MCC integration, devices and routing |
-| `0.5.0` | Clock and sequencing |
-| `0.6.0` | System common and MTC |
-| `0.7.0` | Transports |
-| `0.8.0` | MIDI-CI |
+| `0.1.0` | Scaffold (phase 0), never released |
+| `0.2.0` | Phases 1-9: specification, protocol, UMP, MIDI 1.0 and USB MIDI 1.0 translation, MCC integration, devices, clock and sequencing, MTC |
+| `0.3.0` | MIDI-CI (phase 10), when it resumes |
 | `1.0.0` | Stable documented API on supported targets |

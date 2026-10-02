@@ -5,6 +5,11 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ## [Unreleased]
 
+## [0.2.0] - Unreleased
+
+First release of the rebuilt MIDILAR: phases 1-9 of `ACTION_PLAN.md`. The
+date is set when the release is tagged.
+
 ### Changed
 
 - MIDILAR is rebuilt from scratch. The legacy 1.0.0-labelled code (never
