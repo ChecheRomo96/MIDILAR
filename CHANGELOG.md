@@ -50,5 +50,8 @@ This file records user-visible changes to MIDILAR. Release dates use the
   New `Devices/ClockOut` example.
 - `EuclideanPattern()` and `StepSequencer`: Euclidean rhythms of up to 64
   steps played on MIDI clock, with gate, step length and song position.
+- MIDI Time Code: `TimeCode` (24, 25, 29.97 drop-frame and 30 fps,
+  quarter-frame encoding), `MtcGenerator` (quarter frames without drift and
+  full frames) and `MtcReceiver`. New `Devices/MtcOut` example.
 - `ChordGenerator`: plays an `MCC::ChordPattern` on every note and releases
   each held note with the chord it started with.

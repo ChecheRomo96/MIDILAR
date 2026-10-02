@@ -20,6 +20,7 @@ MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PressureValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PitchBend, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Packet, 16);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::TimeCode, 5);
 #if !defined(MIDILAR_PARSER_DIAGNOSTICS)
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Parser, 16);
 #endif
@@ -41,6 +42,9 @@ static_assert(MIDILAR::Protocol::ToNoteNumber(MIDILAR::Protocol::ToPitch(
 
 #if defined(MIDILAR_DEVICES)
 static_assert(MIDILAR::Devices::EuclideanPattern(3, 8) == 0x49u, "E(3, 8) is x..x..x.");
+static_assert(MIDILAR::Protocol::TimeCode::From(0, 0, 59, 29, MIDILAR::Protocol::TimeCodeRate::Fps29_97Drop).Next() ==
+                  MIDILAR::Protocol::TimeCode::From(0, 1, 0, 2, MIDILAR::Protocol::TimeCodeRate::Fps29_97Drop),
+              "29.97 drop-frame skips frames 0 and 1");
 #endif
 
 #undef MIDILAR_CHECK_VALUE_TYPE

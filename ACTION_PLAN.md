@@ -129,6 +129,10 @@ MIDI clock (24 PPQN), start/stop/continue and song position on
 
 ## Phase 8 - System common and MTC
 
+Status: complete. Song select, tune request and song position were already
+`Packet` messages (phase 3); MTC adds `TimeCode`, `MtcGenerator` and
+`MtcReceiver` (SPEC-MTC-1..3).
+
 Song select, tune request, MTC quarter frames and full frames.
 
 ## Phase 9 - Transports
