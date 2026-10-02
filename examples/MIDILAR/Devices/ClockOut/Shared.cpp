@@ -2,8 +2,8 @@
 
 namespace MIDILARExamples::Devices::ClockOut {
 
-ClockOut::ClockOut(uint32_t (*micros)()) noexcept
-    : _clock(micros, Foundation::Time::Frequency(1000000, 1)), _generator(_clock) {
+ClockOut::ClockOut(uint32_t (*micros)(), int32_t calibrationPpm) noexcept
+    : _clock(micros, Foundation::Time::Frequency(static_cast<uint32_t>(1000000 + calibrationPpm), 1)), _generator(_clock) {
     _sequencer.SetPattern(MIDILAR::Devices::EuclideanPattern(3, 8), 8);
     _sequencer.SetNote(MIDILAR::Protocol::NoteNumber::FromValue(36));
     _generator.Output().Bind<MIDILAR::Devices::StepSequencer, &MIDILAR::Devices::StepSequencer::Process>(

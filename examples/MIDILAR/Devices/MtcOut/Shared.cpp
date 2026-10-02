@@ -2,8 +2,8 @@
 
 namespace MIDILARExamples::Devices::MtcOut {
 
-MtcOut::MtcOut(uint32_t (*micros)()) noexcept
-    : _clock(micros, Foundation::Time::Frequency(1000000, 1)), _generator(_clock) {
+MtcOut::MtcOut(uint32_t (*micros)(), int32_t calibrationPpm) noexcept
+    : _clock(micros, Foundation::Time::Frequency(static_cast<uint32_t>(1000000 + calibrationPpm), 1)), _generator(_clock) {
     _generator.Output().Bind<MtcOut, &MtcOut::Send>(this);
 }
 
