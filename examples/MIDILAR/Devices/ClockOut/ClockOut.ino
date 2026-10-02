@@ -8,6 +8,13 @@
 
 #include "Shared.h"
 
+// 31250 baud drives a MIDI shield. To test over the USB cable with a
+// serial-to-MIDI bridge (Hairless MIDI) instead, compile with
+// -DMIDILAR_EXAMPLE_MIDI_BAUD=115200.
+#ifndef MIDILAR_EXAMPLE_MIDI_BAUD
+    #define MIDILAR_EXAMPLE_MIDI_BAUD 31250
+#endif
+
 namespace {
 
 uint32_t Micros() {
@@ -23,7 +30,7 @@ MIDILARExamples::Devices::ClockOut::ClockOut out(Micros);
 } // namespace
 
 void setup() {
-    Serial.begin(31250);
+    Serial.begin(MIDILAR_EXAMPLE_MIDI_BAUD);
     out.Start(12000);
 }
 
