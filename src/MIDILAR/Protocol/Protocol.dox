@@ -12,6 +12,12 @@
  * - `Velocity` (16-bit), `ControllerValue`, `PressureValue` and `PitchBend`
  *   (32-bit) keep MIDI 2.0 resolution with a MIDI 1.0 view, converted by
  *   `ScaleUp()` and `ScaleDown()` (SPEC-MIDI-3).
+ * - `Packet` is one Universal MIDI Packet with typed constructors and
+ *   queries (SPEC-MIDI-16..19).
+ * - `Midi1Parser` turns a MIDI 1.0 byte stream into packets,
+ *   `Midi1Encoder` turns packets back into bytes and `SysExAssembler`
+ *   collects System Exclusive payloads into a caller buffer
+ *   (SPEC-MIDI-8..15).
  */
 
 /**

@@ -90,8 +90,8 @@
  * @section MIDILARSpecSysEx System Exclusive
  *
  * - SPEC-MIDI-13: A MIDI 1.0 System Exclusive message runs from `0xF0` to
- *   `0xF7`; any non-real-time status byte other than `0xF7` ends it as
- *   unterminated. In UMP it travels as 7-bit System Exclusive packets (six
+ *   `0xF7`; any other defined status byte that is not real-time also ends
+ *   it, and the payload so far is delivered as its last packet. In UMP it travels as 7-bit System Exclusive packets (six
  *   data bytes each); 8-bit System Exclusive uses its own UMP packets.
  * - SPEC-MIDI-14: System Exclusive payloads are assembled into a
  *   caller-provided buffer. When the payload does not fit, the first bytes are
