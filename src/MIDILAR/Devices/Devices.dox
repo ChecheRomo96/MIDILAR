@@ -7,7 +7,8 @@
  * (`Foundation::Functional::Callback`), so devices are chained without
  * virtual functions or allocation: `ChannelFilter`, `ChannelReassign`,
  * `Transpose`, `VelocityCurve`, `ScaleFilter` on `MCC::Scale`,
- * `ChordGenerator` on `MCC::ChordPattern`, and a fan-out `Router`. Note
+ * `ChordGenerator` on `MCC::ChordPattern`, a fan-out `Router`, and MIDI
+ * clock with `ClockGenerator` and `ClockReceiver`. Note
  * devices remember held notes (`HeldValues`) so they never leave notes
  * hanging.
  */

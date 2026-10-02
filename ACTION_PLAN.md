@@ -118,6 +118,10 @@ on `MCC::Scale`, chord generation on `MCC::Chords`, and a router.
 
 ## Phase 7 - Clock and sequencing
 
+Status: clock done (`ClockGenerator`, `ClockReceiver`, SPEC-CLK-1..3). The
+sequencer waits for Foundation's Euclidean distribution and a released MCC
+with the Rhythm module.
+
 MIDI clock (24 PPQN), start/stop/continue and song position on
 `Foundation::Time`/`Scheduling`; a sequencer using Foundation's Euclidean
 distribution and MCC's rhythm types (designed together with MCC phase 9).

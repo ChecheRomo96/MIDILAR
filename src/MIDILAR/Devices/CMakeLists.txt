@@ -1,7 +1,8 @@
 set(MIDILAR_DEVICES_HEADERS
     "${CMAKE_CURRENT_LIST_DIR}/Device.h"
     "${CMAKE_CURRENT_LIST_DIR}/Filters.h"
-    "${CMAKE_CURRENT_LIST_DIR}/Transforms.h")
+    "${CMAKE_CURRENT_LIST_DIR}/Transforms.h"
+    "${CMAKE_CURRENT_LIST_DIR}/MidiClock.h")
 
 target_sources(MIDILAR PRIVATE ${MIDILAR_DEVICES_HEADERS})
 midilar_stage_headers(${MIDILAR_DEVICES_HEADERS})

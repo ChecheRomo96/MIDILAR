@@ -1,1 +1,2 @@
 add_subdirectory(TransposeThru)
+add_subdirectory(ClockOut)
