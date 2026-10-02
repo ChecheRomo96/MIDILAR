@@ -15,8 +15,12 @@ namespace MIDILARExamples::Devices::MtcOut {
  */
 class MtcOut {
 public:
-    /** `micros` returns a free-running microsecond counter. */
-    explicit MtcOut(uint32_t (*micros)()) noexcept;
+    /**
+     * `micros` returns a free-running microsecond counter. `calibrationPpm`
+     * corrects the board's oscillator: a board whose clock runs 500 ppm slow
+     * (120 BPM measured as 119.94) uses -500.
+     */
+    explicit MtcOut(uint32_t (*micros)(), int32_t calibrationPpm = 0) noexcept;
 
     /** Moves to `time`, sends it as a full frame and starts running. */
     void Start(MIDILAR::Protocol::TimeCode time, void (*write)(uint8_t));

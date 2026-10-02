@@ -15,6 +15,13 @@
     #define MIDILAR_EXAMPLE_MIDI_BAUD 31250
 #endif
 
+// Oscillator correction in parts per million. If the receiver measures this
+// board's tempo or time code running slow, compile with a negative value,
+// e.g. -DMIDILAR_EXAMPLE_CLOCK_PPM=-500 when 120 BPM reads as 119.94.
+#ifndef MIDILAR_EXAMPLE_CLOCK_PPM
+    #define MIDILAR_EXAMPLE_CLOCK_PPM 0
+#endif
+
 namespace {
 
 uint32_t Micros() {
@@ -25,7 +32,7 @@ void Write(uint8_t byte) {
     Serial.write(byte);
 }
 
-MIDILARExamples::Devices::ClockOut::ClockOut out(Micros);
+MIDILARExamples::Devices::ClockOut::ClockOut out(Micros, MIDILAR_EXAMPLE_CLOCK_PPM);
 
 } // namespace
 

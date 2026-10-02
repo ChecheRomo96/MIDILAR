@@ -16,8 +16,12 @@ namespace MIDILARExamples::Devices::ClockOut {
  */
 class ClockOut {
 public:
-    /** `micros` returns a free-running microsecond counter. */
-    explicit ClockOut(uint32_t (*micros)()) noexcept;
+    /**
+     * `micros` returns a free-running microsecond counter. `calibrationPpm`
+     * corrects the board's oscillator: a board whose clock runs 500 ppm slow
+     * (120 BPM measured as 119.94) uses -500.
+     */
+    explicit ClockOut(uint32_t (*micros)(), int32_t calibrationPpm = 0) noexcept;
 
     /** Starts playing at `centiBpm` hundredths of a BPM. */
     void Start(uint32_t centiBpm);
