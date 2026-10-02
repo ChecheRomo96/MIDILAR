@@ -12,7 +12,6 @@ on:
   push:
     branches:
       - main
-      - rebuild
   workflow_dispatch:
 
 permissions:
@@ -94,7 +93,7 @@ jobs:
 
   deploy-docs:
     name: Deploy to docs branch
-    # Only main publishes; the rebuild branch validates the documentation.
+    # Only main publishes; pull requests only validate the documentation.
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: validate-docs
     runs-on: ubuntu-24.04

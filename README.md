@@ -7,9 +7,8 @@ MIDI 1.0 byte streams are translated at the edges. It is
 built on Foundation (general utilities) and MCC (music theory), and it never
 allocates memory or throws exceptions in real-time paths.
 
-> **Status: 0.2.0, rebuilt from scratch.** The first release of the rebuilt
-> library is prepared on the `rebuild` branch and merges into `main` after
-> hardware validation. Until then, add `-b rebuild` to the clone command.
+> **Status: 0.2.0**, the first release of the library rebuilt from scratch,
+> validated on an Arduino Mega 2560. MIDI-CI is deferred.
 
 ## Features
 

@@ -5,8 +5,9 @@ routing, timing and devices. Keep it independently buildable for desktop and
 embedded consumers, and preserve the dependency direction
 `Foundation <- MCC <- MIDILAR`.
 
-MIDILAR is being rebuilt from scratch on the `rebuild` branch. Follow
-`ACTION_PLAN.md` phase by phase; each phase needs the user's approval.
+MIDILAR was rebuilt from scratch and released as 0.2.0. Work happens on
+`main`, following `ACTION_PLAN.md` phase by phase; each phase needs the
+user's approval.
 
 ## Shared RoModular guidance
 
