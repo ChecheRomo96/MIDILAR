@@ -41,3 +41,5 @@ This file records user-visible changes to MIDILAR. Release dates use the
   outputs (`ChannelFilter`, `ChannelReassign`, `Transpose`, `VelocityCurve`,
   `ScaleFilter` on `MCC::Scale`) and a fan-out `Router`. `Packet` gains
   `HasNote()`, `WithGroup()`, `WithChannel()` and `WithNote()`.
+- `HeldNotes`: `Transpose` and `ScaleFilter` release each held note on the
+  note it started on, even after their mapping changes.

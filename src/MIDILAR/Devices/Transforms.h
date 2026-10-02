@@ -51,8 +51,8 @@ private:
  * @brief Shifts every packet with a note by a number of semitones.
  * @ingroup MIDILAR_Devices
  *
- * Notes that would leave `[0, 127]` are dropped. Changing the amount while
- * notes are held can leave their Note Off on another note.
+ * Notes that would leave `[0, 127]` are dropped. Held notes keep the shift
+ * they started with until their Note Off (`HeldNotes`).
  */
 class Transpose : public Device {
 public:
@@ -65,19 +65,21 @@ public:
     int32_t Semitones() const noexcept { return _semitones; }
 
     /** @brief Emits `packet` transposed, or drops it when out of range. */
-    void Process(const Protocol::Packet& packet) const {
+    void Process(const Protocol::Packet& packet) {
         const Protocol::NoteNumber note = packet.Note();
-        if (!note.IsValid() || _semitones == 0) {
+        if (!note.IsValid()) {
             Emit(packet);
             return;
         }
-        const Protocol::NoteNumber shifted = Protocol::NoteNumber::FromValue(note.Value() + _semitones);
+        const Protocol::NoteNumber shifted =
+            _held.Route(packet, Protocol::NoteNumber::FromValue(note.Value() + _semitones));
         if (shifted.IsValid()) {
             Emit(packet.WithNote(shifted));
         }
     }
 
 private:
+    HeldNotes _held;
     int8_t _semitones = 0;
 };
 

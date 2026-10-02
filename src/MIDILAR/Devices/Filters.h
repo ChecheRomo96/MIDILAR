@@ -66,8 +66,8 @@ enum class ScaleFilterMode : uint8_t {
  *
  * Applies to every packet with a note (`Packet::HasNote()`); other packets
  * pass unchanged, and so does everything while the scale is invalid. A note
- * that would move outside `[0, 127]` is dropped. Changing the scale or mode
- * while notes are held can leave their Note Off on another note.
+ * that would move outside `[0, 127]` is dropped. Held notes keep the mapping
+ * they started with until their Note Off (`HeldNotes`).
  */
 class ScaleFilter : public Device {
 public:
@@ -81,13 +81,13 @@ public:
     const MCC::Scale& Scale() const noexcept { return _scale; }
 
     /** @brief Emits `packet` with its note kept on the scale, or drops it. */
-    void Process(const Protocol::Packet& packet) const {
+    void Process(const Protocol::Packet& packet) {
         const Protocol::NoteNumber note = packet.Note();
-        if (!note.IsValid() || !_scale.IsValid()) {
+        if (!note.IsValid()) {
             Emit(packet);
             return;
         }
-        const Protocol::NoteNumber mapped = Map(note);
+        const Protocol::NoteNumber mapped = _held.Route(packet, Map(note));
         if (mapped.IsValid()) {
             Emit(packet.WithNote(mapped));
         }
@@ -120,6 +120,7 @@ private:
         return note.IsValid() && _scale.ContainsPitchClass(Protocol::ToChromaticIndex(note).PitchClass());
     }
 
+    HeldNotes _held;
     MCC::Scale _scale;
     ScaleFilterMode _mode = ScaleFilterMode::Nearest;
 };

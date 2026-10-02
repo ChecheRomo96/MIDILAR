@@ -121,6 +121,9 @@
  * - SPEC-DEV-2: Note devices (transpose, scale filter) apply to every packet
  *   addressed to a note, MIDI 2.0 per-note messages included, and drop a
  *   packet whose note would leave `[0, 127]`.
+ * - SPEC-DEV-3: A note keeps the output note it started with until its Note
+ *   Off, even when the device's mapping changes meanwhile, so devices never
+ *   leave notes hanging; a dropped Note On also drops its Note Off.
  *
  * @section MIDILARSpecDiagnostics Diagnostics
  *
