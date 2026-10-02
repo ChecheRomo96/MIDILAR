@@ -43,3 +43,6 @@ This file records user-visible changes to MIDILAR. Release dates use the
   `HasNote()`, `WithGroup()`, `WithChannel()` and `WithNote()`.
 - `HeldNotes`: `Transpose` and `ScaleFilter` release each held note on the
   note it started on, even after their mapping changes.
+- MIDILAR requires MCC `0.5.2` or a newer `0.x` release.
+- `ChordGenerator`: plays an `MCC::ChordPattern` on every note and releases
+  each held note with the chord it started with.

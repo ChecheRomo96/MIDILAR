@@ -45,23 +45,24 @@ private:
 };
 
 /**
- * @brief Remembers the output note of each held note, so a device whose
+ * @brief Remembers what a device did with each held note, so a device whose
  * mapping changes while notes sound still releases them (SPEC-DEV-3).
  * @ingroup MIDILAR_Devices
  *
- * `Route()` is called with every packet that has a note and the note the
- * device would use now. A Note On (MIDI 1.0 velocity 0 excluded) stores that
- * note; a Note Off returns and forgets the stored one; per-note packets
- * return the stored one. Up to `Capacity` notes are held per device; beyond
- * that, notes use the current mapping.
+ * `Route()` is called with every packet that has a note and the value the
+ * device would use now (an output note, a chord shape...). A Note On (MIDI
+ * 1.0 velocity 0 excluded) stores that value; a Note Off returns and forgets
+ * the stored one; per-note packets return the stored one. Up to `Capacity`
+ * notes are held per device; beyond that, notes use the current value.
  */
-class HeldNotes {
+template <typename Value>
+class HeldValues {
 public:
     /** @brief Number of notes remembered at once. */
     static constexpr uint8_t Capacity = 16;
 
-    /** @brief Returns the note to send for `packet`: stored, or `current`. */
-    Protocol::NoteNumber Route(const Protocol::Packet& packet, Protocol::NoteNumber current) noexcept {
+    /** @brief Returns the value to use for `packet`: stored, or `current`. */
+    Value Route(const Protocol::Packet& packet, Value current) noexcept {
         const uint8_t address = static_cast<uint8_t>((packet.Group().Wire() << 4) | packet.Channel().Wire());
         const uint8_t note = packet.Note().Value();
         uint8_t index = 0;
@@ -80,14 +81,14 @@ public:
                 index = _count++;
             }
             if (index < _count) {
-                _entries[index] = Entry{address, note, current.Value()};
+                _entries[index] = Entry{address, note, current};
             }
             return current;
         }
         if (!found) {
             return current;
         }
-        const Protocol::NoteNumber stored = Protocol::NoteNumber::FromValue(_entries[index].mapped);
+        const Value stored = _entries[index].value;
         if (noteOff) {
             _entries[index] = _entries[--_count];
         }
@@ -104,12 +105,15 @@ private:
     struct Entry {
         uint8_t address;
         uint8_t note;
-        uint8_t mapped;
+        Value value;
     };
 
     Entry _entries[Capacity] = {};
     uint8_t _count = 0;
 };
+
+/** @brief Output note per held note; `0xFF` is a dropped note. @ingroup MIDILAR_Devices */
+using HeldNotes = HeldValues<uint8_t>;
 
 /**
  * @brief Copies every packet to up to `Outputs` sinks, in order.

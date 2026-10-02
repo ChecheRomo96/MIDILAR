@@ -27,7 +27,7 @@ git submodule update --init --recursive
 ## Dependencies
 
 MIDILAR links `Foundation::Foundation` (Foundation `1.4.0` or a newer `1.x`)
-and `MCC::MCC` (MCC `0.5.1` or a newer `0.x`). Configuring resolves each one
+and `MCC::MCC` (MCC `0.5.2` or a newer `0.x`). Configuring resolves each one
 from a parent project, an explicit prefix (`MIDILAR_FOUNDATION_PREFIX`,
 `MIDILAR_MCC_PREFIX`), a sibling export in `../Foundation/dist/<preset>` or
 `../MCC/dist/<preset>`, normal `find_package`, and finally the pinned GitHub

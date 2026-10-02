@@ -4,7 +4,7 @@
  * @brief Foundation and MCC package resolution and compatibility contract.
  *
  * MIDILAR links `Foundation::Foundation` and `MCC::MCC` publicly. It requires
- * Foundation `1.4.0` or a newer `1.x` release and MCC `0.5.1` or a newer `0.x`
+ * Foundation `1.4.0` or a newer `1.x` release and MCC `0.5.2` or a newer `0.x`
  * release, and rejects packages whose recorded platform differs from the
  * selected MIDILAR preset.
  *
