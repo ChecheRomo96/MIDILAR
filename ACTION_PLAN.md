@@ -27,8 +27,8 @@ the `rebuild` branch and in the read-only audit, as design input only.
 - MIDI concepts live in MIDILAR; music theory stays in MCC; general utilities
   (buffers, callbacks, time, scheduling, flash data) come from Foundation.
 - Signal processing is out of scope: it moves to the future DspCore library.
-- The generic Euclidean distribution goes to Foundation; MIDILAR's sequencer
-  consumes it.
+- The Euclidean distribution lives in MIDILAR, next to its only consumer, the
+  sequencer; it moves to Foundation only if a non-MIDI consumer appears.
 - Value types are trivially copyable, `constexpr` where practical, with one
   canonical invalid value and compile-time size budgets for every target.
 - Variable-length data (SysEx) uses caller-provided buffers.
@@ -118,13 +118,14 @@ on `MCC::Scale`, chord generation on `MCC::Chords`, and a router.
 
 ## Phase 7 - Clock and sequencing
 
-Status: clock done (`ClockGenerator`, `ClockReceiver`, SPEC-CLK-1..3). The
-sequencer waits for Foundation's Euclidean distribution and a released MCC
-with the Rhythm module.
+Status: complete (`ClockGenerator`, `ClockReceiver`, `EuclideanPattern`,
+`StepSequencer`; SPEC-CLK-1..3, SPEC-SEQ-1..2). Decision (2026-10-02): the
+Euclidean distribution lives in MIDILAR, next to its only consumer, instead
+of Foundation. The sequencer counts steps in MIDI clocks; MCC's Rhythm types
+(`NoteValue`, `Meter`) can drive step lengths once MCC releases them.
 
 MIDI clock (24 PPQN), start/stop/continue and song position on
-`Foundation::Time`/`Scheduling`; a sequencer using Foundation's Euclidean
-distribution and MCC's rhythm types (designed together with MCC phase 9).
+`Foundation::Time`; a step sequencer with a Euclidean distribution.
 
 ## Phase 8 - System common and MTC
 

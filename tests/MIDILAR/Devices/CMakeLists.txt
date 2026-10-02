@@ -1,1 +1,1 @@
-midilar_add_test(MIDILARDevicesTests DeviceTests.cc MidiClockTests.cc)
+midilar_add_test(MIDILARDevicesTests DeviceTests.cc MidiClockTests.cc SequencerTests.cc)
