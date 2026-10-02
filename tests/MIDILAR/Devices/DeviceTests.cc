@@ -217,3 +217,79 @@ TEST(MIDILARDevicesTests, PacketCopiesChangeOneField) {
     EXPECT_EQ(Packet::Noop().WithGroup(Group::FromWire(4)), Packet::Noop());
     EXPECT_FALSE(Packet().WithGroup(Group::FromWire(4)).IsValid());
 }
+
+// SPEC-DEV-3
+TEST(MIDILARDevicesTests, HeldNotesReleaseWhereTheyStarted) {
+    Transpose transpose;
+    Sink sink;
+    Connect(transpose, sink);
+    transpose.SetSemitones(2);
+    transpose.Process(NoteOn(60));
+    transpose.Process(Packet::Midi2PolyPressure(G1, Channel::FromWire(0), NoteNumber::FromValue(60),
+                                                PressureValue::Max()));
+    transpose.SetSemitones(5);
+    transpose.Process(NoteOff2(60));
+    transpose.Process(NoteOff2(60));
+    ASSERT_EQ(sink.packets.size(), 4u);
+    EXPECT_EQ(sink.packets[1].Note(), NoteNumber::FromValue(62));
+    EXPECT_EQ(sink.packets[2], NoteOff2(62));
+    EXPECT_EQ(sink.packets[3], NoteOff2(65));
+}
+
+TEST(MIDILARDevicesTests, HeldNotesAreTrackedPerChannelAndGroup) {
+    Transpose transpose;
+    Sink sink;
+    Connect(transpose, sink);
+    transpose.SetSemitones(1);
+    transpose.Process(NoteOn(60, 0));
+    transpose.SetSemitones(3);
+    transpose.Process(NoteOn(60, 1));
+    transpose.Process(NoteOff2(60, 1));
+    transpose.Process(NoteOff2(60, 0));
+    ASSERT_EQ(sink.packets.size(), 4u);
+    EXPECT_EQ(sink.packets[2], NoteOff2(63, 1));
+    EXPECT_EQ(sink.packets[3], NoteOff2(61, 0));
+}
+
+TEST(MIDILARDevicesTests, Midi1NoteOnWithVelocityZeroReleases) {
+    Transpose transpose;
+    Sink sink;
+    Connect(transpose, sink);
+    transpose.SetSemitones(1);
+    transpose.Process(NoteOn(60));
+    transpose.SetSemitones(0);
+    transpose.Process(Packet::FromWords(0x20903C00u));
+    ASSERT_EQ(sink.packets.size(), 2u);
+    EXPECT_EQ(sink.packets[1].Note(), NoteNumber::FromValue(61));
+}
+
+TEST(MIDILARDevicesTests, DroppedNoteOnDropsItsNoteOff) {
+    ScaleFilter filter;
+    Sink sink;
+    Connect(filter, sink);
+    filter.SetScale(MCC::Scales::Make(MCC::NoteName(MCC::Letter::C, MCC::Accidental::Natural()),
+                                      MCC::Scales::Id::Major));
+    filter.SetMode(ScaleFilterMode::Drop);
+    filter.Process(NoteOn(61));
+    filter.SetScale(MCC::Scale());
+    filter.Process(NoteOff2(61));
+    filter.Process(NoteOff2(61));
+    ASSERT_EQ(sink.packets.size(), 1u);
+    EXPECT_EQ(sink.packets[0], NoteOff2(61));
+}
+
+TEST(MIDILARDevicesTests, HeldNotesBeyondCapacityUseTheCurrentMapping) {
+    Transpose transpose;
+    Sink sink;
+    Connect(transpose, sink);
+    transpose.SetSemitones(1);
+    for (int32_t n = 0; n <= HeldNotes::Capacity; ++n) {
+        transpose.Process(NoteOn(n));
+    }
+    transpose.SetSemitones(2);
+    transpose.Process(NoteOff2(0));
+    transpose.Process(NoteOff2(HeldNotes::Capacity));
+    ASSERT_EQ(sink.packets.size(), HeldNotes::Capacity + 3u);
+    EXPECT_EQ(sink.packets[HeldNotes::Capacity + 1u], NoteOff2(1));
+    EXPECT_EQ(sink.packets[HeldNotes::Capacity + 2u], NoteOff2(HeldNotes::Capacity + 2));
+}

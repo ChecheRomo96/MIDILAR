@@ -45,6 +45,73 @@ private:
 };
 
 /**
+ * @brief Remembers the output note of each held note, so a device whose
+ * mapping changes while notes sound still releases them (SPEC-DEV-3).
+ * @ingroup MIDILAR_Devices
+ *
+ * `Route()` is called with every packet that has a note and the note the
+ * device would use now. A Note On (MIDI 1.0 velocity 0 excluded) stores that
+ * note; a Note Off returns and forgets the stored one; per-note packets
+ * return the stored one. Up to `Capacity` notes are held per device; beyond
+ * that, notes use the current mapping.
+ */
+class HeldNotes {
+public:
+    /** @brief Number of notes remembered at once. */
+    static constexpr uint8_t Capacity = 16;
+
+    /** @brief Returns the note to send for `packet`: stored, or `current`. */
+    Protocol::NoteNumber Route(const Protocol::Packet& packet, Protocol::NoteNumber current) noexcept {
+        const uint8_t address = static_cast<uint8_t>((packet.Group().Wire() << 4) | packet.Channel().Wire());
+        const uint8_t note = packet.Note().Value();
+        uint8_t index = 0;
+        while (index < _count && (_entries[index].address != address || _entries[index].note != note)) {
+            ++index;
+        }
+        const bool found = index < _count;
+        const Protocol::VoiceStatus status = packet.VoiceStatus();
+        const bool noteOn = status == Protocol::VoiceStatus::NoteOn &&
+            !(packet.Type() == Protocol::MessageType::Midi1ChannelVoice && (packet.Word(0) & 0x7Fu) == 0);
+        const bool noteOff = status == Protocol::VoiceStatus::NoteOff ||
+            (status == Protocol::VoiceStatus::NoteOn && !noteOn);
+
+        if (noteOn) {
+            if (!found && _count < Capacity) {
+                index = _count++;
+            }
+            if (index < _count) {
+                _entries[index] = Entry{address, note, current.Value()};
+            }
+            return current;
+        }
+        if (!found) {
+            return current;
+        }
+        const Protocol::NoteNumber stored = Protocol::NoteNumber::FromValue(_entries[index].mapped);
+        if (noteOff) {
+            _entries[index] = _entries[--_count];
+        }
+        return stored;
+    }
+
+    /** @brief Forgets every held note. */
+    void Clear() noexcept { _count = 0; }
+
+    /** @brief Returns the number of notes held. */
+    uint8_t Count() const noexcept { return _count; }
+
+private:
+    struct Entry {
+        uint8_t address;
+        uint8_t note;
+        uint8_t mapped;
+    };
+
+    Entry _entries[Capacity] = {};
+    uint8_t _count = 0;
+};
+
+/**
  * @brief Copies every packet to up to `Outputs` sinks, in order.
  * @ingroup MIDILAR_Devices
  */
