@@ -10,5 +10,6 @@
 #include <MIDILAR/Protocol/Midi1Parser.h>
 #include <MIDILAR/Protocol/Midi1Encoder.h>
 #include <MIDILAR/Protocol/SysExAssembler.h>
+#include <MIDILAR/Protocol/UsbMidi1.h>
 
 #endif // MIDILAR_PROTOCOL_H

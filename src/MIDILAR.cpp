@@ -25,6 +25,7 @@ MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::TimeCode, 5);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Parser, 16);
 #endif
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Encoder, 2);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::UsbMidi1Encoder, 82);
 
 // SPEC-MIDI-3: scaling stays constexpr on every compiler, GCC 7 (Arduino AVR)
 // included.

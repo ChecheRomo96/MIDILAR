@@ -7,7 +7,8 @@ set(MIDILAR_PROTOCOL_HEADERS
     "${CMAKE_CURRENT_LIST_DIR}/Packet.h"
     "${CMAKE_CURRENT_LIST_DIR}/Midi1Parser.h"
     "${CMAKE_CURRENT_LIST_DIR}/Midi1Encoder.h"
-    "${CMAKE_CURRENT_LIST_DIR}/SysExAssembler.h")
+    "${CMAKE_CURRENT_LIST_DIR}/SysExAssembler.h"
+    "${CMAKE_CURRENT_LIST_DIR}/UsbMidi1.h")
 
 target_sources(MIDILAR PRIVATE ${MIDILAR_PROTOCOL_HEADERS})
 midilar_stage_headers(${MIDILAR_PROTOCOL_HEADERS})

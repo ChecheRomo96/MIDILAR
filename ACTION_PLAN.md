@@ -135,9 +135,20 @@ Status: complete. Song select, tune request and song position were already
 
 Song select, tune request, MTC quarter frames and full frames.
 
-## Phase 9 - Transports
+## Phase 9 - Wire formats
 
-UART (Arduino `Serial`), USB MIDI 1.0/2.0 and desktop adapters, each optional.
+Status: complete. Decision (2026-10-02): hardware transports (UART on
+Arduino `Serial` or a vendor HAL, USB stacks such as TinyUSB, desktop MIDI
+APIs) live in separate libraries, created only when requested. MIDILAR keeps
+every hardware-independent conversion between `Packet` and a wire format,
+so those libraries stay thin and the conversions are tested without
+hardware:
+
+- MIDI 1.0 byte streams (DIN/UART, BLE payloads): `Midi1Parser` and
+  `Midi1Encoder` (phase 4).
+- USB MIDI 1.0 event packets: `DecodeUsbMidi1()` and `UsbMidi1Encoder`
+  (SPEC-USB-1..2).
+- USB MIDI 2.0 carries UMP directly and needs no conversion.
 
 ## Phase 10 - MIDI-CI
 
