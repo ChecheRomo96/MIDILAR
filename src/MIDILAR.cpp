@@ -39,4 +39,8 @@ static_assert(MIDILAR::Protocol::ToNoteNumber(MIDILAR::Protocol::ToPitch(
               "note number to MCC pitch and back");
 #endif
 
+#if defined(MIDILAR_DEVICES)
+static_assert(MIDILAR::Devices::EuclideanPattern(3, 8) == 0x49u, "E(3, 8) is x..x..x.");
+#endif
+
 #undef MIDILAR_CHECK_VALUE_TYPE

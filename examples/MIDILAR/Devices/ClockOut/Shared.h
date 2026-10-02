@@ -5,11 +5,15 @@
 
 #include <Foundation/Time/Clock.h>
 #include <MIDILAR/Devices/MidiClock.h>
+#include <MIDILAR/Devices/Sequencer.h>
 #include <MIDILAR/Protocol/Midi1Encoder.h>
 
 namespace MIDILARExamples::Devices::ClockOut {
 
-/** Sends MIDI 1.0 clock bytes at a tempo, timed by a microsecond clock. */
+/**
+ * Sends MIDI 1.0 clock bytes at a tempo, timed by a microsecond clock, and a
+ * Euclidean E(3, 8) rhythm on C2 in sixteenth notes.
+ */
 class ClockOut {
 public:
     /** `micros` returns a free-running microsecond counter. */
@@ -29,6 +33,7 @@ private:
 
     Foundation::Time::Clock _clock;
     MIDILAR::Devices::ClockGenerator _generator;
+    MIDILAR::Devices::StepSequencer _sequencer;
     MIDILAR::Protocol::Midi1Encoder _encoder;
     void (*_write)(uint8_t) = nullptr;
 };

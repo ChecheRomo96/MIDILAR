@@ -139,6 +139,16 @@
  * - SPEC-CLK-3: A receiver follows the same transport rules from incoming
  *   packets and measures the tempo from the time between timing clocks.
  *
+ * @section MIDILARSpecSequencing Sequencing
+ *
+ * - SPEC-SEQ-1: `EuclideanPattern(k, n)` spreads `k` onsets over `n <= 64`
+ *   steps so that gaps differ by at most one step; it starts on an onset and
+ *   equals Bjorklund's pattern up to rotation.
+ * - SPEC-SEQ-2: A step sequencer advances only on timing clocks while the
+ *   transport runs, starts a step every `ClocksPerStep` clocks from Start or
+ *   Song Position, and releases every note it starts (after its gate, at the
+ *   next onset, or at Stop).
+ *
  * @section MIDILARSpecDiagnostics Diagnostics
  *
  * - SPEC-MIDI-15: Error counters (aborted messages, ignored bytes, truncated

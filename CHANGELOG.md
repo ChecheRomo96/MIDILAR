@@ -48,5 +48,7 @@ This file records user-visible changes to MIDILAR. Release dates use the
   `Foundation::Time::Clock` without drift, with Start, Stop, Continue and
   Song Position; `ClockReceiver` follows transport, position and tempo.
   New `Devices/ClockOut` example.
+- `EuclideanPattern()` and `StepSequencer`: Euclidean rhythms of up to 64
+  steps played on MIDI clock, with gate, step length and song position.
 - `ChordGenerator`: plays an `MCC::ChordPattern` on every note and releases
   each held note with the chord it started with.

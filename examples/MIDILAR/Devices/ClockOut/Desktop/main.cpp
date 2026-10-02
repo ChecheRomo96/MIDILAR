@@ -12,9 +12,11 @@ uint32_t Micros() {
 }
 
 unsigned g_clocks = 0;
+unsigned g_notes = 0;
 
 void Write(uint8_t byte) {
     g_clocks += byte == 0xF8 ? 1u : 0u;
+    g_notes += byte == 0x90 ? 1u : 0u;
 }
 
 } // namespace
@@ -33,6 +35,7 @@ int main() {
     std::printf(" 120 BPM for one second\n");
     std::printf(" timing clocks sent .. %u (expected 48-49)\n", g_clocks);
     std::printf(" position ............ %u clocks\n", static_cast<unsigned>(out.Position()));
+    std::printf(" E(3, 8) notes ....... %u (expected 3-4: clock 49 restarts the pattern)\n", g_notes);
     std::printf("========================================\n");
     return 0;
 }

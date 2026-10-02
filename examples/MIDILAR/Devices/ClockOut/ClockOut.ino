@@ -1,5 +1,5 @@
-// Sends MIDI clock at 120 BPM (Start, then 24 timing clocks per beat) on the
-// Uno's serial port, for a MIDI shield.
+// Sends MIDI clock at 120 BPM (Start, then 24 timing clocks per beat) and a
+// Euclidean E(3, 8) rhythm on C2 on the Uno's serial port, for a MIDI shield.
 //
 // The Arduino builder only discovers libraries included from the sketch.
 #include <Foundation.h>
