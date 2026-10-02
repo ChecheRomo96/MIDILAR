@@ -158,11 +158,20 @@ against the MIDI-CI 1.2 specification when the phase resumes.
 
 ## Phase 11 - Quality and merge
 
-Status: in progress. Release 0.2.0 is prepared on `rebuild` (version
-metadata, changelog, documentation). Pending: hardware runs of the
-`Devices/TransposeThru`, `Devices/ClockOut` and `Devices/MtcOut` sketches on
-an Uno with a MIDI shield, then the fast-forward merge into `main`, the
-`v0.2.0` tag and the release workflow.
+Status: complete for 0.2.0 (2026-10-02). Hardware validation on an Arduino
+Mega 2560 over USB with Hairless MIDI at 115200 baud:
+
+- `Devices/ClockOut`: stable clock; 119.94 BPM uncalibrated (oscillator about
+  500 ppm slow), 120.0 BPM with `-DMIDILAR_EXAMPLE_CLOCK_PPM=-500`; Euclidean
+  notes received.
+- `Devices/MtcLoopback`: generator, encoder, parser and receiver at 25 fps,
+  200 bytes per second, no drift. `Devices/MtcOut` could not be checked
+  through Hairless, which treats `0xF1` as a three-byte message.
+- `Devices/TransposeThru`: notes transposed and kept on C major, no hanging
+  notes.
+
+Not yet run: an Uno with a DIN MIDI shield, and MTC into a DAW. `rebuild`
+was merged into `main` by fast-forward and tagged `v0.2.0`.
 
 ## Proposed releases
 
