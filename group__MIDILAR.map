@@ -1,0 +1,6 @@
+<map id="MIDILAR" name="MIDILAR">
+<area shape="rect" id="Node000001" title="Portable MIDI protocol, parsing and device processing built on Foundation and MCC." alt="" coords="5,55,84,80"/>
+<area shape="rect" id="Node000002" href="$group__MIDILAR__Core.html" title="Version information for MIDILAR and its dependencies." alt="" coords="143,5,195,31"/>
+<area shape="rect" id="Node000004" href="$group__MIDILAR__Devices.html" title="Devices that transform UMP packet streams." alt="" coords="132,55,207,80"/>
+<area shape="rect" id="Node000003" href="$group__MIDILAR__Protocol.html" title="MIDI protocol primitives: channels, groups, masks and data values." alt="" coords="132,104,207,129"/>
+</map>

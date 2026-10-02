@@ -1,0 +1,5 @@
+<map id="MIDILAR::Devices::ChordGenerator" name="MIDILAR::Devices::ChordGenerator">
+<area shape="rect" id="Node000001" title="Turns every note into a chord built on it from an MCC::ChordPattern." alt="" coords="5,79,255,104"/>
+<area shape="rect" id="Node000002" href="$classMIDILAR_1_1Devices_1_1Device.html" title="Base of the devices: one output, no virtual functions and no allocation (SPEC&#45;RT&#45;1,..." alt="" coords="35,5,225,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,44,133,79,127,79,127,44"/>
+</map>

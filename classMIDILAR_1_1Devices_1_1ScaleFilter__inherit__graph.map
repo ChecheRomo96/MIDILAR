@@ -1,0 +1,5 @@
+<map id="MIDILAR::Devices::ScaleFilter" name="MIDILAR::Devices::ScaleFilter">
+<area shape="rect" id="Node000001" title="Keeps notes on an MCC::Scale, compared by pitch class (MCC::Scale::ContainsPitchClass)." alt="" coords="5,79,220,104"/>
+<area shape="rect" id="Node000002" href="$classMIDILAR_1_1Devices_1_1Device.html" title="Base of the devices: one output, no virtual functions and no allocation (SPEC&#45;RT&#45;1,..." alt="" coords="17,5,208,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+</map>
