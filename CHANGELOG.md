@@ -5,10 +5,11 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ## [Unreleased]
 
-## [0.2.0] - Unreleased
+## [0.2.0] - 2026-10-02
 
-First release of the rebuilt MIDILAR: phases 1-9 of `ACTION_PLAN.md`. The
-date is set when the release is tagged.
+First release of the rebuilt MIDILAR: phases 1-9 of `ACTION_PLAN.md`.
+Validated on an Arduino Mega 2560 over USB with a serial-to-MIDI bridge
+(`Devices/ClockOut`, `Devices/MtcLoopback`, `Devices/TransposeThru`).
 
 ### Changed
 
