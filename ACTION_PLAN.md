@@ -99,6 +99,9 @@ into caller buffers, recovery from malformed input) and UMP to byte stream
 
 ## Phase 5 - MCC integration
 
+Status: complete in MIDILAR (`ToChromaticIndex`, `ToNoteNumber`, `ToPitch`);
+closing MCC phase 10 and MIG-008 is a change in the MCC repository.
+
 Checked conversions between `NoteNumber` and `MCC::Pitch`/`ChromaticIndex`,
 rejection outside 0-127, and spelling of incoming notes with `MCC::Key`.
 Closes MCC phase 10 and MIG-008.

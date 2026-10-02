@@ -12,6 +12,9 @@
  * - `Velocity` (16-bit), `ControllerValue`, `PressureValue` and `PitchBend`
  *   (32-bit) keep MIDI 2.0 resolution with a MIDI 1.0 view, converted by
  *   `ScaleUp()` and `ScaleDown()` (SPEC-MIDI-3).
+ * - `ToChromaticIndex()`, `ToNoteNumber()` and `ToPitch()` convert between
+ *   note numbers and MCC pitches; 60 is C4 and incoming notes are spelled
+ *   with an `MCC::Key`, C major by default (SPEC-MIDI-7).
  * - `Packet` is one Universal MIDI Packet with typed constructors and
  *   queries (SPEC-MIDI-16..19).
  * - `Midi1Parser` turns a MIDI 1.0 byte stream into packets,

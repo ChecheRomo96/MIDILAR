@@ -34,6 +34,9 @@ static_assert(MIDILAR::Protocol::Packet::Midi2NoteOn(MIDILAR::Protocol::Group::F
                   MIDILAR::Protocol::Channel::FromWire(0), MIDILAR::Protocol::NoteNumber::FromValue(60),
                   MIDILAR::Protocol::Velocity::Max()).Word(1) == 0xFFFF0000u,
               "MIDI 2.0 Note On layout");
+static_assert(MIDILAR::Protocol::ToNoteNumber(MIDILAR::Protocol::ToPitch(
+                  MIDILAR::Protocol::NoteNumber::FromValue(61))) == MIDILAR::Protocol::NoteNumber::FromValue(61),
+              "note number to MCC pitch and back");
 #endif
 
 #undef MIDILAR_CHECK_VALUE_TYPE
