@@ -4,5 +4,6 @@
 #include <MIDILAR/Devices/Device.h>
 #include <MIDILAR/Devices/Filters.h>
 #include <MIDILAR/Devices/Transforms.h>
+#include <MIDILAR/Devices/MidiClock.h>
 
 #endif // MIDILAR_DEVICES_H

@@ -125,6 +125,20 @@
  *   Off, even when the device's mapping changes meanwhile, so devices never
  *   leave notes hanging; a dropped Note On also drops its Note Off.
  *
+ * @section MIDILARSpecClock MIDI clock
+ *
+ * - SPEC-CLK-1: MIDI clock runs at 24 timing clocks per quarter note. A
+ *   generator schedules each clock from the previous due time with exact
+ *   rational arithmetic on the `Foundation::Time::Clock` frequency, so the
+ *   tempo does not drift; after a stall it drops the backlog instead of
+ *   bursting more than one beat of clocks.
+ * - SPEC-CLK-2: Start plays from position zero, Continue resumes, Stop
+ *   pauses and keeps the position, and Song Position (in sixteenth notes,
+ *   six clocks each) moves it only while stopped. Timing clocks advance the
+ *   position only while running.
+ * - SPEC-CLK-3: A receiver follows the same transport rules from incoming
+ *   packets and measures the tempo from the time between timing clocks.
+ *
  * @section MIDILARSpecDiagnostics Diagnostics
  *
  * - SPEC-MIDI-15: Error counters (aborted messages, ignored bytes, truncated
