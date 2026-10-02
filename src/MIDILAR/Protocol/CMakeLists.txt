@@ -2,7 +2,10 @@ set(MIDILAR_PROTOCOL_HEADERS
     "${CMAKE_CURRENT_LIST_DIR}/Scaling.h"
     "${CMAKE_CURRENT_LIST_DIR}/Channel.h"
     "${CMAKE_CURRENT_LIST_DIR}/Values.h"
-    "${CMAKE_CURRENT_LIST_DIR}/Packet.h")
+    "${CMAKE_CURRENT_LIST_DIR}/Packet.h"
+    "${CMAKE_CURRENT_LIST_DIR}/Midi1Parser.h"
+    "${CMAKE_CURRENT_LIST_DIR}/Midi1Encoder.h"
+    "${CMAKE_CURRENT_LIST_DIR}/SysExAssembler.h")
 
 target_sources(MIDILAR PRIVATE ${MIDILAR_PROTOCOL_HEADERS})
 midilar_stage_headers(${MIDILAR_PROTOCOL_HEADERS})

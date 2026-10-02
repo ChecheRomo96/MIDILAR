@@ -59,6 +59,10 @@ if(MIDILAR_PROTOCOL)
     midilar_add_macro(PUBLIC MIDILAR_PROTOCOL)
 endif()
 
+if(MIDILAR_PARSER_DIAGNOSTICS)
+    midilar_add_macro(PUBLIC MIDILAR_PARSER_DIAGNOSTICS)
+endif()
+
 if(MIDILAR_CORE OR MIDILAR_PROTOCOL)
     add_subdirectory(MIDILAR)
 endif()

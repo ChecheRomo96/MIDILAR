@@ -20,6 +20,10 @@ MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PressureValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PitchBend, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Packet, 16);
+#if !defined(MIDILAR_PARSER_DIAGNOSTICS)
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Parser, 16);
+#endif
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Encoder, 2);
 
 // SPEC-MIDI-3: scaling stays constexpr on every compiler, GCC 7 (Arduino AVR)
 // included.

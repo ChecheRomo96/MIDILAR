@@ -28,3 +28,9 @@ This file records user-visible changes to MIDILAR. Release dates use the
   queries for utility, system common and real-time, MIDI 1.0 and MIDI 2.0
   channel voice (including note attributes and banked program change) and
   7-bit System Exclusive packets.
+- MIDI 1.0 translation: `Midi1Parser` (byte stream to UMP with running
+  status, real-time interleaving and malformed-input recovery),
+  `Midi1Encoder` (UMP to byte stream with optional running status, MIDI 2.0
+  channel voice scaled down) and `SysExAssembler` (payloads into a caller
+  buffer with truncation). `MIDILAR_PARSER_DIAGNOSTICS` adds parser error
+  counters.

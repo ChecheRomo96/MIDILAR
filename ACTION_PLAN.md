@@ -91,6 +91,8 @@ channel voice, system common/real-time, utility and System Exclusive packets.
 
 ## Phase 4 - MIDI 1.0 translation
 
+Status: complete (`Midi1Parser`, `Midi1Encoder`, `SysExAssembler`)
+
 Byte stream to UMP (running status, real-time interleaving, System Exclusive
 into caller buffers, recovery from malformed input) and UMP to byte stream
 (optional running status), with round-trip property tests and no allocation.

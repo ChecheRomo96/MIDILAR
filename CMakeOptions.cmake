@@ -6,6 +6,7 @@ option(MIDILAR_COVERAGE "Enable coverage instrumentation" OFF)
 
 option(MIDILAR_CORE "Enable MIDILAR::Core" ON)
 option(MIDILAR_PROTOCOL "Enable MIDILAR::Protocol" ON)
+option(MIDILAR_PARSER_DIAGNOSTICS "Count aborted messages and ignored bytes in Midi1Parser" OFF)
 
 if(MIDILAR_FULL_BUILD)
     set(MIDILAR_CORE ON CACHE BOOL "Enable MIDILAR::Core" FORCE)
