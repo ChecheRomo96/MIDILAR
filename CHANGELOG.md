@@ -34,3 +34,6 @@ This file records user-visible changes to MIDILAR. Release dates use the
   channel voice scaled down) and `SysExAssembler` (payloads into a caller
   buffer with truncation). `MIDILAR_PARSER_DIAGNOSTICS` adds parser error
   counters.
+- MCC integration: `ToChromaticIndex()`, `ToNoteNumber()` (from a chromatic
+  index or any spelling of an `MCC::Pitch`, invalid outside 0-127) and
+  `ToPitch()` (spelled in an `MCC::Key`, C major by default).
