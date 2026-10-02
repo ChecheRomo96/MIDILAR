@@ -19,8 +19,8 @@ the `rebuild` branch and in the read-only audit, as design input only.
 
 ## Architectural decisions
 
-- Work happens on the `rebuild` branch until MIDILAR is stable; then it merges
-  into `main`.
+- The rebuild happened on a `rebuild` branch, merged into `main` by
+  fast-forward for 0.2.0 and then deleted; work continues on `main`.
 - Same standards as Foundation and MCC: RoModularBuild presets and scripts,
   Bash and PowerShell parity, warnings as errors, sanitizers, clang-tidy,
   installable CMake package, Arduino library layout and Doxygen.
