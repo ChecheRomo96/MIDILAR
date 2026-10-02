@@ -5,6 +5,7 @@
 #include <MIDILAR/Protocol/Channel.h>
 #include <MIDILAR/Protocol/Values.h>
 #include <MIDILAR/Protocol/NotePitch.h>
+#include <MIDILAR/Protocol/TimeCode.h>
 #include <MIDILAR/Protocol/Packet.h>
 #include <MIDILAR/Protocol/Midi1Parser.h>
 #include <MIDILAR/Protocol/Midi1Encoder.h>

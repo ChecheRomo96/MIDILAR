@@ -6,5 +6,6 @@
 #include <MIDILAR/Devices/Transforms.h>
 #include <MIDILAR/Devices/MidiClock.h>
 #include <MIDILAR/Devices/Sequencer.h>
+#include <MIDILAR/Devices/Mtc.h>
 
 #endif // MIDILAR_DEVICES_H

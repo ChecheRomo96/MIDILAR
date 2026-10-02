@@ -149,6 +149,22 @@
  *   Song Position, and releases every note it starts (after its gate, at the
  *   next onset, or at Stop).
  *
+ * @section MIDILARSpecMtc MIDI Time Code
+ *
+ * - SPEC-MTC-1: A `TimeCode` is `hh:mm:ss:ff` at 24, 25, 29.97 drop-frame or
+ *   30 fps. At 29.97 drop-frame, frames 0 and 1 are skipped at the start of
+ *   every minute not divisible by ten, so ten minutes are exactly 17982
+ *   frames. Quarter-frame pieces 0-7 carry the frames, seconds, minutes and
+ *   hours nibbles, the last one with the rate.
+ * - SPEC-MTC-2: A generator sends four quarter frames per frame; the eight
+ *   pieces of a message describe the frame in which piece 0 was sent. It is
+ *   timed with exact rational arithmetic (29.97 is 30000/1001 fps), so the
+ *   time code does not drift. A full frame is
+ *   `F0 7F 7F 01 01 hr mn sc fr F7`, with the rate in bits 6-5 of `hr`.
+ * - SPEC-MTC-3: A receiver takes a time from eight in-order quarter frames,
+ *   adding the two frames they take to arrive, or from a full frame;
+ *   out-of-order pieces restart the assembly.
+ *
  * @section MIDILARSpecDiagnostics Diagnostics
  *
  * - SPEC-MIDI-15: Error counters (aborted messages, ignored bytes, truncated
