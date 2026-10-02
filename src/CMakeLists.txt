@@ -37,6 +37,11 @@ if(MIDILAR_PROTOCOL)
         "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_Protocol.h")
 endif()
 
+if(MIDILAR_DEVICES)
+    list(APPEND MIDILAR_TOP_LEVEL_HEADERS
+        "${CMAKE_CURRENT_LIST_DIR}/MIDILAR_Devices.h")
+endif()
+
 target_sources(MIDILAR PRIVATE
     "${CMAKE_CURRENT_LIST_DIR}/MIDILAR.cpp"
     ${MIDILAR_TOP_LEVEL_HEADERS})
@@ -57,6 +62,10 @@ endif()
 
 if(MIDILAR_PROTOCOL)
     midilar_add_macro(PUBLIC MIDILAR_PROTOCOL)
+endif()
+
+if(MIDILAR_DEVICES)
+    midilar_add_macro(PUBLIC MIDILAR_DEVICES)
 endif()
 
 if(MIDILAR_PARSER_DIAGNOSTICS)

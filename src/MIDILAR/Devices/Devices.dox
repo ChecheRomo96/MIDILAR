@@ -1,0 +1,17 @@
+/**
+ * @defgroup MIDILAR_Devices Devices
+ * @ingroup MIDILAR
+ * @brief Devices that transform UMP packet streams.
+ *
+ * Every device has `Process(const Packet&)` and an `Output()` callback
+ * (`Foundation::Functional::Callback`), so devices are chained without
+ * virtual functions or allocation: `ChannelFilter`, `ChannelReassign`,
+ * `Transpose`, `VelocityCurve`, `ScaleFilter` on `MCC::Scale`, and a
+ * fan-out `Router`.
+ */
+
+/**
+ * @namespace MIDILAR::Devices
+ * @ingroup MIDILAR_Devices
+ * @brief Packet-stream devices.
+ */

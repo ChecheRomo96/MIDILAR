@@ -21,6 +21,7 @@
  * | Target | Shows |
  * | --- | --- |
  * | `MIDILAR_Core_Version` | MIDILAR, MCC and Foundation versions |
+ * | `MIDILAR_Devices_TransposeThru` | MIDI 1.0 thru: parser, `Transpose`, `ScaleFilter` and encoder |
  *
  * Build and run one on the desktop:
  *
