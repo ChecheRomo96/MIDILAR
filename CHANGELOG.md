@@ -5,6 +5,14 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ## [Unreleased]
 
+### Changed
+
+- Arduino sketches no longer need to include `<Foundation.h>` and `<MCC.h>`:
+  every MIDILAR header brings in both, so including `<MIDILAR.h>` or a single
+  module header such as `<MIDILAR_Devices.h>` is enough for the Arduino
+  builder to find all three libraries. The examples include only the module
+  they demonstrate.
+
 ## [0.2.0] - 2026-10-02
 
 First release of the rebuilt MIDILAR: phases 1-9 of `ACTION_PLAN.md`.

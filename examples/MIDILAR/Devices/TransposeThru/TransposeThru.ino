@@ -1,10 +1,7 @@
 // A MIDI thru box for a MIDI shield on the Uno's serial port: notes are
 // transposed up two semitones and kept on C major.
-//
-// The Arduino builder only discovers libraries included from the sketch.
-#include <Foundation.h>
-#include <MCC.h>
-#include <MIDILAR.h>
+
+#include <MIDILAR_Devices.h>
 
 #include "Shared.h"
 
