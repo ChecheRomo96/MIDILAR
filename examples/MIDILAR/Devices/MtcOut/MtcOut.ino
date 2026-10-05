@@ -1,10 +1,7 @@
 // Sends MIDI Time Code at 25 fps from 01:00:00:00 on the Uno's serial port,
 // for a MIDI shield: a full frame, then four quarter frames per frame.
-//
-// The Arduino builder only discovers libraries included from the sketch.
-#include <Foundation.h>
-#include <MCC.h>
-#include <MIDILAR.h>
+
+#include <MIDILAR_Devices.h>
 
 #include "Shared.h"
 

@@ -1,6 +1,11 @@
 #ifndef MIDILAR_BUILD_SETTINGS_H
 #define MIDILAR_BUILD_SETTINGS_H
 
+// The libraries this one depends on. Including them from their src root
+// lets the Arduino builder find them from any header of this library.
+#include <Foundation_BuildSettings.h>
+#include <MCC_BuildSettings.h>
+
 #ifndef MIDILAR_VERSION
     #define MIDILAR_VERSION "0.2.0"
 #endif

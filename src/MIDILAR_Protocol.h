@@ -1,6 +1,8 @@
 #ifndef MIDILAR_PROTOCOL_TOP_LEVEL_H
 #define MIDILAR_PROTOCOL_TOP_LEVEL_H
 
+#include <MIDILAR_BuildSettings.h>
+
 #if __has_include(<MIDILAR/Protocol.h>)
     #ifndef MIDILAR_PROTOCOL
         #define MIDILAR_PROTOCOL
