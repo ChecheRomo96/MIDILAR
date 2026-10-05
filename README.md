@@ -68,14 +68,13 @@ The generated documentation starts at
 
 ## Arduino
 
-Install Foundation, MCC and MIDILAR as Arduino libraries, then include all
-three from the sketch itself, because the Arduino builder only discovers
-libraries that the sketch includes:
+Install Foundation, MCC and MIDILAR as Arduino libraries, then include
+MIDILAR, or only the modules the sketch uses. Every MIDILAR header also brings
+in Foundation and MCC, so the Arduino builder finds all three libraries:
 
 ```cpp
-#include <Foundation.h>
-#include <MCC.h>
-#include <MIDILAR.h>
+#include <MIDILAR.h>          // every module
+#include <MIDILAR_Devices.h>  // or only the devices module
 ```
 
 MIDILAR requires C++17. On the stock Arduino AVR core add `-std=gnu++17`, for
