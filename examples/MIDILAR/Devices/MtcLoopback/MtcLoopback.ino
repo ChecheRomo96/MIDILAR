@@ -3,11 +3,8 @@
 // time once per second on the serial monitor at 115200 baud. Each line should
 // be one second (25 frames) later than the previous one, within a frame,
 // because a full quarter-frame message takes two frames to arrive.
-//
-// The Arduino builder only discovers libraries included from the sketch.
-#include <Foundation.h>
-#include <MCC.h>
-#include <MIDILAR.h>
+
+#include <MIDILAR_Devices.h>
 
 #include "Shared.h"
 
