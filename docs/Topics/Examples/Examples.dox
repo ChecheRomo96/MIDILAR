@@ -21,6 +21,7 @@
  * | Target | Shows |
  * | --- | --- |
  * | `MIDILAR_Core_Version` | MIDILAR, MCC and Foundation versions |
+ * | `MIDILAR_Devices_CalibrateClock` | Oscillator correction in ppm from a reference MIDI clock with `ClockCalibrator` |
  * | `MIDILAR_Devices_ClockOut` | MIDI clock with `ClockGenerator` and a Euclidean rhythm with `StepSequencer` |
  * | `MIDILAR_Devices_MtcLoopback` | MTC through generator, encoder, parser and receiver on one device |
  * | `MIDILAR_Devices_MtcOut` | MIDI Time Code at 25 fps with `MtcGenerator` |

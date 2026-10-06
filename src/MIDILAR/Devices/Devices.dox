@@ -8,7 +8,7 @@
  * virtual functions or allocation: `ChannelFilter`, `ChannelReassign`,
  * `Transpose`, `VelocityCurve`, `ScaleFilter` on `MCC::Scale`,
  * `ChordGenerator` on `MCC::ChordPattern`, a fan-out `Router`, and MIDI
- * clock with `ClockGenerator` and `ClockReceiver`, and a `StepSequencer`
+ * clock with `ClockGenerator`, `ClockReceiver` and `ClockCalibrator`, and a `StepSequencer`
  * with `EuclideanPattern()`, and MIDI Time Code with `MtcGenerator` and
  * `MtcReceiver`. Note
  * devices remember held notes (`HeldValues`) so they never leave notes
