@@ -40,8 +40,9 @@ git submodule update --init --recursive
 
 ## Dependencies
 
-MIDILAR links `Foundation::Foundation` (Foundation `1.4.0` or a newer `1.x`)
-and `MCC::MCC` (MCC `0.5.2` or a newer `0.x`). Configuring resolves each one
+MIDILAR links `Foundation::Foundation` (Foundation `2.0.0` or a newer `2.x`,
+built on CPSTL `1.1.0`) and `MCC::MCC` (MCC `0.6.0` or a newer `0.x`). Arduino
+users install CPSTL, Foundation and MCC next to MIDILAR. Configuring resolves each one
 from a parent project, an explicit prefix (`MIDILAR_FOUNDATION_PREFIX`,
 `MIDILAR_MCC_PREFIX`), a sibling export in `../Foundation/dist/<preset>` or
 `../MCC/dist/<preset>`, normal `find_package`, and finally the pinned GitHub
