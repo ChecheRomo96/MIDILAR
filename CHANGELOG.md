@@ -7,11 +7,28 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ### Changed
 
+- MIDILAR requires Foundation 2.0.0 or a newer 2.x release, which builds on
+  CPSTL 1.1.0, and MCC 0.6.0. Arduino users install CPSTL next to Foundation
+  and MCC; `scripts/test-arduino.sh` and `.ps1` take `--cpstl` (default
+  `MIDILAR_CPSTL_SOURCE` or `../CPSTL`).
+
 - Arduino sketches no longer need to include `<Foundation.h>` and `<MCC.h>`:
   every MIDILAR header brings in both, so including `<MIDILAR.h>` or a single
   module header such as `<MIDILAR_Devices.h>` is enough for the Arduino
   builder to find all three libraries. The examples include only the module
   they demonstrate.
+- SPEC-RT-1 no longer forbids dynamic allocation: operations that change a
+  container's size may allocate, the library makes no real-time assumptions
+  about the caller, and implementers who modify storage in time-critical code
+  reserve the space beforehand. Allocation failure is reported through
+  results, never by exceptions.
+
+### Added
+
+- `ClockCalibrator` measures the local oscillator against a reference MIDI
+  clock and reports the correction in ppm; new `Devices/CalibrateClock`
+  example stores it in EEPROM on Arduino.
+- CI also tests the `MIDILAR_PARSER_DIAGNOSTICS` variant with sanitizers.
 
 ## [0.2.0] - 2026-10-02
 
