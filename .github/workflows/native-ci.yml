@@ -173,6 +173,12 @@ jobs:
           fresh: true
           parallel: 4
 
+      - name: Test the parser-diagnostics variant
+        shell: bash
+        run: |
+          ./scripts/configure.sh "${{ matrix.preset }}" --fresh -- -DMIDILAR_PARSER_DIAGNOSTICS=ON
+          ./scripts/test.sh "${{ matrix.preset }}" --config Debug --parallel 4
+
       - name: Upload sanitizer failure evidence
         if: failure()
         uses: actions/upload-artifact@v7

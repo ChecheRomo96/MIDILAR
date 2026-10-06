@@ -20,8 +20,12 @@
  *
  * @section MIDILARSpecRules Design rules
  *
- * - SPEC-RT-1: Real-time paths (parsing, routing, devices) never allocate
- *   memory dynamically and never throw exceptions.
+ * - SPEC-RT-1: MIDILAR never throws exceptions. Operations that change a
+ *   container's size may allocate memory; the library makes no real-time
+ *   assumptions about the caller. Implementers who modify storage in
+ *   time-critical code are expected to reserve the space beforehand.
+ *   Framework types report allocation failure through their result (`bool`
+ *   or invalid state), never by exceptions or undefined behavior.
  * - SPEC-RT-2: Value types are trivially copyable, with size budgets checked
  *   at compile time for every target (`src/MIDILAR.cpp`).
  * - SPEC-RT-3: Every value type with spare bit patterns has one canonical
@@ -138,6 +142,10 @@
  *   position only while running.
  * - SPEC-CLK-3: A receiver follows the same transport rules from incoming
  *   packets and measures the tempo from the time between timing clocks.
+ * - SPEC-CLK-4: A calibrator compares the local clock with a reference MIDI
+ *   clock of known tempo over a chosen number of timing clocks and reports
+ *   the frequency correction in parts per million (negative for a slow
+ *   local oscillator).
  *
  * @section MIDILARSpecSequencing Sequencing
  *
