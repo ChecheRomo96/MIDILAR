@@ -4,8 +4,8 @@ MIDILAR is the MIDI layer of the RoModular ecosystem: MIDI 1.0 and MIDI 2.0
 protocol, messages, parsing, routing and real-time devices for desktop and
 embedded targets. MIDI 2.0 Universal MIDI Packets are its internal model;
 MIDI 1.0 byte streams are translated at the edges. It is
-built on Foundation (general utilities) and MCC (music theory), and it never
-allocates memory or throws exceptions in real-time paths.
+built on Foundation (general utilities) and MCC (music theory). It never throws
+exceptions, and memory use is the implementer's choice (SPEC-RT-1).
 
 > **Status: 0.2.0**, the first release of the library rebuilt from scratch,
 > validated on an Arduino Mega 2560. MIDI-CI is deferred.
@@ -21,8 +21,8 @@ allocates memory or throws exceptions in real-time paths.
 - **Devices** (`MIDILAR::Devices`): channel filter and reassignment,
   transposition, velocity curves, scale filter and chord generation on MCC,
   a router, MIDI clock generator and receiver, a Euclidean step sequencer,
-  and MTC generator and receiver. Devices chain through callbacks, never
-  allocate and never leave notes hanging.
+  and MTC generator and receiver. Devices chain through callbacks and never
+  leave notes hanging.
 - Hardware transports (UART, USB stacks, desktop MIDI APIs) are separate
   libraries built on these conversions. MIDI-CI is deferred.
 

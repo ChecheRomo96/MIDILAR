@@ -139,3 +139,54 @@ TEST_F(ClockFixture, ReceiverIgnoresSongPositionWhileRunning) {
     EXPECT_EQ(receiver.Position(), 0u);
     receiver.Process(Packet::Noop());
 }
+
+namespace {
+
+// The reference runs on true time; the local clock runs 500 ppm slow.
+uint64_t g_trueMicros = 0;
+uint32_t SlowMicros() { return static_cast<uint32_t>(g_trueMicros * 9995 / 10000); }
+uint32_t TrueMicros() { return static_cast<uint32_t>(g_trueMicros); }
+
+} // namespace
+
+// SPEC-CLK-4
+TEST(MIDILARDevicesClockCalibratorTests, MeasuresASlowOscillator) {
+    g_trueMicros = 0;
+    Foundation::Time::Clock reference(TrueMicros, Foundation::Time::Frequency(1000000, 1));
+    Foundation::Time::Clock local(SlowMicros, Foundation::Time::Frequency(1000000, 1));
+    ClockGenerator generator(reference);
+    ClockCalibrator calibrator(local);
+    generator.Output().Bind<ClockCalibrator, &ClockCalibrator::Process>(&calibrator);
+    calibrator.Start(12000, 24 * 60);
+    EXPECT_TRUE(calibrator.IsMeasuring());
+    generator.Update();
+    while (!calibrator.IsDone() && g_trueMicros < 40000000) {
+        g_trueMicros += 100;
+        generator.Update();
+    }
+    ASSERT_TRUE(calibrator.IsDone());
+    EXPECT_NEAR(calibrator.Ppm(), -500, 1);
+
+    // With the correction applied, the local clock now measures no error.
+    Foundation::Time::Clock corrected(SlowMicros, Foundation::Time::Frequency(1000000 - 500, 1));
+    ClockCalibrator check(corrected);
+    generator.Output().Bind<ClockCalibrator, &ClockCalibrator::Process>(&check);
+    check.Start(12000, 24 * 60);
+    while (!check.IsDone() && g_trueMicros < 80000000) {
+        g_trueMicros += 100;
+        generator.Update();
+    }
+    ASSERT_TRUE(check.IsDone());
+    EXPECT_NEAR(check.Ppm(), 0, 1);
+}
+
+TEST(MIDILARDevicesClockCalibratorTests, IgnoresClocksUntilStarted) {
+    g_trueMicros = 0;
+    Foundation::Time::Clock local(TrueMicros, Foundation::Time::Frequency(1000000, 1));
+    ClockCalibrator calibrator(local);
+    calibrator.Process(Packet::System(Group::FromWire(0), SystemStatus::TimingClock));
+    EXPECT_FALSE(calibrator.IsMeasuring());
+    EXPECT_FALSE(calibrator.IsDone());
+    calibrator.Start(0);
+    EXPECT_FALSE(calibrator.IsMeasuring());
+}

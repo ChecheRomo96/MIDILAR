@@ -12,6 +12,18 @@ This file records user-visible changes to MIDILAR. Release dates use the
   module header such as `<MIDILAR_Devices.h>` is enough for the Arduino
   builder to find all three libraries. The examples include only the module
   they demonstrate.
+- SPEC-RT-1 no longer forbids dynamic allocation: operations that change a
+  container's size may allocate, the library makes no real-time assumptions
+  about the caller, and implementers who modify storage in time-critical code
+  reserve the space beforehand. Allocation failure is reported through
+  results, never by exceptions.
+
+### Added
+
+- `ClockCalibrator` measures the local oscillator against a reference MIDI
+  clock and reports the correction in ppm; new `Devices/CalibrateClock`
+  example stores it in EEPROM on Arduino.
+- CI also tests the `MIDILAR_PARSER_DIAGNOSTICS` variant with sanitizers.
 
 ## [0.2.0] - 2026-10-02
 
