@@ -48,13 +48,6 @@ if (-not (Test-Path -LiteralPath (Join-Path $MCC "library.properties"))) {
 }
 $MCC = (Resolve-Path -LiteralPath $MCC).Path
 
-# MIDILAR requires C++17. The stock Arduino AVR core compiles with gnu++11, and
-# its avr-gcc 7.3 supports C++17 when asked; other cores keep their flags.
-$extraArguments = @()
-if ($Fqbn -like "arduino:avr:*") {
-    $extraArguments = @("--build-property", "compiler.cpp.extra_flags=-std=gnu++17")
-}
-
 $examplesRoot = Join-Path $root "examples/MIDILAR"
 $buildRoot = Join-Path $root ("build/arduino/" + ($Fqbn -replace ":", "_"))
 if (Test-Path -LiteralPath $buildRoot) {
@@ -86,7 +79,6 @@ foreach ($sketch in $sketches) {
         --library $Cpstl `
         --build-path (Join-Path $buildRoot $name) `
         --warnings default `
-        @extraArguments `
         $sketch.DirectoryName *> $log
     $status = $LASTEXITCODE
     Get-Content -LiteralPath $log

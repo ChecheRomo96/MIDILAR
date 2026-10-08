@@ -118,7 +118,7 @@ public:
     constexpr bool IsEmpty() const noexcept { return _bits == 0; }
 
     /** @brief Returns the number of addresses in the set. */
-    constexpr uint8_t Count() const noexcept {
+    FOUNDATION_CONSTEXPR14 uint8_t Count() const noexcept {
         uint8_t count = 0;
         for (uint32_t bit = 0; bit < 16; ++bit) {
             count = static_cast<uint8_t>(count + ((static_cast<uint32_t>(_bits) >> bit) & 1u));

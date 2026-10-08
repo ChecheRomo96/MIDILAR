@@ -20,7 +20,9 @@
     #endif
 #endif
 
-#if !defined(DOXYGEN) && (MIDILAR_CPLUSPLUS < 201703L)
+#if !defined(DOXYGEN) && defined(ARDUINO) && (MIDILAR_CPLUSPLUS < 201103L)
+    #error "MIDILAR requires C++11 or newer for Arduino source builds"
+#elif !defined(DOXYGEN) && !defined(ARDUINO) && (MIDILAR_CPLUSPLUS < 201703L)
     #error "MIDILAR requires C++17 or newer"
 #endif
 

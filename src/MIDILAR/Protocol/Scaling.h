@@ -16,7 +16,7 @@ namespace MIDILAR::Protocol {
  * for `1 <= sourceBits < targetBits <= 32` and `value < (1 << sourceBits)`;
  * other inputs return 0.
  */
-constexpr uint32_t ScaleUp(uint32_t value, uint32_t sourceBits, uint32_t targetBits) noexcept {
+FOUNDATION_CONSTEXPR14 uint32_t ScaleUp(uint32_t value, uint32_t sourceBits, uint32_t targetBits) noexcept {
     if (sourceBits < 1 || sourceBits >= targetBits || targetBits > 32 ||
         value >= (static_cast<uint64_t>(1) << sourceBits)) {
         return 0;
@@ -49,7 +49,7 @@ constexpr uint32_t ScaleUp(uint32_t value, uint32_t sourceBits, uint32_t targetB
  *
  * Valid for `1 <= targetBits < sourceBits <= 32`; other inputs return 0.
  */
-constexpr uint32_t ScaleDown(uint32_t value, uint32_t sourceBits, uint32_t targetBits) noexcept {
+FOUNDATION_CONSTEXPR14 uint32_t ScaleDown(uint32_t value, uint32_t sourceBits, uint32_t targetBits) noexcept {
     if (targetBits < 1 || targetBits >= sourceBits || sourceBits > 32) {
         return 0;
     }

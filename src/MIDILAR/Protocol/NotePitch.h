@@ -32,7 +32,7 @@ constexpr NoteNumber ToNoteNumber(MCC::ChromaticIndex index) noexcept {
  * or the invalid note outside `[0, 127]` (SPEC-MIDI-7).
  * @ingroup MIDILAR_Protocol
  */
-constexpr NoteNumber ToNoteNumber(const MCC::Pitch& pitch) noexcept {
+FOUNDATION_CONSTEXPR14 NoteNumber ToNoteNumber(const MCC::Pitch& pitch) noexcept {
     return ToNoteNumber(pitch.ChromaticIndex());
 }
 
@@ -41,7 +41,7 @@ constexpr NoteNumber ToNoteNumber(const MCC::Pitch& pitch) noexcept {
  * (SPEC-MIDI-7); an invalid note or key yields the invalid pitch.
  * @ingroup MIDILAR_Protocol
  */
-constexpr MCC::Pitch ToPitch(
+FOUNDATION_CONSTEXPR14 MCC::Pitch ToPitch(
     NoteNumber note,
     const MCC::Key& key = MCC::Key(MCC::NoteName(MCC::Letter::C, MCC::Accidental::Natural()),
                                    MCC::KeyMode::Major)) noexcept {
