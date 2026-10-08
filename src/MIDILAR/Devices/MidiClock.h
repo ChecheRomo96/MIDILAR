@@ -222,6 +222,88 @@ private:
     bool _running = false;
 };
 
+/**
+ * @brief Measures how far the local `Foundation::Time::Clock` is from a
+ * reference MIDI clock of known tempo, in parts per million (SPEC-CLK-4).
+ * @ingroup MIDILAR_Devices
+ *
+ * Feed it a reference clock, for example a DAW at 120 BPM, and call
+ * `Start()` with that tempo. After `clocks` timing clocks it reports the
+ * correction to apply to the local clock frequency: a local oscillator that
+ * runs 500 ppm slow gives `-500`, and the corrected frequency is the nominal
+ * one times `(1 + ppm / 1e6)` (for a 1 MHz `micros()` clock,
+ * `1000000 + ppm`). Longer measurements average out transport jitter. Every
+ * packet passes through.
+ */
+class ClockCalibrator : public Device {
+public:
+    /** @brief Uses `clock` to time the reference clock. */
+    explicit ClockCalibrator(const Foundation::Time::Clock& clock) noexcept : _clock(clock) {}
+
+    /**
+     * @brief Starts measuring a reference running at `centiBpm` hundredths of
+     * a BPM over `clocks` timing clocks (default: 30 seconds at 120 BPM).
+     */
+    void Start(uint32_t centiBpm, uint32_t clocks = 24u * 60u) noexcept {
+        _tempo = centiBpm;
+        _target = clocks == 0 ? 1 : clocks;
+        _counted = 0;
+        _measuring = centiBpm != 0;
+        _started = false;
+        _done = false;
+        _ppm = 0;
+    }
+
+    /** @brief Returns `true` once the measurement is complete. */
+    bool IsDone() const noexcept { return _done; }
+
+    /** @brief Returns `true` while a measurement is running. */
+    bool IsMeasuring() const noexcept { return _measuring; }
+
+    /** @brief Returns the measured correction in parts per million, valid once `IsDone()`. */
+    int32_t Ppm() const noexcept { return _ppm; }
+
+    /** @brief Times `packet` when it is a timing clock and emits it. */
+    void Process(const Protocol::Packet& packet) {
+        if (_measuring && packet.IsSystem(Protocol::SystemStatus::TimingClock)) {
+            const uint32_t now = _clock.Now().Ticks();
+            if (!_started) {
+                _started = true;
+                _first = now;
+            } else if (++_counted == _target) {
+                Finish(now - _first);
+            }
+        }
+        Emit(packet);
+    }
+
+private:
+    void Finish(uint32_t measured) noexcept {
+        // Expected local ticks for _target clocks at the reference tempo:
+        // clocks * frequency * 60 * 100 / (24 * centiBpm)
+        //   = clocks * num * 250 / (den * centiBpm).
+        const Foundation::Time::Frequency frequency = _clock.GetFrequency();
+        const int64_t expected = static_cast<int64_t>(_target) * frequency.Numerator() * 250;
+        const int64_t actual = static_cast<int64_t>(measured) * frequency.Denominator() * _tempo;
+        const int64_t difference = (actual - expected) * 1000000;
+        _ppm = expected == 0 ? 0
+                             : static_cast<int32_t>((difference + (difference >= 0 ? expected / 2 : -expected / 2)) /
+                                                    expected);
+        _measuring = false;
+        _done = true;
+    }
+
+    const Foundation::Time::Clock& _clock;
+    uint32_t _tempo = 0;
+    uint32_t _target = 0;
+    uint32_t _counted = 0;
+    uint32_t _first = 0;
+    int32_t _ppm = 0;
+    bool _measuring = false;
+    bool _started = false;
+    bool _done = false;
+};
+
 } // namespace MIDILAR::Devices
 
 #endif // MIDILAR_DEVICES_MIDI_CLOCK_H
