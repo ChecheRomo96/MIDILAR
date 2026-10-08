@@ -8,8 +8,8 @@
  * theory). MIDI 2.0 Universal MIDI Packets are the internal model; MIDI 1.0
  * byte streams are translated at the edges.
  *
- * @note Version 0.3.0 adds calibrated MIDI clock support to the library rebuilt from
- * scratch, validated on an Arduino Mega 2560.
+ * @note Version 0.3.1 adds stock Arduino C++11 source compatibility to the
+ * library rebuilt from scratch, validated on an Arduino Mega 2560.
  *
  * @section MIDILARMainModules Modules
  *
