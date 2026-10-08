@@ -70,9 +70,9 @@ The generated documentation starts at
 
 ## Arduino
 
-Install Foundation, MCC and MIDILAR as Arduino libraries, then include
+Install CPSTL, Foundation, DspCore, MCC and MIDILAR as Arduino libraries, then include
 MIDILAR, or only the modules the sketch uses. Every MIDILAR header also brings
-in Foundation and MCC, so the Arduino builder finds all three libraries:
+in Foundation, DspCore and MCC, so the Arduino builder finds all four libraries:
 
 ```cpp
 #include <MIDILAR.h>          // every module
