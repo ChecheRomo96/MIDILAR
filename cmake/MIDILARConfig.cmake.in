@@ -2,6 +2,7 @@
 
 include(CMakeFindDependencyMacro)
 find_dependency(Foundation @MIDILAR_FOUNDATION_VERSION@ CONFIG)
+find_dependency(DspCore @MIDILAR_DSPCORE_VERSION@ CONFIG)
 find_dependency(MCC @MIDILAR_MCC_VERSION@ CONFIG)
 
 include("${CMAKE_CURRENT_LIST_DIR}/MIDILARBuildInfo.cmake")

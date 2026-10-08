@@ -42,6 +42,7 @@ if(MIDILAR_EXPECTED_SYSTEM_PROCESSOR AND
 endif()
 
 include(cmake/MIDILARFoundation.cmake)
+include(cmake/MIDILARDspCore.cmake)
 include(cmake/MIDILARMCC.cmake)
 
 message(STATUS "Building MIDILAR Version = ${PROJECT_VERSION}")
@@ -50,6 +51,7 @@ message(STATUS "System      = ${CMAKE_SYSTEM_NAME}")
 message(STATUS "Processor   = ${CMAKE_SYSTEM_PROCESSOR}")
 message(STATUS "CXX ID      = ${CMAKE_CXX_COMPILER_ID}")
 message(STATUS "Foundation  = ${Foundation_VERSION} (${Foundation_PLATFORM}) from ${MIDILAR_FOUNDATION_SOURCE}")
+message(STATUS "DspCore     = ${MIDILAR_DSPCORE_VERSION} from ${MIDILAR_DSPCORE_SOURCE}")
 message(STATUS "MCC         = ${MCC_VERSION} (${MCC_PLATFORM}) from ${MIDILAR_MCC_SOURCE}")
 
 include(CMakePackageConfigHelpers)
