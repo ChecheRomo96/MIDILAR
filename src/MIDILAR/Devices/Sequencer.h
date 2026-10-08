@@ -25,7 +25,7 @@ constexpr uint8_t MaxSteps = 64;
  * many steps. `E(3, 8)` is `x..x..x.`. `steps` above 64 gives `0`; `pulses`
  * above `steps` is clamped.
  */
-constexpr uint64_t EuclideanPattern(uint8_t pulses, uint8_t steps, uint8_t rotation = 0) noexcept {
+FOUNDATION_CONSTEXPR14 uint64_t EuclideanPattern(uint8_t pulses, uint8_t steps, uint8_t rotation = 0) noexcept {
     if (steps == 0 || steps > MaxSteps) {
         return 0;
     }

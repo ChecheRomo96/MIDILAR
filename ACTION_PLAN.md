@@ -3,10 +3,11 @@
 ## Objective
 
 Rebuild MIDILAR from scratch as a portable C++17 MIDI library for desktop and
-embedded targets. MIDILAR owns MIDI 1.0 and MIDI 2.0 (UMP) protocol data,
-parsing, routing, timing and devices. It consumes Foundation for general utilities and MCC for music
-theory. It never throws exceptions, and memory use is the implementer's choice
-(SPEC-RT-1).
+direct-source embedded targets, with C++11 Arduino source compatibility.
+MIDILAR owns MIDI 1.0 and MIDI 2.0 (UMP) protocol data, parsing, routing,
+timing and devices. It consumes Foundation for general utilities and MCC for
+music theory. It never throws exceptions, and memory use is the implementer's
+choice (SPEC-RT-1).
 
 The dependency direction is:
 

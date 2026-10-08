@@ -79,9 +79,9 @@ in Foundation, DspCore and MCC, so the Arduino builder finds all four libraries:
 #include <MIDILAR_Devices.h>  // or only the devices module
 ```
 
-MIDILAR requires C++17. On the stock Arduino AVR core add `-std=gnu++17`, for
-example with
-`arduino-cli compile --build-property "compiler.cpp.extra_flags=-std=gnu++17"`.
+MIDILAR Arduino source builds support stock C++11 cores, including the Arduino
+AVR core, without compiler-flag overrides. CMake and direct-source builds
+continue to require C++17.
 
 ## License
 

@@ -78,7 +78,7 @@ public:
     constexpr TimeCodeRate Rate() const noexcept { return _rate; }
 
     /** @brief Returns the next frame, wrapping from 23:59:59 to 00:00:00. */
-    constexpr TimeCode Next() const noexcept {
+    FOUNDATION_CONSTEXPR14 TimeCode Next() const noexcept {
         if (!IsValid()) {
             return TimeCode();
         }
