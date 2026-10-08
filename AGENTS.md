@@ -3,9 +3,9 @@
 MIDILAR is the MIDI layer of the RoModular ecosystem: protocol data, parsing,
 routing, timing and devices. Keep it independently buildable for desktop and
 embedded consumers, and preserve the dependency direction
-`Foundation <- MCC <- MIDILAR`.
+`CPSTL <- Foundation <- (DspCore, MCC) <- MIDILAR`.
 
-MIDILAR was rebuilt from scratch and released as 0.2.0. Work happens on
+MIDILAR was rebuilt from scratch and released as 0.3.0. Work happens on
 `main`, following `ACTION_PLAN.md` phase by phase; each phase needs the
 user's approval.
 
@@ -31,11 +31,11 @@ unless the user explicitly includes it.
   parity.
 - Initialize the pinned `tools/RoModularBuild` submodule before invoking a
   workflow in a fresh checkout, and treat it as read-only.
-- Foundation and MCC are resolved by `cmake/MIDILARFoundation.cmake` and
-  `cmake/MIDILARMCC.cmake`; keep their pinned versions in step with the
+- Foundation, DspCore and MCC are resolved by their corresponding
+  `cmake/MIDILAR*.cmake` modules; keep their pinned versions in step with the
   Arduino CI job.
 - General utilities belong in Foundation, music theory in MCC, and signal
-  processing in the future DspCore library; only MIDI concepts belong here.
+  processing in DspCore; only MIDI concepts belong here.
 - Code never throws exceptions. Operations that change a container's
   size may allocate; the library makes no real-time assumptions about the
   caller, and implementers who modify storage in time-critical code are

@@ -16,7 +16,7 @@
  *   MIDILAR converts between note numbers and `MCC::Pitch` with explicit range
  *   checks, and spells incoming notes through `MCC::Key`.
  * - General utilities (buffers, callbacks, time, scheduling, flash data)
- *   belong to Foundation. Signal processing belongs to the future DspCore.
+ *   belong to Foundation. Signal processing belongs to DspCore.
  *
  * @section MIDILARSpecRules Design rules
  *

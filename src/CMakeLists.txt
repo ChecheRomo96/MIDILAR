@@ -4,7 +4,7 @@ add_library(MIDILAR STATIC)
 add_library(MIDILAR::MIDILAR ALIAS MIDILAR)
 
 target_compile_features(MIDILAR PUBLIC cxx_std_${MIDILAR_REQUIRED_CXX_STANDARD})
-target_link_libraries(MIDILAR PUBLIC Foundation::Foundation MCC::MCC)
+target_link_libraries(MIDILAR PUBLIC Foundation::Foundation DspCore::DspCore MCC::MCC)
 
 set(MIDILAR_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/artifacts")
 set_target_properties(MIDILAR PROPERTIES
