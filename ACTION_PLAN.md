@@ -11,7 +11,7 @@ theory. It never throws exceptions, and memory use is the implementer's choice
 The dependency direction is:
 
 ```text
-Foundation <- MCC <- MIDILAR
+CPSTL <- Foundation <- (DspCore, MCC) <- MIDILAR
 ```
 
 The legacy MIDILAR code (labelled 1.0.0, never released, no consumers) was
@@ -27,7 +27,8 @@ the `rebuild` branch and in the read-only audit, as design input only.
   installable CMake package, Arduino library layout and Doxygen.
 - MIDI concepts live in MIDILAR; music theory stays in MCC; general utilities
   (buffers, callbacks, time, scheduling, flash data) come from Foundation.
-- Signal processing is out of scope: it moves to the future DspCore library.
+- Signal processing is out of scope: MIDILAR consumes DspCore rather than
+  owning signal-processing concepts.
 - The Euclidean distribution lives in MIDILAR, next to its only consumer, the
   sequencer; it moves to Foundation only if a non-MIDI consumer appears.
 - Value types are trivially copyable, `constexpr` where practical, with one
