@@ -22,7 +22,7 @@
 # and the internal cache entry MIDILAR_FOUNDATION_RESOLVED_PREFIX (empty when
 # Foundation is built from source and installed alongside MIDILAR).
 
-set(MIDILAR_FOUNDATION_VERSION "1.4.0")
+set(MIDILAR_FOUNDATION_VERSION "2.0.5")
 set(MIDILAR_FOUNDATION_REPOSITORY "ChecheRomo96/Foundation" CACHE STRING
     "GitHub repository (owner/name) used to fetch Foundation")
 option(MIDILAR_FETCH_FOUNDATION
@@ -154,7 +154,7 @@ if(NOT TARGET Foundation::Foundation AND NOT MIDILAR_FOUNDATION_PREFIX STREQUAL 
     if(NOT TARGET Foundation::Foundation)
         message(FATAL_ERROR
             "MIDILAR_FOUNDATION_PREFIX='${MIDILAR_FOUNDATION_PREFIX}' does not contain "
-            "a Foundation ${MIDILAR_FOUNDATION_VERSION}+ (1.x) package.")
+            "a Foundation ${MIDILAR_FOUNDATION_VERSION}+ (2.x) package.")
     endif()
     set(MIDILAR_FOUNDATION_SOURCE "prefix")
     set(MIDILAR_FOUNDATION_RESOLVED_PREFIX "${MIDILAR_FOUNDATION_PREFIX}")
@@ -172,7 +172,7 @@ if(NOT TARGET Foundation::Foundation)
         else()
             message(WARNING
                 "Ignoring ${sibling_prefix}: it is not a compatible Foundation "
-                "${MIDILAR_FOUNDATION_VERSION}+ (1.x) package. Re-export it or "
+                "${MIDILAR_FOUNDATION_VERSION}+ (2.x) package. Re-export it or "
                 "let MIDILAR fetch Foundation.")
         endif()
     endif()
@@ -249,7 +249,7 @@ endif()
 
 if(NOT TARGET Foundation::Foundation)
     message(FATAL_ERROR
-        "MIDILAR requires Foundation ${MIDILAR_FOUNDATION_VERSION}+ (1.x) for the "
+        "MIDILAR requires Foundation ${MIDILAR_FOUNDATION_VERSION}+ (2.x) for the "
         "same platform and ABI. Set MIDILAR_FOUNDATION_PREFIX to a Foundation "
         "package, export ../Foundation/dist/${MIDILAR_PLATFORM}, or enable "
         "MIDILAR_FETCH_FOUNDATION.")

@@ -36,8 +36,13 @@ unless the user explicitly includes it.
   Arduino CI job.
 - General utilities belong in Foundation, music theory in MCC, and signal
   processing in the future DspCore library; only MIDI concepts belong here.
-- Real-time paths never allocate memory dynamically and never throw
-  exceptions. Value types are trivially copyable with compile-time size
+- Code never throws exceptions. Operations that change a container's
+  size may allocate; the library makes no real-time assumptions about the
+  caller, and implementers who modify storage in time-critical code are
+  expected to reserve the space beforehand. Framework types report allocation
+  failure through their result (`bool` or invalid state), never by exceptions
+  or undefined behavior (SPEC-RT-1).
+- Value types are trivially copyable with compile-time size
   budgets in `src/MIDILAR.cpp`.
 - Keep the MIDI-domain specification (`docs/Topics/Specification/MidiDomain.dox`)
   ahead of the code; tests reference its invariants.

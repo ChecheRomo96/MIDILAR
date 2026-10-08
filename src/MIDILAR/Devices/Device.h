@@ -20,8 +20,8 @@ namespace MIDILAR::Devices {
 using PacketCallback = Foundation::Functional::Callback<void, const Protocol::Packet&>;
 
 /**
- * @brief Base of the devices: one output, no virtual functions and no
- * allocation (SPEC-RT-1, SPEC-DEV-1).
+ * @brief Base of the devices: one output and no virtual functions
+ * (SPEC-DEV-1).
  * @ingroup MIDILAR_Devices
  *
  * Each device has `void Process(const Protocol::Packet&)` and emits zero or
