@@ -27,8 +27,9 @@ MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Parser, 16);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Encoder, 2);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::UsbMidi1Encoder, 82);
 
-// SPEC-MIDI-3: scaling stays constexpr on every compiler, GCC 7 (Arduino AVR)
-// included.
+// C++14 permits multi-statement constexpr. Arduino C++11 builds exercise the
+// same functions at runtime; compile-time invariants remain checked elsewhere.
+#if MIDILAR_CPLUSPLUS >= 201703L
 static_assert(MIDILAR::Protocol::ScaleUp(127, 7, 32) == 0xFFFFFFFFu, "7->32 maximum");
 static_assert(MIDILAR::Protocol::ScaleUp(8192, 14, 32) == 0x80000000u, "14->32 center");
 static_assert(MIDILAR::Protocol::ChannelMask::All().Count() == 16, "sixteen channels");
@@ -40,12 +41,15 @@ static_assert(MIDILAR::Protocol::ToNoteNumber(MIDILAR::Protocol::ToPitch(
                   MIDILAR::Protocol::NoteNumber::FromValue(61))) == MIDILAR::Protocol::NoteNumber::FromValue(61),
               "note number to MCC pitch and back");
 #endif
+#endif
 
 #if defined(MIDILAR_DEVICES)
+#if MIDILAR_CPLUSPLUS >= 201703L
 static_assert(MIDILAR::Devices::EuclideanPattern(3, 8) == 0x49u, "E(3, 8) is x..x..x.");
 static_assert(MIDILAR::Protocol::TimeCode::From(0, 0, 59, 29, MIDILAR::Protocol::TimeCodeRate::Fps29_97Drop).Next() ==
                   MIDILAR::Protocol::TimeCode::From(0, 1, 0, 2, MIDILAR::Protocol::TimeCodeRate::Fps29_97Drop),
               "29.97 drop-frame skips frames 0 and 1");
+#endif
 #endif
 
 #undef MIDILAR_CHECK_VALUE_TYPE

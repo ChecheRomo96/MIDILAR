@@ -365,7 +365,7 @@ public:
      * bytes, without `0xF0`/`0xF7` (SPEC-MIDI-13). Larger sizes, a null
      * `data` with bytes, or a byte above 127 return the invalid packet.
      */
-    static constexpr Packet SysEx7(Protocol::Group group, Protocol::SysExStatus status, const uint8_t* data,
+    static FOUNDATION_CONSTEXPR14 Packet SysEx7(Protocol::Group group, Protocol::SysExStatus status, const uint8_t* data,
                                    uint8_t size) noexcept {
         if (!group.IsValid() || size > 6 || (data == nullptr && size > 0)) {
             return Packet();
