@@ -8,7 +8,7 @@ built on Foundation (general utilities), DspCore (signal processing) and MCC
 (music theory). It never throws
 exceptions, and memory use is the implementer's choice (SPEC-RT-1).
 
-> **Status: 0.3.0**, adds calibrated MIDI clock support to the library rebuilt from scratch,
+> **Status: 0.3.1**, adds stock Arduino C++11 source compatibility to the library rebuilt from scratch,
 > validated on an Arduino Mega 2560. MIDI-CI is deferred.
 
 ## Features
@@ -42,7 +42,7 @@ git submodule update --init --recursive
 ## Dependencies
 
 MIDILAR links `Foundation::Foundation` (Foundation `2.0.5` or a newer `2.x`,
-built on CPSTL `1.1.5`), `DspCore::DspCore` (DspCore `0.1.0` or a newer `0.x`)
+built on CPSTL `1.1.5`), `DspCore::DspCore` (DspCore `0.1.1` or a newer `0.x`)
 and `MCC::MCC` (MCC `0.6.0` or a newer `0.x`). Arduino users install CPSTL,
 Foundation, DspCore and MCC next to MIDILAR. Configuring resolves each one from
 a parent project, an explicit prefix, a sibling export, normal `find_package`,

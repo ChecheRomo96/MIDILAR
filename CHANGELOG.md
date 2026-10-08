@@ -3,12 +3,13 @@
 This file records user-visible changes to MIDILAR. Release dates use the
 `YYYY-MM-DD` format.
 
-## Unreleased
+## [0.3.1] - 2026-10-08
 
 ### Changed
 
 - Arduino source builds now accept stock C++11 cores without injecting
-  `-std=gnu++17`. CMake and direct-source integrations remain C++17.
+  `-std=gnu++17`. CMake and direct-source integrations remain C++17. The
+  DspCore dependency baseline is now 0.1.1.
 
 ## [0.3.0] - 2026-10-08
 
