@@ -1,6 +1,7 @@
 param(
     [string]$Fqbn = "arduino:avr:uno",
     [string]$Foundation = "",
+    [string]$DspCore = "",
     [string]$MCC = "",
     [string]$Cpstl = ""
 )
@@ -24,6 +25,13 @@ if (-not (Test-Path -LiteralPath (Join-Path $Foundation "library.properties"))) 
     throw "Foundation Arduino library not found at $Foundation"
 }
 $Foundation = (Resolve-Path -LiteralPath $Foundation).Path
+if (-not $DspCore) {
+    $DspCore = if ($env:MIDILAR_DSPCORE_SOURCE) { $env:MIDILAR_DSPCORE_SOURCE } else { Join-Path $root "../DspCore" }
+}
+if (-not (Test-Path -LiteralPath (Join-Path $DspCore "library.properties"))) {
+    throw "DspCore Arduino library not found at $DspCore"
+}
+$DspCore = (Resolve-Path -LiteralPath $DspCore).Path
 # CPSTL defaults to MIDILAR_CPSTL_SOURCE or the sibling ../CPSTL.
 if (-not $Cpstl) {
     $Cpstl = if ($env:MIDILAR_CPSTL_SOURCE) { $env:MIDILAR_CPSTL_SOURCE } else { Join-Path $root "../CPSTL" }
@@ -74,6 +82,7 @@ foreach ($sketch in $sketches) {
         --library $root `
         --library $MCC `
         --library $Foundation `
+        --library $DspCore `
         --library $Cpstl `
         --build-path (Join-Path $buildRoot $name) `
         --warnings default `

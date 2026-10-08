@@ -10,7 +10,7 @@
 #endif
 
 int main() {
-    // The installed package must bring its transitive Foundation and MCC
+    // The installed package must bring its transitive Foundation, DspCore and MCC
     // targets with it.
     const auto gcd = Foundation::Math::GCD(12, 8);
     constexpr MCC::NoteName cSharp(MCC::Letter::C, MCC::Accidental::Sharp());

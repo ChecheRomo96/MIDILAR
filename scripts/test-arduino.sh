@@ -5,7 +5,7 @@ SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 . "$SCRIPT_DIR/common.sh"
 
 usage() {
-    printf '%s\n' "Usage: $0 [--fqbn <board>] [--foundation <source-directory>] [--mcc <source-directory>] [--cpstl <source-directory>]"
+    printf '%s\n' "Usage: $0 [--fqbn <board>] [--foundation <source-directory>] [--dspcore <source-directory>] [--mcc <source-directory>] [--cpstl <source-directory>]"
     printf '%s\n' "Foundation defaults to MIDILAR_FOUNDATION_SOURCE or the sibling ../Foundation;"
     printf '%s\n' "MCC defaults to MIDILAR_MCC_SOURCE or the sibling ../MCC;"
     printf '%s\n' "CPSTL defaults to MIDILAR_CPSTL_SOURCE or the sibling ../CPSTL."
@@ -16,6 +16,7 @@ FQBN=arduino:avr:uno
 FOUNDATION=${MIDILAR_FOUNDATION_SOURCE:-$MIDILAR_ROOT/../Foundation}
 CPSTL=${MIDILAR_CPSTL_SOURCE:-$MIDILAR_ROOT/../CPSTL}
 MCC=${MIDILAR_MCC_SOURCE:-$MIDILAR_ROOT/../MCC}
+DSPCORE=${MIDILAR_DSPCORE_SOURCE:-$MIDILAR_ROOT/../DspCore}
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -27,6 +28,11 @@ while [ "$#" -gt 0 ]; do
         --mcc)
             midilar_require_value "$1" "${2:-}"
             MCC=$2
+            shift 2
+            ;;
+        --dspcore)
+            midilar_require_value "$1" "${2:-}"
+            DSPCORE=$2
             shift 2
             ;;
         --foundation)
@@ -56,6 +62,9 @@ FOUNDATION=$(midilar_absolute_path "$FOUNDATION")
 [ -f "$MCC/library.properties" ] || \
     midilar_die "MCC Arduino library not found at $MCC"
 MCC=$(midilar_absolute_path "$MCC")
+[ -f "$DSPCORE/library.properties" ] || \
+    midilar_die "DspCore Arduino library not found at $DSPCORE"
+DSPCORE=$(midilar_absolute_path "$DSPCORE")
 [ -f "$CPSTL/library.properties" ] || \
     midilar_die "CPSTL Arduino library not found at $CPSTL"
 CPSTL=$(midilar_absolute_path "$CPSTL")
@@ -88,6 +97,7 @@ for SKETCH in "$MIDILAR_ROOT"/examples/MIDILAR/*/*/*.ino; do
         --library "$MIDILAR_ROOT" \
         --library "$MCC" \
         --library "$FOUNDATION" \
+        --library "$DSPCORE" \
         --library "$CPSTL" \
         --build-path "$BUILD_ROOT/$NAME" \
         --warnings default \
