@@ -1,19 +1,22 @@
 /**
  * @defgroup MIDILAR_BuildGuide_Dependency Dependencies
  * @ingroup MIDILAR_BuildGuide
- * @brief Foundation and MCC package resolution and compatibility contract.
+ * @brief Foundation, DspCore and MCC package resolution and compatibility contract.
  *
- * MIDILAR links `Foundation::Foundation` and `MCC::MCC` publicly. It requires
- * Foundation `2.0.5` or a newer `2.x` release (built on CPSTL `1.1.5`) and MCC
- * `0.6.0` or a newer `0.x` release, and rejects packages whose recorded platform differs from the
+ * MIDILAR links `Foundation::Foundation`, `DspCore::DspCore` and `MCC::MCC` publicly. It requires
+ * Foundation `2.0.5` or a newer `2.x` release (built on CPSTL `1.1.5`),
+ * DspCore `0.1.0` or a newer `0.x` release, and MCC `0.6.0` or a newer `0.x`
+ * release. It rejects packages whose recorded platform differs from the
  * selected MIDILAR preset.
  *
- * Foundation is resolved first (`cmake/MIDILARFoundation.cmake`), then MCC
+ * Foundation is resolved first (`cmake/MIDILARFoundation.cmake`), then DspCore
+ * (`cmake/MIDILARDspCore.cmake`) and MCC
  * (`cmake/MIDILARMCC.cmake`) with the same order: a parent-project target,
- * `MIDILAR_MCC_PREFIX`, the sibling `../MCC/dist/<preset>`, normal
+ * `MIDILAR_DSPCORE_PREFIX` or `MIDILAR_MCC_PREFIX`, the corresponding sibling
+ * export, normal
  * `find_package`, and finally the GitHub Release package or, for AVR and Arm,
  * the sources at the pinned tag built with MIDILAR's toolchain. The Foundation
- * steps below are mirrored by the MCC ones.
+ * steps below are mirrored by the DspCore and MCC ones.
  *
  * Resolution order (`cmake/MIDILARFoundation.cmake`):
  *
