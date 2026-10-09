@@ -1,6 +1,6 @@
 # Resolves the DspCore dependency and defines DspCore::DspCore.
 # A parent target, an explicit/sibling package, the regular package search, or
-# the pinned sources at v0.1.0 may satisfy the dependency.
+# the pinned sources at v0.1.1 may satisfy the dependency.
 set(MIDILAR_DSPCORE_VERSION "0.1.1")
 set(MIDILAR_DSPCORE_REPOSITORY "ChecheRomo96/DspCore" CACHE STRING
     "GitHub repository (owner/name) used to fetch DspCore")
