@@ -161,6 +161,7 @@ jobs:
 
     env:
       MIDILAR_FOUNDATION_SOURCE: ${{ github.workspace }}/foundation-source
+      MIDILAR_DSPCORE_SOURCE: ${{ github.workspace }}/dspcore-source
       MIDILAR_MCC_SOURCE: ${{ github.workspace }}/mcc-source
       MIDILAR_CPSTL_SOURCE: ${{ github.workspace }}/cpstl-source
 
@@ -178,7 +179,7 @@ jobs:
           ref: v2.0.5
           path: foundation-source
 
-      # Foundation 2.0.0 depends on CPSTL; keep in step with Foundation's
+      # Foundation 2.0.5 depends on CPSTL; keep in step with Foundation's
       # FOUNDATION_CPSTL_VERSION.
       - name: Checkout the CPSTL release Foundation requires
         uses: actions/checkout@v5
@@ -186,6 +187,14 @@ jobs:
           repository: ChecheRomo96/CPSTL
           ref: v1.1.5
           path: cpstl-source
+
+      # Keep in step with MIDILAR_DSPCORE_VERSION in cmake/MIDILARDspCore.cmake.
+      - name: Checkout the pinned DspCore release
+        uses: actions/checkout@v5
+        with:
+          repository: ChecheRomo96/DspCore
+          ref: v0.1.1
+          path: dspcore-source
 
       # Keep in step with MIDILAR_MCC_VERSION in cmake/MIDILARMCC.cmake.
       - name: Checkout the pinned MCC release
