@@ -1,0 +1,5 @@
+<map id="MIDILAR::Devices::Transpose" name="MIDILAR::Devices::Transpose">
+<area shape="rect" id="Node000001" title="Shifts every packet with a note by a number of semitones." alt="" coords="5,79,216,104"/>
+<area shape="rect" id="Node000002" href="$classMIDILAR_1_1Devices_1_1Device.html" title="Base of the devices: one output and no virtual functions (SPEC&#45;DEV&#45;1)." alt="" coords="15,5,206,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,44,113,79,108,79,108,44"/>
+</map>
