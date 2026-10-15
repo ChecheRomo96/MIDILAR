@@ -9,20 +9,10 @@ MIDILAR was rebuilt from scratch and released as 0.3.0. Work happens on
 `main`, following `ACTION_PLAN.md` phase by phase; each phase needs the
 user's approval.
 
-## Shared RoModular guidance
+## Scope
 
-Before starting work, look for the shared guidance in
-`../RoModularAgents`.
-
-- If it exists and is readable, read `AGENTS.md` and `CONTRACT.md` completely.
-- Read `repositories/MIDILAR.md` for the canonical repository adapter.
-- Use the relevant skill under `skills/` when the request matches one.
-- If the sibling repository is unavailable, continue with the rules in this
-  file and report that the shared guidance was not loaded.
-
-Shared guidance does not expand the user's requested scope. Do not modify
-Foundation, MCC, RoModular, RoModularBuild, or another sibling repository
-unless the user explicitly includes it.
+Do not modify Foundation, MCC, RoModular, RoModularBuild, or another sibling
+repository unless the user explicitly includes it.
 
 ## Repository rules
 
@@ -35,7 +25,10 @@ unless the user explicitly includes it.
   `cmake/MIDILAR*.cmake` modules; keep their pinned versions in step with the
   Arduino CI job.
 - General utilities belong in Foundation, music theory in MCC, and signal
-  processing in DspCore; only MIDI concepts belong here.
+  processing in DspCore; only MIDI concepts belong here. Hardware transports
+  (UART, USB stacks, desktop MIDI APIs) are separate libraries built on
+  MIDILAR's translations. The removed legacy code is design input from the
+  Git history, not code to restore.
 - Code never throws exceptions. Operations that change a container's
   size may allocate; the library makes no real-time assumptions about the
   caller, and implementers who modify storage in time-critical code are
