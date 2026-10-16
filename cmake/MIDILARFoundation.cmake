@@ -22,7 +22,7 @@
 # and the internal cache entry MIDILAR_FOUNDATION_RESOLVED_PREFIX (empty when
 # Foundation is built from source and installed alongside MIDILAR).
 
-set(MIDILAR_FOUNDATION_VERSION "2.0.5")
+set(MIDILAR_FOUNDATION_VERSION "2.0.7")
 set(MIDILAR_FOUNDATION_REPOSITORY "ChecheRomo96/Foundation" CACHE STRING
     "GitHub repository (owner/name) used to fetch Foundation")
 option(MIDILAR_FETCH_FOUNDATION
