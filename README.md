@@ -8,9 +8,9 @@ built on Foundation (general utilities), DspCore (signal processing) and MCC
 (music theory). It never throws
 exceptions, and memory use is the implementer's choice (SPEC-RT-1).
 
-> **Latest release: 0.3.3.** The working tree separates native Midi/Midi2
-> messages from Ump and includes recovered protocol topics; see CHANGELOG.md under
-> Unreleased. Stock Arduino C++11 source builds are supported. MIDI-CI is deferred.
+> **Version 0.4.0** separates native Midi/Midi2 messages from Ump and restores
+> the MIDI protocol guides and examples. See CHANGELOG.md for API migration.
+> Stock Arduino C++11 source builds are supported. MIDI-CI is deferred.
 
 ## Features
 

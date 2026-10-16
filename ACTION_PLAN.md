@@ -200,5 +200,7 @@ See examples/README.md for desktop/Arduino usage and expected results.
 | --- | --- |
 | `0.1.0` | Scaffold (phase 0), never released |
 | `0.2.0` | Phases 1-9: specification, protocol, UMP, MIDI 1.0 and USB MIDI 1.0 translation, MCC integration, devices, clock and sequencing, MTC |
-| `0.3.0` | MIDI-CI (phase 10), when it resumes |
+| `0.3.x` | Dependency, platform and Arduino maintenance releases |
+| `0.4.0` | Native Midi/Midi2 messages, Ump separation, protocol guides and examples |
+| Future | MIDI-CI (phase 10), when it resumes |
 | `1.0.0` | Stable documented API on supported targets |

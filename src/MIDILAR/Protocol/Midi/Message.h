@@ -86,7 +86,7 @@ public:
     /** @brief Wire channel wrapped as Channel, or invalid for system/empty messages. */
     constexpr Protocol::Channel Channel() const noexcept {
         return _bytes[0] >= 0x80 && _bytes[0] < 0xF0
-            ? Protocol::Channel::FromWire(_bytes[0] & 0x0Fu) : Protocol::Channel::Invalid();
+            ? Protocol::Channel::FromWire(static_cast<int32_t>(_bytes[0] & 0x0Fu)) : Protocol::Channel::Invalid();
     }
 
     /**

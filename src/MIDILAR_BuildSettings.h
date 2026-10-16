@@ -8,7 +8,7 @@
 #include <MCC_BuildSettings.h>
 
 #ifndef MIDILAR_VERSION
-    #define MIDILAR_VERSION "0.3.3"
+    #define MIDILAR_VERSION "0.4.0"
 #endif
 
 #ifndef MIDILAR_CPLUSPLUS

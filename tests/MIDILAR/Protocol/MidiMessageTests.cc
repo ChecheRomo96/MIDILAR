@@ -73,7 +73,9 @@ TEST(MIDILARMidiMessageTests, ExhaustiveChannelVoiceRoundTrip) {
             const bool zeroNoteOn = (status & 0xF0) == 0x90 && raw[2] == 0;
             EXPECT_EQ(restored.Status(), zeroNoteOn ? (0x80 | (status & 15)) : status);
             EXPECT_EQ(restored.Data(1), raw[1]);
-            if (length == 3) EXPECT_EQ(restored.Data(2), raw[2]);
+            if (length == 3) {
+                EXPECT_EQ(restored.Data(2), raw[2]);
+            }
         }
     }
 }
@@ -163,9 +165,15 @@ TEST(MIDILARMidiMessageTests, PitchBendResolutions) {
         const uint16_t bend = static_cast<uint16_t>(msg.Data(1) | (msg.Data(2) << 7));
         EXPECT_GE(bend, previous);
         previous = bend;
-        if (value == 0) EXPECT_EQ(bend, 0);
-        if (value == 64) EXPECT_EQ(bend, 8192);
-        if (value == 127) EXPECT_EQ(bend, 16383);
+        if (value == 0) {
+            EXPECT_EQ(bend, 0);
+        }
+        if (value == 64) {
+            EXPECT_EQ(bend, 8192);
+        }
+        if (value == 127) {
+            EXPECT_EQ(bend, 16383);
+        }
     }
     EXPECT_FALSE(msg.PitchBend(16384).IsValid());
     EXPECT_FALSE(msg.PitchBendSigned(-8193).IsValid());
