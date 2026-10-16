@@ -1,0 +1,67 @@
+/**
+ * @defgroup MTC_QuarterFrame MTC Quarter Frame Messages
+ * @ingroup MIDI_MTC
+ * @ingroup MIDI_SystemCommon
+ * @brief SMPTE time transmitted as eight two-byte messages, F1 + data.
+ *
+ * Each data byte carries a piece index in bits 6-4 and a data nibble in
+ * bits 3-0. Bit 7 is always zero. Four messages are sent per frame, so eight
+ * pieces span two frames. MIDI Timing Clock instead expresses musical tempo
+ * at 24 pulses per quarter note; it is independent of MTC.
+ *
+ * Forward playback sends pieces 0-7, reverse playback in the opposite order.
+ * Receiving the full cycle takes time; a receiver must account for that
+ * delay. See MIDILAR::Devices::MtcReceiver for the existing implementation.
+ * @see MTC_RT_FullFrame
+ */
+
+/**
+ * @defgroup MTC_TimeComponents Time Components
+ * @ingroup MTC_QuarterFrame
+ * @brief The eight piece indices and their time-data nibbles.
+ *
+ * | Piece | Component | Nibble |
+ * | --- | --- | --- |
+ * | 0 | Frames LSB | frame bits 3-0 |
+ * | 1 | Frames MSB | frame bit 4 |
+ * | 2 | Seconds LSB | second bits 3-0 |
+ * | 3 | Seconds MSB | second bits 5-4 |
+ * | 4 | Minutes LSB | minute bits 3-0 |
+ * | 5 | Minutes MSB | minute bits 5-4 |
+ * | 6 | Hours LSB | hour bits 3-0 |
+ * | 7 | Hours MSB + rate | hour bit 4 and rate bits 2-1 |
+ *
+ * TimeCode::QuarterFrame returns the complete data byte; pass just the
+ * low nibble to Message::MTC_QuarterFrame(piece, nibble).
+ *
+ * @code{.cpp}
+ * #include <MIDILAR_Protocol.h>
+ * using namespace MIDILAR::Protocol;
+ * auto time = TimeCode::From(1, 2, 3, 4, TimeCodeRate::Fps25);
+ * Midi1::Message message;
+ * for (uint8_t piece = 0; piece < 8; ++piece) {
+ *     uint8_t data = time.QuarterFrame(piece);
+ *     message.MTC_QuarterFrame(piece, data & 0x0F);
+ *     // Send or copy each message before building the next one.
+ * }
+ * @endcode
+ */
+
+/**
+ * @defgroup MTC_FrameRates MIDI Time Code Frame Rates
+ * @ingroup MTC_QuarterFrame
+ * @brief Two-bit frame-rate codes in quarter-frame and full-frame messages.
+ *
+ * | Code | TimeCodeRate | Frame numbers |
+ * | --- | --- | --- |
+ * | 0 | Fps24 | 0-23 |
+ * | 1 | Fps25 | 0-24 |
+ * | 2 | Fps29_97Drop | 0-29, with drop-frame omissions |
+ * | 3 | Fps30 | 0-29 |
+ *
+ * Drop-frame numbering represents 30000/1001 frames per second. It skips
+ * numbers 0 and 1 at each minute except multiples of ten; no video frames
+ * are discarded. TimeCode::From rejects the omitted numbers.
+ * The rate occupies Full Frame hour-byte bits 6-5 and quarter-frame piece
+ * 7 nibble bits 2-1.
+ */

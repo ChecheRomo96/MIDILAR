@@ -5,11 +5,13 @@
  * protocol, messages, parsing, routing and real-time devices for desktop and
  * embedded targets, built on Foundation (general utilities), DspCore (signal
  * processing) and MCC (music
- * theory). MIDI 2.0 Universal MIDI Packets are the internal model; MIDI 1.0
- * byte streams are translated at the edges.
+ * theory). Devices use Universal MIDI Packets internally. Native MIDI 1.0
+ * message builders also expose complete bytes directly, with explicit UMP
+ * conversion when needed.
  *
- * @note Version 0.3.1 adds stock Arduino C++11 source compatibility to the
- * library rebuilt from scratch, validated on an Arduino Mega 2560.
+ * @note Latest release: 0.3.3. Native MIDI 1.0 builders and the recovered
+ * protocol topics are working-tree additions documented under Unreleased.
+ * Stock Arduino C++11 source builds are supported.
  *
  * @section MIDILARMainModules Modules
  *
@@ -17,6 +19,10 @@
  * - @ref MIDILAR_Protocol "Protocol": channels, groups, values, UMP packets,
  *   MIDI 1.0 and USB MIDI 1.0 translation, MIDI Time Code and MCC pitch
  *   conversions.
+ * - @ref MIDI_Protocol "MIDI 1.0 protocol guide": message layouts, controller
+ *   and channel-mode topics, real-time, system common, MTC and SysEx.
+ * - @ref MIDILAR_Midi1 "Native MIDI 1.0 messages": the adapted Message API,
+ *   memory model and migration from the historical implementation.
  * - @ref MIDILAR_Devices "Devices": filters, transforms, scale filter and
  *   chord generation, router, MIDI clock, step sequencer and MTC.
  *
