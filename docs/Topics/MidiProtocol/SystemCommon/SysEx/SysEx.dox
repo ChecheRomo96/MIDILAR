@@ -1,0 +1,64 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_SC_SysEx
+ * This subset of messages allow MIDI devices to exchange manufacturer-specific
+ * or extended data that is not covered by standard MIDI Control Change (CC) messages.
+ * These messages start with a **SysEx Start byte (`0xF0`)** and end with a **SysEx End byte (`0xF7`)**.
+ *
+ * SysEx messages can be used for:
+ * - **Device Configuration**: Sending custom settings to synthesizers, effects processors, and controllers.
+ * - **Firmware Updates**: Transmitting firmware data to compatible MIDI hardware.
+ * - **Custom MIDI Data**: Communicating non-standard MIDI information between devices.
+ *
+ * ### Message Structure
+ * A **MIDI SysEx message** follows this structure:
+ *
+ * | Byte       | Value Range      | Description                                |
+ * |-----------|----------------|--------------------------------------------|
+ * | **Start**  | `0xF0`         | System Exclusive Start (marks beginning of SysEx data). |
+ * | **Manufacturer ID** | `0x00 - 0x7F` | Identifies the manufacturer (0x7E for universal non-real-time, 0x7F for real-time). |
+ * | **Data Bytes** | `0x00 - 0x7F` | Custom data payload (device-specific). |
+ * | **End**    | `0xF7`         | System Exclusive End (marks end of SysEx data). |
+ *
+ * ### Creating a System Exclusive Message
+ * The **SysEx Start (`0xF0`)** and **SysEx End (`0xF7`)** bytes are required for every SysEx transmission.
+ *
+ * #### **Example 1: Sending a Basic SysEx Message**
+ * @code{.cpp}
+ * uint8_t message[] = {0xF0, 0x7E, 0x7F, 0x09, 0x01, 0xF7}; // General MIDI System On, all devices
+ * @endcode
+ *
+ * #### **Example 2: Sending a Manufacturer-Specific SysEx Message**
+ * @code{.cpp}
+ * uint8_t message[] = {0xF0, 0x41, 0x10, 0x42, 0x12, 0x34, 0x56, 0xF7}; // Roland SysEx
+ * @endcode
+ *
+ * ### Native builder and storage
+ *
+ * Payload excludes F0/F7 and must contain only 7-bit bytes. Extended
+ * manufacturer IDs start with 00 and occupy three bytes. Universal messages
+ * 7E/7F also include a device ID and sub-IDs.
+ *
+ * @code{.cpp}
+ * #include <MIDILAR_Protocol.h>
+ * uint8_t storage[16];
+ * const uint8_t payload[] = {0x7D, 1, 2, 3};
+ * auto message = MIDILAR::Protocol::Midi1::SysExMessage::Build(
+ *     storage, sizeof(storage), payload, sizeof(payload));
+ * // F0 7D 01 02 03 F7. Check IsValid() before reading Buffer().
+ * @endcode
+ *
+ * Build leaves storage untouched on failure and never truncates. Keep the
+ * caller buffer alive while using the view; copies alias the same bytes.
+ * SysExAssembler on the receive path reports truncation explicitly.
+ *
+ * ### Use Cases
+ * - **Sending custom device parameters** to synthesizers, controllers, and effects units.
+ * - **Querying device information** such as firmware version, settings, and presets.
+ * - **Performing MIDI bulk dumps** to save or restore device configurations.
+ * - **Updating firmware** for MIDI-compatible hardware.
+ *
+ * **Note:** SysEx messages can vary in length and structure depending on the manufacturer.
+ * Always refer to the specific device’s **MIDI implementation chart** for details.
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

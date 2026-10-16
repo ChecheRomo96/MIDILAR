@@ -3,6 +3,34 @@
 This file records user-visible changes to MIDILAR. Release dates use the
 `YYYY-MM-DD` format.
 
+## [Unreleased]
+
+### Changed
+
+- Adapt the historical MIDI 1.0 Message builder API as Protocol::Midi1::Message
+  with three inline bytes, explicit validity and UMP conversion. SysEx uses a
+  separate non-owning view over caller-provided storage; pitch-bend resolutions
+  have explicit names. This is not a drop-in legacy implementation.
+- Recover and adapt all twelve historical MIDI protocol topics, including
+  channel voice, general CC, channel modes, RPN/NRPN, real-time, system common,
+  SysEx and MTC; correct examples, references, wire-channel numbering, message
+  lengths and full-frame layouts.
+
+### Added
+
+- CreatingMessages, ControlChanges and SysExBuffer desktop/Arduino examples
+  demonstrate native MIDI 1.0 builders without mandatory UMP construction.
+
+- Example output explains inputs, expected behavior, decoded message fields,
+  raw bytes and UMP words in Spanish, including running status, SysEx
+  truncation, routing branches and transpose changes.
+
+- Nine Protocol examples: values, MIDI 1.0/2.0 messages, parsing, encoding,
+  SysEx assembly/truncation, USB MIDI 1.0, pitch conversion and system/utility
+  messages; Devices/Routing and Devices/HeldNotes demonstrations.
+- All eleven examples include desktop targets and self-contained Arduino
+  sketches. Usage and expected results are documented in examples/README.md.
+
 ## [0.3.3] - 2026-10-16
 
 ### Changed

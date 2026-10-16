@@ -41,7 +41,8 @@
  *
  * - SPEC-MIDI-1: The internal message model is the MIDI 2.0 Universal MIDI
  *   Packet: 32-, 64-, 96- and 128-bit packets with a message type and a group.
- *   Devices, routing and timing work on UMP only.
+ *   Devices, routing and timing work on UMP. The optional native MIDI 1.0
+ *   message builders below do not require UMP for construction or byte access.
  * - SPEC-MIDI-2: MIDI 1.0 byte streams (DIN/UART, USB MIDI 1.0) are translated
  *   at the edges: a parser turns bytes into UMP and an encoder turns UMP back
  *   into bytes, following the MIDI 2.0 translation rules.
@@ -49,6 +50,27 @@
  *   32-bit controller, pressure and pitch-bend values. MIDI 1.0 values are
  *   scaled up with the specification's min-center-max rule and scaled down by
  *   keeping the most significant bits, so a 1.0 value survives a round trip.
+ *
+ * - SPEC-M1-1: Protocol::Midi1::Message stores one complete short MIDI 1.0
+ *   message in three inline bytes, with no allocation. The all-zero object
+ *   is invalid; size() is inferred from status. Builders reject out-of-range
+ *   input by clearing the object. Channels in the byte-oriented builder API
+ *   use wire indices 0-15, explicitly unlike Channel::FromNumber().
+ * - SPEC-M1-2: Raw short messages preserve their exact bytes, including Note
+ *   On with velocity zero. ToPacket(group) explicitly normalizes that release
+ *   to Note Off, as the UMP parser does. FromPacket accepts only MIDI 1.0
+ *   channel voice and short system packets with valid data and zero reserved
+ *   fields; it rejects MIDI 2.0 rather than silently reducing resolution.
+ * - SPEC-M1-3: Protocol::Midi1::SysExMessage is a non-owning view into a
+ *   caller-provided buffer. Build writes F0 + 7-bit payload + F7 only after
+ *   validating the payload and capacity; failure returns the invalid view
+ *   without modifying the buffer. Copies alias that buffer, whose lifetime
+ *   and later mutations belong to the caller. Overlapping payloads are
+ *   supported. No dynamic ownership, exceptions or implicit truncation.
+ * - SPEC-M1-4: PitchBend takes an unsigned 14-bit value (center 8192);
+ *   PitchBendSigned takes -8192..8191; PitchBend7 scales 0..127 with
+ *   min/center/max preserved. Different resolutions use distinct method names.
+ *   RPN/NRPN consist of several messages and are composed explicitly as CCs.
  *
  * @section MIDILARSpecValues Channels, groups and values
  *
