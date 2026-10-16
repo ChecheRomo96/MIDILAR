@@ -5,6 +5,13 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-16
+
+### Fixed
+
+- Keep native message tests compatible with GCC's dangling-else diagnostics
+  and make the validated channel conversion explicit for clang-tidy.
+
 ### Changed
 
 - Name the native MIDI 1.0 component Protocol::Midi (formerly Midi1), with

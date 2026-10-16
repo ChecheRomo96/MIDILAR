@@ -9,8 +9,8 @@
  * and MIDI 2.0 messages are independent representations, with explicit UMP
  * conversion when needed.
  *
- * @note Latest release: 0.3.3. Native MIDI 1.0 builders and the recovered
- * protocol topics are working-tree additions documented under Unreleased.
+ * @note Version 0.4.0 separates native Midi/Midi2 messages from Ump and
+ * restores the MIDI protocol topics and examples. See the UMP migration guide.
  * Stock Arduino C++11 source builds are supported.
  *
  * @section MIDILARMainModules Modules
