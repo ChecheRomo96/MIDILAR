@@ -1,0 +1,32 @@
+/**
+ * @defgroup MIDILAR_Midi2 MIDI 2.0 messages
+ * @ingroup MIDILAR_Protocol
+ * @brief Native channel-voice messages and full-resolution values.
+ *
+ * Midi2::Message stores eight bytes of native fields without UMP group/type.
+ * It supports Note On/Off, poly pressure, CC, program/bank, channel pressure
+ * and pitch bend. Note velocity is 16-bit; pressure, CC and bend are 32-bit.
+ * Velocity zero remains Note On. Shared Channel, NoteNumber, ControllerNumber
+ * and ProgramNumber stay in Protocol. Factories validate their arguments.
+ *
+ * @code{.cpp}
+ * #include <MIDILAR/Protocol/Midi2/Message.h>
+ * using namespace MIDILAR::Protocol;
+ * auto note = Midi2::Message::NoteOn(Channel::FromNumber(1),
+ *     NoteNumber::FromValue(60), Midi2::Velocity::FromMidi2(50000));
+ * auto velocity = note.Velocity().Midi2(); // 50000, no UMP required
+ * @endcode
+ *
+ * System common, SysEx, utility, flex and stream are distinct families and
+ * are not disguised as Midi2::Message. Unsupported per-note/controller
+ * statuses remain classified by VoiceStatus but do not yet have factories.
+ * Ump::Encode and Ump::DecodeMidi2 bridge the supported families explicitly.
+ * DecodeMidi2 rejects malformed indices and reserved fields, or a packet
+ * carrying MIDI 1.0; it never silently upconverts protocol resolution.
+ *
+ * @see MIDILAR_Ump
+ */
+/** @namespace MIDILAR::Protocol::Midi2
+ * @ingroup MIDILAR_Midi2
+ * @brief Native MIDI 2.0 channel-voice messages and values.
+ */

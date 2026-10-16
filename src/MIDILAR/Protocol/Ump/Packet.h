@@ -3,13 +3,16 @@
 
 #include <stdint.h>
 
-#include "Channel.h"
-#include "Scaling.h"
-#include "Values.h"
+#include "../Channel.h"
+#include "../Scaling.h"
+#include "../Values.h"
+#include "../Status.h"
+#include "../Midi2/Message.h"
+#include "Group.h"
 
-namespace MIDILAR::Protocol {
+namespace MIDILAR::Protocol::Ump {
 
-/** @brief UMP message type, bits 31-28 of the first word. @ingroup MIDILAR_Protocol */
+/** @brief UMP message type, bits 31-28 of the first word. @ingroup MIDILAR_Ump */
 enum class MessageType : uint8_t {
     Utility = 0x0,
     System = 0x1,
@@ -21,7 +24,7 @@ enum class MessageType : uint8_t {
     Stream = 0xF
 };
 
-/** @brief Utility message status. @ingroup MIDILAR_Protocol */
+/** @brief Utility message status. @ingroup MIDILAR_Ump */
 enum class UtilityStatus : uint8_t {
     Noop = 0x0,
     JrClock = 0x1,
@@ -30,47 +33,7 @@ enum class UtilityStatus : uint8_t {
     DeltaClockstamp = 0x4
 };
 
-/** @brief System common and real-time status bytes. @ingroup MIDILAR_Protocol */
-enum class SystemStatus : uint8_t {
-    TimeCode = 0xF1,
-    SongPosition = 0xF2,
-    SongSelect = 0xF3,
-    TuneRequest = 0xF6,
-    TimingClock = 0xF8,
-    Start = 0xFA,
-    Continue = 0xFB,
-    Stop = 0xFC,
-    ActiveSensing = 0xFE,
-    Reset = 0xFF
-};
-
-/**
- * @brief Channel voice status, bits 23-20 of the first word.
- * @ingroup MIDILAR_Protocol
- *
- * `NoteOff` to `PitchBend` exist in both protocols. The per-note and
- * registered/assignable controller statuses are MIDI 2.0 only and are
- * classified here; their typed constructors come in a later phase.
- */
-enum class VoiceStatus : uint8_t {
-    RegisteredPerNoteController = 0x0,
-    AssignablePerNoteController = 0x1,
-    RegisteredController = 0x2,
-    AssignableController = 0x3,
-    RelativeRegisteredController = 0x4,
-    RelativeAssignableController = 0x5,
-    PerNotePitchBend = 0x6,
-    NoteOff = 0x8,
-    NoteOn = 0x9,
-    PolyPressure = 0xA,
-    ControlChange = 0xB,
-    ProgramChange = 0xC,
-    ChannelPressure = 0xD,
-    PitchBendChange = 0xE,
-    PerNoteManagement = 0xF
-};
-
-/** @brief 7-bit System Exclusive packet position. @ingroup MIDILAR_Protocol */
+/** @brief 7-bit System Exclusive packet position. @ingroup MIDILAR_Ump */
 enum class SysExStatus : uint8_t {
     Complete = 0x0,
     Start = 0x1,
@@ -81,7 +44,7 @@ enum class SysExStatus : uint8_t {
 /**
  * @brief One Universal MIDI Packet of one to four 32-bit words (SPEC-MIDI-1,
  * SPEC-MIDI-16..19).
- * @ingroup MIDILAR_Protocol
+ * @ingroup MIDILAR_Ump
  *
  * Named constructors build valid packets from validated values and return the
  * invalid packet when any argument is invalid. Queries read the fields of the
@@ -105,11 +68,11 @@ class Packet {
         return (static_cast<uint32_t>(type) << 28) | (group << 24) | (status << 20);
     }
 
-    static constexpr bool IsVoiceAddress(Protocol::Group group, Protocol::Channel channel) noexcept {
+    static constexpr bool IsVoiceAddress(Protocol::Ump::Group group, Protocol::Channel channel) noexcept {
         return group.IsValid() && channel.IsValid();
     }
 
-    static constexpr Packet Midi1Voice(Protocol::Group group, Protocol::Channel channel,
+    static constexpr Packet Midi1Voice(Protocol::Ump::Group group, Protocol::Channel channel,
                                        Protocol::VoiceStatus status, uint32_t data1,
                                        uint32_t data2) noexcept {
         return IsVoiceAddress(group, channel)
@@ -119,17 +82,13 @@ class Packet {
             : Packet();
     }
 
-    static constexpr Packet Midi2Voice(Protocol::Group group, Protocol::Channel channel,
-                                       Protocol::VoiceStatus status, uint32_t index,
-                                       uint32_t data) noexcept {
-        return IsVoiceAddress(group, channel)
-            ? Packet(Header(MessageType::Midi2ChannelVoice, group.Wire(), static_cast<uint32_t>(status)) |
-                         (static_cast<uint32_t>(channel.Wire()) << 16) | index,
-                     data, 0, 0)
-            : Packet();
+    static constexpr Packet FromMidi2(Protocol::Ump::Group group, const Midi2::Message& message) noexcept {
+        return group.IsValid() && message.IsValid()
+            ? Packet(0x40000000u | (static_cast<uint32_t>(group.Wire()) << 24) |
+                     message.DataWord(0), message.DataWord(1), 0, 0) : Packet();
     }
 
-    static constexpr Packet SystemPacket(Protocol::Group group, Protocol::SystemStatus status,
+    static constexpr Packet SystemPacket(Protocol::Ump::Group group, Protocol::SystemStatus status,
                                          uint32_t data1, uint32_t data2) noexcept {
         return group.IsValid()
             ? Packet((static_cast<uint32_t>(MessageType::System) << 28) |
@@ -139,7 +98,7 @@ class Packet {
             : Packet();
     }
 
-    static constexpr Packet UtilityPacket(Protocol::UtilityStatus status, uint32_t data) noexcept {
+    static constexpr Packet UtilityPacket(Protocol::Ump::UtilityStatus status, uint32_t data) noexcept {
         return Packet(Header(MessageType::Utility, 0, static_cast<uint32_t>(status)) | data, 0, 0, 0);
     }
 
@@ -173,26 +132,26 @@ public:
     /** @name Utility messages (32-bit, no group) */
     ///@{
     /** @brief No operation. */
-    static constexpr Packet Noop() noexcept { return UtilityPacket(Protocol::UtilityStatus::Noop, 0); }
+    static constexpr Packet Noop() noexcept { return UtilityPacket(Protocol::Ump::UtilityStatus::Noop, 0); }
 
     /** @brief Jitter-reduction clock with the sender's 16-bit clock time. */
     static constexpr Packet JrClock(uint16_t time) noexcept {
-        return UtilityPacket(Protocol::UtilityStatus::JrClock, time);
+        return UtilityPacket(Protocol::Ump::UtilityStatus::JrClock, time);
     }
 
     /** @brief Jitter-reduction timestamp of the following message. */
     static constexpr Packet JrTimestamp(uint16_t time) noexcept {
-        return UtilityPacket(Protocol::UtilityStatus::JrTimestamp, time);
+        return UtilityPacket(Protocol::Ump::UtilityStatus::JrTimestamp, time);
     }
 
     /** @brief Delta-clockstamp resolution in ticks per quarter note. */
     static constexpr Packet TicksPerQuarterNote(uint16_t ticks) noexcept {
-        return UtilityPacket(Protocol::UtilityStatus::TicksPerQuarterNote, ticks);
+        return UtilityPacket(Protocol::Ump::UtilityStatus::TicksPerQuarterNote, ticks);
     }
 
     /** @brief Ticks since the previous event, `0-0xFFFFF`. */
     static constexpr Packet DeltaClockstamp(uint32_t ticks) noexcept {
-        return ticks <= 0xFFFFFu ? UtilityPacket(Protocol::UtilityStatus::DeltaClockstamp, ticks) : Packet();
+        return ticks <= 0xFFFFFu ? UtilityPacket(Protocol::Ump::UtilityStatus::DeltaClockstamp, ticks) : Packet();
     }
     ///@}
 
@@ -202,7 +161,7 @@ public:
      * @brief A system message without data: tune request or any real-time
      * status. Statuses that carry data return the invalid packet.
      */
-    static constexpr Packet System(Protocol::Group group, Protocol::SystemStatus status) noexcept {
+    static constexpr Packet System(Protocol::Ump::Group group, Protocol::SystemStatus status) noexcept {
         return status == Protocol::SystemStatus::TuneRequest ||
                        static_cast<uint8_t>(status) >= static_cast<uint8_t>(Protocol::SystemStatus::TimingClock)
             ? SystemPacket(group, status, 0, 0)
@@ -210,12 +169,12 @@ public:
     }
 
     /** @brief MIDI Time Code quarter frame with its 7-bit data byte. */
-    static constexpr Packet TimeCode(Protocol::Group group, uint8_t value) noexcept {
+    static constexpr Packet TimeCode(Protocol::Ump::Group group, uint8_t value) noexcept {
         return value <= 127 ? SystemPacket(group, Protocol::SystemStatus::TimeCode, value, 0) : Packet();
     }
 
     /** @brief Song position pointer in MIDI beats, `0-16383`. */
-    static constexpr Packet SongPosition(Protocol::Group group, uint16_t beats) noexcept {
+    static constexpr Packet SongPosition(Protocol::Ump::Group group, uint16_t beats) noexcept {
         return beats <= 16383
             ? SystemPacket(group, Protocol::SystemStatus::SongPosition, beats & 0x7Fu,
                            static_cast<uint32_t>(beats) >> 7)
@@ -223,7 +182,7 @@ public:
     }
 
     /** @brief Song select, `0-127`. */
-    static constexpr Packet SongSelect(Protocol::Group group, uint8_t song) noexcept {
+    static constexpr Packet SongSelect(Protocol::Ump::Group group, uint8_t song) noexcept {
         return song <= 127 ? SystemPacket(group, Protocol::SystemStatus::SongSelect, song, 0) : Packet();
     }
     ///@}
@@ -234,41 +193,41 @@ public:
      * @brief Note On. A velocity that scales down to 0 is sent as 1, so the
      * message stays a Note On (MIDI 2.0 translation rule).
      */
-    static constexpr Packet Midi1NoteOn(Protocol::Group group, Protocol::Channel channel, NoteNumber note,
-                                        Protocol::Velocity velocity) noexcept {
+    static constexpr Packet Midi1NoteOn(Protocol::Ump::Group group, Protocol::Channel channel, NoteNumber note,
+                                        Protocol::Midi2::Velocity velocity) noexcept {
         return note.IsValid()
             ? Midi1Voice(group, channel, Protocol::VoiceStatus::NoteOn, note.Value(),
-                         velocity.Midi1() == 0 ? 1u : velocity.Midi1())
+                         velocity.Midi() == 0 ? 1u : velocity.Midi())
             : Packet();
     }
 
     /** @brief Note Off. */
-    static constexpr Packet Midi1NoteOff(Protocol::Group group, Protocol::Channel channel, NoteNumber note,
-                                         Protocol::Velocity velocity) noexcept {
+    static constexpr Packet Midi1NoteOff(Protocol::Ump::Group group, Protocol::Channel channel, NoteNumber note,
+                                         Protocol::Midi2::Velocity velocity) noexcept {
         return note.IsValid()
-            ? Midi1Voice(group, channel, Protocol::VoiceStatus::NoteOff, note.Value(), velocity.Midi1())
+            ? Midi1Voice(group, channel, Protocol::VoiceStatus::NoteOff, note.Value(), velocity.Midi())
             : Packet();
     }
 
     /** @brief Polyphonic key pressure. */
-    static constexpr Packet Midi1PolyPressure(Protocol::Group group, Protocol::Channel channel,
-                                              NoteNumber note, PressureValue pressure) noexcept {
+    static constexpr Packet Midi1PolyPressure(Protocol::Ump::Group group, Protocol::Channel channel,
+                                              NoteNumber note, Midi2::PressureValue pressure) noexcept {
         return note.IsValid()
-            ? Midi1Voice(group, channel, Protocol::VoiceStatus::PolyPressure, note.Value(), pressure.Midi1())
+            ? Midi1Voice(group, channel, Protocol::VoiceStatus::PolyPressure, note.Value(), pressure.Midi())
             : Packet();
     }
 
     /** @brief Control change. */
-    static constexpr Packet Midi1ControlChange(Protocol::Group group, Protocol::Channel channel,
+    static constexpr Packet Midi1ControlChange(Protocol::Ump::Group group, Protocol::Channel channel,
                                                ControllerNumber controller,
-                                               Protocol::ControllerValue value) noexcept {
+                                               Protocol::Midi2::ControllerValue value) noexcept {
         return controller.IsValid()
-            ? Midi1Voice(group, channel, Protocol::VoiceStatus::ControlChange, controller.Value(), value.Midi1())
+            ? Midi1Voice(group, channel, Protocol::VoiceStatus::ControlChange, controller.Value(), value.Midi())
             : Packet();
     }
 
     /** @brief Program change. */
-    static constexpr Packet Midi1ProgramChange(Protocol::Group group, Protocol::Channel channel,
+    static constexpr Packet Midi1ProgramChange(Protocol::Ump::Group group, Protocol::Channel channel,
                                                ProgramNumber program) noexcept {
         return program.IsValid()
             ? Midi1Voice(group, channel, Protocol::VoiceStatus::ProgramChange, program.Value(), 0)
@@ -276,87 +235,67 @@ public:
     }
 
     /** @brief Channel pressure. */
-    static constexpr Packet Midi1ChannelPressure(Protocol::Group group, Protocol::Channel channel,
-                                                 PressureValue pressure) noexcept {
-        return Midi1Voice(group, channel, Protocol::VoiceStatus::ChannelPressure, pressure.Midi1(), 0);
+    static constexpr Packet Midi1ChannelPressure(Protocol::Ump::Group group, Protocol::Channel channel,
+                                                 Midi2::PressureValue pressure) noexcept {
+        return Midi1Voice(group, channel, Protocol::VoiceStatus::ChannelPressure, pressure.Midi(), 0);
     }
 
     /** @brief Pitch bend, 14-bit as LSB then MSB. */
-    static constexpr Packet Midi1PitchBend(Protocol::Group group, Protocol::Channel channel,
-                                           Protocol::PitchBend bend) noexcept {
-        return Midi1Voice(group, channel, Protocol::VoiceStatus::PitchBendChange, bend.Midi1() & 0x7Fu,
-                          bend.Midi1() >> 7);
+    static constexpr Packet Midi1PitchBend(Protocol::Ump::Group group, Protocol::Channel channel,
+                                           Protocol::Midi2::PitchBend bend) noexcept {
+        return Midi1Voice(group, channel, Protocol::VoiceStatus::PitchBendChange, bend.Midi() & 0x7Fu,
+                          bend.Midi() >> 7);
     }
     ///@}
 
     /** @name MIDI 2.0 channel voice messages (64-bit) */
     ///@{
     /** @brief Note On with an optional attribute (type `0` is none). */
-    static constexpr Packet Midi2NoteOn(Protocol::Group group, Protocol::Channel channel, NoteNumber note,
-                                        Protocol::Velocity velocity, uint8_t attributeType = 0,
+    static constexpr Packet Midi2NoteOn(Protocol::Ump::Group group, Protocol::Channel channel, NoteNumber note,
+                                        Protocol::Midi2::Velocity velocity, uint8_t attributeType = 0,
                                         uint16_t attributeData = 0) noexcept {
-        return note.IsValid()
-            ? Midi2Voice(group, channel, Protocol::VoiceStatus::NoteOn,
-                         (static_cast<uint32_t>(note.Value()) << 8) | attributeType,
-                         (static_cast<uint32_t>(velocity.Midi2()) << 16) | attributeData)
-            : Packet();
+        return FromMidi2(group, Midi2::Message::NoteOn(channel, note, velocity, attributeType, attributeData));
     }
 
     /** @brief Note Off with an optional attribute (type `0` is none). */
-    static constexpr Packet Midi2NoteOff(Protocol::Group group, Protocol::Channel channel, NoteNumber note,
-                                         Protocol::Velocity velocity, uint8_t attributeType = 0,
+    static constexpr Packet Midi2NoteOff(Protocol::Ump::Group group, Protocol::Channel channel, NoteNumber note,
+                                         Protocol::Midi2::Velocity velocity, uint8_t attributeType = 0,
                                          uint16_t attributeData = 0) noexcept {
-        return note.IsValid()
-            ? Midi2Voice(group, channel, Protocol::VoiceStatus::NoteOff,
-                         (static_cast<uint32_t>(note.Value()) << 8) | attributeType,
-                         (static_cast<uint32_t>(velocity.Midi2()) << 16) | attributeData)
-            : Packet();
+        return FromMidi2(group, Midi2::Message::NoteOff(channel, note, velocity, attributeType, attributeData));
     }
 
     /** @brief Polyphonic key pressure. */
-    static constexpr Packet Midi2PolyPressure(Protocol::Group group, Protocol::Channel channel,
-                                              NoteNumber note, PressureValue pressure) noexcept {
-        return note.IsValid()
-            ? Midi2Voice(group, channel, Protocol::VoiceStatus::PolyPressure,
-                         static_cast<uint32_t>(note.Value()) << 8, pressure.Midi2())
-            : Packet();
+    static constexpr Packet Midi2PolyPressure(Protocol::Ump::Group group, Protocol::Channel channel,
+                                              NoteNumber note, Midi2::PressureValue pressure) noexcept {
+        return FromMidi2(group, Midi2::Message::PolyPressure(channel, note, pressure));
     }
 
     /** @brief Control change. */
-    static constexpr Packet Midi2ControlChange(Protocol::Group group, Protocol::Channel channel,
+    static constexpr Packet Midi2ControlChange(Protocol::Ump::Group group, Protocol::Channel channel,
                                                ControllerNumber controller,
-                                               Protocol::ControllerValue value) noexcept {
-        return controller.IsValid()
-            ? Midi2Voice(group, channel, Protocol::VoiceStatus::ControlChange,
-                         static_cast<uint32_t>(controller.Value()) << 8, value.Midi2())
-            : Packet();
+                                               Protocol::Midi2::ControllerValue value) noexcept {
+        return FromMidi2(group, Midi2::Message::ControlChange(channel, controller, value));
     }
 
     /**
      * @brief Program change, optionally with a 14-bit bank (`0-16383`);
      * `bank = -1` sends no bank. Any other bank is invalid.
      */
-    static constexpr Packet Midi2ProgramChange(Protocol::Group group, Protocol::Channel channel,
+    static constexpr Packet Midi2ProgramChange(Protocol::Ump::Group group, Protocol::Channel channel,
                                                ProgramNumber program, int32_t bank = -1) noexcept {
-        return program.IsValid() && bank >= -1 && bank <= 16383
-            ? Midi2Voice(group, channel, Protocol::VoiceStatus::ProgramChange, bank >= 0 ? 1u : 0u,
-                         (static_cast<uint32_t>(program.Value()) << 24) |
-                             (bank >= 0 ? ((static_cast<uint32_t>(bank) >> 7) << 8) |
-                                              (static_cast<uint32_t>(bank) & 0x7Fu)
-                                        : 0u))
-            : Packet();
+        return FromMidi2(group, Midi2::Message::ProgramChange(channel, program, bank));
     }
 
     /** @brief Channel pressure. */
-    static constexpr Packet Midi2ChannelPressure(Protocol::Group group, Protocol::Channel channel,
-                                                 PressureValue pressure) noexcept {
-        return Midi2Voice(group, channel, Protocol::VoiceStatus::ChannelPressure, 0, pressure.Midi2());
+    static constexpr Packet Midi2ChannelPressure(Protocol::Ump::Group group, Protocol::Channel channel,
+                                                 Midi2::PressureValue pressure) noexcept {
+        return FromMidi2(group, Midi2::Message::ChannelPressure(channel, pressure));
     }
 
     /** @brief Pitch bend. */
-    static constexpr Packet Midi2PitchBend(Protocol::Group group, Protocol::Channel channel,
-                                           Protocol::PitchBend bend) noexcept {
-        return Midi2Voice(group, channel, Protocol::VoiceStatus::PitchBendChange, 0, bend.Midi2());
+    static constexpr Packet Midi2PitchBend(Protocol::Ump::Group group, Protocol::Channel channel,
+                                           Protocol::Midi2::PitchBend bend) noexcept {
+        return FromMidi2(group, Midi2::Message::PitchBend(channel, bend));
     }
     ///@}
 
@@ -365,7 +304,7 @@ public:
      * bytes, without `0xF0`/`0xF7` (SPEC-MIDI-13). Larger sizes, a null
      * `data` with bytes, or a byte above 127 return the invalid packet.
      */
-    static FOUNDATION_CONSTEXPR14 Packet SysEx7(Protocol::Group group, Protocol::SysExStatus status, const uint8_t* data,
+    static FOUNDATION_CONSTEXPR14 Packet SysEx7(Protocol::Ump::Group group, Protocol::Ump::SysExStatus status, const uint8_t* data,
                                    uint8_t size) noexcept {
         if (!group.IsValid() || size > 6 || (data == nullptr && size > 0)) {
             return Packet();
@@ -403,10 +342,10 @@ public:
      * @brief Returns the group; invalid for utility and stream messages,
      * which have none, and for the invalid packet.
      */
-    constexpr Protocol::Group Group() const noexcept {
+    constexpr Protocol::Ump::Group Group() const noexcept {
         return Type() == MessageType::Utility || Type() == MessageType::Stream
-            ? Protocol::Group::Invalid()
-            : Protocol::Group::FromWire(static_cast<int32_t>(Field(0, 24, 0xFu)));
+            ? Protocol::Ump::Group::Invalid()
+            : Protocol::Ump::Group::FromWire(static_cast<int32_t>(Field(0, 24, 0xFu)));
     }
 
     /** @brief Returns `true` for MIDI 1.0 and MIDI 2.0 channel voice packets. */
@@ -449,7 +388,7 @@ public:
      * @brief Returns a copy on `group`; packets without a group are returned
      * unchanged and an invalid group gives the invalid packet.
      */
-    constexpr Packet WithGroup(Protocol::Group group) const noexcept {
+    constexpr Packet WithGroup(Protocol::Ump::Group group) const noexcept {
         return !Group().IsValid() ? *this
             : !group.IsValid()    ? Packet()
                                   : Packet((_words[0] & 0xF0FFFFFFu) | (static_cast<uint32_t>(group.Wire()) << 24),
@@ -479,11 +418,11 @@ public:
     }
 
     /** @brief Returns the velocity of a Note On or Note Off packet. */
-    constexpr Protocol::Velocity Velocity() const noexcept {
+    constexpr Protocol::Midi2::Velocity Velocity() const noexcept {
         return !(IsVoice(Protocol::VoiceStatus::NoteOn) || IsVoice(Protocol::VoiceStatus::NoteOff))
-            ? Protocol::Velocity::Min()
-            : IsMidi1() ? Protocol::Velocity::FromMidi1(static_cast<int32_t>(Field(0, 0, 0xFFu)))
-                        : Protocol::Velocity::FromMidi2(static_cast<uint16_t>(Field(1, 16, 0xFFFFu)));
+            ? Protocol::Midi2::Velocity::Min()
+            : IsMidi1() ? Protocol::Midi2::Velocity::FromMidi1(static_cast<int32_t>(Field(0, 0, 0xFFu)))
+                        : Protocol::Midi2::Velocity::FromMidi2(static_cast<uint16_t>(Field(1, 16, 0xFFFFu)));
     }
 
     /** @brief Returns the attribute type of a MIDI 2.0 note packet (`0` is none). */
@@ -508,29 +447,29 @@ public:
     }
 
     /** @brief Returns the value of a control change packet. */
-    constexpr Protocol::ControllerValue ControllerValue() const noexcept {
-        return !IsVoice(Protocol::VoiceStatus::ControlChange) ? Protocol::ControllerValue::Min()
-            : IsMidi1() ? Protocol::ControllerValue::FromMidi1(static_cast<int32_t>(Field(0, 0, 0xFFu)))
-                        : Protocol::ControllerValue::FromMidi2(_words[1]);
+    constexpr Protocol::Midi2::ControllerValue ControllerValue() const noexcept {
+        return !IsVoice(Protocol::VoiceStatus::ControlChange) ? Protocol::Midi2::ControllerValue::Min()
+            : IsMidi1() ? Protocol::Midi2::ControllerValue::FromMidi1(static_cast<int32_t>(Field(0, 0, 0xFFu)))
+                        : Protocol::Midi2::ControllerValue::FromMidi2(_words[1]);
     }
 
     /** @brief Returns the pressure of a poly or channel pressure packet. */
-    constexpr PressureValue Pressure() const noexcept {
+    constexpr Midi2::PressureValue Pressure() const noexcept {
         return IsVoice(Protocol::VoiceStatus::PolyPressure)
-            ? (IsMidi1() ? PressureValue::FromMidi1(static_cast<int32_t>(Field(0, 0, 0xFFu)))
-                         : PressureValue::FromMidi2(_words[1]))
+            ? (IsMidi1() ? Midi2::PressureValue::FromMidi1(static_cast<int32_t>(Field(0, 0, 0xFFu)))
+                         : Midi2::PressureValue::FromMidi2(_words[1]))
             : IsVoice(Protocol::VoiceStatus::ChannelPressure)
-            ? (IsMidi1() ? PressureValue::FromMidi1(static_cast<int32_t>(Field(0, 8, 0xFFu)))
-                         : PressureValue::FromMidi2(_words[1]))
-            : PressureValue::Min();
+            ? (IsMidi1() ? Midi2::PressureValue::FromMidi1(static_cast<int32_t>(Field(0, 8, 0xFFu)))
+                         : Midi2::PressureValue::FromMidi2(_words[1]))
+            : Midi2::PressureValue::Min();
     }
 
     /** @brief Returns the bend of a pitch bend packet; `Min()` otherwise. */
-    constexpr Protocol::PitchBend PitchBend() const noexcept {
-        return !IsVoice(Protocol::VoiceStatus::PitchBendChange) ? Protocol::PitchBend::Min()
-            : IsMidi1() ? Protocol::PitchBend::FromMidi1(
+    constexpr Protocol::Midi2::PitchBend PitchBend() const noexcept {
+        return !IsVoice(Protocol::VoiceStatus::PitchBendChange) ? Protocol::Midi2::PitchBend::Min()
+            : IsMidi1() ? Protocol::Midi2::PitchBend::FromMidi1(
                               static_cast<int32_t>((Field(0, 0, 0x7Fu) << 7) | Field(0, 8, 0x7Fu)))
-                        : Protocol::PitchBend::FromMidi2(_words[1]);
+                        : Protocol::Midi2::PitchBend::FromMidi2(_words[1]);
     }
 
     /** @brief Returns the program of a program change packet. */
@@ -579,8 +518,8 @@ public:
     }
 
     /** @brief Returns the utility status (utility packets). */
-    constexpr Protocol::UtilityStatus UtilityStatus() const noexcept {
-        return static_cast<Protocol::UtilityStatus>(Field(0, 20, 0xFu));
+    constexpr Protocol::Ump::UtilityStatus UtilityStatus() const noexcept {
+        return static_cast<Protocol::Ump::UtilityStatus>(Field(0, 20, 0xFu));
     }
 
     /** @brief Returns the 20-bit payload of a utility packet, or `0`. */
@@ -589,8 +528,8 @@ public:
     }
 
     /** @brief Returns the position of a 7-bit System Exclusive packet. */
-    constexpr Protocol::SysExStatus SysExStatus() const noexcept {
-        return static_cast<Protocol::SysExStatus>(Field(0, 20, 0xFu));
+    constexpr Protocol::Ump::SysExStatus SysExStatus() const noexcept {
+        return static_cast<Protocol::Ump::SysExStatus>(Field(0, 20, 0xFu));
     }
 
     /** @brief Returns the data byte count of a 7-bit System Exclusive packet. */
@@ -618,6 +557,6 @@ public:
     friend constexpr bool operator!=(const Packet& a, const Packet& b) noexcept { return !(a == b); }
 };
 
-} // namespace MIDILAR::Protocol
+} // namespace MIDILAR::Protocol::Ump
 
 #endif // MIDILAR_PROTOCOL_PACKET_H

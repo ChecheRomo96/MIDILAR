@@ -8,7 +8,7 @@ namespace {
 struct Sink {
     PrintFunction print;
     const char* label;
-    void Process(const Packet& packet) {
+    void Process(const Ump::Packet& packet) {
         print(label);
         PrintPacket(print, packet);
         PrintNumber(print, "Channel", packet.Channel().Number());
@@ -30,15 +30,15 @@ void Run(PrintFunction print) {
     Sink moved{print, "\nRama B: reasignado al canal 10.\n"};
     filter.Output().Bind<Sink, &Sink::Process>(&selected);
     reassign.Output().Bind<Sink, &Sink::Process>(&moved);
-    const Group group = Group::FromNumber(1);
+    const Ump::Group group = Ump::Group::FromNumber(1);
     const NoteNumber note = NoteNumber::FromValue(60);
     // Channel 1 reaches both branches; channel 2 reaches only the reassigned branch.
     for (int32_t number = 1; number <= 2; ++number) {
         const Channel channel = Channel::FromNumber(number);
         PrintNumber(print, "\nCANAL DE ENTRADA", channel.Number());
         if (number == 2) MIDILAR_EXAMPLE_PRINT(print, "Rama A debe descartar ambos mensajes.\n");
-        router.Process(Packet::Midi1NoteOn(group, channel, note, Velocity::FromMidi1(100)));
-        router.Process(Packet::Midi1NoteOff(group, channel, note, Velocity::Min()));
+        router.Process(Ump::Packet::Midi1NoteOn(group, channel, note, Midi2::Velocity::FromMidi1(100)));
+        router.Process(Ump::Packet::Midi1NoteOff(group, channel, note, Midi2::Velocity::Min()));
     }
 }
 }

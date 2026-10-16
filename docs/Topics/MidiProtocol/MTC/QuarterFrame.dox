@@ -38,7 +38,7 @@
  * #include <MIDILAR_Protocol.h>
  * using namespace MIDILAR::Protocol;
  * auto time = TimeCode::From(1, 2, 3, 4, TimeCodeRate::Fps25);
- * Midi1::Message message;
+ * Midi::Message message;
  * for (uint8_t piece = 0; piece < 8; ++piece) {
  *     uint8_t data = time.QuarterFrame(piece);
  *     message.MTC_QuarterFrame(piece, data & 0x0F);

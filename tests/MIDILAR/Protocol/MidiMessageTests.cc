@@ -4,12 +4,12 @@
 #include <limits>
 #include <type_traits>
 
-using MIDILAR::Protocol::Midi1::Message;
-using MIDILAR::Protocol::Midi1::SysExMessage;
+using MIDILAR::Protocol::Midi::Message;
+using MIDILAR::Protocol::Midi::SysExMessage;
 using namespace MIDILAR::Protocol;
 
 // SPEC-M1-1: inline ownership and canonical invalid state.
-TEST(MIDILARMidi1MessageTests, InlineOwnershipAndInvalidState) {
+TEST(MIDILARMidiMessageTests, InlineOwnershipAndInvalidState) {
     static_assert(sizeof(Message) == 3, "short messages occupy three bytes");
     static_assert(std::is_trivially_copyable<Message>::value, "independent byte copies");
     Message original;
@@ -26,7 +26,7 @@ TEST(MIDILARMidi1MessageTests, InlineOwnershipAndInvalidState) {
     EXPECT_EQ(copy.Channel(), Channel::FromNumber(1));
 }
 
-TEST(MIDILARMidi1MessageTests, RejectsInvalidBuildersAndRawData) {
+TEST(MIDILARMidiMessageTests, RejectsInvalidBuildersAndRawData) {
     Message msg;
     msg.NoteOn(128, 100);
     EXPECT_FALSE(msg.IsValid());
@@ -55,8 +55,8 @@ TEST(MIDILARMidi1MessageTests, RejectsInvalidBuildersAndRawData) {
 }
 
 // SPEC-M1-2: all statuses and 7-bit data survive the byte/UMP bridge.
-TEST(MIDILARMidi1MessageTests, ExhaustiveChannelVoiceRoundTrip) {
-    const Group group = Group::FromNumber(16);
+TEST(MIDILARMidiMessageTests, ExhaustiveChannelVoiceRoundTrip) {
+    const Ump::Group group = Ump::Group::FromNumber(16);
     for (int status = 0x80; status < 0xF0; ++status) {
         const size_t length = (status & 0xF0) == 0xC0 || (status & 0xF0) == 0xD0 ? 2u : 3u;
         for (int value = 0; value < 128; ++value) {
@@ -65,9 +65,9 @@ TEST(MIDILARMidi1MessageTests, ExhaustiveChannelVoiceRoundTrip) {
             Message msg;
             msg.SetRawData(raw, length);
             ASSERT_TRUE(msg.IsValid());
-            const Packet packet = msg.ToPacket(group);
+            const Ump::Packet packet = Ump::Encode(group, msg);
             EXPECT_EQ(packet.Group(), group);
-            const Message restored = Message::FromPacket(packet);
+            const Message restored = Ump::DecodeMidi1(packet);
             ASSERT_TRUE(restored.IsValid());
             EXPECT_EQ(restored.size(), length);
             const bool zeroNoteOn = (status & 0xF0) == 0x90 && raw[2] == 0;
@@ -78,7 +78,7 @@ TEST(MIDILARMidi1MessageTests, ExhaustiveChannelVoiceRoundTrip) {
     }
 }
 
-TEST(MIDILARMidi1MessageTests, ShortSystemLayoutsAndRoundTrip) {
+TEST(MIDILARMidiMessageTests, ShortSystemLayoutsAndRoundTrip) {
     Message messages[11];
     messages[0].TimingTick(); messages[1].Start(); messages[2].Continue();
     messages[3].Stop(); messages[4].ActiveSensing(); messages[5].SystemReset();
@@ -91,7 +91,7 @@ TEST(MIDILARMidi1MessageTests, ShortSystemLayoutsAndRoundTrip) {
         EXPECT_EQ(messages[i].Status(), statuses[i]);
         EXPECT_EQ(messages[i].size(), sizes[i]);
         EXPECT_FALSE(messages[i].Channel().IsValid());
-        const Message restored = Message::FromPacket(messages[i].ToPacket(Group::FromWire(0)));
+        const Message restored = Ump::DecodeMidi1(Ump::Encode(Ump::Group::FromWire(0), messages[i]));
         ASSERT_EQ(restored.size(), messages[i].size());
         EXPECT_EQ(std::memcmp(restored.Buffer(), messages[i].Buffer(), sizes[i]), 0);
     }
@@ -100,7 +100,7 @@ TEST(MIDILARMidi1MessageTests, ShortSystemLayoutsAndRoundTrip) {
     EXPECT_EQ(messages[9].Data(1), 127);
 }
 
-TEST(MIDILARMidi1MessageTests, ChannelVoiceBuildersAndSystemBounds) {
+TEST(MIDILARMidiMessageTests, ChannelVoiceBuildersAndSystemBounds) {
     Message messages[7];
     messages[0].NoteOff(60, 50, 15);
     messages[1].NoteOn(60, 100, 15);
@@ -132,24 +132,24 @@ TEST(MIDILARMidi1MessageTests, ChannelVoiceBuildersAndSystemBounds) {
     EXPECT_FALSE(msg.CC_Mono(0, 17).IsValid());
 }
 
-TEST(MIDILARMidi1MessageTests, BridgeRejectsWrongTypesAndMalformedPackets) {
-    EXPECT_FALSE(Message::FromPacket(Packet::Noop()).IsValid());
-    EXPECT_FALSE(Message::FromPacket(Packet::Midi2NoteOn(Group::FromWire(0),
-        Channel::FromWire(0), NoteNumber::FromValue(60), Velocity::Max())).IsValid());
+TEST(MIDILARMidiMessageTests, BridgeRejectsWrongTypesAndMalformedPackets) {
+    EXPECT_FALSE(Ump::DecodeMidi1(Ump::Packet::Noop()).IsValid());
+    EXPECT_FALSE(Ump::DecodeMidi1(Ump::Packet::Midi2NoteOn(Ump::Group::FromWire(0),
+        Channel::FromWire(0), NoteNumber::FromValue(60), Midi2::Velocity::Max())).IsValid());
     const uint32_t malformed[] = {0x20908001u, 0x20C00101u, 0x10F80100u,
                                   0x10F40000u, 0x20F80000u, 0x10903C64u};
     for (uint32_t word : malformed)
-        EXPECT_FALSE(Message::FromPacket(Packet::FromWords(word)).IsValid()) << word;
+        EXPECT_FALSE(Ump::DecodeMidi1(Ump::Packet::FromWords(word)).IsValid()) << word;
     Message msg;
-    EXPECT_FALSE(msg.ToPacket(Group::FromWire(0)).IsValid());
+    EXPECT_FALSE(Ump::Encode(Ump::Group::FromWire(0), msg).IsValid());
     msg.NoteOn(60, 0);
     EXPECT_EQ(msg.Status(), 0x90);
-    EXPECT_EQ(msg.ToPacket(Group::FromWire(0)).VoiceStatus(), VoiceStatus::NoteOff);
-    EXPECT_FALSE(msg.ToPacket(Group::Invalid()).IsValid());
+    EXPECT_EQ(Ump::Encode(Ump::Group::FromWire(0), msg).VoiceStatus(), VoiceStatus::NoteOff);
+    EXPECT_FALSE(Ump::Encode(Ump::Group::Invalid(), msg).IsValid());
 }
 
 // SPEC-M1-4: min/center/max and monotonicity, no overload-dependent resolution.
-TEST(MIDILARMidi1MessageTests, PitchBendResolutions) {
+TEST(MIDILARMidiMessageTests, PitchBendResolutions) {
     Message msg;
     for (int32_t value = 0; value <= 16383; ++value) {
         msg.PitchBend(value);
@@ -172,7 +172,7 @@ TEST(MIDILARMidi1MessageTests, PitchBendResolutions) {
     EXPECT_FALSE(msg.PitchBend7(128).IsValid());
 }
 
-TEST(MIDILARMidi1MessageTests, NamedControllerAndModeHelpers) {
+TEST(MIDILARMidiMessageTests, NamedControllerAndModeHelpers) {
     using Builder = Message& (Message::*)(int32_t, int32_t) noexcept;
     const Builder builders[] = {&Message::CC_BankSelect, &Message::CC_Modulation,
         &Message::CC_BreathControl, &Message::CC_FootPedal, &Message::CC_Portamento,
@@ -197,7 +197,7 @@ TEST(MIDILARMidi1MessageTests, NamedControllerAndModeHelpers) {
 }
 
 // SPEC-M1-3: no partial writes, exact framing, overlap and caller ownership.
-TEST(MIDILARMidi1MessageTests, SysExCallerStorageAndFailures) {
+TEST(MIDILARMidiMessageTests, SysExCallerStorageAndFailures) {
     uint8_t storage[8] = {0x7D, 1, 2, 3, 0x55, 0x55, 0x55, 0x55};
     const auto view = SysExMessage::Build(storage, sizeof(storage), storage, 4);
     ASSERT_TRUE(view.IsValid());
@@ -221,7 +221,7 @@ TEST(MIDILARMidi1MessageTests, SysExCallerStorageAndFailures) {
     EXPECT_EQ(empty.Data(2), 0);
 }
 
-TEST(MIDILARMidi1MessageTests, FullFrameHasUniversalRealtimeHeader) {
+TEST(MIDILARMidiMessageTests, FullFrameHasUniversalRealtimeHeader) {
     uint8_t storage[10] = {};
     const auto time = TimeCode::From(1, 2, 3, 4, TimeCodeRate::Fps25);
     const auto view = SysExMessage::MTC_FullFrame(storage, sizeof(storage), time);

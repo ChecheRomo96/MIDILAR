@@ -5,7 +5,7 @@
 
 #include <Foundation/Time/Clock.h>
 #include <MIDILAR/Devices/MidiClock.h>
-#include <MIDILAR/Protocol/Midi1Parser.h>
+#include <MIDILAR/Protocol/Ump/Midi1Parser.h>
 
 namespace MIDILARExamples::Devices::CalibrateClock {
 
@@ -32,7 +32,7 @@ public:
 
 private:
     Foundation::Time::Clock _clock;
-    MIDILAR::Protocol::Midi1Parser _parser;
+    MIDILAR::Protocol::Ump::Midi1Parser _parser;
     MIDILAR::Devices::ClockCalibrator _calibrator;
 };
 

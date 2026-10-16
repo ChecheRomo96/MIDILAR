@@ -3,16 +3,16 @@
 
 #include <stdint.h>
 
-#include "Channel.h"
+#include "../Channel.h"
 #include "Midi1Encoder.h"
 #include "Packet.h"
 
-namespace MIDILAR::Protocol {
+namespace MIDILAR::Protocol::Ump {
 
 /**
  * @brief Translates one USB MIDI 1.0 event packet into a UMP packet
  * (SPEC-USB-1).
- * @ingroup MIDILAR_Protocol
+ * @ingroup MIDILAR_Ump
  *
  * An event is four bytes: the cable number (high nibble) and Code Index
  * Number (low nibble), then up to three MIDI bytes. The cable becomes the
@@ -96,7 +96,7 @@ inline bool DecodeUsbMidi1(const uint8_t (&event)[4], Packet& out) noexcept {
 /**
  * @brief Translates UMP packets into USB MIDI 1.0 event packets
  * (SPEC-USB-2).
- * @ingroup MIDILAR_Protocol
+ * @ingroup MIDILAR_Ump
  *
  * Packets are first turned into MIDI 1.0 bytes by a `Midi1Encoder` (so
  * MIDI 2.0 channel voice is scaled down), then packed into events on the
@@ -191,6 +191,6 @@ private:
     Cable _cables[16] = {};
 };
 
-} // namespace MIDILAR::Protocol
+} // namespace MIDILAR::Protocol::Ump
 
 #endif // MIDILAR_PROTOCOL_USB_MIDI1_H

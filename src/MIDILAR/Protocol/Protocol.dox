@@ -1,38 +1,25 @@
 /**
  * @defgroup MIDILAR_Protocol Protocol
  * @ingroup MIDILAR
- * @brief MIDI protocol primitives: channels, groups, masks and data values.
+ * @brief Shared MIDI concepts and separate native/protocol representations.
  *
- * - `Channel` and `Group` store the wire value `0-15`, built through
- *   `FromWire()` or `FromNumber()` (SPEC-MIDI-4).
- * - `ChannelMask` and `GroupMask` are sets of the sixteen addresses; Omni is
- *   `ChannelMask::All()` (SPEC-MIDI-5).
- * - `NoteNumber`, `ControllerNumber` and `ProgramNumber` are 7-bit values
- *   (SPEC-MIDI-6).
- * - `Velocity` (16-bit), `ControllerValue`, `PressureValue` and `PitchBend`
- *   (32-bit) keep MIDI 2.0 resolution with a MIDI 1.0 view, converted by
- *   `ScaleUp()` and `ScaleDown()` (SPEC-MIDI-3).
- * - `ToChromaticIndex()`, `ToNoteNumber()` and `ToPitch()` convert between
- *   note numbers and MCC pitches; 60 is C4 and incoming notes are spelled
- *   with an `MCC::Key`, C major by default (SPEC-MIDI-7).
- * - `TimeCode` is an SMPTE time with its MTC quarter-frame encoding
- *   (SPEC-MTC-1).
- * - `Packet` is one Universal MIDI Packet with typed constructors and
- *   queries (SPEC-MIDI-16..19).
- * - `Midi1::Message` builds short MIDI 1.0 messages in three inline bytes;
- *   `Midi1::SysExMessage` builds complete SysEx in caller-owned storage.
- *   See @ref MIDILAR_Midi1 and the restored @ref MIDI_Protocol topics.
- * - `Midi1Parser` turns a MIDI 1.0 byte stream into packets,
- *   `Midi1Encoder` turns packets back into bytes and `SysExAssembler`
- *   collects System Exclusive payloads into a caller buffer
- *   (SPEC-MIDI-8..15).
- * - `DecodeUsbMidi1()` and `UsbMidi1Encoder` convert USB MIDI 1.0 event
- *   packets (SPEC-USB-1..2). Hardware transports live in separate libraries
- *   built on these conversions.
+ * - Shared: Channel/ChannelMask, NoteNumber, ControllerNumber, ProgramNumber,
+ *   SystemStatus, VoiceStatus, TimeCode, scaling and MCC pitch conversion.
+ * - @ref MIDILAR_Midi "Midi": native short bytes and caller-buffer SysEx.
+ * - @ref MIDILAR_Midi2 "Midi2": native channel-voice messages and high-resolution values.
+ * - @ref MIDILAR_Ump "Ump": packets, groups, format statuses, stream/USB adapters
+ *   and explicit protocol conversion. UMP carries both MIDI versions.
+ *
+ * Native headers under Midi/ and Midi2/ do not include UMP. Devices route
+ * Ump::Packet. Ump::Encode adds group/type; DecodeMidi1 and DecodeMidi2 check
+ * the representation before exposing native bytes or fields. No implicit
+ * conversion changes protocol resolution.
+ *
+ * Storage templates and tag types are implementation details under Detail.
+ * See the UMP migration section for renamed namespaces and header paths.
+ * The @ref MIDI_Protocol guide retains the historical MIDI 1.0 topics.
  */
-
-/**
- * @namespace MIDILAR::Protocol
+/** @namespace MIDILAR::Protocol
  * @ingroup MIDILAR_Protocol
- * @brief MIDI protocol primitives.
+ * @brief Shared concepts and the Midi, Midi2 and Ump components.
  */

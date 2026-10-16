@@ -3,13 +3,13 @@
 MIDILAR is the MIDI layer of the RoModular ecosystem: MIDI 1.0 and MIDI 2.0
 protocol, messages, parsing, routing and real-time devices for desktop and
 embedded targets. Devices use Universal MIDI Packets internally; native
-MIDI 1.0 builders also expose complete byte messages directly. It is
+MIDI 1.0 and MIDI 2.0 messages can also be constructed independently of UMP. It is
 built on Foundation (general utilities), DspCore (signal processing) and MCC
 (music theory). It never throws
 exceptions, and memory use is the implementer's choice (SPEC-RT-1).
 
-> **Latest release: 0.3.3.** The working tree also includes native MIDI 1.0
-> message builders and recovered protocol topics; see CHANGELOG.md under
+> **Latest release: 0.3.3.** The working tree separates native Midi/Midi2
+> messages from Ump and includes recovered protocol topics; see CHANGELOG.md under
 > Unreleased. Stock Arduino C++11 source builds are supported. MIDI-CI is deferred.
 
 ## Features
@@ -19,8 +19,8 @@ exceptions, and memory use is the implementer's choice (SPEC-RT-1).
   pitch-bend values at MIDI 2.0 resolution with MIDI 1.0 views; UMP
   `Packet`s; MIDI 1.0 byte-stream parsing and encoding with running status
   and System Exclusive; USB MIDI 1.0 event packets; MIDI Time Code; and note
-  number / `MCC::Pitch` conversions. Native `Midi1::Message` uses three inline
-  bytes; `Midi1::SysExMessage` uses caller storage, with explicit UMP bridging.
+  number / `MCC::Pitch` conversions. Native `Midi::Message` uses three inline
+  bytes; `Midi::SysExMessage` uses caller storage, with explicit UMP bridging.
   The historical MIDI protocol topics are adapted to the current API.
 - **Devices** (`MIDILAR::Devices`): channel filter and reassignment,
   transposition, velocity curves, scale filter and chord generation on MCC,
@@ -29,6 +29,21 @@ exceptions, and memory use is the implementer's choice (SPEC-RT-1).
   leave notes hanging.
 - Hardware transports (UART, USB stacks, desktop MIDI APIs) are separate
   libraries built on these conversions. MIDI-CI is deferred.
+
+Protocol is organized by representation:
+
+| Namespace | Owns |
+| --- | --- |
+| `Protocol` | Shared channels/masks, note/controller/program numbers, status semantics, time code and scaling |
+| `Protocol::Midi` | Native three-byte Message and caller-buffer SysExMessage |
+| `Protocol::Midi2` | Native eight-byte channel-voice Message and high-resolution values |
+| `Protocol::Ump` | Packet, groups/masks, utility/SysEx statuses, stream/USB adapters and explicit conversions |
+
+Native message headers do not depend on UMP. Use Ump::Encode(group, message),
+Ump::DecodeMidi1(packet) and Ump::DecodeMidi2(packet) for explicit conversion.
+Packet and adapter headers now live under MIDILAR/Protocol/Ump; high-resolution
+values under MIDILAR/Protocol/Midi2/Values.h. Old root aliases and MIDI 1.0
+ToPacket/FromPacket members are removed; see the UMP Doxygen migration guide.
 
 Clone with the pinned build infrastructure:
 

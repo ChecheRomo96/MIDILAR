@@ -41,12 +41,12 @@ inline void PrintByte(PrintFunction print, const char* label, uint8_t byte) {
              static_cast<unsigned int>(byte), static_cast<unsigned int>(byte));
     print(text);
 }
-inline void PrintPacket(PrintFunction print, const MIDILAR::Protocol::Packet& packet) {
+inline void PrintPacket(PrintFunction print, const MIDILAR::Protocol::Ump::Packet& packet) {
     using namespace MIDILAR::Protocol;
     if (!packet.IsValid()) { MIDILAR_EXAMPLE_PRINT(print, "Paquete invalido: no se puede enviar.\n"); return; }
     MIDILAR_EXAMPLE_PRINT(print, "\n--- Mensaje ---\n");
     if (packet.IsChannelVoice()) {
-        print(packet.Type() == MessageType::Midi1ChannelVoice
+        print(packet.Type() == Ump::MessageType::Midi1ChannelVoice
             ? "Protocolo: MIDI 1.0 (UMP de 32 bits)\n"
             : "Protocolo: MIDI 2.0 (UMP de 64 bits)\n");
         PrintNumber(print, "Grupo (1-16)", packet.Group().Number());
@@ -67,16 +67,16 @@ inline void PrintPacket(PrintFunction print, const MIDILAR::Protocol::Packet& pa
         switch (packet.VoiceStatus()) {
         case VoiceStatus::NoteOn:
         case VoiceStatus::NoteOff:
-            PrintNumber(print, "Velocity MIDI 1.0 (0-127)", packet.Velocity().Midi1());
+            PrintNumber(print, "Velocity MIDI 1.0 (0-127)", packet.Velocity().Midi());
             PrintNumber(print, "Velocity MIDI 2.0 (0-65535)", packet.Velocity().Midi2());
-            if (packet.Type() == MessageType::Midi2ChannelVoice) {
+            if (packet.Type() == Ump::MessageType::Midi2ChannelVoice) {
                 PrintNumber(print, "Tipo de atributo (0 = ninguno)", packet.AttributeType());
                 PrintNumber(print, "Dato del atributo", packet.AttributeData());
             }
             break;
         case VoiceStatus::ControlChange:
             PrintNumber(print, "Controlador (CC)", packet.Controller().Value());
-            PrintNumber(print, "Valor MIDI 1.0 (0-127)", packet.ControllerValue().Midi1());
+            PrintNumber(print, "Valor MIDI 1.0 (0-127)", packet.ControllerValue().Midi());
             PrintNumber(print, "Valor MIDI 2.0 (32 bits)", packet.ControllerValue().Midi2());
             break;
         case VoiceStatus::ProgramChange:
@@ -85,16 +85,16 @@ inline void PrintPacket(PrintFunction print, const MIDILAR::Protocol::Packet& pa
             break;
         case VoiceStatus::PolyPressure:
         case VoiceStatus::ChannelPressure:
-            PrintNumber(print, "Presion MIDI 1.0 (0-127)", packet.Pressure().Midi1());
+            PrintNumber(print, "Presion MIDI 1.0 (0-127)", packet.Pressure().Midi());
             PrintNumber(print, "Presion MIDI 2.0 (32 bits)", packet.Pressure().Midi2());
             break;
         case VoiceStatus::PitchBendChange:
-            PrintNumber(print, "Bend MIDI 1.0 (8192 = centro)", packet.PitchBend().Midi1());
+            PrintNumber(print, "Bend MIDI 1.0 (8192 = centro)", packet.PitchBend().Midi());
             PrintNumber(print, "Bend MIDI 2.0 (2147483648 = centro)", packet.PitchBend().Midi2());
             break;
         default: break;
         }
-    } else if (packet.Type() == MessageType::System) {
+    } else if (packet.Type() == Ump::MessageType::System) {
         PrintNumber(print, "Grupo (1-16)", packet.Group().Number());
         switch (packet.SystemStatus()) {
         case SystemStatus::Start: MIDILAR_EXAMPLE_PRINT(print, "Start: iniciar desde el principio\n"); break;
@@ -112,16 +112,16 @@ inline void PrintPacket(PrintFunction print, const MIDILAR::Protocol::Packet& pa
         case SystemStatus::ActiveSensing: MIDILAR_EXAMPLE_PRINT(print, "Active Sensing: conexion activa\n"); break;
         case SystemStatus::Reset: MIDILAR_EXAMPLE_PRINT(print, "Reset: reiniciar receptor\n"); break;
         }
-    } else if (packet.Type() == MessageType::Utility) {
+    } else if (packet.Type() == Ump::MessageType::Utility) {
         switch (packet.UtilityStatus()) {
-        case UtilityStatus::Noop: MIDILAR_EXAMPLE_PRINT(print, "Utility / Noop: sin operacion\n"); break;
-        case UtilityStatus::JrClock: MIDILAR_EXAMPLE_PRINT(print, "Utility / JR Clock: referencia del reloj\n"); break;
-        case UtilityStatus::JrTimestamp: MIDILAR_EXAMPLE_PRINT(print, "Utility / JR Timestamp: marca de tiempo\n"); break;
-        case UtilityStatus::TicksPerQuarterNote: MIDILAR_EXAMPLE_PRINT(print, "Utility / Ticks Per Quarter Note: resolucion temporal\n"); break;
-        case UtilityStatus::DeltaClockstamp: MIDILAR_EXAMPLE_PRINT(print, "Utility / Delta Clockstamp: incremento temporal\n"); break;
+        case Ump::UtilityStatus::Noop: MIDILAR_EXAMPLE_PRINT(print, "Utility / Noop: sin operacion\n"); break;
+        case Ump::UtilityStatus::JrClock: MIDILAR_EXAMPLE_PRINT(print, "Utility / JR Clock: referencia del reloj\n"); break;
+        case Ump::UtilityStatus::JrTimestamp: MIDILAR_EXAMPLE_PRINT(print, "Utility / JR Timestamp: marca de tiempo\n"); break;
+        case Ump::UtilityStatus::TicksPerQuarterNote: MIDILAR_EXAMPLE_PRINT(print, "Utility / Ticks Per Quarter Note: resolucion temporal\n"); break;
+        case Ump::UtilityStatus::DeltaClockstamp: MIDILAR_EXAMPLE_PRINT(print, "Utility / Delta Clockstamp: incremento temporal\n"); break;
         }
         PrintNumber(print, "Dato de utilidad", packet.UtilityData());
-    } else if (packet.Type() == MessageType::Data64) {
+    } else if (packet.Type() == Ump::MessageType::Data64) {
         MIDILAR_EXAMPLE_PRINT(print, "SysEx7: fragmento de System Exclusive\n");
         PrintNumber(print, "Estado (0=completo, 1=inicio, 2=continua, 3=fin)",
                     static_cast<uint32_t>(packet.SysExStatus()));
