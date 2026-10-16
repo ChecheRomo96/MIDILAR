@@ -21,6 +21,12 @@ the `rebuild` branch and in the read-only audit, as design input only.
 
 ## Architectural decisions
 
+- Follow-up approved by the user: adapt the historical Message builder API
+  and its protocol topics. Protocol::Midi1::Message now supports native short
+  bytes in three inline bytes; SysExMessage uses caller storage. Devices keep
+  UMP with explicit conversion. See SPEC-M1-1..4 and the migration guide;
+  the old dynamic implementation and its defects are not restored.
+
 - The rebuild happened on a `rebuild` branch, merged into `main` by
   fast-forward for 0.2.0 and then deleted; work continues on `main`.
 - Same standards as Foundation and MCC: RoModularBuild presets and scripts,
@@ -177,6 +183,12 @@ Not yet run: an Uno with a DIN MIDI shield, and MTC into a DAW. `rebuild`
 was merged into `main` by fast-forward and tagged `v0.2.0`.
 
 ## Proposed releases
+
+Example coverage follow-up: nine Protocol examples now cover values, MIDI
+1.0/2.0 channel voice, parsing, encoding, SysEx, USB MIDI 1.0, pitch conversion,
+system messages and utilities. Devices/Routing and Devices/HeldNotes cover
+fan-out, channel filtering/reassignment and mapping changes while notes sound.
+See examples/README.md for desktop/Arduino usage and expected results.
 
 | Version | Scope |
 | --- | --- |

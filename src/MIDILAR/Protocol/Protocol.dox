@@ -19,6 +19,9 @@
  *   (SPEC-MTC-1).
  * - `Packet` is one Universal MIDI Packet with typed constructors and
  *   queries (SPEC-MIDI-16..19).
+ * - `Midi1::Message` builds short MIDI 1.0 messages in three inline bytes;
+ *   `Midi1::SysExMessage` builds complete SysEx in caller-owned storage.
+ *   See @ref MIDILAR_Midi1 and the restored @ref MIDI_Protocol topics.
  * - `Midi1Parser` turns a MIDI 1.0 byte stream into packets,
  *   `Midi1Encoder` turns packets back into bytes and `SysExAssembler`
  *   collects System Exclusive payloads into a caller buffer

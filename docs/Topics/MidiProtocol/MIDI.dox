@@ -1,0 +1,77 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @file MIDI.dox
+ * @brief Doxygen group definitions for standard MIDI commands and messages.
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @defgroup MIDI_Protocol MIDI 1.0 protocol guide
+ * @ingroup MIDILAR_Protocol
+ * @brief Core definitions and message categories of the MIDI communication standard.
+ *
+ * This group provides an overview and definitions of the standard MIDI protocol (Musical Instrument Digital Interface),
+ * as implemented in the MIDILAR framework. MIDI 1.0 is a universally adopted, byte-oriented communication protocol
+ * for musical instruments, controllers, and digital audio equipment.
+ *
+ * MIDI messages are used to:
+ * - Trigger notes (e.g., from keyboards or drum pads)
+ * - Control parameters (e.g., volume, pitch bend, modulation)
+ * - Synchronize clocks and playback between devices
+ * - Exchange system-level information (e.g., song position, timecode, SysEx)
+ *
+ * ### MIDI Message Format
+ * A typical MIDI message consists of one **status byte** followed by zero or more **data bytes**:
+ *
+ * ```
+ * Status Byte  (1xxx_xxxx)  → Identifies the message type (e.g., Note On, Control Change)
+ * Data Byte(s) (0xxx_xxxx)  → Carry parameters (e.g., note number, velocity)
+ * ```
+ *
+ * - Status bytes always have the MSB (Most Significant Bit) set: `1xxxxxxx`
+ * - Data bytes always have MSB clear: `0xxxxxxx`
+ * - Channel messages are encoded in the low nibble of the status byte:
+ *   For example, `0x90` is "Note On, Channel 1", `0x91` is "Note On, Channel 2", etc.
+ *
+ * ---
+ *
+ * @see MIDILAR_Midi1 for native byte-oriented message builders.
+ * @see MIDILAR_Protocol for UMP parsing, translation and devices.
+ *
+ * @note These topics adapt the protocol explanations from the pre-rebuild
+ * library (bc70ce6). Examples use the current API. Builder channels are wire
+ * indices 0-15: argument 0 is human channel 1, argument 1 is human channel 2.
+ * Program indices are 0-127. Invalid input clears Message rather than clamping.
+ * Raw examples use numeric status/controller bytes instead of removed macros.
+ * The topics describe the protocol; cueing and Show Control concepts do not
+ * imply that MIDILAR implements every message described.
+ *
+ * ---
+ *
+ * @{
+ */
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     /**
+     * @defgroup MIDI_ChannelVoice Channel Voice Messages
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     /**
+     * @defgroup MIDI_RealTime Real-Time Messages
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     /**
+     * @defgroup MIDI_SystemCommon System Common Messages
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     /**
+     * @defgroup MIDI_MTC Midi Time Code Messages
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     /**
+     * @defgroup MIDI_MSC Midi Show Control
+     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ /**@}*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

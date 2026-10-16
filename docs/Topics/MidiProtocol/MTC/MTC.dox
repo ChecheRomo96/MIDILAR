@@ -1,0 +1,15 @@
+/**
+ * @file MTC.dox
+ * @brief Doxygen group definitions for MIDI Time Code (MTC) and related SysEx messages.
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @addtogroup MIDI_MTC
+ * @brief Contains all the MIDI Time Code (MTC) commands.
+ *
+ * These topics explain the wire format and current TimeCode / Message APIs for:
+ * - MTC quarter frame messages
+ * - Time components (frames, seconds, minutes, hours)
+ * - Frame rate definitions
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

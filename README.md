@@ -2,14 +2,15 @@
 
 MIDILAR is the MIDI layer of the RoModular ecosystem: MIDI 1.0 and MIDI 2.0
 protocol, messages, parsing, routing and real-time devices for desktop and
-embedded targets. MIDI 2.0 Universal MIDI Packets are its internal model;
-MIDI 1.0 byte streams are translated at the edges. It is
+embedded targets. Devices use Universal MIDI Packets internally; native
+MIDI 1.0 builders also expose complete byte messages directly. It is
 built on Foundation (general utilities), DspCore (signal processing) and MCC
 (music theory). It never throws
 exceptions, and memory use is the implementer's choice (SPEC-RT-1).
 
-> **Status: 0.3.1**, adds stock Arduino C++11 source compatibility to the library rebuilt from scratch,
-> validated on an Arduino Mega 2560. MIDI-CI is deferred.
+> **Latest release: 0.3.3.** The working tree also includes native MIDI 1.0
+> message builders and recovered protocol topics; see CHANGELOG.md under
+> Unreleased. Stock Arduino C++11 source builds are supported. MIDI-CI is deferred.
 
 ## Features
 
@@ -18,7 +19,9 @@ exceptions, and memory use is the implementer's choice (SPEC-RT-1).
   pitch-bend values at MIDI 2.0 resolution with MIDI 1.0 views; UMP
   `Packet`s; MIDI 1.0 byte-stream parsing and encoding with running status
   and System Exclusive; USB MIDI 1.0 event packets; MIDI Time Code; and note
-  number / `MCC::Pitch` conversions.
+  number / `MCC::Pitch` conversions. Native `Midi1::Message` uses three inline
+  bytes; `Midi1::SysExMessage` uses caller storage, with explicit UMP bridging.
+  The historical MIDI protocol topics are adapted to the current API.
 - **Devices** (`MIDILAR::Devices`): channel filter and reassignment,
   transposition, velocity curves, scale filter and chord generation on MCC,
   a router, MIDI clock generator and receiver, a Euclidean step sequencer,
@@ -69,6 +72,9 @@ The generated documentation starts at
 `build/documentation/docs/html/index.html`.
 
 ## Arduino
+
+See examples/README.md for the desktop and Arduino
+example catalog, including protocol messages, translations and routing.
 
 Install CPSTL, Foundation, DspCore, MCC and MIDILAR as Arduino libraries, then include
 MIDILAR, or only the modules the sketch uses. Every MIDILAR header also brings

@@ -20,6 +20,8 @@ MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PressureValue, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PitchBend, 4);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Packet, 16);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1::Message, 3);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1::SysExMessage, sizeof(void*) + sizeof(size_t));
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::TimeCode, 5);
 #if !defined(MIDILAR_PARSER_DIAGNOSTICS)
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Parser, 16);

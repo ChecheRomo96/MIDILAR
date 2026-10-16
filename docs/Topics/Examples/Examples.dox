@@ -24,7 +24,21 @@
  *
  * | Target | Shows |
  * | --- | --- |
+ * | `MIDILAR_Protocol_CreatingMessages` | Native three-byte MIDI 1.0 builder and explicit UMP bridge |
+ * | `MIDILAR_Protocol_ControlChanges` | Native CC helpers, modes and four-message NRPN sequence |
+ * | `MIDILAR_Protocol_SysExBuffer` | Caller-owned SysEx, failure handling and MTC Full Frame |
  * | `MIDILAR_Core_Version` | MIDILAR, MCC, DspCore, Foundation and CPSTL versions |
+ * | `MIDILAR_Protocol_Values` | Validated channels and notes, velocity scaling and pitch-bend center |
+ * | `MIDILAR_Protocol_Midi1Messages` | All seven MIDI 1.0 channel voice message families as UMP |
+ * | `MIDILAR_Protocol_Midi2Messages` | All seven supported MIDI 2.0 channel voice families and MIDI 1.0 translation |
+ * | `MIDILAR_Protocol_Midi1Parsing` | Running status, real-time interleaving and velocity-zero Note Off |
+ * | `MIDILAR_Protocol_Midi1Encoding` | Running-status encoding with interleaved clock and status changes |
+ * | `MIDILAR_Protocol_SysEx` | Caller-owned payload buffer, multi-packet assembly and explicit truncation |
+ * | `MIDILAR_Protocol_UsbMidi1` | USB MIDI 1.0 event decoding and encoding with cable-to-group mapping |
+ * | `MIDILAR_Protocol_NotePitch` | MCC pitch conversion, middle C and out-of-range rejection |
+ * | `MIDILAR_Protocol_SystemMessages` | System common, real-time and UMP utility messages |
+ * | `MIDILAR_Devices_Routing` | Fan-out router, channel filtering and channel reassignment |
+ * | `MIDILAR_Devices_HeldNotes` | Safe Note Off after changing a transpose mapping |
  * | `MIDILAR_Devices_CalibrateClock` | Oscillator correction in ppm from a reference MIDI clock with `ClockCalibrator` |
  * | `MIDILAR_Devices_ClockOut` | MIDI clock with `ClockGenerator` and a Euclidean rhythm with `StepSequencer` |
  * | `MIDILAR_Devices_MtcLoopback` | MTC through generator, encoder, parser and receiver on one device |
