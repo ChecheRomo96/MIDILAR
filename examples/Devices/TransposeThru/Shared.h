@@ -5,8 +5,8 @@
 
 #include <MIDILAR/Devices/Filters.h>
 #include <MIDILAR/Devices/Transforms.h>
-#include <MIDILAR/Protocol/Midi1Encoder.h>
-#include <MIDILAR/Protocol/Midi1Parser.h>
+#include <MIDILAR/Protocol/Ump/Midi1Encoder.h>
+#include <MIDILAR/Protocol/Ump/Midi1Parser.h>
 
 namespace MIDILARExamples::Devices::TransposeThru {
 
@@ -18,7 +18,7 @@ class Thru {
 public:
     /** Most bytes one input byte can produce. */
     static constexpr uint8_t Capacity =
-        MIDILAR::Protocol::Midi1Parser::MaxPackets * MIDILAR::Protocol::Midi1Encoder::MaxBytes;
+        MIDILAR::Protocol::Ump::Midi1Parser::MaxPackets * MIDILAR::Protocol::Ump::Midi1Encoder::MaxBytes;
 
     Thru() noexcept;
 
@@ -29,12 +29,12 @@ public:
     uint8_t Process(uint8_t byte, uint8_t (&out)[Capacity]);
 
 private:
-    void Collect(const MIDILAR::Protocol::Packet& packet);
+    void Collect(const MIDILAR::Protocol::Ump::Packet& packet);
 
-    MIDILAR::Protocol::Midi1Parser _parser;
+    MIDILAR::Protocol::Ump::Midi1Parser _parser;
     MIDILAR::Devices::Transpose _transpose;
     MIDILAR::Devices::ScaleFilter _scale;
-    MIDILAR::Protocol::Midi1Encoder _encoder;
+    MIDILAR::Protocol::Ump::Midi1Encoder _encoder;
     uint8_t* _out = nullptr;
     uint8_t _count = 0;
 };

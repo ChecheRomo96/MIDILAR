@@ -8,7 +8,7 @@ namespace {
 struct Sink {
     PrintFunction print;
     const char* label;
-    void Process(const Packet& packet) {
+    void Process(const Ump::Packet& packet) {
         print(label);
         PrintPacket(print, packet);
         PrintNumber(print, "Channel", packet.Channel().Number());
@@ -22,19 +22,19 @@ void Run(PrintFunction print) {
     Transpose transpose;
     Sink sink{print, "Transposed packet\n"};
     transpose.Output().Bind<Sink, &Sink::Process>(&sink);
-    const Group group = Group::FromNumber(1);
+    const Ump::Group group = Ump::Group::FromNumber(1);
     const Channel channel = Channel::FromNumber(1);
     const NoteNumber note = NoteNumber::FromValue(60);
     transpose.SetSemitones(12);
     MIDILAR_EXAMPLE_PRINT(print, "\nPaso 1: Note On 60 con +12 -> 72.\n");
-    transpose.Process(Packet::Midi1NoteOn(group, channel, note, Velocity::FromMidi1(100)));
+    transpose.Process(Ump::Packet::Midi1NoteOn(group, channel, note, Midi2::Velocity::FromMidi1(100)));
     transpose.SetSemitones(-12);
     MIDILAR_EXAMPLE_PRINT(print, "\nPaso 2: cambio a -12; Note Off debe liberar 72.\n");
     // Release note 72, the note actually started, even though the mapping changed.
-    transpose.Process(Packet::Midi1NoteOff(group, channel, note, Velocity::Min()));
+    transpose.Process(Ump::Packet::Midi1NoteOff(group, channel, note, Midi2::Velocity::Min()));
     // A fresh note uses the new mapping: note 48.
     MIDILAR_EXAMPLE_PRINT(print, "\nPaso 3: nueva pareja con -12 -> 48.\n");
-    transpose.Process(Packet::Midi1NoteOn(group, channel, note, Velocity::FromMidi1(100)));
-    transpose.Process(Packet::Midi1NoteOff(group, channel, note, Velocity::Min()));
+    transpose.Process(Ump::Packet::Midi1NoteOn(group, channel, note, Midi2::Velocity::FromMidi1(100)));
+    transpose.Process(Ump::Packet::Midi1NoteOff(group, channel, note, Midi2::Velocity::Min()));
 }
 }

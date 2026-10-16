@@ -7,7 +7,21 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ### Changed
 
-- Adapt the historical MIDI 1.0 Message builder API as Protocol::Midi1::Message
+- Name the native MIDI 1.0 component Protocol::Midi (formerly Midi1), with
+  headers under Protocol/Midi/. Midi2 and Ump remain separate; names that
+  identify a wire protocol, such as Ump::Midi1Parser and DecodeMidi1, stay explicit.
+
+- Separate shared Protocol concepts, native Midi/Midi2 messages and Ump
+  containers/adapters. Packet, groups/masks, UMP statuses and UMP stream
+  adapters move under Protocol::Ump, with headers under Protocol/Ump/.
+  High-resolution values move under Protocol::Midi2; no root aliases remain.
+- Replace Midi::Message::ToPacket/FromPacket with Ump::Encode/DecodeMidi1.
+  Add native eight-byte Midi2::Message and Ump::Encode/DecodeMidi2, without
+  group/type headers or implicit protocol conversion in native messages.
+- Hide storage templates and tags under Detail in the public documentation;
+  migrate device APIs, examples, tests, package layout and migration topics.
+
+- Adapt the historical MIDI 1.0 Message builder API as Protocol::Midi::Message
   with three inline bytes, explicit validity and UMP conversion. SysEx uses a
   separate non-owning view over caller-provided storage; pitch-bend resolutions
   have explicit names. This is not a drop-in legacy implementation.

@@ -5,7 +5,7 @@
 
 #include <Foundation/Time/Clock.h>
 #include <MIDILAR/Protocol/Channel.h>
-#include <MIDILAR/Protocol/Packet.h>
+#include <MIDILAR/Protocol/Ump/Packet.h>
 
 #include "Device.h"
 
@@ -37,8 +37,8 @@ public:
 
     /** @brief Uses `clock` for timing and sends on `group` (default: group 1). */
     explicit ClockGenerator(const Foundation::Time::Clock& clock,
-                            Protocol::Group group = Protocol::Group::FromWire(0)) noexcept
-        : _clock(clock), _group(group.IsValid() ? group : Protocol::Group::FromWire(0)) {
+                            Protocol::Ump::Group group = Protocol::Ump::Group::FromWire(0)) noexcept
+        : _clock(clock), _group(group.IsValid() ? group : Protocol::Ump::Group::FromWire(0)) {
         SetTempo(12000);
     }
 
@@ -59,19 +59,19 @@ public:
     void Start() {
         _running = true;
         _position = 0;
-        Emit(Protocol::Packet::System(_group, Protocol::SystemStatus::Start));
+        Emit(Protocol::Ump::Packet::System(_group, Protocol::SystemStatus::Start));
     }
 
     /** @brief Sends Continue and plays from `Position()`. */
     void Continue() {
         _running = true;
-        Emit(Protocol::Packet::System(_group, Protocol::SystemStatus::Continue));
+        Emit(Protocol::Ump::Packet::System(_group, Protocol::SystemStatus::Continue));
     }
 
     /** @brief Sends Stop; `Position()` keeps its value. */
     void Stop() {
         _running = false;
-        Emit(Protocol::Packet::System(_group, Protocol::SystemStatus::Stop));
+        Emit(Protocol::Ump::Packet::System(_group, Protocol::SystemStatus::Stop));
     }
 
     /**
@@ -83,7 +83,7 @@ public:
             return;
         }
         _position = static_cast<uint32_t>(beats) * ClocksPerSongPositionBeat;
-        Emit(Protocol::Packet::SongPosition(_group, beats));
+        Emit(Protocol::Ump::Packet::SongPosition(_group, beats));
     }
 
     /** @brief Emits the timing clocks that are due. */
@@ -102,7 +102,7 @@ public:
                 Advance();
                 return;
             }
-            Emit(Protocol::Packet::System(_group, Protocol::SystemStatus::TimingClock));
+            Emit(Protocol::Ump::Packet::System(_group, Protocol::SystemStatus::TimingClock));
             if (_running) {
                 ++_position;
             }
@@ -126,7 +126,7 @@ private:
     }
 
     const Foundation::Time::Clock& _clock;
-    Protocol::Group _group;
+    Protocol::Ump::Group _group;
     uint32_t _tempo = 0;
     uint64_t _stepNumerator = 0;
     uint64_t _stepDenominator = 0;
@@ -153,8 +153,8 @@ public:
     explicit ClockReceiver(const Foundation::Time::Clock& clock) noexcept : _clock(clock) {}
 
     /** @brief Updates the state from `packet` and emits it. */
-    void Process(const Protocol::Packet& packet) {
-        if (packet.Type() == Protocol::MessageType::System) {
+    void Process(const Protocol::Ump::Packet& packet) {
+        if (packet.Type() == Protocol::Ump::MessageType::System) {
             switch (packet.SystemStatus()) {
             case Protocol::SystemStatus::TimingClock:
                 Tick();
@@ -264,7 +264,7 @@ public:
     int32_t Ppm() const noexcept { return _ppm; }
 
     /** @brief Times `packet` when it is a timing clock and emits it. */
-    void Process(const Protocol::Packet& packet) {
+    void Process(const Protocol::Ump::Packet& packet) {
         if (_measuring && packet.IsSystem(Protocol::SystemStatus::TimingClock)) {
             const uint32_t now = _clock.Now().Ticks();
             if (!_started) {

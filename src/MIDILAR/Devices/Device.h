@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #include <Foundation/Functional/Callback.h>
-#include <MIDILAR/Protocol/Packet.h>
+#include <MIDILAR/Protocol/Ump/Packet.h>
 
 namespace MIDILAR::Devices {
 
@@ -17,14 +17,14 @@ namespace MIDILAR::Devices {
  * transpose.Output().Bind<MIDILAR::Devices::ScaleFilter, &MIDILAR::Devices::ScaleFilter::Process>(&scale);
  * @endcode
  */
-using PacketCallback = Foundation::Functional::Callback<void, const Protocol::Packet&>;
+using PacketCallback = Foundation::Functional::Callback<void, const Protocol::Ump::Packet&>;
 
 /**
  * @brief Base of the devices: one output and no virtual functions
  * (SPEC-DEV-1).
  * @ingroup MIDILAR_Devices
  *
- * Each device has `void Process(const Protocol::Packet&)` and emits zero or
+ * Each device has `void Process(const Protocol::Ump::Packet&)` and emits zero or
  * more packets to `Output()`. An unbound output drops packets.
  */
 class Device {
@@ -34,7 +34,7 @@ public:
 
 protected:
     /** @brief Sends `packet` to the output, if bound and valid. */
-    void Emit(const Protocol::Packet& packet) const {
+    void Emit(const Protocol::Ump::Packet& packet) const {
         if (packet.IsValid() && _output.IsBound()) {
             _output.Invoke(packet);
         }
@@ -62,7 +62,7 @@ public:
     static constexpr uint8_t Capacity = 16;
 
     /** @brief Returns the value to use for `packet`: stored, or `current`. */
-    Value Route(const Protocol::Packet& packet, Value current) noexcept {
+    Value Route(const Protocol::Ump::Packet& packet, Value current) noexcept {
         const uint8_t address = static_cast<uint8_t>((packet.Group().Wire() << 4) | packet.Channel().Wire());
         const uint8_t note = packet.Note().Value();
         uint8_t index = 0;
@@ -72,7 +72,7 @@ public:
         const bool found = index < _count;
         const Protocol::VoiceStatus status = packet.VoiceStatus();
         const bool noteOn = status == Protocol::VoiceStatus::NoteOn &&
-            !(packet.Type() == Protocol::MessageType::Midi1ChannelVoice && (packet.Word(0) & 0x7Fu) == 0);
+            !(packet.Type() == Protocol::Ump::MessageType::Midi1ChannelVoice && (packet.Word(0) & 0x7Fu) == 0);
         const bool noteOff = status == Protocol::VoiceStatus::NoteOff ||
             (status == Protocol::VoiceStatus::NoteOn && !noteOn);
 
@@ -128,7 +128,7 @@ public:
     PacketCallback* Output(uint8_t index) noexcept { return index < Outputs ? &_outputs[index] : nullptr; }
 
     /** @brief Sends `packet` to every bound output. */
-    void Process(const Protocol::Packet& packet) const {
+    void Process(const Protocol::Ump::Packet& packet) const {
         if (!packet.IsValid()) {
             return;
         }

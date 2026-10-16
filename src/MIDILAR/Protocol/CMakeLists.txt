@@ -2,31 +2,24 @@ set(MIDILAR_PROTOCOL_HEADERS
     "${CMAKE_CURRENT_LIST_DIR}/Scaling.h"
     "${CMAKE_CURRENT_LIST_DIR}/Channel.h"
     "${CMAKE_CURRENT_LIST_DIR}/Values.h"
+    "${CMAKE_CURRENT_LIST_DIR}/Status.h"
     "${CMAKE_CURRENT_LIST_DIR}/NotePitch.h"
-    "${CMAKE_CURRENT_LIST_DIR}/TimeCode.h"
-    "${CMAKE_CURRENT_LIST_DIR}/Packet.h"
-    "${CMAKE_CURRENT_LIST_DIR}/Midi1Parser.h"
-    "${CMAKE_CURRENT_LIST_DIR}/Midi1Encoder.h"
-    "${CMAKE_CURRENT_LIST_DIR}/SysExAssembler.h"
-    "${CMAKE_CURRENT_LIST_DIR}/UsbMidi1.h")
-
+    "${CMAKE_CURRENT_LIST_DIR}/TimeCode.h")
 target_sources(MIDILAR PRIVATE ${MIDILAR_PROTOCOL_HEADERS})
 midilar_stage_headers(${MIDILAR_PROTOCOL_HEADERS})
-midilar_add_dox(
-    ${MIDILAR_PROTOCOL_HEADERS}
-    "${CMAKE_CURRENT_LIST_DIR}/Protocol.dox")
-
+midilar_add_dox(${MIDILAR_PROTOCOL_HEADERS} "${CMAKE_CURRENT_LIST_DIR}/Protocol.dox")
 install(FILES ${MIDILAR_PROTOCOL_HEADERS}
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MIDILAR/Protocol"
     CONFIGURATIONS Release)
 
-set(MIDILAR_MIDI1_HEADERS
-    "${CMAKE_CURRENT_LIST_DIR}/Midi1/Message.h"
-    "${CMAKE_CURRENT_LIST_DIR}/Midi1/SysExMessage.h")
-target_sources(MIDILAR PRIVATE ${MIDILAR_MIDI1_HEADERS})
-midilar_stage_headers(${MIDILAR_MIDI1_HEADERS})
-midilar_add_dox(${MIDILAR_MIDI1_HEADERS}
-    "${CMAKE_CURRENT_LIST_DIR}/Midi1/Midi1.dox")
-install(FILES ${MIDILAR_MIDI1_HEADERS}
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MIDILAR/Protocol/Midi1"
-    CONFIGURATIONS Release)
+foreach(COMPONENT Detail Midi Midi2 Ump)
+    file(GLOB COMPONENT_HEADERS CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/${COMPONENT}/*.h")
+    target_sources(MIDILAR PRIVATE ${COMPONENT_HEADERS})
+    midilar_stage_headers(${COMPONENT_HEADERS})
+    if(NOT COMPONENT STREQUAL "Detail")
+        midilar_add_dox(${COMPONENT_HEADERS} "${CMAKE_CURRENT_LIST_DIR}/${COMPONENT}/${COMPONENT}.dox")
+    endif()
+    install(FILES ${COMPONENT_HEADERS}
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MIDILAR/Protocol/${COMPONENT}"
+        CONFIGURATIONS Release)
+endforeach()

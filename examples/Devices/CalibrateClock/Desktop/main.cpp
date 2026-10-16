@@ -2,7 +2,7 @@
 
 #include <cstdio>
 
-#include <MIDILAR/Protocol/Midi1Encoder.h>
+#include <MIDILAR/Protocol/Ump/Midi1Encoder.h>
 
 namespace {
 
@@ -13,10 +13,10 @@ uint32_t TrueMicros() { return static_cast<uint32_t>(g_trueMicros); }
 uint32_t SlowMicros() { return static_cast<uint32_t>(g_trueMicros * 9995 / 10000); }
 
 MIDILARExamples::Devices::CalibrateClock::CalibrateClock* g_device = nullptr;
-MIDILAR::Protocol::Midi1Encoder g_encoder;
+MIDILAR::Protocol::Ump::Midi1Encoder g_encoder;
 
-void Wire(const MIDILAR::Protocol::Packet& packet) {
-    uint8_t bytes[MIDILAR::Protocol::Midi1Encoder::MaxBytes];
+void Wire(const MIDILAR::Protocol::Ump::Packet& packet) {
+    uint8_t bytes[MIDILAR::Protocol::Ump::Midi1Encoder::MaxBytes];
     const uint8_t count = g_encoder.Encode(packet, bytes);
     for (uint8_t i = 0; i < count; ++i) {
         g_device->Receive(bytes[i]);

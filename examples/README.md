@@ -2,7 +2,7 @@
 
 Each example contains portable Shared.h / Shared.cpp, a Desktop adapter and
 an Arduino sketch. The fourteen demonstrations below print text and require no
-MIDI hardware. They use the current Packet API.
+MIDI hardware. They use native Midi/Midi2 messages or Ump::Packet as appropriate.
 
 ## Build and run
 
@@ -61,7 +61,8 @@ Other numeric output uses decimal unless explicitly labelled hexadecimal.
   center is 8192; channel 17 and note 128 are rejected.
 - Midi1Messages: seven one-word messages, starting with 20903C64 and ending
   with 20803C00 (note 60 on/off).
-- Midi2Messages: seven two-word messages; the first Note On translates to
+- Midi2Messages: native eight-byte messages are queried before Ump::Encode;
+  DecodeMidi2 verifies exact round trips. The first Note On translates to
   three MIDI 1.0 bytes at reduced resolution.
 - Midi1Parsing: four packets, in order: note 60 on, clock, note 62 on,
   note 60 off. Velocity-zero Note On is normalized to Note Off.

@@ -25,8 +25,8 @@ uint32_t ClockOut::Position() const noexcept {
     return _generator.Position();
 }
 
-void ClockOut::Send(const MIDILAR::Protocol::Packet& packet) {
-    uint8_t bytes[MIDILAR::Protocol::Midi1Encoder::MaxBytes];
+void ClockOut::Send(const MIDILAR::Protocol::Ump::Packet& packet) {
+    uint8_t bytes[MIDILAR::Protocol::Ump::Midi1Encoder::MaxBytes];
     const uint8_t count = _encoder.Encode(packet, bytes);
     for (uint8_t i = 0; i < count && _write != nullptr; ++i) {
         _write(bytes[i]);

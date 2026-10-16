@@ -5,12 +5,12 @@
 
 #include "Packet.h"
 
-namespace MIDILAR::Protocol {
+namespace MIDILAR::Protocol::Ump {
 
 /**
  * @brief Translates UMP packets into a MIDI 1.0 byte stream (SPEC-MIDI-2,
  * SPEC-MIDI-10).
- * @ingroup MIDILAR_Protocol
+ * @ingroup MIDILAR_Ump
  *
  * Encodes system, MIDI 1.0 channel voice and 7-bit System Exclusive packets,
  * and MIDI 2.0 channel voice packets whose status exists in MIDI 1.0 (values
@@ -122,11 +122,11 @@ private:
             uint8_t count = 0;
             if (packet.HasBank()) {
                 count = EncodeVoice(Packet::Midi1ControlChange(group, channel, ControllerNumber::FromValue(0),
-                                                               ControllerValue::FromMidi1(packet.Bank() >> 7))
+                                                               Midi2::ControllerValue::FromMidi1(packet.Bank() >> 7))
                                         .Word(0),
                                     out, count);
                 count = EncodeVoice(Packet::Midi1ControlChange(group, channel, ControllerNumber::FromValue(32),
-                                                               ControllerValue::FromMidi1(packet.Bank() & 0x7F))
+                                                               Midi2::ControllerValue::FromMidi1(packet.Bank() & 0x7F))
                                         .Word(0),
                                     out, count);
             }
@@ -161,6 +161,6 @@ private:
     uint8_t _runningStatus = 0;
 };
 
-} // namespace MIDILAR::Protocol
+} // namespace MIDILAR::Protocol::Ump
 
 #endif // MIDILAR_PROTOCOL_MIDI1_ENCODER_H

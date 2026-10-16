@@ -1,0 +1,60 @@
+/**
+ * @defgroup MIDILAR_Ump Universal MIDI Packets
+ * @ingroup MIDILAR_Protocol
+ * @brief Containers and adapters for both MIDI protocols and other UMP families.
+ *
+ * UMP is a packet format, not a synonym for MIDI 2.0. Packet represents one
+ * to four 32-bit words with the UMP message-type header. Group/GroupMask are
+ * routing concepts belonging to UMP; channels are shared protocol concepts.
+ * Packet classifies utility, system, MIDI 1.0 voice, SysEx7, MIDI 2.0 voice,
+ * Data128, flex and stream messages. Classification is not typed support for
+ * every family; see the individual factories.
+ *
+ * @code{.cpp}
+ * #include <MIDILAR_Protocol.h>
+ * using namespace MIDILAR::Protocol;
+ * Midi::Message note1;
+ * note1.NoteOn(60, 100, 0);
+ * auto note2 = Midi2::Message::NoteOn(Channel::FromNumber(1),
+ *     NoteNumber::FromValue(60), Midi2::Velocity::FromMidi2(50000));
+ * auto group = Ump::Group::FromNumber(1);
+ * auto packet1 = Ump::Encode(group, note1);
+ * auto packet2 = Ump::Encode(group, note2);
+ * auto bytesAgain = Ump::DecodeMidi1(packet1);
+ * auto fieldsAgain = Ump::DecodeMidi2(packet2);
+ * @endcode
+ *
+ * Midi1Parser/Midi1Encoder translate MIDI 1.0 byte streams to/from Packet.
+ * DecodeUsbMidi1/UsbMidi1Encoder translate USB MIDI 1.0 events to/from Packet.
+ * SysExAssembler assembles payloads from SysEx7 packets. They belong here
+ * because their public interface explicitly consumes or emits UMP.
+ * Native message headers do not include any of these adapters.
+ *
+ * Existing devices continue to exchange Packet through callbacks, so a
+ * single chain can process MIDI 1.0 and MIDI 2.0 packets.
+ *
+ * @section MIDILARUmpMigration Namespace migration
+ *
+ * - Protocol::Midi1 is renamed Protocol::Midi; its headers move from
+ *   Protocol/Midi1/ to Protocol/Midi/. The component represents native
+ *   MIDI 1.0 bytes. Midi2 remains the native MIDI 2.0 component.
+ *
+ * - Protocol::Packet, Group, GroupMask, MessageType, UtilityStatus, SysExStatus,
+ *   Midi1Parser, Midi1Encoder, SysExAssembler, UsbMidi1Encoder and DecodeUsbMidi1
+ *   move to Protocol::Ump; their headers move under Protocol/Ump/.
+ * - Protocol::Velocity, ControllerValue, PressureValue and PitchBend move to
+ *   Protocol::Midi2, with their aliases in Protocol/Midi2/Values.h.
+ * - Native Midi::Message no longer has ToPacket/FromPacket. Use Ump::Encode
+ *   and Ump::DecodeMidi1 from Protocol/Ump/Conversion.h.
+ * - Channel, ChannelMask, NoteNumber, ControllerNumber, ProgramNumber,
+ *   SystemStatus, VoiceStatus, TimeCode and scaling remain in Protocol.
+ * - No aliases keep the former ambiguous root names alive.
+ * - Detail storage templates and tags are not public documented concepts.
+ *
+ * @see MIDILAR_Midi
+ * @see MIDILAR_Midi2
+ */
+/** @namespace MIDILAR::Protocol::Ump
+ * @ingroup MIDILAR_Ump
+ * @brief UMP packet representation, routing groups and format adapters.
+ */

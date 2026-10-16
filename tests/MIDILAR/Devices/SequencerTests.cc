@@ -18,9 +18,9 @@ int Onsets(uint64_t pattern) {
 }
 
 struct Recorder {
-    std::vector<std::pair<uint32_t, Packet>> notes;
+    std::vector<std::pair<uint32_t, Ump::Packet>> notes;
     uint32_t clock = 0;
-    void Process(const Packet& packet) {
+    void Process(const Ump::Packet& packet) {
         if (packet.IsSystem(SystemStatus::TimingClock)) {
             ++clock;
         } else if (packet.IsChannelVoice()) {
@@ -29,11 +29,11 @@ struct Recorder {
     }
 };
 
-const Group G = Group::FromWire(0);
+const Ump::Group G = Ump::Group::FromWire(0);
 
 void Send(StepSequencer& sequencer, SystemStatus status, int times = 1) {
     for (int i = 0; i < times; ++i) {
-        sequencer.Process(Packet::System(G, status));
+        sequencer.Process(Ump::Packet::System(G, status));
     }
 }
 
@@ -103,8 +103,8 @@ TEST(MIDILARDevicesSequencerTests, PlaysThePatternOnTheClock) {
     // note on clock k (0-based) is recorded after k + 1 clocks.
     const uint32_t onClocks[] = {1, 19, 37};
     for (size_t i = 0; i < 3; ++i) {
-        const Packet& on = recorder.notes[2 * i].second;
-        const Packet& off = recorder.notes[2 * i + 1].second;
+        const Ump::Packet& on = recorder.notes[2 * i].second;
+        const Ump::Packet& off = recorder.notes[2 * i + 1].second;
         EXPECT_EQ(recorder.notes[2 * i].first, onClocks[i]);
         EXPECT_EQ(on.VoiceStatus(), VoiceStatus::NoteOn);
         EXPECT_EQ(on.Note(), NoteNumber::FromValue(36));
@@ -127,7 +127,7 @@ TEST(MIDILARDevicesSequencerTests, StopReleasesAndSongPositionMoves) {
     EXPECT_EQ(recorder.notes.back().second.VoiceStatus(), VoiceStatus::NoteOff);
     EXPECT_FALSE(sequencer.IsRunning());
 
-    sequencer.Process(Packet::SongPosition(G, 5));
+    sequencer.Process(Ump::Packet::SongPosition(G, 5));
     EXPECT_EQ(sequencer.CurrentStep(), 5);
     sequencer.SetPattern(1u << 5, 16);
     Send(sequencer, SystemStatus::Continue);

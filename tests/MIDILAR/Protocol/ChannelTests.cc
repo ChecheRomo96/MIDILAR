@@ -4,8 +4,8 @@
 
 using MIDILAR::Protocol::Channel;
 using MIDILAR::Protocol::ChannelMask;
-using MIDILAR::Protocol::Group;
-using MIDILAR::Protocol::GroupMask;
+using MIDILAR::Protocol::Ump::Group;
+using MIDILAR::Protocol::Ump::GroupMask;
 
 static_assert(Channel::FromNumber(10).Wire() == 9, "drum channel");
 static_assert(!Channel().IsValid(), "default channel is invalid");
@@ -18,7 +18,7 @@ TEST(MIDILARProtocolChannelTests, WireAndNumberAreOneApart) {
         EXPECT_EQ(channel.Wire(), wire);
         EXPECT_EQ(channel.Number(), wire + 1);
         EXPECT_EQ(Channel::FromNumber(wire + 1), channel);
-        EXPECT_EQ(Group::FromWire(wire).Number(), wire + 1);
+        EXPECT_EQ(MIDILAR::Protocol::Ump::Group::FromWire(wire).Number(), wire + 1);
     }
 }
 
@@ -26,7 +26,7 @@ TEST(MIDILARProtocolChannelTests, OutOfRangeInputIsInvalid) {
     const int32_t wires[] = {-1, 16, 255, 256, -256};
     for (int32_t wire : wires) {
         EXPECT_FALSE(Channel::FromWire(wire).IsValid());
-        EXPECT_FALSE(Group::FromWire(wire).IsValid());
+        EXPECT_FALSE(MIDILAR::Protocol::Ump::Group::FromWire(wire).IsValid());
     }
     EXPECT_FALSE(Channel::FromNumber(0).IsValid());
     EXPECT_FALSE(Channel::FromNumber(17).IsValid());
@@ -62,5 +62,5 @@ TEST(MIDILARProtocolChannelTests, MasksCombine) {
     EXPECT_EQ((~a).Count(), 14);
     EXPECT_EQ(a | ~a, ChannelMask::All());
     EXPECT_EQ(ChannelMask::FromBits(0x8001u).Count(), 2);
-    EXPECT_TRUE(GroupMask::All().Contains(Group::FromNumber(16)));
+    EXPECT_TRUE(MIDILAR::Protocol::Ump::GroupMask::All().Contains(MIDILAR::Protocol::Ump::Group::FromNumber(16)));
 }

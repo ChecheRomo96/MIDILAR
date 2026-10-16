@@ -1,16 +1,16 @@
-#ifndef MIDILAR_PROTOCOL_MIDI1_SYSEX_MESSAGE_H
-#define MIDILAR_PROTOCOL_MIDI1_SYSEX_MESSAGE_H
+#ifndef MIDILAR_PROTOCOL_MIDI_SYSEX_MESSAGE_H
+#define MIDILAR_PROTOCOL_MIDI_SYSEX_MESSAGE_H
 #include <MIDILAR_BuildSettings.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
 #include "../TimeCode.h"
 
-namespace MIDILAR::Protocol::Midi1 {
+namespace MIDILAR::Protocol::Midi {
 
 /**
  * @brief Non-owning complete F0..F7 message in caller storage (SPEC-M1-3).
- * @ingroup MIDILAR_Midi1
+ * @ingroup MIDILAR_Midi
  *
  * Copies share the same bytes. Keep the caller buffer alive and unchanged
  * while reading the view. Build validates everything before writing, supports

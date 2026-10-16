@@ -6,7 +6,7 @@
 #include <Foundation/Functional/Callback.h>
 #include <MCC/Chord/ChordPattern.h>
 #include <MIDILAR/Protocol/Channel.h>
-#include <MIDILAR/Protocol/Packet.h>
+#include <MIDILAR/Protocol/Ump/Packet.h>
 #include <MIDILAR/Protocol/Values.h>
 
 #include "Device.h"
@@ -30,22 +30,22 @@ public:
     void SetTarget(Protocol::Channel channel) noexcept { _channel = channel; }
 
     /** @brief Sets the target group; the invalid group keeps each packet's group. */
-    void SetTargetGroup(Protocol::Group group) noexcept { _group = group; }
+    void SetTargetGroup(Protocol::Ump::Group group) noexcept { _group = group; }
 
     /** @brief Emits `packet`, moved when its channel is a source. */
-    void Process(const Protocol::Packet& packet) const {
+    void Process(const Protocol::Ump::Packet& packet) const {
         if (!_channel.IsValid() || !packet.IsChannelVoice() || !_sources.Contains(packet.Channel())) {
             Emit(packet);
             return;
         }
-        const Protocol::Packet moved = packet.WithChannel(_channel);
+        const Protocol::Ump::Packet moved = packet.WithChannel(_channel);
         Emit(_group.IsValid() ? moved.WithGroup(_group) : moved);
     }
 
 private:
     Protocol::ChannelMask _sources = Protocol::ChannelMask::All();
     Protocol::Channel _channel;
-    Protocol::Group _group;
+    Protocol::Ump::Group _group;
 };
 
 /**
@@ -66,7 +66,7 @@ public:
     int32_t Semitones() const noexcept { return _semitones; }
 
     /** @brief Emits `packet` transposed, or drops it when out of range. */
-    void Process(const Protocol::Packet& packet) {
+    void Process(const Protocol::Ump::Packet& packet) {
         const Protocol::NoteNumber note = packet.Note();
         if (!note.IsValid()) {
             Emit(packet);
@@ -85,7 +85,7 @@ private:
 };
 
 /** @brief Maps one velocity to another. @ingroup MIDILAR_Devices */
-using VelocityMap = Foundation::Functional::Callback<Protocol::Velocity, Protocol::Velocity>;
+using VelocityMap = Foundation::Functional::Callback<Protocol::Midi2::Velocity, Protocol::Midi2::Velocity>;
 
 /**
  * @brief Reshapes Note On velocities with a caller-provided map.
@@ -101,17 +101,17 @@ public:
     VelocityMap& Map() noexcept { return _map; }
 
     /** @brief Emits `packet` with its Note On velocity mapped. */
-    void Process(const Protocol::Packet& packet) const {
+    void Process(const Protocol::Ump::Packet& packet) const {
         if (!_map.IsBound() || !packet.IsChannelVoice() ||
             packet.VoiceStatus() != Protocol::VoiceStatus::NoteOn) {
             Emit(packet);
             return;
         }
-        const Protocol::Velocity velocity = _map.Invoke(packet.Velocity());
-        if (packet.Type() == Protocol::MessageType::Midi1ChannelVoice) {
-            Emit(Protocol::Packet::Midi1NoteOn(packet.Group(), packet.Channel(), packet.Note(), velocity));
+        const Protocol::Midi2::Velocity velocity = _map.Invoke(packet.Velocity());
+        if (packet.Type() == Protocol::Ump::MessageType::Midi1ChannelVoice) {
+            Emit(Protocol::Ump::Packet::Midi1NoteOn(packet.Group(), packet.Channel(), packet.Note(), velocity));
         } else {
-            Emit(Protocol::Packet::Midi2NoteOn(packet.Group(), packet.Channel(), packet.Note(), velocity,
+            Emit(Protocol::Ump::Packet::Midi2NoteOn(packet.Group(), packet.Channel(), packet.Note(), velocity,
                                                packet.AttributeType(), packet.AttributeData()));
         }
     }
@@ -152,7 +152,7 @@ public:
     uint32_t Shape() const noexcept { return _shape; }
 
     /** @brief Emits one packet per chord tone of `packet`'s note. */
-    void Process(const Protocol::Packet& packet) {
+    void Process(const Protocol::Ump::Packet& packet) {
         const Protocol::NoteNumber note = packet.Note();
         if (!note.IsValid()) {
             Emit(packet);

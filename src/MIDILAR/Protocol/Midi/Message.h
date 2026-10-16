@@ -1,14 +1,15 @@
-#ifndef MIDILAR_PROTOCOL_MIDI1_MESSAGE_H
-#define MIDILAR_PROTOCOL_MIDI1_MESSAGE_H
+#ifndef MIDILAR_PROTOCOL_MIDI_MESSAGE_H
+#define MIDILAR_PROTOCOL_MIDI_MESSAGE_H
 
 #include <MIDILAR_BuildSettings.h>
 #include <stddef.h>
 #include <stdint.h>
-#include "../Packet.h"
+#include "../Channel.h"
+#include "../Scaling.h"
 
-namespace MIDILAR::Protocol::Midi1 {
+namespace MIDILAR::Protocol::Midi {
 
-/** @brief MIDI 1.0 short message family or system status. @ingroup MIDILAR_Midi1 */
+/** @brief MIDI 1.0 short message family or system status. @ingroup MIDILAR_Midi */
 enum class MessageType : uint8_t {
     Invalid = 0, NoteOff = 0x80, NoteOn = 0x90, AfterTouch = 0xA0,
     ControlChange = 0xB0, ProgramChange = 0xC0, ChannelPressure = 0xD0,
@@ -19,7 +20,7 @@ enum class MessageType : uint8_t {
 
 /**
  * @brief Complete short MIDI 1.0 message in three inline bytes (SPEC-M1-1..4).
- * @ingroup MIDILAR_Midi1
+ * @ingroup MIDILAR_Midi
  *
  * Reintroduces the useful builder surface of the historical MidiCore::Message
  * without dynamic storage or exceptions. Not a drop-in replacement: SysEx
@@ -31,7 +32,7 @@ enum class MessageType : uint8_t {
  * running status belongs to a transport encoder, not this complete message.
  *
  * @code{.cpp}
- * MIDILAR::Protocol::Midi1::Message msg;
+ * MIDILAR::Protocol::Midi::Message msg;
  * msg.NoteOn(60, 100, 0); // 90 3C 64
  * const uint8_t* bytes = msg.Buffer(); // valid until msg changes or is destroyed
  * size_t count = msg.size();          // 3
@@ -219,34 +220,6 @@ public:
             : Set(0xF1, static_cast<uint8_t>((piece << 4) | nibble));
     }
 
-    /** @brief Explicit UMP conversion; normalizes velocity-zero Note On. */
-    Protocol::Packet ToPacket(Protocol::Group group) const noexcept {
-        if (!IsValid() || !group.IsValid()) return Protocol::Packet();
-        const uint8_t status = Type() == MessageType::NoteOn && _bytes[2] == 0
-            ? static_cast<uint8_t>(0x80u | (_bytes[0] & 15u)) : _bytes[0];
-        const uint32_t type = status < 0xF0 ? 2u : 1u;
-        return Protocol::Packet::FromWords((type << 28) |
-            (static_cast<uint32_t>(group.Wire()) << 24) |
-            (static_cast<uint32_t>(status) << 16) |
-            (static_cast<uint32_t>(_bytes[1]) << 8) | _bytes[2]);
-    }
-
-    /** @brief Converts valid short MIDI 1.0 UMP to bytes, discarding its group. */
-    static Message FromPacket(const Protocol::Packet& packet) noexcept {
-        Message result;
-        if (!packet.IsValid() || (packet.Type() != Protocol::MessageType::Midi1ChannelVoice &&
-                                 packet.Type() != Protocol::MessageType::System)) return result;
-        const uint8_t bytes[3] = {
-            static_cast<uint8_t>(packet.Word(0) >> 16),
-            static_cast<uint8_t>(packet.Word(0) >> 8),
-            static_cast<uint8_t>(packet.Word(0))
-        };
-        if ((packet.Type() == Protocol::MessageType::System) != (bytes[0] >= 0xF0)) return result;
-        const uint8_t count = Length(bytes[0]);
-        if (count == 0 || (count < 3 && bytes[2] != 0) || (count < 2 && bytes[1] != 0)) return result;
-        return result.SetRawData(bytes, count);
-    }
 };
-
-} // namespace MIDILAR::Protocol::Midi1
+}
 #endif

@@ -7,11 +7,11 @@ void Run(PrintFunction print) {
     MIDILAR_EXAMPLE_PRINT(print, "USB MIDI 1.0: evento -> UMP -> evento.\nEntrada: 19 90 3C 64.\n19: cable indice 1 (grupo 2), CIN 9 (Note On).\n90: canal 1; 3C: nota 60; 64: velocity 100.\nEsperado al recodificar: los mismos cuatro bytes.\n\n");
     // Cable 2 (wire index 1), Note On, channel 1.
     const uint8_t event[4] = {0x19, 0x90, 60, 100};
-    Packet packet;
-    if (!DecodeUsbMidi1(event, packet)) { MIDILAR_EXAMPLE_PRINT(print, "Invalid event\n"); return; }
+    Ump::Packet packet;
+    if (!Ump::DecodeUsbMidi1(event, packet)) { MIDILAR_EXAMPLE_PRINT(print, "Invalid event\n"); return; }
     PrintPacket(print, packet);
-    UsbMidi1Encoder encoder;
-    UsbMidi1Encoder::Event events[UsbMidi1Encoder::MaxEvents];
+    Ump::UsbMidi1Encoder encoder;
+    Ump::UsbMidi1Encoder::Event events[Ump::UsbMidi1Encoder::MaxEvents];
     const uint8_t count = encoder.Encode(packet, events);
     PrintNumber(print, "Eventos USB reconstruidos (esperado 1)", count);
     for (uint8_t i = 0; i < count; ++i)

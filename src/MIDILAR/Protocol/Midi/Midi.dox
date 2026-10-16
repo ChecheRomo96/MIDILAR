@@ -1,9 +1,9 @@
 /**
- * @defgroup MIDILAR_Midi1 Native MIDI 1.0 messages
+ * @defgroup MIDILAR_Midi Native MIDI 1.0 messages
  * @ingroup MIDILAR_Protocol
  * @brief Byte-oriented builders, adapted from the historical Message API.
  *
- * @section MIDILARMidi1Concept Complete messages
+ * @section MIDILARMidiConcept Complete messages
  *
  * Message holds one complete short message in three inline bytes. Note On,
  * Note Off, AfterTouch, CC and Pitch Bend use three MIDI bytes. Program Change
@@ -13,15 +13,15 @@
  *
  * @code{.cpp}
  * #include <MIDILAR_Protocol.h>
- * using MIDILAR::Protocol::Midi1::Message;
+ * using MIDILAR::Protocol::Midi::Message;
  * Message msg;
  * msg.NoteOn(60, 100, 0); // wire channel 0 = human channel 1
  * // Send msg.Buffer(), msg.size() using the application's MIDI transport.
- * auto packet = msg.ToPacket(MIDILAR::Protocol::Group::FromNumber(1));
- * auto bytesAgain = Message::FromPacket(packet);
+ * auto packet = MIDILAR::Protocol::Ump::Encode(MIDILAR::Protocol::Ump::Group::FromNumber(1), msg);
+ * auto bytesAgain = MIDILAR::Protocol::Ump::DecodeMidi1(packet);
  * @endcode
  *
- * @section MIDILARMidi1Storage Storage and validity
+ * @section MIDILARMidiStorage Storage and validity
  *
  * Builders mutate the object and return Message&. Invalid input clears it:
  * IsValid() is false, Buffer() is null and size() is zero. Data(index) returns
@@ -35,14 +35,14 @@
  * @code{.cpp}
  * uint8_t storage[16];
  * const uint8_t payload[] = {0x7D, 1, 2, 3};
- * auto sysex = MIDILAR::Protocol::Midi1::SysExMessage::Build(
+ * auto sysex = MIDILAR::Protocol::Midi::SysExMessage::Build(
  *     storage, sizeof(storage), payload, sizeof(payload));
  * // sysex.Buffer(): F0 7D 01 02 03 F7, size(): 6.
  * @endcode
  *
- * @section MIDILARMidi1Migration Migration from MidiCore::Message
+ * @section MIDILARMidiMigration Migration from MidiCore::Message
  *
- * - Include MIDILAR_Protocol.h and use MIDILAR::Protocol::Midi1::Message.
+ * - Include MIDILAR_Protocol.h and use MIDILAR::Protocol::Midi::Message.
  * - NoteOn, NoteOff, AfterTouch, ControlChange, ProgramChange, ChannelPressure,
  *   common CC helpers, transport and system-common builders retain their
  *   useful names and argument order. Channels remain wire indices 0-15.
@@ -55,9 +55,9 @@
  * - Vector constructors, iterators and implicit ownership are not retained.
  * - The old NRPN helpers were empty. Compose CC 99/98 and Data Entry 6/38
  *   explicitly; see @ref MIDI_NRPN_MESSAGES. One Message holds one CC.
- * - Midi1Parser and the existing devices continue to use Packet. Construction
- *   and raw-byte access need no UMP conversion. ToPacket requires an explicit
- *   group and normalizes velocity-zero Note On; FromPacket accepts short MIDI
+ * - Ump::Midi1Parser and the existing devices continue to use Ump::Packet. Construction
+ *   and raw-byte access need no UMP conversion. Ump::Encode requires an explicit
+ *   group and normalizes velocity-zero Note On; Ump::DecodeMidi1 accepts short MIDI
  *   1.0 UMP only, discards its group and never downconverts MIDI 2.0.
  * - This is an adapted API, not binary or source compatibility with the
  *   removed implementation. See SPEC-M1-1..4 in @ref MIDILAR_Specification.

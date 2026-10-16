@@ -5,7 +5,7 @@
 
 #include <Foundation/Time/Clock.h>
 #include <MIDILAR/Devices/Mtc.h>
-#include <MIDILAR/Protocol/Midi1Encoder.h>
+#include <MIDILAR/Protocol/Ump/Midi1Encoder.h>
 
 namespace MIDILARExamples::Devices::MtcOut {
 
@@ -32,11 +32,11 @@ public:
     MIDILAR::Protocol::TimeCode Time() const noexcept;
 
 private:
-    void Send(const MIDILAR::Protocol::Packet& packet);
+    void Send(const MIDILAR::Protocol::Ump::Packet& packet);
 
     Foundation::Time::Clock _clock;
     MIDILAR::Devices::MtcGenerator _generator;
-    MIDILAR::Protocol::Midi1Encoder _encoder;
+    MIDILAR::Protocol::Ump::Midi1Encoder _encoder;
     void (*_write)(uint8_t) = nullptr;
 };
 

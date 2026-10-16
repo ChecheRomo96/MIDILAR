@@ -6,12 +6,12 @@
 
 #include "Packet.h"
 
-namespace MIDILAR::Protocol {
+namespace MIDILAR::Protocol::Ump {
 
 /**
  * @brief Collects the payload of 7-bit System Exclusive packets into a
  * caller-provided buffer (SPEC-RT-4, SPEC-MIDI-14).
- * @ingroup MIDILAR_Protocol
+ * @ingroup MIDILAR_Ump
  *
  * The payload excludes `0xF0` and `0xF7`. When it does not fit, the first
  * bytes are kept and the message is flagged as truncated. A `Start` or
@@ -73,6 +73,6 @@ private:
     bool _active = false;
 };
 
-} // namespace MIDILAR::Protocol
+} // namespace MIDILAR::Protocol::Ump
 
 #endif // MIDILAR_PROTOCOL_SYSEX_ASSEMBLER_H

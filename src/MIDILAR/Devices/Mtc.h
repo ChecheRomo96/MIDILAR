@@ -5,7 +5,7 @@
 
 #include <Foundation/Time/Clock.h>
 #include <MIDILAR/Protocol/Channel.h>
-#include <MIDILAR/Protocol/Packet.h>
+#include <MIDILAR/Protocol/Ump/Packet.h>
 #include <MIDILAR/Protocol/TimeCode.h>
 
 #include "Device.h"
@@ -30,8 +30,8 @@ public:
 
     /** @brief Uses `clock` for timing and sends on `group` (default: group 1). */
     explicit MtcGenerator(const Foundation::Time::Clock& clock,
-                          Protocol::Group group = Protocol::Group::FromWire(0)) noexcept
-        : _clock(clock), _group(group.IsValid() ? group : Protocol::Group::FromWire(0)) {
+                          Protocol::Ump::Group group = Protocol::Ump::Group::FromWire(0)) noexcept
+        : _clock(clock), _group(group.IsValid() ? group : Protocol::Ump::Group::FromWire(0)) {
         Locate(Protocol::TimeCode::From(0, 0, 0, 0, Protocol::TimeCodeRate::Fps30), false);
     }
 
@@ -79,8 +79,8 @@ public:
     void SendFullFrame() {
         const uint8_t head[6] = {0x7F, 0x7F, 0x01, 0x01, _time.RateAndHours(), _time.Minutes()};
         const uint8_t tail[2] = {_time.Seconds(), _time.Frames()};
-        Emit(Protocol::Packet::SysEx7(_group, Protocol::SysExStatus::Start, head, 6));
-        Emit(Protocol::Packet::SysEx7(_group, Protocol::SysExStatus::End, tail, 2));
+        Emit(Protocol::Ump::Packet::SysEx7(_group, Protocol::Ump::SysExStatus::Start, head, 6));
+        Emit(Protocol::Ump::Packet::SysEx7(_group, Protocol::Ump::SysExStatus::End, tail, 2));
     }
 
     /** @brief Emits the quarter frames that are due. */
@@ -100,7 +100,7 @@ public:
             if (_piece == 0) {
                 _message = _time;
             }
-            Emit(Protocol::Packet::TimeCode(_group, _message.QuarterFrame(_piece)));
+            Emit(Protocol::Ump::Packet::TimeCode(_group, _message.QuarterFrame(_piece)));
             _piece = static_cast<uint8_t>((_piece + 1) & 7u);
             if ((_piece & 3u) == 0) {
                 _time = _time.Next();
@@ -119,7 +119,7 @@ private:
     }
 
     const Foundation::Time::Clock& _clock;
-    Protocol::Group _group;
+    Protocol::Ump::Group _group;
     Protocol::TimeCode _time;
     Protocol::TimeCode _message;
     uint64_t _stepNumerator = 0;
@@ -143,10 +143,10 @@ private:
 class MtcReceiver : public Device {
 public:
     /** @brief Updates the time from `packet` and emits it. */
-    void Process(const Protocol::Packet& packet) {
+    void Process(const Protocol::Ump::Packet& packet) {
         if (packet.IsSystem(Protocol::SystemStatus::TimeCode)) {
             QuarterFrame(packet.TimeCode());
-        } else if (packet.Type() == Protocol::MessageType::Data64) {
+        } else if (packet.Type() == Protocol::Ump::MessageType::Data64) {
             SysEx(packet);
         }
         Emit(packet);
@@ -175,9 +175,9 @@ private:
         }
     }
 
-    void SysEx(const Protocol::Packet& packet) {
-        const Protocol::SysExStatus status = packet.SysExStatus();
-        if (status == Protocol::SysExStatus::Start || status == Protocol::SysExStatus::Complete) {
+    void SysEx(const Protocol::Ump::Packet& packet) {
+        const Protocol::Ump::SysExStatus status = packet.SysExStatus();
+        if (status == Protocol::Ump::SysExStatus::Start || status == Protocol::Ump::SysExStatus::Complete) {
             _sysExSize = 0;
         }
         for (uint8_t i = 0; i < packet.SysExSize(); ++i) {
@@ -188,7 +188,7 @@ private:
                 ++_sysExSize;
             }
         }
-        if ((status == Protocol::SysExStatus::End || status == Protocol::SysExStatus::Complete) &&
+        if ((status == Protocol::Ump::SysExStatus::End || status == Protocol::Ump::SysExStatus::Complete) &&
             _sysExSize == FullFrameLength && _sysEx[0] == 0x7F && _sysEx[2] == 0x01 && _sysEx[3] == 0x01) {
             const Protocol::TimeCode time = Protocol::TimeCode::From(
                 _sysEx[4] & 0x1F, _sysEx[5], _sysEx[6], _sysEx[7],

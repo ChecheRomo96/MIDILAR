@@ -13,11 +13,11 @@ uint32_t g_milliseconds = 0;
 uint32_t Milliseconds() { return g_milliseconds; }
 
 struct Sink {
-    std::vector<Packet> packets;
-    void Process(const Packet& packet) { packets.push_back(packet); }
+    std::vector<Ump::Packet> packets;
+    void Process(const Ump::Packet& packet) { packets.push_back(packet); }
     size_t Count(SystemStatus status) const {
         size_t count = 0;
-        for (const Packet& packet : packets) {
+        for (const Ump::Packet& packet : packets) {
             count += packet.IsSystem(status) ? 1u : 0u;
         }
         return count;
@@ -58,7 +58,7 @@ TEST_F(ClockFixture, GeneratorSendsTwentyFourClocksPerBeatWithoutDrift) {
 
 // SPEC-CLK-2
 TEST_F(ClockFixture, GeneratorTransportControlsPosition) {
-    ClockGenerator generator(clock, Group::FromWire(2));
+    ClockGenerator generator(clock, Ump::Group::FromWire(2));
     generator.Output().Bind<Sink, &Sink::Process>(&sink);
     generator.Update();
     RunFor(generator, 500);
@@ -79,8 +79,8 @@ TEST_F(ClockFixture, GeneratorTransportControlsPosition) {
     EXPECT_EQ(sink.Count(SystemStatus::Stop), 1u);
     EXPECT_EQ(sink.Count(SystemStatus::Continue), 1u);
     EXPECT_EQ(sink.Count(SystemStatus::SongPosition), 1u);
-    for (const Packet& packet : sink.packets) {
-        EXPECT_EQ(packet.Group(), Group::FromWire(2));
+    for (const Ump::Packet& packet : sink.packets) {
+        EXPECT_EQ(packet.Group(), Ump::Group::FromWire(2));
     }
 }
 
@@ -134,10 +134,10 @@ TEST_F(ClockFixture, ReceiverFollowsTheGenerator) {
 
 TEST_F(ClockFixture, ReceiverIgnoresSongPositionWhileRunning) {
     ClockReceiver receiver(clock);
-    receiver.Process(Packet::System(Group::FromWire(0), SystemStatus::Start));
-    receiver.Process(Packet::SongPosition(Group::FromWire(0), 10));
+    receiver.Process(Ump::Packet::System(Ump::Group::FromWire(0), SystemStatus::Start));
+    receiver.Process(Ump::Packet::SongPosition(Ump::Group::FromWire(0), 10));
     EXPECT_EQ(receiver.Position(), 0u);
-    receiver.Process(Packet::Noop());
+    receiver.Process(Ump::Packet::Noop());
 }
 
 namespace {
@@ -184,7 +184,7 @@ TEST(MIDILARDevicesClockCalibratorTests, IgnoresClocksUntilStarted) {
     g_trueMicros = 0;
     Foundation::Time::Clock local(TrueMicros, Foundation::Time::Frequency(1000000, 1));
     ClockCalibrator calibrator(local);
-    calibrator.Process(Packet::System(Group::FromWire(0), SystemStatus::TimingClock));
+    calibrator.Process(Ump::Packet::System(Ump::Group::FromWire(0), SystemStatus::TimingClock));
     EXPECT_FALSE(calibrator.IsMeasuring());
     EXPECT_FALSE(calibrator.IsDone());
     calibrator.Start(0);

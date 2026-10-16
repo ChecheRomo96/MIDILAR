@@ -39,29 +39,47 @@
  *
  * @section MIDILARSpecModel Internal model
  *
+ * - SPEC-NS-1: Protocol contains only shared channel/note/controller/program
+ *   concepts, status semantics, scaling and time code. Midi owns native
+ *   short bytes and caller-buffer SysEx; Midi2 owns native channel-voice
+ *   messages and high-resolution values. Ump owns the packet container,
+ *   groups, utility/SysEx packet statuses and byte/USB-to-UMP adapters.
+ * - SPEC-NS-2: Midi and Midi2 message headers do not include or depend on UMP.
+ *   Ump::Encode(group, message) and DecodeMidi1/DecodeMidi2 perform explicit
+ *   conversion. Native MIDI 2.0 messages occupy eight bytes with no group or
+ *   UMP message-type header. They preserve velocity zero and 16/32-bit values.
+ * - SPEC-NS-3: Midi2::Message represents the seven channel-voice families
+ *   currently supported by typed constructors, not every UMP message family.
+ *   DecodeMidi2 validates status, reserved bits and 7-bit indices, rejects
+ *   other packet types without implicit up/downconversion and removes the
+ *   explicitly addressed group. Invalid input yields a canonical invalid value.
+ *   Generic templates and tag types live in Detail and are hidden from the
+ *   public Doxygen listing.
+ *
  * - SPEC-MIDI-1: The internal message model is the MIDI 2.0 Universal MIDI
  *   Packet: 32-, 64-, 96- and 128-bit packets with a message type and a group.
- *   Devices, routing and timing work on UMP. The optional native MIDI 1.0
- *   message builders below do not require UMP for construction or byte access.
+ *   Devices, routing and timing work on UMP. Native Midi and Midi2 messages
+ *   do not require UMP for construction or field/byte access.
  * - SPEC-MIDI-2: MIDI 1.0 byte streams (DIN/UART, USB MIDI 1.0) are translated
  *   at the edges: a parser turns bytes into UMP and an encoder turns UMP back
  *   into bytes, following the MIDI 2.0 translation rules.
- * - SPEC-MIDI-3: Values are kept at MIDI 2.0 resolution: 16-bit velocity and
- *   32-bit controller, pressure and pitch-bend values. MIDI 1.0 values are
+ * - SPEC-MIDI-3: Midi2 values and UMP device queries use MIDI 2.0 resolution:
+ *   16-bit velocity and 32-bit controller, pressure and pitch-bend values.
+ *   Native Midi::Message preserves 7/14-bit bytes. UMP MIDI 1.0 values are
  *   scaled up with the specification's min-center-max rule and scaled down by
  *   keeping the most significant bits, so a 1.0 value survives a round trip.
  *
- * - SPEC-M1-1: Protocol::Midi1::Message stores one complete short MIDI 1.0
+ * - SPEC-M1-1: Protocol::Midi::Message stores one complete short MIDI 1.0
  *   message in three inline bytes, with no allocation. The all-zero object
  *   is invalid; size() is inferred from status. Builders reject out-of-range
  *   input by clearing the object. Channels in the byte-oriented builder API
  *   use wire indices 0-15, explicitly unlike Channel::FromNumber().
  * - SPEC-M1-2: Raw short messages preserve their exact bytes, including Note
- *   On with velocity zero. ToPacket(group) explicitly normalizes that release
- *   to Note Off, as the UMP parser does. FromPacket accepts only MIDI 1.0
+ *   On with velocity zero. Ump::Encode(group, message) explicitly normalizes that release
+ *   to Note Off, as the UMP parser does. Ump::DecodeMidi1 accepts only MIDI 1.0
  *   channel voice and short system packets with valid data and zero reserved
  *   fields; it rejects MIDI 2.0 rather than silently reducing resolution.
- * - SPEC-M1-3: Protocol::Midi1::SysExMessage is a non-owning view into a
+ * - SPEC-M1-3: Protocol::Midi::SysExMessage is a non-owning view into a
  *   caller-provided buffer. Build writes F0 + 7-bit payload + F7 only after
  *   validating the payload and capacity; failure returns the invalid view
  *   without modifying the buffer. Copies alias that buffer, whose lifetime

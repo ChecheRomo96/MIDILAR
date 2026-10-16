@@ -13,8 +13,8 @@ uint32_t g_milliseconds = 0;
 uint32_t Milliseconds() { return g_milliseconds; }
 
 struct Sink {
-    std::vector<Packet> packets;
-    void Process(const Packet& packet) { packets.push_back(packet); }
+    std::vector<Ump::Packet> packets;
+    void Process(const Ump::Packet& packet) { packets.push_back(packet); }
 };
 
 TimeCode At(int h, int m, int s, int f, TimeCodeRate rate = TimeCodeRate::Fps30) {
@@ -98,18 +98,18 @@ TEST_F(MtcFixture, GeneratorSendsFourQuarterFramesPerFrameWithoutDrift) {
 }
 
 TEST_F(MtcFixture, GeneratorSendsFullFrames) {
-    MtcGenerator generator(clock, Group::FromWire(3));
+    MtcGenerator generator(clock, Ump::Group::FromWire(3));
     generator.Output().Bind<Sink, &Sink::Process>(&sink);
     generator.Locate(At(1, 2, 3, 4, TimeCodeRate::Fps25));
     ASSERT_EQ(sink.packets.size(), 2u);
-    EXPECT_EQ(sink.packets[0].SysExStatus(), SysExStatus::Start);
+    EXPECT_EQ(sink.packets[0].SysExStatus(), Ump::SysExStatus::Start);
     EXPECT_EQ(sink.packets[0].SysExByte(4), (1 << 5) | 1);
-    EXPECT_EQ(sink.packets[1].SysExStatus(), SysExStatus::End);
+    EXPECT_EQ(sink.packets[1].SysExStatus(), Ump::SysExStatus::End);
     EXPECT_EQ(sink.packets[1].SysExByte(1), 4);
-    EXPECT_EQ(sink.packets[1].Group(), Group::FromWire(3));
+    EXPECT_EQ(sink.packets[1].Group(), Ump::Group::FromWire(3));
 
-    uint8_t bytes[2][Midi1Encoder::MaxBytes];
-    Midi1Encoder encoder;
+    uint8_t bytes[2][Ump::Midi1Encoder::MaxBytes];
+    Ump::Midi1Encoder encoder;
     const uint8_t first = encoder.Encode(sink.packets[0], bytes[0]);
     const uint8_t second = encoder.Encode(sink.packets[1], bytes[1]);
     const std::vector<uint8_t> wire(bytes[0], bytes[0] + first);
@@ -142,17 +142,17 @@ TEST_F(MtcFixture, ReceiverFollowsTheGenerator) {
 TEST(MIDILARDevicesMtcTests, ReceiverRestartsOnOutOfOrderPieces) {
     MtcReceiver receiver;
     const TimeCode time = At(5, 6, 7, 8);
-    const Group g = Group::FromWire(0);
-    receiver.Process(Packet::TimeCode(g, time.QuarterFrame(3)));
+    const Ump::Group g = Ump::Group::FromWire(0);
+    receiver.Process(Ump::Packet::TimeCode(g, time.QuarterFrame(3)));
     for (uint8_t piece = 0; piece < 7; ++piece) {
-        receiver.Process(Packet::TimeCode(g, time.QuarterFrame(piece)));
+        receiver.Process(Ump::Packet::TimeCode(g, time.QuarterFrame(piece)));
     }
     EXPECT_FALSE(receiver.Time().IsValid());
-    receiver.Process(Packet::TimeCode(g, time.QuarterFrame(7)));
+    receiver.Process(Ump::Packet::TimeCode(g, time.QuarterFrame(7)));
     EXPECT_EQ(receiver.Time(), At(5, 6, 7, 10));
 
     const uint8_t other[8] = {0x7F, 0x7F, 0x06, 0x01, 0, 0, 0, 0};
-    receiver.Process(Packet::SysEx7(g, SysExStatus::Start, other, 6));
-    receiver.Process(Packet::SysEx7(g, SysExStatus::End, other + 6, 2));
+    receiver.Process(Ump::Packet::SysEx7(g, Ump::SysExStatus::Start, other, 6));
+    receiver.Process(Ump::Packet::SysEx7(g, Ump::SysExStatus::End, other + 6, 2));
     EXPECT_EQ(receiver.Time(), At(5, 6, 7, 10));
 }

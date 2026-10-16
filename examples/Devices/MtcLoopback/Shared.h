@@ -5,8 +5,8 @@
 
 #include <Foundation/Time/Clock.h>
 #include <MIDILAR/Devices/Mtc.h>
-#include <MIDILAR/Protocol/Midi1Encoder.h>
-#include <MIDILAR/Protocol/Midi1Parser.h>
+#include <MIDILAR/Protocol/Ump/Midi1Encoder.h>
+#include <MIDILAR/Protocol/Ump/Midi1Parser.h>
 
 namespace MIDILARExamples::Devices::MtcLoopback {
 
@@ -33,12 +33,12 @@ public:
     uint32_t Bytes() const noexcept;
 
 private:
-    void Send(const MIDILAR::Protocol::Packet& packet);
+    void Send(const MIDILAR::Protocol::Ump::Packet& packet);
 
     Foundation::Time::Clock _clock;
     MIDILAR::Devices::MtcGenerator _generator;
-    MIDILAR::Protocol::Midi1Encoder _encoder;
-    MIDILAR::Protocol::Midi1Parser _parser;
+    MIDILAR::Protocol::Ump::Midi1Encoder _encoder;
+    MIDILAR::Protocol::Ump::Midi1Parser _parser;
     MIDILAR::Devices::MtcReceiver _receiver;
     uint32_t _bytes = 0;
 };

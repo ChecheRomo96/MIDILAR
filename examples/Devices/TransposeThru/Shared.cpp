@@ -4,7 +4,7 @@
 
 namespace MIDILARExamples::Devices::TransposeThru {
 
-using MIDILAR::Protocol::Packet;
+using MIDILAR::Protocol::Ump::Packet;
 
 Thru::Thru() noexcept {
     _scale.SetScale(MCC::Scales::Make(MCC::NoteName(MCC::Letter::C, MCC::Accidental::Natural()),
@@ -20,7 +20,7 @@ void Thru::SetSemitones(int32_t semitones) noexcept {
 uint8_t Thru::Process(uint8_t byte, uint8_t (&out)[Capacity]) {
     _out = out;
     _count = 0;
-    Packet packets[MIDILAR::Protocol::Midi1Parser::MaxPackets];
+    MIDILAR::Protocol::Ump::Packet packets[MIDILAR::Protocol::Ump::Midi1Parser::MaxPackets];
     const uint8_t count = _parser.Parse(byte, packets);
     for (uint8_t i = 0; i < count; ++i) {
         _transpose.Process(packets[i]);
@@ -28,8 +28,8 @@ uint8_t Thru::Process(uint8_t byte, uint8_t (&out)[Capacity]) {
     return _count;
 }
 
-void Thru::Collect(const Packet& packet) {
-    uint8_t bytes[MIDILAR::Protocol::Midi1Encoder::MaxBytes];
+void Thru::Collect(const MIDILAR::Protocol::Ump::Packet& packet) {
+    uint8_t bytes[MIDILAR::Protocol::Ump::Midi1Encoder::MaxBytes];
     const uint8_t count = _encoder.Encode(packet, bytes);
     for (uint8_t i = 0; i < count && _count < Capacity; ++i) {
         _out[_count++] = bytes[i];

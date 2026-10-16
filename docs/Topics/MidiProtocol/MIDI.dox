@@ -34,7 +34,7 @@
  *
  * ---
  *
- * @see MIDILAR_Midi1 for native byte-oriented message builders.
+ * @see MIDILAR_Midi for native byte-oriented message builders.
  * @see MIDILAR_Protocol for UMP parsing, translation and devices.
  *
  * @note These topics adapt the protocol explanations from the pre-rebuild

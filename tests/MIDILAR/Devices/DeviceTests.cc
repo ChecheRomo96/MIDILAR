@@ -16,8 +16,8 @@ using namespace MIDILAR::Protocol;
 namespace {
 
 struct Sink {
-    std::vector<Packet> packets;
-    void Process(const Packet& packet) { packets.push_back(packet); }
+    std::vector<Ump::Packet> packets;
+    void Process(const Ump::Packet& packet) { packets.push_back(packet); }
 };
 
 template <typename T>
@@ -25,18 +25,18 @@ void Connect(T& device, Sink& sink) {
     device.Output().template Bind<Sink, &Sink::Process>(&sink);
 }
 
-constexpr Group G1 = Group::FromWire(0);
+constexpr Ump::Group G1 = Ump::Group::FromWire(0);
 
-Packet NoteOn(int32_t note, int32_t channel = 0, int32_t velocity = 100) {
-    return Packet::Midi1NoteOn(G1, Channel::FromWire(channel), NoteNumber::FromValue(note),
-                               Velocity::FromMidi1(velocity));
+Ump::Packet NoteOn(int32_t note, int32_t channel = 0, int32_t velocity = 100) {
+    return Ump::Packet::Midi1NoteOn(G1, Channel::FromWire(channel), NoteNumber::FromValue(note),
+                               Midi2::Velocity::FromMidi1(velocity));
 }
 
-Packet NoteOff2(int32_t note, int32_t channel = 0) {
-    return Packet::Midi2NoteOff(G1, Channel::FromWire(channel), NoteNumber::FromValue(note), Velocity());
+Ump::Packet NoteOff2(int32_t note, int32_t channel = 0) {
+    return Ump::Packet::Midi2NoteOff(G1, Channel::FromWire(channel), NoteNumber::FromValue(note), Midi2::Velocity());
 }
 
-const Packet Clock = Packet::System(G1, SystemStatus::TimingClock);
+const Ump::Packet Clock = Ump::Packet::System(G1, SystemStatus::TimingClock);
 
 } // namespace
 
@@ -57,16 +57,16 @@ TEST(MIDILARDevicesTests, ChannelFilterPassesSelectedGroupsAndChannels) {
     filter.Process(NoteOn(60, 9));
     filter.Process(NoteOn(60, 0));
     filter.Process(Clock);
-    filter.Process(Packet::JrTimestamp(1));
-    filter.SetGroups(GroupMask::Only(Group::FromWire(3)));
+    filter.Process(Ump::Packet::JrTimestamp(1));
+    filter.SetGroups(Ump::GroupMask::Only(Ump::Group::FromWire(3)));
     filter.Process(NoteOn(60, 9));
     filter.Process(Clock);
-    filter.Process(Packet::Noop());
+    filter.Process(Ump::Packet::Noop());
     ASSERT_EQ(sink.packets.size(), 4u);
     EXPECT_EQ(sink.packets[0], NoteOn(60, 9));
     EXPECT_EQ(sink.packets[1], Clock);
-    EXPECT_EQ(sink.packets[2], Packet::JrTimestamp(1));
-    EXPECT_EQ(sink.packets[3], Packet::Noop());
+    EXPECT_EQ(sink.packets[2], Ump::Packet::JrTimestamp(1));
+    EXPECT_EQ(sink.packets[3], Ump::Packet::Noop());
 }
 
 TEST(MIDILARDevicesTests, ChannelReassignMovesSourceChannels) {
@@ -79,7 +79,7 @@ TEST(MIDILARDevicesTests, ChannelReassignMovesSourceChannels) {
     reassign.Process(NoteOn(60, 1));
     reassign.Process(NoteOn(60, 2));
     reassign.Process(Clock);
-    reassign.SetTargetGroup(Group::FromWire(7));
+    reassign.SetTargetGroup(Ump::Group::FromWire(7));
     reassign.Process(NoteOff2(61, 1));
     ASSERT_EQ(sink.packets.size(), 5u);
     EXPECT_EQ(sink.packets[0], NoteOn(60, 1));
@@ -87,7 +87,7 @@ TEST(MIDILARDevicesTests, ChannelReassignMovesSourceChannels) {
     EXPECT_EQ(sink.packets[2], NoteOn(60, 2));
     EXPECT_EQ(sink.packets[3], Clock);
     EXPECT_EQ(sink.packets[4].Channel(), Channel::FromWire(5));
-    EXPECT_EQ(sink.packets[4].Group(), Group::FromWire(7));
+    EXPECT_EQ(sink.packets[4].Group(), Ump::Group::FromWire(7));
     EXPECT_EQ(sink.packets[4].Note(), NoteNumber::FromValue(61));
     EXPECT_EQ(sink.packets[4].VoiceStatus(), VoiceStatus::NoteOff);
 }
@@ -100,10 +100,10 @@ TEST(MIDILARDevicesTests, TransposeShiftsNotesAndDropsOutOfRange) {
     transpose.Process(NoteOn(60));
     transpose.Process(NoteOn(120));
     transpose.Process(NoteOff2(60));
-    transpose.Process(Packet::Midi1PolyPressure(G1, Channel::FromWire(0), NoteNumber::FromValue(1),
-                                                PressureValue::Max()));
-    transpose.Process(Packet::Midi1ControlChange(G1, Channel::FromWire(0), ControllerNumber::FromValue(60),
-                                                 ControllerValue::Max()));
+    transpose.Process(Ump::Packet::Midi1PolyPressure(G1, Channel::FromWire(0), NoteNumber::FromValue(1),
+                                                Midi2::PressureValue::Max()));
+    transpose.Process(Ump::Packet::Midi1ControlChange(G1, Channel::FromWire(0), ControllerNumber::FromValue(60),
+                                                 Midi2::ControllerValue::Max()));
     ASSERT_EQ(sink.packets.size(), 4u);
     EXPECT_EQ(sink.packets[0], NoteOn(72));
     EXPECT_EQ(sink.packets[1], NoteOff2(72));
@@ -118,7 +118,7 @@ TEST(MIDILARDevicesTests, TransposeMovesMidi2PerNotePackets) {
     Sink sink;
     Connect(transpose, sink);
     transpose.SetSemitones(-1);
-    const Packet perNoteBend = Packet::FromWords(0x40603C00u, 0x80000000u);
+    const Ump::Packet perNoteBend = Ump::Packet::FromWords(0x40603C00u, 0x80000000u);
     ASSERT_TRUE(perNoteBend.HasNote());
     transpose.Process(perNoteBend);
     ASSERT_EQ(sink.packets.size(), 1u);
@@ -131,14 +131,14 @@ TEST(MIDILARDevicesTests, VelocityCurveMapsNoteOnOnly) {
     Sink sink;
     Connect(curve, sink);
     curve.Process(NoteOn(60, 0, 100));
-    curve.Map().Bind([](Velocity) { return Velocity(); });
+    curve.Map().Bind([](Midi2::Velocity) { return Midi2::Velocity(); });
     curve.Process(NoteOn(60, 0, 100));
-    curve.Process(Packet::Midi2NoteOn(G1, Channel::FromWire(0), NoteNumber::FromValue(60), Velocity::Max(), 3, 7));
+    curve.Process(Ump::Packet::Midi2NoteOn(G1, Channel::FromWire(0), NoteNumber::FromValue(60), Midi2::Velocity::Max(), 3, 7));
     curve.Process(NoteOff2(60));
     ASSERT_EQ(sink.packets.size(), 4u);
     EXPECT_EQ(sink.packets[0], NoteOn(60, 0, 100));
     EXPECT_EQ(sink.packets[1], NoteOn(60, 0, 1));
-    EXPECT_EQ(sink.packets[2].Velocity(), Velocity());
+    EXPECT_EQ(sink.packets[2].Velocity(), Midi2::Velocity());
     EXPECT_EQ(sink.packets[2].VoiceStatus(), VoiceStatus::NoteOn);
     EXPECT_EQ(sink.packets[2].AttributeData(), 7);
     EXPECT_EQ(sink.packets[3], NoteOff2(60));
@@ -206,18 +206,18 @@ TEST(MIDILARDevicesTests, DevicesChainAndRouterFansOut) {
 }
 
 TEST(MIDILARDevicesTests, PacketCopiesChangeOneField) {
-    const Packet note = NoteOn(60, 1);
+    const Ump::Packet note = NoteOn(60, 1);
     EXPECT_EQ(note.WithChannel(Channel::FromWire(4)).Channel(), Channel::FromWire(4));
-    EXPECT_EQ(note.WithGroup(Group::FromWire(4)).Group(), Group::FromWire(4));
+    EXPECT_EQ(note.WithGroup(Ump::Group::FromWire(4)).Group(), Ump::Group::FromWire(4));
     EXPECT_EQ(note.WithNote(NoteNumber::FromValue(1)).Note(), NoteNumber::FromValue(1));
     EXPECT_EQ(note.WithNote(NoteNumber::FromValue(1)).Velocity(), note.Velocity());
     EXPECT_FALSE(note.WithChannel(Channel::Invalid()).IsValid());
-    EXPECT_FALSE(note.WithGroup(Group::Invalid()).IsValid());
+    EXPECT_FALSE(note.WithGroup(Ump::Group::Invalid()).IsValid());
     EXPECT_FALSE(note.WithNote(NoteNumber::Invalid()).IsValid());
     EXPECT_EQ(Clock.WithChannel(Channel::FromWire(4)), Clock);
     EXPECT_EQ(Clock.WithNote(NoteNumber::FromValue(4)), Clock);
-    EXPECT_EQ(Packet::Noop().WithGroup(Group::FromWire(4)), Packet::Noop());
-    EXPECT_FALSE(Packet().WithGroup(Group::FromWire(4)).IsValid());
+    EXPECT_EQ(Ump::Packet::Noop().WithGroup(Ump::Group::FromWire(4)), Ump::Packet::Noop());
+    EXPECT_FALSE(Ump::Packet().WithGroup(Ump::Group::FromWire(4)).IsValid());
 }
 
 // SPEC-DEV-3
@@ -227,8 +227,8 @@ TEST(MIDILARDevicesTests, HeldNotesReleaseWhereTheyStarted) {
     Connect(transpose, sink);
     transpose.SetSemitones(2);
     transpose.Process(NoteOn(60));
-    transpose.Process(Packet::Midi2PolyPressure(G1, Channel::FromWire(0), NoteNumber::FromValue(60),
-                                                PressureValue::Max()));
+    transpose.Process(Ump::Packet::Midi2PolyPressure(G1, Channel::FromWire(0), NoteNumber::FromValue(60),
+                                                Midi2::PressureValue::Max()));
     transpose.SetSemitones(5);
     transpose.Process(NoteOff2(60));
     transpose.Process(NoteOff2(60));
@@ -260,7 +260,7 @@ TEST(MIDILARDevicesTests, Midi1NoteOnWithVelocityZeroReleases) {
     transpose.SetSemitones(1);
     transpose.Process(NoteOn(60));
     transpose.SetSemitones(0);
-    transpose.Process(Packet::FromWords(0x20903C00u));
+    transpose.Process(Ump::Packet::FromWords(0x20903C00u));
     ASSERT_EQ(sink.packets.size(), 2u);
     EXPECT_EQ(sink.packets[1].Note(), NoteNumber::FromValue(61));
 }

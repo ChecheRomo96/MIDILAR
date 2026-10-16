@@ -125,7 +125,7 @@
  * using namespace MIDILAR::Protocol;
  * uint8_t storage[10];
  * auto time = TimeCode::From(1, 2, 3, 4, TimeCodeRate::Fps25);
- * auto message = Midi1::SysExMessage::MTC_FullFrame(
+ * auto message = Midi::SysExMessage::MTC_FullFrame(
  *     storage, sizeof(storage), time);
  * // F0 7F 7F 01 01 21 02 03 04 F7.
  * @endcode

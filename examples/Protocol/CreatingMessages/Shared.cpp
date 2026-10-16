@@ -1,7 +1,7 @@
 #include "Shared.h"
 
 namespace MIDILARExamples::Protocol::CreatingMessages {
-using namespace MIDILAR::Protocol::Midi1;
+using namespace MIDILAR::Protocol::Midi;
 namespace {
 template <typename T>
 void Show(PrintFunction print, const char* label, const T& message) {
@@ -31,8 +31,8 @@ void Run(PrintFunction print) {
     message.NoteOn(60, 0, 0);
     Show(print, "Bytes originales: Note On con velocity cero", message);
     MIDILAR_EXAMPLE_PRINT(print, "Conversion explicita a UMP: se normaliza a Note Off.\n");
-    const auto packet = message.ToPacket(MIDILAR::Protocol::Group::FromNumber(1));
+    const auto packet = MIDILAR::Protocol::Ump::Encode(MIDILAR::Protocol::Ump::Group::FromNumber(1), message);
     PrintPacket(print, packet);
-    Show(print, "De regreso a bytes MIDI 1.0", Message::FromPacket(packet));
+    Show(print, "De regreso a bytes MIDI 1.0", MIDILAR::Protocol::Ump::DecodeMidi1(packet));
 }
 }

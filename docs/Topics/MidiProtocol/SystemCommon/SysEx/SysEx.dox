@@ -43,7 +43,7 @@
  * #include <MIDILAR_Protocol.h>
  * uint8_t storage[16];
  * const uint8_t payload[] = {0x7D, 1, 2, 3};
- * auto message = MIDILAR::Protocol::Midi1::SysExMessage::Build(
+ * auto message = MIDILAR::Protocol::Midi::SysExMessage::Build(
  *     storage, sizeof(storage), payload, sizeof(payload));
  * // F0 7D 01 02 03 F7. Check IsValid() before reading Buffer().
  * @endcode

@@ -1,7 +1,7 @@
 #include "Shared.h"
 
 namespace MIDILARExamples::Protocol::SysExBuffer {
-using namespace MIDILAR::Protocol::Midi1;
+using namespace MIDILAR::Protocol::Midi;
 namespace {
 template <typename T>
 void Show(PrintFunction print, const char* label, const T& message) {
