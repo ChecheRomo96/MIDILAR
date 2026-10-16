@@ -22,7 +22,13 @@ if(APPLE OR WIN32 OR CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(MIDILAR_DESKTOP_EXAMPLES_SUPPORTED ON)
 endif()
 
-add_subdirectory(MIDILAR)
+if(MIDILAR_CORE)
+    add_subdirectory(Core)
+endif()
+
+if(MIDILAR_DEVICES)
+    add_subdirectory(Devices)
+endif()
 
 set(MIDILAR_EXAMPLES_LAUNCHER_DIRECTORY
     "${CMAKE_CURRENT_BINARY_DIR}/launchers")

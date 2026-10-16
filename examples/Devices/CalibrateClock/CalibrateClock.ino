@@ -1,8 +1,8 @@
 // Measures this board's oscillator error against a reference MIDI clock and
 // stores the correction in EEPROM.
 //
-// 1. Play MIDI clock at exactly 120 BPM into the board (a DAW through a MIDI
-//    shield, or through Hairless MIDI with -DMIDILAR_EXAMPLE_MIDI_BAUD=115200).
+// 1. Play MIDI clock at exactly 120 BPM into the board (a DAW through a USB
+//    bridge at 115200 baud; use -DMIDILAR_EXAMPLE_MIDI_BAUD=31250 for a shield).
 // 2. After 30 seconds of clock the LED lights and the correction is stored.
 // 3. Open the serial monitor (115200 baud with a bridge): on every start the
 //    sketch prints the stored correction, for example "stored ppm: -500".
@@ -14,7 +14,7 @@
 #include "Shared.h"
 
 #ifndef MIDILAR_EXAMPLE_MIDI_BAUD
-    #define MIDILAR_EXAMPLE_MIDI_BAUD 31250
+    #define MIDILAR_EXAMPLE_MIDI_BAUD 115200
 #endif
 
 namespace {
