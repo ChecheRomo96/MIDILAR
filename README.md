@@ -1,5 +1,7 @@
 # MIDILAR
 
+**Documentation:** [API and build guide](https://checheromo96.github.io/MIDILAR/) · [API class index](https://checheromo96.github.io/MIDILAR/annotated.html)
+
 MIDILAR is the MIDI layer of the RoModular ecosystem: MIDI 1.0 and MIDI 2.0
 protocol, messages, parsing, routing and real-time devices for desktop and
 embedded targets. Devices use Universal MIDI Packets internally; native
