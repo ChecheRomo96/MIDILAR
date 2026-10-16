@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['messages_0',['Messages',['../group__MIDI__CC__CHANNEL__MODE.html',1,'Channel Mode Messages'],['../group__MIDI__ChannelVoice.html',1,'Channel Voice Messages'],['../group__MIDI__CC__DATA__ENTRY.html',1,'Data Entry Messages'],['../group__MIDI__INCREMENT__DECREMENT__MESSAGES.html',1,'Data Increment/Decrement Messages'],['../group__MIDI__MTC.html',1,'Midi Time Code Messages'],['../group__MTC__RT__Commands.html',1,'MTC Commands Messages'],['../group__MTC__RT__Cueing.html',1,'MTC Cueing Messages'],['../group__MTC__NonRealTime.html',1,'MTC Non-Real-Time SysEx Messages'],['../group__MTC__QuarterFrame.html',1,'MTC Quarter Frame Messages'],['../group__MTC__RealTime.html',1,'MTC Real-Time SysEx Messages'],['../group__MTC__SysEx.html',1,'MTC SysEx Messages'],['../group__MIDI__CV__NoteMessages.html',1,'Note Messages'],['../group__MIDI__NRPN__MESSAGES.html',1,'NRPN Messages'],['../group__MIDI__RealTime.html',1,'Real-Time Messages'],['../group__MIDI__RPN__MESSAGES.html',1,'RPN Messages'],['../group__MIDI__SystemCommon.html',1,'System Common Messages'],['../group__MIDI__SC__SysEx.html',1,'System Exclusive Messages']]],
+  ['messages_1',['messages',['../group__MIDILAR__Midi2.html',1,'MIDI 2.0 messages'],['../group__MIDILAR__Midi.html',1,'Native MIDI 1.0 messages']]],
+  ['messages_20cc_20124_20125_2',['Channel Omni Messages (CC #124-125)',['../group__MIDI__CC__OMNI.html',1,'']]],
+  ['messages_20cc_20126_20127_3',['Channel Polyphony Messages (CC #126-127)',['../group__MIDI__CC__POLYPHONY.html',1,'']]],
+  ['midi_201_200_20messages_4',['Native MIDI 1.0 messages',['../group__MIDILAR__Midi.html',1,'']]],
+  ['midi_201_200_20protocol_20guide_5',['MIDI 1.0 protocol guide',['../group__MIDI__Protocol.html',1,'']]],
+  ['midi_202_200_20messages_6',['MIDI 2.0 messages',['../group__MIDILAR__Midi2.html',1,'']]],
+  ['midi_20domain_20specification_7',['MIDI-Domain Specification',['../group__MIDILAR__Specification.html',1,'']]],
+  ['midi_20packets_8',['Universal MIDI Packets',['../group__MIDILAR__Ump.html',1,'']]],
+  ['midi_20show_20control_9',['Midi Show Control',['../group__MIDI__MSC.html',1,'']]],
+  ['midi_20time_20code_20frame_20rates_10',['MIDI Time Code Frame Rates',['../group__MTC__FrameRates.html',1,'']]],
+  ['midi_20time_20code_20messages_11',['Midi Time Code Messages',['../group__MIDI__MTC.html',1,'']]],
+  ['midilar_12',['MIDILAR',['../group__MIDILAR.html',1,'']]],
+  ['mode_20messages_13',['Channel Mode Messages',['../group__MIDI__CC__CHANNEL__MODE.html',1,'']]],
+  ['modulation_14',['Modulation',['../group__MIDI__CC__Modulation.html',1,'']]],
+  ['mtc_20commands_20messages_15',['MTC Commands Messages',['../group__MTC__RT__Commands.html',1,'']]],
+  ['mtc_20cueing_20messages_16',['MTC Cueing Messages',['../group__MTC__RT__Cueing.html',1,'']]],
+  ['mtc_20full_20frame_17',['MTC Full Frame',['../group__MTC__RT__FullFrame.html',1,'']]],
+  ['mtc_20non_20real_20time_20sysex_20messages_18',['MTC Non-Real-Time SysEx Messages',['../group__MTC__NonRealTime.html',1,'']]],
+  ['mtc_20quarter_20frame_20messages_19',['MTC Quarter Frame Messages',['../group__MTC__QuarterFrame.html',1,'']]],
+  ['mtc_20real_20time_20sysex_20messages_20',['MTC Real-Time SysEx Messages',['../group__MTC__RealTime.html',1,'']]],
+  ['mtc_20sysex_20messages_21',['MTC SysEx Messages',['../group__MTC__SysEx.html',1,'']]]
+];

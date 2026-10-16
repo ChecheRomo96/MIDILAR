@@ -1,0 +1,4 @@
+<map id="Time Components" name="Time Components">
+<area shape="rect" id="Node000002" href="$group__MTC__QuarterFrame.html" title="SMPTE time transmitted as eight two&#45;byte messages, F1 + data." alt="" coords="5,5,223,31"/>
+<area shape="rect" id="Node000001" title="The eight piece indices and their time&#45;data nibbles." alt="" coords="271,5,412,31"/>
+</map>

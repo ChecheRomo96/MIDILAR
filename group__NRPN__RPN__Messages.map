@@ -1,0 +1,8 @@
+<map id="Non&#45;Registered and Registered Parameter Numbers" name="Non&#45;Registered and Registered Parameter Numbers">
+<area shape="rect" id="Node000003" href="$group__MIDI__CC__DATA__ENTRY.html" title="Data Entry Continuous Controllers (CC #6 and CC #38)." alt="" coords="410,5,570,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__CV__ControlChange.html" title="(0xB0) Control Change messages for MIDI." alt="" coords="5,92,128,117"/>
+<area shape="rect" id="Node000001" title="NRPN and RPN messages for extended MIDI parameter control." alt="" coords="176,77,343,132"/>
+<area shape="rect" id="Node000006" href="$group__MIDI__INCREMENT__DECREMENT__MESSAGES.html" title="Data Increment and Decrement Continuous Controllers (CC #96 and CC #97)." alt="" coords="391,55,589,95"/>
+<area shape="rect" id="Node000004" href="$group__MIDI__NRPN__MESSAGES.html" title="Non&#45;Registered Parameter Number (NRPN) Messages." alt="" coords="426,120,554,145"/>
+<area shape="rect" id="Node000005" href="$group__MIDI__RPN__MESSAGES.html" title="Registered Parameter Number (RPN) Messages." alt="" coords="431,169,549,195"/>
+</map>

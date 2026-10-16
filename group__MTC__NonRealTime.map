@@ -1,0 +1,8 @@
+<map id="MTC Non&#45;Real&#45;Time SysEx Messages" name="MTC Non&#45;Real&#45;Time SysEx Messages">
+<area shape="rect" id="Node000006" href="$group__CuePoints.html" title="Non&#45;Real&#45;Time SysEx commands for managing Cue Points." alt="" coords="487,5,578,31"/>
+<area shape="rect" id="Node000005" href="$group__Event.html" title="Non&#45;Real&#45;Time SysEx commands for managing Events." alt="" coords="503,55,562,80"/>
+<area shape="rect" id="Node000001" title="Constants for Non&#45;Real&#45;Time MIDI Time Code (MTC) SysEx messages." alt="" coords="216,73,411,113"/>
+<area shape="rect" id="Node000004" href="$group__PunchPoints.html" title="Non&#45;Real&#45;Time SysEx commands for Punch In and Punch Out Points." alt="" coords="459,104,607,129"/>
+<area shape="rect" id="Node000003" href="$group__Special.html" title="Non&#45;Real&#45;Time SysEx commands for Special Operations." alt="" coords="498,153,567,179"/>
+<area shape="rect" id="Node000002" href="$group__MTC__SysEx.html" title="Constants for MIDI SysEx messages related to MTC." alt="" coords="5,80,168,105"/>
+</map>

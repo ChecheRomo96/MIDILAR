@@ -1,0 +1,4 @@
+<map id="After Touch" name="After Touch">
+<area shape="rect" id="Node000001" title="(0xA0) &#45; Represents the After Touch (Polyphonic Key Pressure) MIDI message." alt="" coords="236,5,331,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__ChannelVoice.html" title="MIDI messages that control sound generation and performance on individual channels." alt="" coords="5,5,188,31"/>
+</map>

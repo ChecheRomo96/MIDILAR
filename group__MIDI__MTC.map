@@ -1,0 +1,6 @@
+<map id="Midi Time Code Messages" name="Midi Time Code Messages">
+<area shape="rect" id="Node000001" title="Contains all the MIDI Time Code (MTC) commands." alt="" coords="227,31,420,56"/>
+<area shape="rect" id="Node000003" href="$group__MTC__QuarterFrame.html" title="SMPTE time transmitted as eight two&#45;byte messages, F1 + data." alt="" coords="468,5,685,31"/>
+<area shape="rect" id="Node000004" href="$group__MTC__SysEx.html" title="Constants for MIDI SysEx messages related to MTC." alt="" coords="495,55,658,80"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__Protocol.html" title="Core definitions and message categories of the MIDI communication standard." alt="" coords="5,31,179,56"/>
+</map>

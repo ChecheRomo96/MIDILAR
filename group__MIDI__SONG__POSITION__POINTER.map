@@ -1,0 +1,4 @@
+<map id="Song Position Pointer (0xF2)" name="Song Position Pointer (0xF2)">
+<area shape="rect" id="Node000001" title="Song Position Pointer message (0xF2)" alt="" coords="256,5,416,45"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__SystemCommon.html" title="Messages used for system&#45;wide control and transport synchronization in MIDI communication." alt="" coords="5,13,208,38"/>
+</map>
