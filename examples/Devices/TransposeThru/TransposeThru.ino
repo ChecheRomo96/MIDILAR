@@ -1,15 +1,15 @@
-// A MIDI thru box for a MIDI shield on the Uno's serial port: notes are
+// A MIDI thru box on the Uno's serial port: notes are
 // transposed up two semitones and kept on C major.
 
 #include <MIDILAR_Devices.h>
 
 #include "Shared.h"
 
-// 31250 baud drives a MIDI shield. To test over the USB cable with a
-// serial-to-MIDI bridge (Hairless MIDI) instead, compile with
-// -DMIDILAR_EXAMPLE_MIDI_BAUD=115200.
+// UART defaults to 115200 baud for a USB serial-to-MIDI bridge.
+// For a DIN MIDI shield, compile with -DMIDILAR_EXAMPLE_MIDI_BAUD=31250.
+// The stream contains MIDI bytes, not printable serial-monitor text.
 #ifndef MIDILAR_EXAMPLE_MIDI_BAUD
-    #define MIDILAR_EXAMPLE_MIDI_BAUD 31250
+    #define MIDILAR_EXAMPLE_MIDI_BAUD 115200
 #endif
 
 MIDILARExamples::Devices::TransposeThru::Thru thru;

@@ -48,7 +48,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $MCC "library.properties"))) {
 }
 $MCC = (Resolve-Path -LiteralPath $MCC).Path
 
-$examplesRoot = Join-Path $root "examples/MIDILAR"
+$examplesRoot = Join-Path $root "examples"
 $buildRoot = Join-Path $root ("build/arduino/" + ($Fqbn -replace ":", "_"))
 if (Test-Path -LiteralPath $buildRoot) {
     Remove-Item -LiteralPath $buildRoot -Recurse -Force
