@@ -72,7 +72,7 @@
      * ```cpp
      * #include "MIDILAR_Protocol.h"
      *
-     * using namespace MIDILAR::Protocol::Midi1;
+     * using namespace MIDILAR::Protocol::Midi;
      *
      * Message msg;
      *
@@ -126,7 +126,7 @@
      * ```cpp
      * #include "MIDILAR_Protocol.h"
      *
-     * using namespace MIDILAR::Protocol::Midi1;
+     * using namespace MIDILAR::Protocol::Midi;
      *
      * Message msg;
      *
@@ -174,7 +174,7 @@
      * ```cpp
      * #include "MIDILAR_Protocol.h"
      *
-     * using namespace MIDILAR::Protocol::Midi1;
+     * using namespace MIDILAR::Protocol::Midi;
      *
      * Message msg;
      *
@@ -220,7 +220,7 @@
      * ```cpp
      * #include "MIDILAR_Protocol.h"
      *
-     * using namespace MIDILAR::Protocol::Midi1;
+     * using namespace MIDILAR::Protocol::Midi;
      *
      * Message msg;
      * // Wire channel 0 is human channel 1. These all encode center: E0 00 40.

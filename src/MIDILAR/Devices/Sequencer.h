@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #include <MIDILAR/Protocol/Channel.h>
-#include <MIDILAR/Protocol/Packet.h>
+#include <MIDILAR/Protocol/Ump/Packet.h>
 #include <MIDILAR/Protocol/Values.h>
 
 #include "Device.h"
@@ -67,7 +67,7 @@ public:
     uint8_t Steps() const noexcept { return _steps; }
 
     /** @brief Sets the note, velocity and address played; invalid values keep the previous ones. */
-    void SetNote(Protocol::NoteNumber note, Protocol::Velocity velocity = Protocol::Velocity::FromMidi1(100)) noexcept {
+    void SetNote(Protocol::NoteNumber note, Protocol::Midi2::Velocity velocity = Protocol::Midi2::Velocity::FromMidi1(100)) noexcept {
         if (note.IsValid()) {
             _note = note;
         }
@@ -75,7 +75,7 @@ public:
     }
 
     /** @brief Sets the group and channel the notes are sent on. */
-    void SetAddress(Protocol::Group group, Protocol::Channel channel) noexcept {
+    void SetAddress(Protocol::Ump::Group group, Protocol::Channel channel) noexcept {
         if (group.IsValid() && channel.IsValid()) {
             _group = group;
             _channel = channel;
@@ -103,9 +103,9 @@ public:
     }
 
     /** @brief Emits `packet`, then the notes it triggers. */
-    void Process(const Protocol::Packet& packet) {
+    void Process(const Protocol::Ump::Packet& packet) {
         Emit(packet);
-        if (packet.Type() != Protocol::MessageType::System) {
+        if (packet.Type() != Protocol::Ump::MessageType::System) {
             return;
         }
         switch (packet.SystemStatus()) {
@@ -148,7 +148,7 @@ private:
                 _playing = _note;
                 _sounding = true;
                 _gateLeft = _gate;
-                Emit(Protocol::Packet::Midi2NoteOn(_group, _channel, _playing, _velocity));
+                Emit(Protocol::Ump::Packet::Midi2NoteOn(_group, _channel, _playing, _velocity));
             }
         }
         ++_clock;
@@ -157,16 +157,16 @@ private:
     void Release() {
         if (_sounding) {
             _sounding = false;
-            Emit(Protocol::Packet::Midi2NoteOff(_group, _channel, _playing, Protocol::Velocity()));
+            Emit(Protocol::Ump::Packet::Midi2NoteOff(_group, _channel, _playing, Protocol::Midi2::Velocity()));
         }
     }
 
     uint64_t _pattern = 0;
     uint32_t _clock = 0;
-    Protocol::Velocity _velocity = Protocol::Velocity::FromMidi1(100);
+    Protocol::Midi2::Velocity _velocity = Protocol::Midi2::Velocity::FromMidi1(100);
     Protocol::NoteNumber _note = Protocol::NoteNumber::FromValue(60);
     Protocol::NoteNumber _playing;
-    Protocol::Group _group = Protocol::Group::FromWire(0);
+    Protocol::Ump::Group _group = Protocol::Ump::Group::FromWire(0);
     Protocol::Channel _channel = Protocol::Channel::FromWire(0);
     uint8_t _steps = 16;
     uint8_t _clocksPerStep = 6;

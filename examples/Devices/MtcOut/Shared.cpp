@@ -22,8 +22,8 @@ MIDILAR::Protocol::TimeCode MtcOut::Time() const noexcept {
     return _generator.Time();
 }
 
-void MtcOut::Send(const MIDILAR::Protocol::Packet& packet) {
-    uint8_t bytes[MIDILAR::Protocol::Midi1Encoder::MaxBytes];
+void MtcOut::Send(const MIDILAR::Protocol::Ump::Packet& packet) {
+    uint8_t bytes[MIDILAR::Protocol::Ump::Midi1Encoder::MaxBytes];
     const uint8_t count = _encoder.Encode(packet, bytes);
     for (uint8_t i = 0; i < count && _write != nullptr; ++i) {
         _write(bytes[i]);

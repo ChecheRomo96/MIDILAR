@@ -3,15 +3,15 @@
 
 #include <stdint.h>
 
-#include "Channel.h"
+#include "../Channel.h"
 #include "Packet.h"
 
-namespace MIDILAR::Protocol {
+namespace MIDILAR::Protocol::Ump {
 
 /**
  * @brief Translates a MIDI 1.0 byte stream into UMP packets (SPEC-MIDI-2,
  * SPEC-MIDI-8..13).
- * @ingroup MIDILAR_Protocol
+ * @ingroup MIDILAR_Ump
  *
  * Feed bytes one at a time with `Parse()`. Channel voice messages become
  * MIDI 1.0 channel voice packets, system messages become system packets and
@@ -41,7 +41,7 @@ public:
     static constexpr uint8_t MaxPackets = 2;
 
     /** @brief Creates a parser that emits packets on `group` (default: group 1). */
-    explicit Midi1Parser(Protocol::Group group = Protocol::Group::FromWire(0)) noexcept
+    explicit Midi1Parser(Protocol::Ump::Group group = Protocol::Ump::Group::FromWire(0)) noexcept
         : _group(group.IsValid() ? group.Wire() : static_cast<uint8_t>(0)) {}
 
     /**
@@ -176,7 +176,7 @@ private:
     Packet SysExPacket(SysExStatus status) noexcept {
         const uint8_t size = _sysExCount;
         _sysExCount = 0;
-        return Packet::SysEx7(Protocol::Group::FromWire(_group), status, _sysEx, size);
+        return Packet::SysEx7(Protocol::Ump::Group::FromWire(_group), status, _sysEx, size);
     }
 
     void CountIgnored() noexcept {
@@ -207,6 +207,6 @@ private:
 #endif
 };
 
-} // namespace MIDILAR::Protocol
+} // namespace MIDILAR::Protocol::Ump
 
 #endif // MIDILAR_PROTOCOL_MIDI1_PARSER_H

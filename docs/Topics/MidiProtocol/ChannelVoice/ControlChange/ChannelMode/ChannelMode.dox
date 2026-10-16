@@ -30,7 +30,7 @@
  * ```cpp
  * #include "MIDILAR_Protocol.h"
  *
- * using namespace MIDILAR::Protocol::Midi1;
+ * using namespace MIDILAR::Protocol::Midi;
  *
  * Message msg;
  *

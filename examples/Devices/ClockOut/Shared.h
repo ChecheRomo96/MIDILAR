@@ -6,7 +6,7 @@
 #include <Foundation/Time/Clock.h>
 #include <MIDILAR/Devices/MidiClock.h>
 #include <MIDILAR/Devices/Sequencer.h>
-#include <MIDILAR/Protocol/Midi1Encoder.h>
+#include <MIDILAR/Protocol/Ump/Midi1Encoder.h>
 
 namespace MIDILARExamples::Devices::ClockOut {
 
@@ -33,12 +33,12 @@ public:
     uint32_t Position() const noexcept;
 
 private:
-    void Send(const MIDILAR::Protocol::Packet& packet);
+    void Send(const MIDILAR::Protocol::Ump::Packet& packet);
 
     Foundation::Time::Clock _clock;
     MIDILAR::Devices::ClockGenerator _generator;
     MIDILAR::Devices::StepSequencer _sequencer;
-    MIDILAR::Protocol::Midi1Encoder _encoder;
+    MIDILAR::Protocol::Ump::Midi1Encoder _encoder;
     void (*_write)(uint8_t) = nullptr;
 };
 

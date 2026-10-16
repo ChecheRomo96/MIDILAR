@@ -6,7 +6,7 @@
 #include <MCC/Scale/Scale.h>
 #include <MIDILAR/Protocol/Channel.h>
 #include <MIDILAR/Protocol/NotePitch.h>
-#include <MIDILAR/Protocol/Packet.h>
+#include <MIDILAR/Protocol/Ump/Packet.h>
 
 #include "Device.h"
 
@@ -23,20 +23,20 @@ namespace MIDILAR::Devices {
 class ChannelFilter : public Device {
 public:
     /** @brief Selects the groups that pass. */
-    void SetGroups(Protocol::GroupMask groups) noexcept { _groups = groups; }
+    void SetGroups(Protocol::Ump::GroupMask groups) noexcept { _groups = groups; }
 
     /** @brief Selects the channels that pass. */
     void SetChannels(Protocol::ChannelMask channels) noexcept { _channels = channels; }
 
     /** @brief Returns the groups that pass. */
-    Protocol::GroupMask Groups() const noexcept { return _groups; }
+    Protocol::Ump::GroupMask Groups() const noexcept { return _groups; }
 
     /** @brief Returns the channels that pass. */
     Protocol::ChannelMask Channels() const noexcept { return _channels; }
 
     /** @brief Emits `packet` when it passes the masks. */
-    void Process(const Protocol::Packet& packet) const {
-        const Protocol::Group group = packet.Group();
+    void Process(const Protocol::Ump::Packet& packet) const {
+        const Protocol::Ump::Group group = packet.Group();
         if (group.IsValid() && !_groups.Contains(group)) {
             return;
         }
@@ -47,7 +47,7 @@ public:
     }
 
 private:
-    Protocol::GroupMask _groups = Protocol::GroupMask::All();
+    Protocol::Ump::GroupMask _groups = Protocol::Ump::GroupMask::All();
     Protocol::ChannelMask _channels = Protocol::ChannelMask::All();
 };
 
@@ -81,7 +81,7 @@ public:
     const MCC::Scale& Scale() const noexcept { return _scale; }
 
     /** @brief Emits `packet` with its note kept on the scale, or drops it. */
-    void Process(const Protocol::Packet& packet) {
+    void Process(const Protocol::Ump::Packet& packet) {
         const Protocol::NoteNumber note = packet.Note();
         if (!note.IsValid()) {
             Emit(packet);

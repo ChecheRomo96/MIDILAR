@@ -9,25 +9,26 @@
 
 #if defined(MIDILAR_PROTOCOL)
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Channel, 1);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Group, 1);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Ump::Group, 1);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ChannelMask, 2);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::GroupMask, 2);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Ump::GroupMask, 2);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::NoteNumber, 1);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerNumber, 1);
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ProgramNumber, 1);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Velocity, 2);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::ControllerValue, 4);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PressureValue, 4);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::PitchBend, 4);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Packet, 16);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1::Message, 3);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1::SysExMessage, sizeof(void*) + sizeof(size_t));
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi2::Velocity, 2);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi2::ControllerValue, 4);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi2::PressureValue, 4);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi2::PitchBend, 4);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Ump::Packet, 16);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi::Message, 3);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi2::Message, 8);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi::SysExMessage, sizeof(void*) + sizeof(size_t));
 MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::TimeCode, 5);
 #if !defined(MIDILAR_PARSER_DIAGNOSTICS)
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Parser, 16);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Ump::Midi1Parser, 16);
 #endif
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Midi1Encoder, 2);
-MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::UsbMidi1Encoder, 82);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Ump::Midi1Encoder, 2);
+MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::Ump::UsbMidi1Encoder, 82);
 
 // C++14 permits multi-statement constexpr. Arduino C++11 builds exercise the
 // same functions at runtime; compile-time invariants remain checked elsewhere.
@@ -35,9 +36,9 @@ MIDILAR_CHECK_VALUE_TYPE(MIDILAR::Protocol::UsbMidi1Encoder, 82);
 static_assert(MIDILAR::Protocol::ScaleUp(127, 7, 32) == 0xFFFFFFFFu, "7->32 maximum");
 static_assert(MIDILAR::Protocol::ScaleUp(8192, 14, 32) == 0x80000000u, "14->32 center");
 static_assert(MIDILAR::Protocol::ChannelMask::All().Count() == 16, "sixteen channels");
-static_assert(MIDILAR::Protocol::Packet::Midi2NoteOn(MIDILAR::Protocol::Group::FromWire(0),
+static_assert(MIDILAR::Protocol::Ump::Packet::Midi2NoteOn(MIDILAR::Protocol::Ump::Group::FromWire(0),
                   MIDILAR::Protocol::Channel::FromWire(0), MIDILAR::Protocol::NoteNumber::FromValue(60),
-                  MIDILAR::Protocol::Velocity::Max()).Word(1) == 0xFFFF0000u,
+                  MIDILAR::Protocol::Midi2::Velocity::Max()).Word(1) == 0xFFFF0000u,
               "MIDI 2.0 Note On layout");
 static_assert(MIDILAR::Protocol::ToNoteNumber(MIDILAR::Protocol::ToPitch(
                   MIDILAR::Protocol::NoteNumber::FromValue(61))) == MIDILAR::Protocol::NoteNumber::FromValue(61),

@@ -21,8 +21,14 @@ the `rebuild` branch and in the read-only audit, as design input only.
 
 ## Architectural decisions
 
+- User-approved namespace separation: Protocol owns shared concepts; Midi
+  owns native bytes/SysEx, Midi2 owns native channel voice/high-resolution
+  values, and Ump owns packets/groups/adapters. Devices consume Ump::Packet.
+  Native headers are independent of UMP; explicit conversion replaces the
+  old MIDI 1.0 UMP members. See SPEC-NS-1..3.
+
 - Follow-up approved by the user: adapt the historical Message builder API
-  and its protocol topics. Protocol::Midi1::Message now supports native short
+  and its protocol topics. Protocol::Midi::Message now supports native short
   bytes in three inline bytes; SysExMessage uses caller storage. Devices keep
   UMP with explicit conversion. See SPEC-M1-1..4 and the migration guide;
   the old dynamic implementation and its defects are not restored.

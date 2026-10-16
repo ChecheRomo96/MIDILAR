@@ -10,7 +10,7 @@ void CalibrateClock::Start(uint32_t centiBpm, uint32_t clocks) {
 }
 
 void CalibrateClock::Receive(uint8_t byte) {
-    MIDILAR::Protocol::Packet packets[MIDILAR::Protocol::Midi1Parser::MaxPackets];
+    MIDILAR::Protocol::Ump::Packet packets[MIDILAR::Protocol::Ump::Midi1Parser::MaxPackets];
     const uint8_t count = _parser.Parse(byte, packets);
     for (uint8_t i = 0; i < count; ++i) {
         _calibrator.Process(packets[i]);
