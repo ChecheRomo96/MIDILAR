@@ -3,6 +3,14 @@
 This file records user-visible changes to MIDILAR. Release dates use the
 `YYYY-MM-DD` format.
 
+## [0.3.3] - 2026-10-16
+
+### Changed
+
+- Remove the redundant library-name directory from examples and update build and Arduino entry points.
+- Default all example UARTs to 115200 baud; retain the explicit 31250-baud override for DIN MIDI shields.
+- Require Foundation 2.0.8, DspCore 0.1.3 and MCC 0.6.2; update embedded CI dependency pins.
+
 ## [0.3.2] - 2026-10-16
 
 ### Changed

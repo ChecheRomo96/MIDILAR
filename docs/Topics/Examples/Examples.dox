@@ -6,7 +6,7 @@
  * Arduino sketch and native desktop adapter:
  *
  * @code
- * examples/MIDILAR/<module>/<example>/
+ * examples/<module>/<example>/
  * |-- CMakeLists.txt
  * |-- <example>.ino
  * |-- Shared.h
@@ -15,6 +15,10 @@
  *     |-- CMakeLists.txt
  *     `-- main.cpp
  * @endcode
+ *
+ * Arduino examples use UART at 115200 baud by default. Device examples that
+ * send or receive MIDI use binary bytes through a serial-to-MIDI bridge.
+ * For a DIN MIDI shield, override MIDILAR_EXAMPLE_MIDI_BAUD to 31250.
  *
  * Available examples:
  *
