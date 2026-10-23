@@ -5,6 +5,11 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ## [Unreleased]
 
+### Changed
+
+- MIDILAR now requires Foundation 2.0.10 or a newer 2.x release, built on
+  CPSTL 1.1.12.
+
 ## [0.4.0] - 2026-10-16
 
 ### Fixed
