@@ -1,0 +1,5 @@
+<map id="MIDILAR::Devices::StepSequencer" name="MIDILAR::Devices::StepSequencer">
+<area shape="rect" id="Node000001" title="Plays one note on the steps of a pattern, driven by MIDI clock (SPEC&#45;SEQ&#45;2)." alt="" coords="5,168,240,717"/>
+<area shape="rect" id="Node000002" href="$classMIDILAR_1_1Devices_1_1Device.html" title="Base of the devices: one output and no virtual functions (SPEC&#45;DEV&#45;1)." alt="" coords="13,5,232,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,134,125,168,120,168,120,134"/>
+</map>

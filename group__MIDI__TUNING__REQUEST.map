@@ -1,0 +1,4 @@
+<map id="Tuning Request" name="Tuning Request">
+<area shape="rect" id="Node000002" href="$group__MIDI__SystemCommon.html" title="Messages used for system&#45;wide control and transport synchronization in MIDI communication." alt="" coords="5,5,208,31"/>
+<area shape="rect" id="Node000001" title="Tuning Request message (0xF6)" alt="" coords="256,5,377,31"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="MIDILAR::Protocol::TimeCode" name="MIDILAR::Protocol::TimeCode">
+<area shape="rect" id="Node000001" title="An SMPTE time hh:mm:ss:ff at an MTC frame rate (SPEC&#45;MTC&#45;1)." alt="" coords="5,5,267,639"/>
+</map>

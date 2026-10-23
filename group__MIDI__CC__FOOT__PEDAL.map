@@ -1,0 +1,4 @@
+<map id="Foot Pedal" name="Foot Pedal">
+<area shape="rect" id="Node000001" title="Foot Pedal (CC #4)." alt="" coords="204,13,295,38"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__CC__GENERAL.html" title="Standard continuous controllers (CC) for MIDI devices." alt="" coords="5,5,156,45"/>
+</map>

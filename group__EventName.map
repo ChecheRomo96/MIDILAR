@@ -1,0 +1,4 @@
+<map id="Event Name with Additional Info" name="Event Name with Additional Info">
+<area shape="rect" id="Node000002" href="$group__Event.html" title="Non&#45;Real&#45;Time SysEx commands for managing Events." alt="" coords="5,5,64,31"/>
+<area shape="rect" id="Node000001" title="Commands for assigning descriptive names and metadata to events in a MIDI sequence." alt="" coords="112,5,345,31"/>
+</map>

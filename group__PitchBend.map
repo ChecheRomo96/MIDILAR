@@ -1,0 +1,4 @@
+<map id="Pitch Bend" name="Pitch Bend">
+<area shape="rect" id="Node000002" href="$group__MIDI__ChannelVoice.html" title="MIDI messages that control sound generation and performance on individual channels." alt="" coords="5,5,188,31"/>
+<area shape="rect" id="Node000001" title="(0xE0) &#45; Pitch Bend Change message." alt="" coords="236,5,327,31"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Start (0xFA)" name="Start (0xFA)">
+<area shape="rect" id="Node000001" title="Instructs all connected MIDI devices to start playback from the beginning." alt="" coords="211,5,309,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__RealTime.html" title="Messages used for synchronization and transport control in MIDI communication." alt="" coords="5,5,163,31"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Event" name="Event">
+<area shape="rect" id="Node000001" title="Non&#45;Real&#45;Time SysEx commands for managing Events." alt="" coords="248,55,307,80"/>
+<area shape="rect" id="Node000005" href="$group__EventName.html" title="Commands for assigning descriptive names and metadata to events in a MIDI sequence." alt="" coords="355,5,588,31"/>
+<area shape="rect" id="Node000003" href="$group__StartPoint.html" title="Event Start Point." alt="" coords="406,55,537,80"/>
+<area shape="rect" id="Node000004" href="$group__StopPoint.html" title="Commands for marking the stopping point of an event in a MIDI sequence." alt="" coords="407,104,536,129"/>
+<area shape="rect" id="Node000002" href="$group__MTC__NonRealTime.html" title="Constants for Non&#45;Real&#45;Time MIDI Time Code (MTC) SysEx messages." alt="" coords="5,47,200,87"/>
+</map>

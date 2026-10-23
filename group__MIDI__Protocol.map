@@ -1,0 +1,9 @@
+<map id="MIDI 1.0 protocol guide" name="MIDI 1.0 protocol guide">
+<area shape="rect" id="Node000002" href="$group__MIDILAR__Protocol.html" title="Shared MIDI concepts and separate native/protocol representations." alt="" coords="5,104,80,129"/>
+<area shape="rect" id="Node000001" title="Core definitions and message categories of the MIDI communication standard." alt="" coords="128,104,301,129"/>
+<area shape="rect" id="Node000003" href="$group__MIDI__ChannelVoice.html" title="MIDI messages that control sound generation and performance on individual channels." alt="" coords="359,5,542,31"/>
+<area shape="rect" id="Node000007" href="$group__MIDI__MSC.html" title=" " alt="" coords="381,55,521,80"/>
+<area shape="rect" id="Node000006" href="$group__MIDI__MTC.html" title="Contains all the MIDI Time Code (MTC) commands." alt="" coords="354,104,547,129"/>
+<area shape="rect" id="Node000004" href="$group__MIDI__RealTime.html" title="Messages used for synchronization and transport control in MIDI communication." alt="" coords="372,153,529,179"/>
+<area shape="rect" id="Node000005" href="$group__MIDI__SystemCommon.html" title="Messages used for system&#45;wide control and transport synchronization in MIDI communication." alt="" coords="349,203,552,228"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="MTC Full Frame" name="MTC Full Frame">
+<area shape="rect" id="Node000001" title="Locate a complete SMPTE time using ten MIDI bytes." alt="" coords="216,13,339,38"/>
+<area shape="rect" id="Node000002" href="$group__MTC__RealTime.html" title="Constants for Real&#45;Time MIDI Time Code (MTC) SysEx messages." alt="" coords="5,5,168,45"/>
+</map>

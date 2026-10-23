@@ -1,0 +1,5 @@
+<map id="MIDILAR::Devices::ClockReceiver" name="MIDILAR::Devices::ClockReceiver">
+<area shape="rect" id="Node000001" title="Follows incoming MIDI clock: transport state, song position and tempo (SPEC&#45;CLK&#45;1...." alt="" coords="5,168,236,416"/>
+<area shape="rect" id="Node000002" href="$classMIDILAR_1_1Devices_1_1Device.html" title="Base of the devices: one output and no virtual functions (SPEC&#45;DEV&#45;1)." alt="" coords="11,5,230,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,134,123,168,118,168,118,134"/>
+</map>

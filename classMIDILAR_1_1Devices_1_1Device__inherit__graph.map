@@ -1,0 +1,27 @@
+<map id="MIDILAR::Devices::Device" name="MIDILAR::Devices::Device">
+<area shape="rect" id="Node000001" title="Base of the devices: one output and no virtual functions (SPEC&#45;DEV&#45;1)." alt="" coords="1396,5,1615,120"/>
+<area shape="rect" id="Node000002" href="$classMIDILAR_1_1Devices_1_1ChannelFilter.html" title="Passes packets on the selected groups and channels." alt="" coords="5,304,211,581"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1382,69,1086,79,724,98,551,111,401,128,287,147,249,158,224,170,194,197,170,230,151,267,137,305,132,303,146,265,166,228,190,194,221,166,247,153,286,142,400,122,550,106,723,93,1086,74,1382,64"/>
+<area shape="rect" id="Node000003" href="$classMIDILAR_1_1Devices_1_1ChannelReassign.html" title="Moves channel voice packets from the source channels to one target channel, and optionally to one gro..." alt="" coords="235,321,448,564"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1382,72,1139,85,851,106,716,119,599,134,511,152,481,161,462,170,429,201,402,239,382,280,367,322,362,320,377,278,398,236,424,198,458,166,479,156,509,146,598,129,715,114,851,101,1138,80,1382,67"/>
+<area shape="rect" id="Node000004" href="$classMIDILAR_1_1Devices_1_1ChordGenerator.html" title="Turns every note into a chord built on it from an MCC::ChordPattern." alt="" coords="473,353,714,532"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1382,69,1213,77,1020,94,928,108,845,124,776,145,727,170,687,208,655,255,632,305,615,354,610,352,627,303,651,252,683,205,724,166,774,140,843,119,927,102,1019,89,1212,72,1382,64"/>
+<area shape="rect" id="Node000005" href="$classMIDILAR_1_1Devices_1_1ClockCalibrator.html" title="Measures how far the local Foundation::Time::Clock is from a reference MIDI clock of known tempo,..." alt="" coords="738,294,977,591"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1382,79,1273,93,1158,113,1057,139,1018,154,990,170,962,196,938,227,918,260,901,295,896,293,913,258,933,224,958,193,986,166,1016,149,1055,133,1157,108,1272,88,1382,73"/>
+<area shape="rect" id="Node000006" href="$classMIDILAR_1_1Devices_1_1ClockGenerator.html" title="Sends MIDI clock at a tempo, timed by a Foundation::Time::Clock (SPEC&#45;CLK&#45;1..3)." alt="" coords="1001,247,1239,639"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1384,96,1315,126,1282,146,1253,170,1220,206,1193,248,1188,245,1216,203,1249,166,1279,142,1312,121,1382,91"/>
+<area shape="rect" id="Node000007" href="$classMIDILAR_1_1Devices_1_1ClockReceiver.html" title="Follows incoming MIDI clock: transport state, song position and tempo (SPEC&#45;CLK&#45;1...." alt="" coords="1263,319,1494,567"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1485,134,1422,319,1417,318,1480,132"/>
+<area shape="rect" id="Node000008" href="$classMIDILAR_1_1Devices_1_1MtcGenerator.html" title="Sends MIDI Time Code, timed by a Foundation::Time::Clock (SPEC&#45;MTC&#45;2)." alt="" coords="1519,267,1745,619"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1531,132,1576,265,1571,267,1526,134"/>
+<area shape="rect" id="Node000009" href="$classMIDILAR_1_1Devices_1_1MtcReceiver.html" title="Follows incoming MIDI Time Code (SPEC&#45;MTC&#45;3)." alt="" coords="1769,378,1988,507"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1629,91,1697,121,1730,142,1759,166,1799,215,1830,270,1852,326,1867,377,1862,378,1847,328,1825,273,1795,218,1755,170,1727,146,1695,126,1627,96"/>
+<area shape="rect" id="Node000010" href="$classMIDILAR_1_1Devices_1_1ScaleFilter.html" title="Keeps notes on an MCC::Scale, compared by pitch class (MCC::Scale::ContainsPitchClass)." alt="" coords="2013,311,2222,574"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1629,74,1733,89,1842,109,1937,134,1974,149,2002,166,2032,197,2057,232,2077,271,2092,310,2087,312,2072,273,2052,235,2028,200,1998,170,1972,154,1935,139,1841,114,1732,94,1628,79"/>
+<area shape="rect" id="Node000011" href="$classMIDILAR_1_1Devices_1_1StepSequencer.html" title="Plays one note on the steps of a pattern, driven by MIDI clock (SPEC&#45;SEQ&#45;2)." alt="" coords="2247,168,2481,717"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1628,65,1787,74,1965,92,2050,105,2127,122,2190,142,2236,166,2248,175,2245,179,2233,170,2188,147,2125,127,2049,110,1964,97,1786,80,1628,70"/>
+<area shape="rect" id="Node000012" href="$classMIDILAR_1_1Devices_1_1Transpose.html" title="Shifts every packet with a note by a number of semitones." alt="" coords="2505,361,2708,525"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1628,67,1859,81,2129,102,2256,115,2365,130,2448,147,2476,156,2495,166,2517,185,2535,207,2565,256,2585,309,2598,359,2593,361,2580,311,2560,259,2531,210,2513,189,2492,170,2474,161,2446,152,2364,136,2255,121,2129,107,1859,86,1628,73"/>
+<area shape="rect" id="Node000013" href="$classMIDILAR_1_1Devices_1_1VelocityCurve.html" title="Reshapes Note On velocities with a caller&#45;provided map." alt="" coords="2733,371,2923,515"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1628,65,1910,75,2251,94,2414,108,2554,124,2661,143,2698,154,2721,166,2744,186,2763,209,2793,262,2812,318,2823,370,2818,371,2807,319,2788,264,2759,212,2740,190,2719,170,2696,159,2660,148,2554,129,2413,113,2251,99,1909,80,1628,70"/>
+</map>

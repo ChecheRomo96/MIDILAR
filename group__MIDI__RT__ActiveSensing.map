@@ -1,0 +1,4 @@
+<map id="Active Sensing (0xFE)" name="Active Sensing (0xFE)">
+<area shape="rect" id="Node000001" title="Sent periodically to indicate an active connection." alt="" coords="211,5,375,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__RealTime.html" title="Messages used for synchronization and transport control in MIDI communication." alt="" coords="5,5,163,31"/>
+</map>

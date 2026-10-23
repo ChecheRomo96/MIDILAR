@@ -1,0 +1,10 @@
+<map id="Real&#45;Time Messages" name="Real&#45;Time Messages">
+<area shape="rect" id="Node000002" href="$group__MIDI__Protocol.html" title="Core definitions and message categories of the MIDI communication standard." alt="" coords="5,129,179,155"/>
+<area shape="rect" id="Node000001" title="Messages used for synchronization and transport control in MIDI communication." alt="" coords="227,129,384,155"/>
+<area shape="rect" id="Node000007" href="$group__MIDI__RT__ActiveSensing.html" title="Sent periodically to indicate an active connection." alt="" coords="432,5,596,31"/>
+<area shape="rect" id="Node000005" href="$group__MIDI__RT__Continue.html" title="Resumes playback from the current song position." alt="" coords="451,55,577,80"/>
+<area shape="rect" id="Node000004" href="$group__MIDI__RT__Start.html" title="Instructs all connected MIDI devices to start playback from the beginning." alt="" coords="465,104,563,129"/>
+<area shape="rect" id="Node000006" href="$group__MIDI__RT__Stop.html" title="Stops playback on all connected MIDI devices." alt="" coords="465,153,563,179"/>
+<area shape="rect" id="Node000008" href="$group__MIDI__RT__SystemReset.html" title="Resets all connected MIDI devices to their default state." alt="" coords="435,203,593,228"/>
+<area shape="rect" id="Node000003" href="$group__MIDI__RT__TimingTick.html" title="Sent 24 times per quarter note to synchronize tempo between MIDI devices." alt="" coords="442,252,586,277"/>
+</map>

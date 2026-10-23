@@ -1,0 +1,4 @@
+<map id="Timing Tick (0xF8)" name="Timing Tick (0xF8)">
+<area shape="rect" id="Node000001" title="Sent 24 times per quarter note to synchronize tempo between MIDI devices." alt="" coords="211,5,355,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__RealTime.html" title="Messages used for synchronization and transport control in MIDI communication." alt="" coords="5,5,163,31"/>
+</map>

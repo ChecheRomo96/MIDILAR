@@ -1,0 +1,4 @@
+<map id="Channel Omni Messages (CC #124&#45;125)" name="Channel Omni Messages (CC #124&#45;125)">
+<area shape="rect" id="Node000002" href="$group__MIDI__CC__CHANNEL__MODE.html" title="MIDI Control Change (CC) messages for configuring channel&#45;wide behavior." alt="" coords="5,13,189,38"/>
+<area shape="rect" id="Node000001" title="Byte layouts for constructing MIDI Omni Mode messages." alt="" coords="237,5,420,45"/>
+</map>

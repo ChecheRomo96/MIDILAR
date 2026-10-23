@@ -1,0 +1,9 @@
+<map id="System Common Messages" name="System Common Messages">
+<area shape="rect" id="Node000002" href="$group__MIDI__Protocol.html" title="Core definitions and message categories of the MIDI communication standard." alt="" coords="5,120,179,145"/>
+<area shape="rect" id="Node000001" title="Messages used for system&#45;wide control and transport synchronization in MIDI communication." alt="" coords="227,120,429,145"/>
+<area shape="rect" id="Node000004" href="$group__MIDI__SC__SysEx.html" title="System Exclusive Messages." alt="" coords="483,5,689,31"/>
+<area shape="rect" id="Node000005" href="$group__MIDI__SONG__POSITION__POINTER.html" title="Song Position Pointer message (0xF2)" alt="" coords="506,55,666,95"/>
+<area shape="rect" id="Node000006" href="$group__MIDI__SONG__SELECT.html" title="Song Select message (0xF3)" alt="" coords="537,120,635,145"/>
+<area shape="rect" id="Node000007" href="$group__MIDI__TUNING__REQUEST.html" title="Tuning Request message (0xF6)" alt="" coords="525,169,647,195"/>
+<area shape="rect" id="Node000003" href="$group__MTC__QuarterFrame.html" title="SMPTE time transmitted as eight two&#45;byte messages, F1 + data." alt="" coords="477,219,695,244"/>
+</map>

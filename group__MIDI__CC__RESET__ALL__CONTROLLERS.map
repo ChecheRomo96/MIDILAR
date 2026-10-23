@@ -1,0 +1,4 @@
+<map id="Reset All Controllers (CC #121)" name="Reset All Controllers (CC #121)">
+<area shape="rect" id="Node000002" href="$group__MIDI__CC__CHANNEL__MODE.html" title="MIDI Control Change (CC) messages for configuring channel&#45;wide behavior." alt="" coords="5,13,189,38"/>
+<area shape="rect" id="Node000001" title="Byte layout for constructing a MIDI &quot;Reset All Controllers&quot; message." alt="" coords="237,5,392,45"/>
+</map>

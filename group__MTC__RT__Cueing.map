@@ -1,0 +1,4 @@
+<map id="MTC Cueing Messages" name="MTC Cueing Messages">
+<area shape="rect" id="Node000001" title="Real&#45;time SysEx commands for MIDI Time Code cueing operations." alt="" coords="216,13,384,38"/>
+<area shape="rect" id="Node000002" href="$group__MTC__RealTime.html" title="Constants for Real&#45;Time MIDI Time Code (MTC) SysEx messages." alt="" coords="5,5,168,45"/>
+</map>
