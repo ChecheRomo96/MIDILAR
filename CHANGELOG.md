@@ -7,9 +7,12 @@ This file records user-visible changes to MIDILAR. Release dates use the
 
 ### Changed
 
-- MIDILAR now requires Foundation 2.0.10 or a newer 2.x release, built on
-  CPSTL 1.1.12.
-- MIDILAR now requires DspCore 0.3.0 or a newer 0.x release, including its
+- Reset the active RoModular release baseline to 0.0.1. Foundation, DspCore and
+  MCC must resolve at the same baseline; earlier tags remain historical
+  references only.
+- MIDILAR now requires Foundation 0.0.1 or a newer 0.x release, built on
+  CPSTL 0.0.1.
+- MIDILAR now requires DspCore 0.0.1 or a newer 0.x release, including its
   streaming analysis and configured transform APIs.
 
 ## [0.4.0] - 2026-10-16
