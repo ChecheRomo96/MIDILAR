@@ -10,9 +10,11 @@ built on Foundation (general utilities), DspCore (signal processing) and MCC
 (music theory). It never throws
 exceptions, and memory use is the implementer's choice (SPEC-RT-1).
 
-> **Version 0.4.0** separates native Midi/Midi2 messages from Ump and restores
-> the MIDI protocol guides and examples. See CHANGELOG.md for API migration.
-> Stock Arduino C++11 source builds are supported. MIDI-CI is deferred.
+> **Version 0.0.1** is the active RoModular baseline. It retains the native
+> Midi/Midi2 and Ump separation and the MIDI protocol guides and examples;
+> earlier tags remain historical references. See CHANGELOG.md for API
+> migration. Stock Arduino C++11 source builds are supported. MIDI-CI is
+> deferred.
 
 ## Features
 
@@ -61,9 +63,9 @@ git submodule update --init --recursive
 
 ## Dependencies
 
-MIDILAR links `Foundation::Foundation` (Foundation `2.0.10` or a newer `2.x`,
-built on CPSTL `1.1.12`), `DspCore::DspCore` (DspCore `0.3.0` or a newer `0.x`)
-and `MCC::MCC` (MCC `0.6.2` or a newer `0.x`). Arduino users install CPSTL,
+MIDILAR links `Foundation::Foundation` (Foundation `0.0.1` or a newer `0.x`,
+built on CPSTL `0.0.1`), `DspCore::DspCore` (DspCore `0.0.1` or a newer `0.x`)
+and `MCC::MCC` (MCC `0.0.1` or a newer `0.x`). Arduino users install CPSTL,
 Foundation, DspCore and MCC next to MIDILAR. Configuring resolves each one from
 a parent project, an explicit prefix, a sibling export, normal `find_package`,
 and finally the pinned GitHub Release package or the sources at that tag for
