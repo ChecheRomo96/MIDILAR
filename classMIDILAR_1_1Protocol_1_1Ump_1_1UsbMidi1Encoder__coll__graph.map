@@ -1,0 +1,3 @@
+<map id="MIDILAR::Protocol::Ump::UsbMidi1Encoder" name="MIDILAR::Protocol::Ump::UsbMidi1Encoder">
+<area shape="rect" id="Node000001" title="Translates UMP packets into USB MIDI 1.0 event packets (SPEC&#45;USB&#45;2)." alt="" coords="5,5,227,129"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Data Increment/Decrement Messages" name="Data Increment/Decrement Messages">
+<area shape="rect" id="Node000001" title="Data Increment and Decrement Continuous Controllers (CC #96 and CC #97)." alt="" coords="220,13,419,53"/>
+<area shape="rect" id="Node000002" href="$group__NRPN__RPN__Messages.html" title="NRPN and RPN messages for extended MIDI parameter control." alt="" coords="5,5,172,60"/>
+</map>

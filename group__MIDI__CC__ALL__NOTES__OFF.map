@@ -1,0 +1,4 @@
+<map id="All Notes Off (CC #123)" name="All Notes Off (CC #123)">
+<area shape="rect" id="Node000001" title="Byte layout for constructing a MIDI &quot;All Notes Off&quot; message." alt="" coords="237,5,412,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__CC__CHANNEL__MODE.html" title="MIDI Control Change (CC) messages for configuring channel&#45;wide behavior." alt="" coords="5,5,189,31"/>
+</map>

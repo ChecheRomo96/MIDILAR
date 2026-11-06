@@ -1,0 +1,10 @@
+<map id="Channel Mode Messages" name="Channel Mode Messages">
+<area shape="rect" id="Node000006" href="$group__MIDI__CC__ALL__NOTES__OFF.html" title="Byte layout for constructing a MIDI &quot;All Notes Off&quot; message." alt="" coords="429,5,603,31"/>
+<area shape="rect" id="Node000003" href="$group__MIDI__CC__ALL__SOUND__OFF.html" title="Byte layout for constructing a MIDI &quot;All Sound Off&quot; message." alt="" coords="427,55,605,80"/>
+<area shape="rect" id="Node000001" title="MIDI Control Change (CC) messages for configuring channel&#45;wide behavior." alt="" coords="176,133,360,159"/>
+<area shape="rect" id="Node000005" href="$group__MIDI__CC__LOCAL__CONTROL.html" title="Byte layout for constructing a MIDI &quot;Local Control&quot; message." alt="" coords="427,104,605,129"/>
+<area shape="rect" id="Node000007" href="$group__MIDI__CC__OMNI.html" title="Byte layouts for constructing MIDI Omni Mode messages." alt="" coords="425,154,607,194"/>
+<area shape="rect" id="Node000008" href="$group__MIDI__CC__POLYPHONY.html" title="Byte layouts for constructing MIDI Mono and Poly Mode messages." alt="" coords="408,218,624,258"/>
+<area shape="rect" id="Node000004" href="$group__MIDI__CC__RESET__ALL__CONTROLLERS.html" title="Byte layout for constructing a MIDI &quot;Reset All Controllers&quot; message." alt="" coords="439,282,593,322"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__CV__ControlChange.html" title="(0xB0) Control Change messages for MIDI." alt="" coords="5,133,128,159"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="MIDILAR::Protocol::Ump::Midi1Encoder" name="MIDILAR::Protocol::Ump::Midi1Encoder">
+<area shape="rect" id="Node000001" title="Translates UMP packets into a MIDI 1.0 byte stream (SPEC&#45;MIDI&#45;2, SPEC&#45;MIDI&#45;10)." alt="" coords="5,5,231,184"/>
+</map>

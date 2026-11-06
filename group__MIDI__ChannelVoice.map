@@ -1,0 +1,10 @@
+<map id="Channel Voice Messages" name="Channel Voice Messages">
+<area shape="rect" id="Node000007" href="$group__ChannelPressure.html" title="(0xD0) &#45; Channel Pressure (Aftertouch) message." alt="" coords="457,5,673,31"/>
+<area shape="rect" id="Node000004" href="$group__MIDI__CV__AfterTouch.html" title="(0xA0) &#45; Represents the After Touch (Polyphonic Key Pressure) MIDI message." alt="" coords="518,55,613,80"/>
+<area shape="rect" id="Node000005" href="$group__MIDI__CV__ControlChange.html" title="(0xB0) Control Change messages for MIDI." alt="" coords="504,104,627,129"/>
+<area shape="rect" id="Node000003" href="$group__MIDI__CV__NoteMessages.html" title="MIDI Note On (0x90) and Note Off (0x80) messages for triggering musical notes." alt="" coords="504,153,627,179"/>
+<area shape="rect" id="Node000006" href="$group__MIDI__CV__ProgramChange.html" title="(0xC0) &#45; Program Change message" alt="" coords="500,203,631,228"/>
+<area shape="rect" id="Node000001" title="MIDI messages that control sound generation and performance on individual channels." alt="" coords="227,129,409,155"/>
+<area shape="rect" id="Node000008" href="$group__PitchBend.html" title="(0xE0) &#45; Pitch Bend Change message." alt="" coords="520,252,611,277"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__Protocol.html" title="Core definitions and message categories of the MIDI communication standard." alt="" coords="5,129,179,155"/>
+</map>

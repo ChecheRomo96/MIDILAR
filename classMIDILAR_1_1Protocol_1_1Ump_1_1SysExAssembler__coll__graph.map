@@ -1,0 +1,3 @@
+<map id="MIDILAR::Protocol::Ump::SysExAssembler" name="MIDILAR::Protocol::Ump::SysExAssembler">
+<area shape="rect" id="Node000001" title="Collects the payload of 7&#45;bit System Exclusive packets into a caller&#45;provided buffer (SPEC&#45;RT&#45;4,..." alt="" coords="5,5,205,253"/>
+</map>

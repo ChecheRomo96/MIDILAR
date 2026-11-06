@@ -1,0 +1,4 @@
+<map id="Portamento" name="Portamento">
+<area shape="rect" id="Node000002" href="$group__MIDI__CC__GENERAL.html" title="Standard continuous controllers (CC) for MIDI devices." alt="" coords="5,5,156,45"/>
+<area shape="rect" id="Node000001" title="Portamento (CC #5)." alt="" coords="204,13,303,38"/>
+</map>

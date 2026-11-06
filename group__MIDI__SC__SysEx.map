@@ -1,0 +1,5 @@
+<map id="System Exclusive Messages" name="System Exclusive Messages">
+<area shape="rect" id="Node000001" title="System Exclusive Messages." alt="" coords="256,5,463,31"/>
+<area shape="rect" id="Node000003" href="$group__MTC__SysEx.html" title="Constants for MIDI SysEx messages related to MTC." alt="" coords="511,5,673,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__SystemCommon.html" title="Messages used for system&#45;wide control and transport synchronization in MIDI communication." alt="" coords="5,5,208,31"/>
+</map>

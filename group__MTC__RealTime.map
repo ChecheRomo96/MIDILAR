@@ -1,0 +1,7 @@
+<map id="MTC Real&#45;Time SysEx Messages" name="MTC Real&#45;Time SysEx Messages">
+<area shape="rect" id="Node000003" href="$group__MTC__RT__Commands.html" title="Real&#45;time SysEx commands for MIDI Time Code operations." alt="" coords="427,5,624,31"/>
+<area shape="rect" id="Node000004" href="$group__MTC__RT__Cueing.html" title="Real&#45;time SysEx commands for MIDI Time Code cueing operations." alt="" coords="441,55,609,80"/>
+<area shape="rect" id="Node000005" href="$group__MTC__RT__FullFrame.html" title="Locate a complete SMPTE time using ten MIDI bytes." alt="" coords="464,104,587,129"/>
+<area shape="rect" id="Node000001" title="Constants for Real&#45;Time MIDI Time Code (MTC) SysEx messages." alt="" coords="216,47,379,87"/>
+<area shape="rect" id="Node000002" href="$group__MTC__SysEx.html" title="Constants for MIDI SysEx messages related to MTC." alt="" coords="5,55,168,80"/>
+</map>

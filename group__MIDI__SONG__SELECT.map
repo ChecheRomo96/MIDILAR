@@ -1,0 +1,4 @@
+<map id="Song Select" name="Song Select">
+<area shape="rect" id="Node000001" title="Song Select message (0xF3)" alt="" coords="256,5,355,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__SystemCommon.html" title="Messages used for system&#45;wide control and transport synchronization in MIDI communication." alt="" coords="5,5,208,31"/>
+</map>

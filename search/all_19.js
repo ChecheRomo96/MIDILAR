@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['rate_0',['Rate',['../classMIDILAR_1_1Protocol_1_1TimeCode.html#a4d1caad1932a6ba4f649cd1e5c0f52dd',1,'MIDILAR::Protocol::TimeCode']]],
+  ['rateandhours_1',['RateAndHours',['../classMIDILAR_1_1Protocol_1_1TimeCode.html#af2b308180d3eb61eb9556a0fcb9341e0',1,'MIDILAR::Protocol::TimeCode']]],
+  ['rates_2',['MIDI Time Code Frame Rates',['../group__MTC__FrameRates.html',1,'']]],
+  ['raw_20note_20messages_3',['Creating Raw Note Messages',['../group__MIDI__CV__NoteMessages.html#autotoc_md133',1,'']]],
+  ['raw_20status_20bytes_4',['Example: Using Raw Status Bytes',['../group__MIDI__CV__NoteMessages.html#autotoc_md134',1,'']]],
+  ['real_20time_20messages_5',['Real-Time Messages',['../group__MIDI__RealTime.html',1,'']]],
+  ['real_20time_20sysex_20messages_6',['Real Time SysEx Messages',['../group__MTC__NonRealTime.html',1,'MTC Non-Real-Time SysEx Messages'],['../group__MTC__RealTime.html',1,'MTC Real-Time SysEx Messages']]],
+  ['registered_20and_20registered_20parameter_20numbers_7',['Non-Registered and Registered Parameter Numbers',['../group__NRPN__RPN__Messages.html',1,'']]],
+  ['registered_20parameter_20numbers_8',['Non-Registered and Registered Parameter Numbers',['../group__NRPN__RPN__Messages.html',1,'']]],
+  ['request_9',['Tuning Request',['../group__MIDI__TUNING__REQUEST.html',1,'']]],
+  ['reset_10',['Reset',['../classMIDILAR_1_1Protocol_1_1Ump_1_1Midi1Encoder.html#a8c07104d85e7604b891ad5b963a64877',1,'MIDILAR::Protocol::Ump::Midi1Encoder::Reset()'],['../classMIDILAR_1_1Protocol_1_1Ump_1_1Midi1Parser.html#aca3f1e1b61efc3c65f0aa8e5d7f529c5',1,'MIDILAR::Protocol::Ump::Midi1Parser::Reset()']]],
+  ['reset_200xff_11',['System Reset (0xFF)',['../group__MIDI__RT__SystemReset.html',1,'']]],
+  ['reset_20all_20controllers_20cc_20121_12',['Reset All Controllers (CC #121)',['../group__MIDI__CC__RESET__ALL__CONTROLLERS.html',1,'']]],
+  ['reset_20all_20controllers_20message_13',['Creating a &quot;Reset All Controllers&quot; Message',['../group__MIDI__CC__RESET__ALL__CONTROLLERS.html#autotoc_md38',1,'']]],
+  ['reset_20all_20controllers_20on_20midi_20channel_201_14',['&lt;b&gt;Example 1: Reset All Controllers on MIDI Channel 1&lt;/b&gt;',['../group__MIDI__CC__RESET__ALL__CONTROLLERS.html#autotoc_md39',1,'']]],
+  ['reset_20all_20controllers_20on_20midi_20channel_203_20programmatically_15',['&lt;b&gt;Example 2: Reset All Controllers on MIDI Channel 3 (Programmatically)&lt;/b&gt;',['../group__MIDI__CC__RESET__ALL__CONTROLLERS.html#autotoc_md40',1,'']]],
+  ['resolution_16',['Resolution',['../group__MIDI__CC__DATA__ENTRY.html#autotoc_md74',1,'Setting a Parameter with 14-bit Resolution'],['../group__MIDI__CC__DATA__ENTRY.html#autotoc_md73',1,'Setting a Parameter with 7-bit Resolution']]],
+  ['route_17',['Route',['../classMIDILAR_1_1Devices_1_1HeldValues.html#a1b962c172c6641b46961a11b23acadc5',1,'MIDILAR::Devices::HeldValues']]],
+  ['router_18',['Router',['../classMIDILAR_1_1Devices_1_1Router.html',1,'MIDILAR::Devices']]],
+  ['rpn_20lsb_20cc_20100_19',['RPN LSB (CC #100)',['../group__MIDI__RPN__MESSAGES.html#autotoc_md81',1,'']]],
+  ['rpn_20messages_20',['RPN Messages',['../group__MIDI__RPN__MESSAGES.html',1,'']]],
+  ['rpn_20msb_20cc_20101_21',['RPN MSB (CC #101)',['../group__MIDI__RPN__MESSAGES.html#autotoc_md80',1,'']]],
+  ['rpn_20parameter_22',['Selecting an RPN Parameter',['../group__MIDI__RPN__MESSAGES.html#autotoc_md83',1,'']]],
+  ['rule_23',['MIDI Clock and 24 PPQN Rule',['../group__MIDI__RT__TimingTick.html#autotoc_md140',1,'']]],
+  ['rules_24',['rules',['../group__MIDILAR__Specification.html#MIDILARSpecRules',1,'Design rules'],['../group__MIDILAR__Specification.html#MIDILARSpecStream',1,'MIDI 1.0 byte-stream rules']]]
+];

@@ -1,0 +1,4 @@
+<map id="Channel Polyphony Messages (CC #126&#45;127)" name="Channel Polyphony Messages (CC #126&#45;127)">
+<area shape="rect" id="Node000002" href="$group__MIDI__CC__CHANNEL__MODE.html" title="MIDI Control Change (CC) messages for configuring channel&#45;wide behavior." alt="" coords="5,13,189,38"/>
+<area shape="rect" id="Node000001" title="Byte layouts for constructing MIDI Mono and Poly Mode messages." alt="" coords="237,5,453,45"/>
+</map>

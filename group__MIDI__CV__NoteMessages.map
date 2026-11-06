@@ -1,0 +1,4 @@
+<map id="Note Messages" name="Note Messages">
+<area shape="rect" id="Node000001" title="MIDI Note On (0x90) and Note Off (0x80) messages for triggering musical notes." alt="" coords="236,5,359,31"/>
+<area shape="rect" id="Node000002" href="$group__MIDI__ChannelVoice.html" title="MIDI messages that control sound generation and performance on individual channels." alt="" coords="5,5,188,31"/>
+</map>
